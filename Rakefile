@@ -1,3 +1,5 @@
+MAKE_CONCURRENCY = `sysctl hw.physicalcpu`.strip.match(/\d+$/)[0].to_i + 1
+
 DOWNLOAD_DIR = 'downloads'
 WORKBENCH_DIR = 'workbench'
 DESTROOT = 'destroot'
