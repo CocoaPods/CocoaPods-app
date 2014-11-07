@@ -20,6 +20,9 @@ OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
 NCURSES_VERSION = '5.9'
 NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.gz"
 
+READLINE_VERSION = '6.3'
+READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.tar.gz"
+
 directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
 directory DEPENDENCIES_DESTROOT
@@ -126,11 +129,36 @@ file installed_ncurses => ncurses_static_lib do
 end
 
 # ------------------------------------------------------------------------------
+# Readline
+# ------------------------------------------------------------------------------
+
+readline_tarball = File.join(DOWNLOAD_DIR, File.basename(READLINE_URL))
+file readline_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{READLINE_URL} -o #{readline_tarball}"
+end
+
+readline_build_dir = File.join(WORKBENCH_DIR, File.basename(READLINE_URL, '.tar.gz'))
+directory readline_build_dir => [readline_tarball, WORKBENCH_DIR] do
+  sh "tar -zxvf #{readline_tarball} -C #{WORKBENCH_DIR}"
+end
+
+readline_static_lib = File.join(readline_build_dir, 'libreadline.a')
+file readline_static_lib => [installed_ncurses, readline_build_dir] do
+  sh "cd #{readline_build_dir} && ./configure --disable-shared --with-curses --prefix '#{PREFIX}'"
+  sh "cd #{readline_build_dir} && make -j #{MAKE_CONCURRENCY}"
+end
+
+installed_readline = File.join(DEPENDENCIES_DESTROOT, 'lib/libreadline.a')
+file installed_readline => readline_static_lib do
+  sh "cd #{readline_build_dir} && make install"
+end
+
+# ------------------------------------------------------------------------------
 # Tasks
 # ------------------------------------------------------------------------------
 
 desc "Build all dependencies"
-task :build => [installed_yaml, installed_zlib, installed_openssl] do
+task :build => [installed_yaml, installed_zlib, installed_openssl, installed_ncurses, installed_readline] do
   sh "tree #{DEPENDENCIES_DESTROOT}/lib"
 end
 
