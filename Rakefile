@@ -5,7 +5,6 @@ WORKBENCH_DIR = 'workbench'
 DESTROOT = 'destroot'
 DEPENDENCIES_DESTROOT = File.join(DESTROOT, 'dependencies')
 
-PREFIX = File.expand_path(DESTROOT)
 PREFIX = File.expand_path(DEPENDENCIES_DESTROOT)
 
 LIBYAML_VERSION = '0.1.6'
