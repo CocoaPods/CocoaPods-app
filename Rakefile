@@ -3,8 +3,10 @@ MAKE_CONCURRENCY = `sysctl hw.physicalcpu`.strip.match(/\d+$/)[0].to_i + 1
 DOWNLOAD_DIR = 'downloads'
 WORKBENCH_DIR = 'workbench'
 DESTROOT = 'destroot'
+DEPENDENCIES_DESTROOT = File.join(DESTROOT, 'dependencies')
 
 PREFIX = File.expand_path(DESTROOT)
+PREFIX = File.expand_path(DEPENDENCIES_DESTROOT)
 
 LIBYAML_VERSION = '0.1.6'
 LIBYAML_URL = "http://pyyaml.org/download/libyaml/yaml-#{LIBYAML_VERSION}.tar.gz"
@@ -17,7 +19,7 @@ OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
 
 directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
-directory DESTROOT
+directory DEPENDENCIES_DESTROOT
 
 # ------------------------------------------------------------------------------
 # YAML
@@ -39,7 +41,7 @@ file yaml_static_lib => yaml_build_dir do
   sh "cd #{yaml_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
-installed_yaml = File.join(DESTROOT, 'lib/libyaml.a')
+installed_yaml = File.join(DEPENDENCIES_DESTROOT, 'lib/libyaml.a')
 file installed_yaml => yaml_static_lib do
   sh "cd #{yaml_build_dir} && make install"
 end
@@ -64,7 +66,7 @@ file zlib_static_lib => zlib_build_dir do
   sh "cd #{zlib_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
-installed_zlib = File.join(DESTROOT, 'lib/libz.a')
+installed_zlib = File.join(DEPENDENCIES_DESTROOT, 'lib/libz.a')
 file installed_zlib => zlib_static_lib do
   sh "cd #{zlib_build_dir} && make install"
 end
@@ -89,7 +91,7 @@ file openssl_static_lib => [installed_zlib, openssl_build_dir] do
   sh "cd #{zlib_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
-installed_openssl = File.join(DESTROOT, 'lib/libssl.a')
+installed_openssl = File.join(DEPENDENCIES_DESTROOT, 'lib/libssl.a')
 file installed_openssl => openssl_static_lib do
   sh "cd #{openssl_build_dir} && make install"
 end
@@ -100,7 +102,7 @@ end
 
 desc "Build all dependencies"
 task :build => [installed_yaml, installed_zlib, installed_openssl] do
-  sh "tree #{DESTROOT}/lib"
+  sh "tree #{DEPENDENCIES_DESTROOT}/lib"
 end
 
 namespace :clean do
