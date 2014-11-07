@@ -6,6 +6,7 @@ DESTROOT = 'destroot'
 DEPENDENCIES_DESTROOT = File.join(DESTROOT, 'dependencies')
 
 PREFIX = File.expand_path(DEPENDENCIES_DESTROOT)
+PATCHES_DIR = File.expand_path('patches')
 
 LIBYAML_VERSION = '0.1.6'
 LIBYAML_URL = "http://pyyaml.org/download/libyaml/yaml-#{LIBYAML_VERSION}.tar.gz"
@@ -15,6 +16,9 @@ ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
 
 OPENSSL_VERSION = '1.0.1j'
 OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
+
+NCURSES_VERSION = '5.9'
+NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.gz"
 
 directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
@@ -93,6 +97,32 @@ end
 installed_openssl = File.join(DEPENDENCIES_DESTROOT, 'lib/libssl.a')
 file installed_openssl => openssl_static_lib do
   sh "cd #{openssl_build_dir} && make install"
+end
+
+# ------------------------------------------------------------------------------
+# ncurses
+# ------------------------------------------------------------------------------
+
+ncurses_tarball = File.join(DOWNLOAD_DIR, File.basename(NCURSES_URL))
+file ncurses_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{NCURSES_URL} -o #{ncurses_tarball}"
+end
+
+ncurses_build_dir = File.join(WORKBENCH_DIR, File.basename(NCURSES_URL, '.tar.gz'))
+directory ncurses_build_dir => [ncurses_tarball, WORKBENCH_DIR] do
+  sh "tar -zxvf #{ncurses_tarball} -C #{WORKBENCH_DIR}"
+  sh "cd #{ncurses_build_dir} && patch -p1 < #{File.join(PATCHES_DIR, 'ncurses.diff')}"
+end
+
+ncurses_static_lib = File.join(ncurses_build_dir, 'lib/libncurses.a')
+file ncurses_static_lib => ncurses_build_dir do
+  sh "cd #{ncurses_build_dir} && ./configure --without-shared --enable-getcap  --with-ticlib --with-termlib --disable-leaks --without-debug --prefix '#{PREFIX}'"
+  sh "cd #{ncurses_build_dir} && make -j #{MAKE_CONCURRENCY}"
+end
+
+installed_ncurses = File.join(DEPENDENCIES_DESTROOT, 'lib/libncurses.a')
+file installed_ncurses => ncurses_static_lib do
+  sh "cd #{ncurses_build_dir} && make install"
 end
 
 # ------------------------------------------------------------------------------
