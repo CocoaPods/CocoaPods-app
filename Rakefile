@@ -26,7 +26,7 @@ directory DEPENDENCIES_DESTROOT
 
 yaml_tarball = File.join(DOWNLOAD_DIR, File.basename(LIBYAML_URL))
 file yaml_tarball => DOWNLOAD_DIR do
-  sh "curl #{LIBYAML_URL} -o #{yaml_tarball}"
+  sh "curl -sSL #{LIBYAML_URL} -o #{yaml_tarball}"
 end
 
 yaml_build_dir = File.join(WORKBENCH_DIR, File.basename(LIBYAML_URL, '.tar.gz'))
@@ -51,7 +51,7 @@ end
 
 zlib_tarball = File.join(DOWNLOAD_DIR, File.basename(ZLIB_URL))
 file zlib_tarball => DOWNLOAD_DIR do
-  sh "curl #{ZLIB_URL} -o #{zlib_tarball}"
+  sh "curl -sSL #{ZLIB_URL} -o #{zlib_tarball}"
 end
 
 zlib_build_dir = File.join(WORKBENCH_DIR, File.basename(ZLIB_URL, '.tar.gz'))
@@ -76,7 +76,7 @@ end
 
 openssl_tarball = File.join(DOWNLOAD_DIR, File.basename(OPENSSL_URL))
 file openssl_tarball => DOWNLOAD_DIR do
-  sh "curl #{OPENSSL_URL} -o #{openssl_tarball}"
+  sh "curl -sSL #{OPENSSL_URL} -o #{openssl_tarball}"
 end
 
 openssl_build_dir = File.join(WORKBENCH_DIR, File.basename(OPENSSL_URL, '.tar.gz'))
