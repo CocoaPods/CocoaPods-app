@@ -3,9 +3,12 @@ MAKE_CONCURRENCY = `sysctl hw.physicalcpu`.strip.match(/\d+$/)[0].to_i + 1
 DOWNLOAD_DIR = 'downloads'
 WORKBENCH_DIR = 'workbench'
 DESTROOT = 'destroot'
+BUNDLE_DESTROOT = File.join(DESTROOT, 'bundle')
 DEPENDENCIES_DESTROOT = File.join(DESTROOT, 'dependencies')
 
-PREFIX = File.expand_path(DEPENDENCIES_DESTROOT)
+BUNDLE_PREFIX = File.expand_path(BUNDLE_DESTROOT)
+DEPENDENCIES_PREFIX = File.expand_path(DEPENDENCIES_DESTROOT)
+
 PATCHES_DIR = File.expand_path('patches')
 
 LIBYAML_VERSION = '0.1.6'
@@ -22,6 +25,9 @@ NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.g
 
 READLINE_VERSION = '6.3'
 READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.tar.gz"
+
+RUBY__VERSION = '2.1.4'
+RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-#{RUBY__VERSION}.tar.gz"
 
 directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
@@ -43,7 +49,7 @@ end
 
 yaml_static_lib = File.join(yaml_build_dir, 'src/.libs/libyaml.a')
 file yaml_static_lib => yaml_build_dir do
-  sh "cd #{yaml_build_dir} && ./configure --disable-shared --prefix '#{PREFIX}'"
+  sh "cd #{yaml_build_dir} && ./configure --disable-shared --prefix '#{DEPENDENCIES_PREFIX}'"
   sh "cd #{yaml_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
@@ -68,7 +74,7 @@ end
 
 zlib_static_lib = File.join(zlib_build_dir, 'libz.a')
 file zlib_static_lib => zlib_build_dir do
-  sh "cd #{zlib_build_dir} && ./configure --static --prefix '#{PREFIX}'"
+  sh "cd #{zlib_build_dir} && ./configure --static --prefix '#{DEPENDENCIES_PREFIX}'"
   sh "cd #{zlib_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
@@ -93,7 +99,7 @@ end
 
 openssl_static_lib = File.join(openssl_build_dir, 'libssl.a')
 file openssl_static_lib => [installed_zlib, openssl_build_dir] do
-  sh "cd #{openssl_build_dir} && ./Configure no-shared zlib --prefix='#{PREFIX}' darwin64-x86_64-cc"
+  sh "cd #{openssl_build_dir} && ./Configure no-shared zlib --prefix='#{DEPENDENCIES_PREFIX}' darwin64-x86_64-cc"
   sh "cd #{zlib_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
@@ -119,7 +125,7 @@ end
 
 ncurses_static_lib = File.join(ncurses_build_dir, 'lib/libncurses.a')
 file ncurses_static_lib => ncurses_build_dir do
-  sh "cd #{ncurses_build_dir} && ./configure --without-shared --enable-getcap  --with-ticlib --with-termlib --disable-leaks --without-debug --prefix '#{PREFIX}'"
+  sh "cd #{ncurses_build_dir} && ./configure --without-shared --enable-getcap  --with-ticlib --with-termlib --disable-leaks --without-debug --prefix '#{DEPENDENCIES_PREFIX}'"
   sh "cd #{ncurses_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
@@ -144,7 +150,7 @@ end
 
 readline_static_lib = File.join(readline_build_dir, 'libreadline.a')
 file readline_static_lib => [installed_ncurses, readline_build_dir] do
-  sh "cd #{readline_build_dir} && ./configure --disable-shared --with-curses --prefix '#{PREFIX}'"
+  sh "cd #{readline_build_dir} && ./configure --disable-shared --with-curses --prefix '#{DEPENDENCIES_PREFIX}'"
   sh "cd #{readline_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
@@ -154,11 +160,36 @@ file installed_readline => readline_static_lib do
 end
 
 # ------------------------------------------------------------------------------
+# Ruby
+# ------------------------------------------------------------------------------
+
+ruby_tarball = File.join(DOWNLOAD_DIR, File.basename(RUBY_URL))
+file ruby_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{RUBY_URL} -o #{ruby_tarball}"
+end
+
+ruby_build_dir = File.join(WORKBENCH_DIR, File.basename(RUBY_URL, '.tar.gz'))
+directory ruby_build_dir => [ruby_tarball, WORKBENCH_DIR] do
+  sh "tar -zxvf #{ruby_tarball} -C #{WORKBENCH_DIR}"
+end
+
+ruby_static_lib = File.join(ruby_build_dir, 'libruby-static.a')
+file ruby_static_lib => [installed_ncurses, ruby_build_dir] do
+  sh "cd #{ruby_build_dir} && env CFLAGS='-I#{File.join(DEPENDENCIES_PREFIX, 'include')}' LDFLAGS='-L#{File.join(DEPENDENCIES_PREFIX, 'lib')}' ./configure --enable-load-relative --disable-shared --with-static-linked-ext --with-out-ext=dbm,gdbm,sdbm,tk --disable-install-doc --prefix '#{BUNDLE_PREFIX}'"
+  sh "cd #{ruby_build_dir} && make -j #{MAKE_CONCURRENCY}"
+end
+
+installed_ruby = File.join(DEPENDENCIES_DESTROOT, 'lib/libruby-static.a')
+file installed_ruby => ruby_static_lib do
+  sh "cd #{ruby_build_dir} && make install"
+end
+
+# ------------------------------------------------------------------------------
 # Tasks
 # ------------------------------------------------------------------------------
 
-desc "Build all dependencies"
-task :build => [installed_yaml, installed_zlib, installed_openssl, installed_ncurses, installed_readline] do
+desc "Build all dependencies and Ruby"
+task :build => installed_ruby do
   sh "tree #{DEPENDENCIES_DESTROOT}/lib"
 end
 
