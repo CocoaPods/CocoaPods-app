@@ -268,7 +268,7 @@ end
 ruby_static_lib = File.join(ruby_build_dir, 'libruby-static.a')
 #file ruby_static_lib => [installed_pkg_config, installed_ncurses, installed_yaml, installed_zlib, installed_readline, installed_openssl, installed_libffi, ruby_build_dir] do
 file ruby_static_lib => [installed_pkg_config, installed_yaml, installed_openssl, ruby_build_dir] do
-  sh "cd #{ruby_build_dir} && ./configure --enable-load-relative --disable-shared --with-static-linked-ext --with-out-ext=-test-,dbm,gdbm,sdbm,tk --disable-install-doc --prefix '#{BUNDLE_PREFIX}'"
+  sh "cd #{ruby_build_dir} && ./configure --enable-load-relative --disable-shared --with-static-linked-ext --disable-install-doc --with-out-ext=,dbm,gdbm,sdbm,dl/win32,fiddle/win32,tk/tkutil,tk,win32ole,-test-/win32/dln,-test-/win32/fd_setsize,-test-/win32/dln/empty --prefix '#{BUNDLE_PREFIX}'"
   sh "cd #{ruby_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
