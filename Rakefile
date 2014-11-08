@@ -386,6 +386,9 @@ task :ruby => installed_ruby do
   end
 end
 
+desc "Build complete dist bundle"
+task :bundle => [installed_ruby, installed_git, installed_svn, installed_bzr, installed_mercurial]
+
 namespace :clean do
   task :build do
     rm_rf WORKBENCH_DIR
