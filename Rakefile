@@ -341,11 +341,36 @@ file installed_mercurial => mercurial_build_dir do
   sh "cd #{mercurial_build_dir} && make PREFIX='#{BUNDLE_PREFIX}' install-bin"
 end
 
+# ------------------------------------------------------------------------------
+# Bazaar
+# ------------------------------------------------------------------------------
+
+bzr_tarball = File.join(DOWNLOAD_DIR, File.basename(BZR_URL))
+file bzr_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{BZR_URL} -o #{bzr_tarball}"
+end
+
+bzr_build_dir = File.join(WORKBENCH_DIR, File.basename(BZR_URL, '.tar.gz'))
+directory bzr_build_dir => [bzr_tarball, WORKBENCH_DIR] do
+  sh "tar -zxvf #{bzr_tarball} -C #{WORKBENCH_DIR}"
+end
+
+bzr_bin = File.join(bzr_build_dir, 'bzr')
+file bzr_bin => [installed_pkg_config, bzr_build_dir] do
+  sh "cd #{bzr_build_dir} && python setup.py build"
+end
+
+installed_bzr = File.join(BUNDLE_DESTROOT, 'bin/bzr')
+file installed_bzr => bzr_bin do
+  sh "cd #{bzr_build_dir} && python setup.py install --prefix='#{BUNDLE_PREFIX}'"
+end
+
+# ------------------------------------------------------------------------------
 # Tasks
 # ------------------------------------------------------------------------------
 
 desc "Build all dependencies and Ruby"
-task :build => installed_ruby do
+task :ruby => installed_ruby do
   links = `otool -L #{File.join(BUNDLE_DESTROOT, 'bin/ruby')}`.strip.split("\n")[1..-1]
 
   puts
