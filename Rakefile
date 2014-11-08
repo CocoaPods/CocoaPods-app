@@ -406,8 +406,26 @@ task :ruby => installed_ruby do
   end
 end
 
+def remove_if_existant(*paths)
+  paths.each do |path|
+    rm_rf(path) if File.exist?(path)
+  end
+end
+
 desc "Build complete dist bundle"
-task :bundle => [installed_ruby, installed_git, installed_svn, installed_bzr, installed_mercurial]
+task :build_bundle => [installed_pod_bin, installed_git, installed_svn, installed_bzr, installed_mercurial] do
+  puts "Before clean:"
+  sh "du -hs #{BUNDLE_DESTROOT}"
+  remove_if_existant *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a'))
+  remove_if_existant *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
+  remove_if_existant *Dir.glob(File.join(BUNDLE_DESTROOT, '**/.DS_Store'))
+  remove_if_existant File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/cache')
+  # TODO can we delete .py files if there are .pyc files?
+  # TODO can we delete any of the svn* commands?
+  puts "After clean:"
+  sh "du -hs #{BUNDLE_DESTROOT}"
+end
+
 
 namespace :clean do
   task :build do
