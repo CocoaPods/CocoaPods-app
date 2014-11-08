@@ -338,7 +338,6 @@ end
 
 installed_svn = File.join(BUNDLE_DESTROOT, 'bin/svn')
 file installed_svn => svn_bin do
-  mkdir_p File.join(BUNDLE_DESTROOT, 'libexec')
   sh "cd #{svn_build_dir} && make install"
 end
 
