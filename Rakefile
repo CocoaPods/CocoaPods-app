@@ -247,9 +247,9 @@ directory ruby_build_dir => [ruby_tarball, WORKBENCH_DIR] do
 end
 
 ruby_static_lib = File.join(ruby_build_dir, 'libruby-static.a')
-file ruby_static_lib => [installed_pkg_config, installed_ncurses, installed_yaml, installed_zlib, installed_readline, installed_openssl, installed_libffi, ruby_build_dir] do
-  #sh "cd #{ruby_build_dir} && env CFLAGS='-I#{File.join(DEPENDENCIES_PREFIX, 'include')}' LDFLAGS='-Bstatic -L#{File.join(DEPENDENCIES_PREFIX, 'lib')}' ./configure --enable-load-relative --disable-shared --disable-dln --with-static-linked-ext --with-out-ext=-test-,dbm,gdbm,sdbm,tk --disable-install-doc --prefix '#{BUNDLE_PREFIX}'"
-  sh "cd #{ruby_build_dir} && ./configure --enable-load-relative --disable-shared --disable-dln --with-static-linked-ext --with-out-ext=-test-,dbm,gdbm,sdbm,tk --disable-install-doc --prefix '#{BUNDLE_PREFIX}'"
+#file ruby_static_lib => [installed_pkg_config, installed_ncurses, installed_yaml, installed_zlib, installed_readline, installed_openssl, installed_libffi, ruby_build_dir] do
+file ruby_static_lib => [installed_pkg_config, installed_yaml, installed_openssl, ruby_build_dir] do
+  sh "cd #{ruby_build_dir} && ./configure --enable-load-relative --disable-shared --with-static-linked-ext --with-out-ext=-test-,dbm,gdbm,sdbm,tk --disable-install-doc --prefix '#{BUNDLE_PREFIX}'"
   sh "cd #{ruby_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
@@ -264,7 +264,19 @@ end
 
 desc "Build all dependencies and Ruby"
 task :build => installed_ruby do
-  sh "tree #{DEPENDENCIES_DESTROOT}/lib"
+  links = `otool -L #{File.join(BUNDLE_DESTROOT, 'bin/ruby')}`.strip.split("\n")[1..-1]
+
+  puts
+  puts "Ruby links against:"
+  puts links
+
+  good = links.grep(%r{^\s+(/System/Library/Frameworks/CoreFoundation|/usr/lib/)})
+  bad = links - good
+  unless bad.empty?
+    puts "Ruby is linking against these libs in unexpected locations:"
+    puts bad
+    exit 1
+  end
 end
 
 namespace :clean do
