@@ -159,8 +159,14 @@ end
 openssl_static_lib = File.join(openssl_build_dir, 'libssl.a')
 file openssl_static_lib => [installed_pkg_config, installed_zlib, openssl_build_dir] do
   sh "cd #{openssl_build_dir} && ./Configure no-shared zlib --prefix='#{DEPENDENCIES_PREFIX}' darwin64-x86_64-cc"
-  #sh "cd #{openssl_build_dir} && make -j #{MAKE_CONCURRENCY}"
-  sh "cd #{openssl_build_dir} && make"
+  # OpenSSL needs to be build with at max 1 process
+  sh "cd #{openssl_build_dir} && make -j 1"
+  # Seems to be a OpenSSL bug in the pkg-config, as libz is required when
+  # linking libssl, otherwise Ruby's openssl ext will fail to configure.
+  # So add it ourselves.
+  openssl_pc_file = File.join(openssl_build_dir, 'openssl.pc')
+  content = File.read(openssl_pc_file).sub(/Libs:/, 'Libs: -lz')
+  File.open(openssl_pc_file, 'w') { |f| f.write(content) }
 end
 
 installed_openssl = File.join(DEPENDENCIES_DESTROOT, 'lib/libssl.a')
