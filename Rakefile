@@ -406,6 +406,13 @@ end
 desc "Clean all build artefacts"
 task :clean => ['clean:build', 'clean:destroot']
 
+desc "Perform `command` with an env configured in #{BUNDLE_DESTROOT}"
+task :env do
+  ENV['PYTHONPATH'] = File.join(BUNDLE_PREFIX, 'lib/python2.7/site-packages')
+  ENV['PATH'] = "#{File.join(BUNDLE_PREFIX, 'bin')}:/usr/bin:/bin"
+  sh ENV['command']
+end
+
 #namespace :build do
   #task :ruby do
   #end
