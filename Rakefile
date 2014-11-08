@@ -278,6 +278,20 @@ file installed_ruby => ruby_static_lib do
 end
 
 # ------------------------------------------------------------------------------
+# Gems
+# ------------------------------------------------------------------------------
+
+rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/gems/rubygems-update-2.4.2')
+directory rubygems_update_dir => installed_ruby do
+  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem update --system --no-document"
+end
+
+installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
+file installed_pod_bin => rubygems_update_dir do
+  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install cocoapods --pre --no-document"
+end
+
+# ------------------------------------------------------------------------------
 # Git
 # ------------------------------------------------------------------------------
 
