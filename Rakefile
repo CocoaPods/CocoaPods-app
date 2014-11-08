@@ -426,6 +426,14 @@ task :build_bundle => [installed_pod_bin, installed_git, installed_svn, installe
   sh "du -hs #{BUNDLE_DESTROOT}"
 end
 
+bundle_tarball = 'bundle.tar.gz'
+file bundle_tarball => :build_bundle do
+  sh "tar -zcvf #{bundle_tarball} #{BUNDLE_DESTROOT}"
+  sh "ls -lh #{bundle_tarball}"
+end
+
+desc "Build bundle tarball"
+task :bundle => bundle_tarball
 
 namespace :clean do
   task :build do
