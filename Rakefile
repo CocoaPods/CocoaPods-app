@@ -54,6 +54,9 @@ LIBFFI_URL = "ftp://sourceware.org/pub/libffi/libffi-#{LIBFFI_VERSION}.tar.gz"
 RUBY__VERSION = '2.1.4'
 RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-#{RUBY__VERSION}.tar.gz"
 
+GIT_VERSION = '2.1.3'
+GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
+
 # ------------------------------------------------------------------------------
 # pkg-config
 # ------------------------------------------------------------------------------
@@ -253,9 +256,34 @@ file ruby_static_lib => [installed_pkg_config, installed_yaml, installed_openssl
   sh "cd #{ruby_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
-installed_ruby = File.join(DEPENDENCIES_DESTROOT, 'lib/libruby-static.a')
+installed_ruby = File.join(BUNDLE_DESTROOT, 'bin/ruby')
 file installed_ruby => ruby_static_lib do
   sh "cd #{ruby_build_dir} && make install"
+end
+
+# ------------------------------------------------------------------------------
+# Git
+# ------------------------------------------------------------------------------
+
+git_tarball = File.join(DOWNLOAD_DIR, File.basename(GIT_URL))
+file git_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{GIT_URL} -o #{git_tarball}"
+end
+
+git_build_dir = File.join(WORKBENCH_DIR, File.basename(GIT_URL, '.tar.gz'))
+directory git_build_dir => [git_tarball, WORKBENCH_DIR] do
+  sh "tar -zxvf #{git_tarball} -C #{WORKBENCH_DIR}"
+end
+
+git_bin = File.join(git_build_dir, 'git')
+file git_bin => [installed_pkg_config, git_build_dir] do
+  sh "cd #{git_build_dir} && ./configure --without-tcltk --prefix '#{BUNDLE_PREFIX}'"
+  sh "cd #{git_build_dir} && make -j #{MAKE_CONCURRENCY}"
+end
+
+installed_git = File.join(BUNDLE_DESTROOT, 'bin/git')
+file installed_git => git_bin do
+  sh "cd #{git_build_dir} && make install"
 end
 
 # ------------------------------------------------------------------------------
