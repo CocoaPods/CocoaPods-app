@@ -16,7 +16,11 @@ directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
 directory DEPENDENCIES_DESTROOT
 
-ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:#{ENV['PATH']}"
+# TODO Use OS X SDK option
+#ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:#{ENV['PATH']}"
+ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:/usr/bin:/bin"
+ENV['CC'] = '/usr/bin/clang'
+ENV['CXX'] = '/usr/bin/clang++'
 ENV['CFLAGS'] = "-I#{File.join(DEPENDENCIES_PREFIX, 'include')}"
 ENV['LDFLAGS'] = "-L#{File.join(DEPENDENCIES_PREFIX, 'lib')}"
 
