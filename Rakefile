@@ -63,6 +63,10 @@ GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz
 
 SVN_URL = "http://apache.hippo.nl/subversion/subversion-1.8.10.tar.gz"
 
+BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-2.6.0.tar.gz"
+
+MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-3.2.tar.gz"
+
 # ------------------------------------------------------------------------------
 # pkg-config
 # ------------------------------------------------------------------------------
@@ -316,6 +320,25 @@ installed_svn = File.join(BUNDLE_DESTROOT, 'bin/svn')
 file installed_svn => svn_bin do
   mkdir_p File.join(BUNDLE_DESTROOT, 'libexec')
   sh "cd #{svn_build_dir} && make install"
+end
+
+# ------------------------------------------------------------------------------
+# Mercurial
+# ------------------------------------------------------------------------------
+
+mercurial_tarball = File.join(DOWNLOAD_DIR, File.basename(MERCURIAL_URL))
+file mercurial_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{MERCURIAL_URL} -o #{mercurial_tarball}"
+end
+
+mercurial_build_dir = File.join(WORKBENCH_DIR, File.basename(MERCURIAL_URL, '.tar.gz'))
+directory mercurial_build_dir => [mercurial_tarball, WORKBENCH_DIR] do
+  sh "tar -zxvf #{mercurial_tarball} -C #{WORKBENCH_DIR}"
+end
+
+installed_mercurial = File.join(BUNDLE_DESTROOT, 'bin/hg')
+file installed_mercurial => mercurial_build_dir do
+  sh "cd #{mercurial_build_dir} && make PREFIX='#{BUNDLE_PREFIX}' install-bin"
 end
 
 # Tasks
