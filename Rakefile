@@ -375,13 +375,13 @@ directory bzr_build_dir => [bzr_tarball, WORKBENCH_DIR] do
   sh "tar -zxvf #{bzr_tarball} -C #{WORKBENCH_DIR}"
 end
 
-bzr_bin = File.join(bzr_build_dir, 'bzr')
-file bzr_bin => [installed_pkg_config, bzr_build_dir] do
+built_bzr_dir = File.join(bzr_build_dir, 'build')
+directory built_bzr_dir => [installed_pkg_config, bzr_build_dir] do
   sh "cd #{bzr_build_dir} && python setup.py build"
 end
 
 installed_bzr = File.join(BUNDLE_DESTROOT, 'bin/bzr')
-file installed_bzr => bzr_bin do
+file installed_bzr => built_bzr_dir do
   sh "cd #{bzr_build_dir} && python setup.py install --prefix='#{BUNDLE_PREFIX}'"
 end
 
