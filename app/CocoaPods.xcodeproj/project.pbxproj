@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		51165E261A17AFF500DCFC94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E251A17AFF500DCFC94 /* AppDelegate.m */; };
 		51165E281A17AFF500DCFC94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E271A17AFF500DCFC94 /* main.m */; };
-		51165E2A1A17AFF500DCFC94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51165E291A17AFF500DCFC94 /* Images.xcassets */; };
 		51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E2B1A17AFF500DCFC94 /* MainMenu.xib */; };
 		51165E391A17AFF500DCFC94 /* CocoaPodsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E381A17AFF500DCFC94 /* CocoaPodsTests.m */; };
 /* End PBXBuildFile section */
@@ -30,7 +29,6 @@
 		51165E241A17AFF500DCFC94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		51165E251A17AFF500DCFC94 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		51165E271A17AFF500DCFC94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		51165E291A17AFF500DCFC94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		51165E2C1A17AFF500DCFC94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		51165E321A17AFF500DCFC94 /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E371A17AFF500DCFC94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 			children = (
 				51165E241A17AFF500DCFC94 /* AppDelegate.h */,
 				51165E251A17AFF500DCFC94 /* AppDelegate.m */,
-				51165E291A17AFF500DCFC94 /* Images.xcassets */,
 				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
 			);
@@ -191,7 +188,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51165E2A1A17AFF500DCFC94 /* Images.xcassets in Resources */,
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +324,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CocoaPods/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -339,6 +336,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CocoaPods/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -398,6 +396,7 @@
 				51165E3E1A17AFF500DCFC94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		51165E3F1A17AFF500DCFC94 /* Build configuration list for PBXNativeTarget "CocoaPodsTests" */ = {
 			isa = XCConfigurationList;
@@ -406,6 +405,7 @@
 				51165E411A17AFF500DCFC94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
