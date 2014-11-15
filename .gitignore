@@ -3,3 +3,4 @@ workbench
 destroot
 tmp
 bundle.tar.gz
+*.xcuserdatad
