@@ -283,12 +283,17 @@ end
 
 rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/gems/rubygems-update-2.4.2')
 directory rubygems_update_dir => installed_ruby do
-  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem update --system --no-document"
+  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem update --system --no-document --env-shebang"
+  bin = File.join(BUNDLE_DESTROOT, 'bin/gem')
+  lines = File.read(bin).split("\n")
+  lines[0] = '#!/usr/bin/env ruby'
+  File.open(bin, 'w') { |f| f.write(lines.join("\n")) }
+  sh "chmod +x #{bin}"
 end
 
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
 file installed_pod_bin => rubygems_update_dir do
-  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install cocoapods --pre --no-document"
+  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install cocoapods --pre --no-document --env-shebang"
 end
 
 # ------------------------------------------------------------------------------
