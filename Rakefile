@@ -472,6 +472,8 @@ def remove_if_existant(*paths)
   end
 end
 
+$roughly_started_at = Time.now
+
 desc "Build complete dist bundle"
 task :build_bundle => [installed_pod_bin, installed_git, installed_svn, installed_bzr, installed_mercurial, installed_env_script] do
   puts "Before clean:"
@@ -484,6 +486,9 @@ task :build_bundle => [installed_pod_bin, installed_git, installed_svn, installe
   # TODO can we delete any of the svn* commands?
   puts "After clean:"
   sh "du -hs #{BUNDLE_DESTROOT}"
+  puts
+  puts "Finished building bundle in #{Time.now - $roughly_started_at} seconds"
+  puts
 end
 
 bundle_tarball = 'bundle.tar.gz'
