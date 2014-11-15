@@ -61,6 +61,8 @@ RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-#{RUBY__VERSION}.tar.gz
 GIT_VERSION = '2.1.3'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
+SCONS_URL = "http://prdownloads.sourceforge.net/scons/scons-local-2.3.4.tar.gz"
+SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-1.3.8.tar.bz2"
 SVN_URL = "http://apache.hippo.nl/subversion/subversion-1.8.10.tar.gz"
 
 BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-2.6.0.tar.gz"
@@ -252,6 +254,54 @@ file installed_libffi => libffi_static_lib do
 end
 
 # ------------------------------------------------------------------------------
+# Scons
+# ------------------------------------------------------------------------------
+
+scons_tarball = File.join(DOWNLOAD_DIR, File.basename(SCONS_URL))
+file scons_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{SCONS_URL} -o #{scons_tarball}"
+end
+
+scons_build_dir = File.join(WORKBENCH_DIR, File.basename(SCONS_URL, '.tar.gz'))
+directory scons_build_dir => [scons_tarball, WORKBENCH_DIR] do
+  mkdir_p scons_build_dir
+  sh "tar -zxvf #{scons_tarball} -C #{scons_build_dir}"
+end
+
+scons_bin = File.expand_path(File.join(scons_build_dir, 'scons.py'))
+
+# ------------------------------------------------------------------------------
+# SERF
+# ------------------------------------------------------------------------------
+
+serf_tarball = File.join(DOWNLOAD_DIR, File.basename(SERF_URL))
+file serf_tarball => DOWNLOAD_DIR do
+  sh "curl -sSL #{SERF_URL} -o #{serf_tarball}"
+end
+
+serf_build_dir = File.join(WORKBENCH_DIR, File.basename(SERF_URL, '.tar.bz2'))
+directory serf_build_dir => [serf_tarball, WORKBENCH_DIR] do
+  sh "tar -jxvf #{serf_tarball} -C #{WORKBENCH_DIR}"
+end
+
+serf_static_lib = File.join(serf_build_dir, 'libserf-1.a')
+file serf_static_lib => [installed_pkg_config, installed_openssl, installed_zlib, scons_build_dir, serf_build_dir] do
+  sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}'"
+  # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
+  # required when linking libssl, otherwise Ruby's openssl ext will fail to
+  # configure. So add it ourselves.
+  serf_pc_file = File.join(serf_build_dir, 'serf-1.pc')
+  content = File.read(serf_pc_file).sub('Libs: -L${libdir}', 'Libs: -L${libdir} -lssl -lcrypto -lz')
+  File.open(serf_pc_file, 'w') { |f| f.write(content) }
+end
+
+installed_serf = File.join(DEPENDENCIES_DESTROOT, 'lib/libserf-1.a')
+file installed_serf => serf_static_lib do
+  sh "cd #{serf_build_dir} && #{scons_bin} install"
+  sh "rm #{File.join(DEPENDENCIES_DESTROOT, 'lib', '*.dylib')}"
+end
+
+# ------------------------------------------------------------------------------
 # Ruby
 # ------------------------------------------------------------------------------
 
@@ -336,8 +386,8 @@ directory svn_build_dir => [svn_tarball, WORKBENCH_DIR] do
 end
 
 svn_bin = File.join(svn_build_dir, 'subversion/svn/svn')
-file svn_bin => [installed_pkg_config, svn_build_dir] do
-  sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --without-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}'"
+file svn_bin => [installed_pkg_config, installed_serf, svn_build_dir] do
+  sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}'"
   sh "cd #{svn_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
