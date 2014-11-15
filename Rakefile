@@ -388,6 +388,12 @@ end
 # Tasks
 # ------------------------------------------------------------------------------
 
+installed_env_script = File.join(BUNDLE_DESTROOT, 'bin/bundle-env')
+file installed_env_script do
+  cp 'bundle-env', installed_env_script
+  sh "chmod +x #{installed_env_script}"
+end
+
 desc "Build all dependencies and Ruby"
 task :ruby => installed_ruby do
   links = `otool -L #{File.join(BUNDLE_DESTROOT, 'bin/ruby')}`.strip.split("\n")[1..-1]
@@ -412,7 +418,7 @@ def remove_if_existant(*paths)
 end
 
 desc "Build complete dist bundle"
-task :build_bundle => [installed_pod_bin, installed_git, installed_svn, installed_bzr, installed_mercurial] do
+task :build_bundle => [installed_pod_bin, installed_git, installed_svn, installed_bzr, installed_mercurial, installed_env_script] do
   puts "Before clean:"
   sh "du -hs #{BUNDLE_DESTROOT}"
   remove_if_existant *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a'))
