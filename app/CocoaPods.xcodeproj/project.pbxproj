@@ -11,7 +11,20 @@
 		51165E281A17AFF500DCFC94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E271A17AFF500DCFC94 /* main.m */; };
 		51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E2B1A17AFF500DCFC94 /* MainMenu.xib */; };
 		51165E431A17B20700DCFC94 /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 51165E421A17B20700DCFC94 /* bundle */; };
+		51165E4B1A17B2D200DCFC94 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 51165E4A1A17B2D200DCFC94 /* main.c */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		51165E461A17B2D200DCFC94 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		51165E1F1A17AFF500DCFC94 /* CocoaPods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPods.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -23,10 +36,19 @@
 		51165E371A17AFF500DCFC94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51165E381A17AFF500DCFC94 /* CocoaPodsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaPodsTests.m; sourceTree = "<group>"; };
 		51165E421A17B20700DCFC94 /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bundle; path = ../destroot/bundle; sourceTree = "<group>"; };
+		51165E481A17B2D200DCFC94 /* pod */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pod; sourceTree = BUILT_PRODUCTS_DIR; };
+		51165E4A1A17B2D200DCFC94 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		51165E1C1A17AFF500DCFC94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51165E451A17B2D200DCFC94 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,6 +64,7 @@
 				51165E421A17B20700DCFC94 /* bundle */,
 				51165E211A17AFF500DCFC94 /* CocoaPods */,
 				51165E351A17AFF500DCFC94 /* CocoaPodsTests */,
+				51165E491A17B2D200DCFC94 /* pod */,
 				51165E201A17AFF500DCFC94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				51165E1F1A17AFF500DCFC94 /* CocoaPods.app */,
+				51165E481A17B2D200DCFC94 /* pod */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,6 +115,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		51165E491A17B2D200DCFC94 /* pod */ = {
+			isa = PBXGroup;
+			children = (
+				51165E4A1A17B2D200DCFC94 /* main.c */,
+			);
+			path = pod;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,6 +143,23 @@
 			productReference = 51165E1F1A17AFF500DCFC94 /* CocoaPods.app */;
 			productType = "com.apple.product-type.application";
 		};
+		51165E471A17B2D200DCFC94 /* pod */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51165E4C1A17B2D200DCFC94 /* Build configuration list for PBXNativeTarget "pod" */;
+			buildPhases = (
+				51165E441A17B2D200DCFC94 /* Sources */,
+				51165E451A17B2D200DCFC94 /* Frameworks */,
+				51165E461A17B2D200DCFC94 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pod;
+			productName = pod;
+			productReference = 51165E481A17B2D200DCFC94 /* pod */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -121,6 +170,9 @@
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					51165E1E1A17AFF500DCFC94 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					51165E471A17B2D200DCFC94 = {
 						CreatedOnToolsVersion = 6.1;
 					};
 				};
@@ -139,6 +191,7 @@
 			projectRoot = "";
 			targets = (
 				51165E1E1A17AFF500DCFC94 /* CocoaPods */,
+				51165E471A17B2D200DCFC94 /* pod */,
 			);
 		};
 /* End PBXProject section */
@@ -162,6 +215,14 @@
 			files = (
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				51165E261A17AFF500DCFC94 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51165E441A17B2D200DCFC94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51165E4B1A17B2D200DCFC94 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +340,24 @@
 			};
 			name = Release;
 		};
+		51165E4D1A17B2D200DCFC94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		51165E4E1A17B2D200DCFC94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -299,6 +378,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		51165E4C1A17B2D200DCFC94 /* Build configuration list for PBXNativeTarget "pod" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51165E4D1A17B2D200DCFC94 /* Debug */,
+				51165E4E1A17B2D200DCFC94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
