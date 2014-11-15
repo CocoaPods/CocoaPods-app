@@ -1,6 +1,8 @@
 #!/bin/sh
 
-BIN=$(pwd)/$(dirname $0)
+# OS X doesn't have `readlink -f`
+BIN=$(cd "$(dirname "$0")"; pwd)
+
 PREFIX=$(dirname $BIN)
 
 export PATH=$BIN:/usr/bin:/bin:/usr/sbin:/sbin
