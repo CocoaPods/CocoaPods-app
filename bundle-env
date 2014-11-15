@@ -1,9 +1,12 @@
 #!/bin/sh
 
-BIN=$(dirname $0)
+BIN=$(pwd)/$(dirname $0)
 PREFIX=$(dirname $BIN)
 
 export PATH=$BIN:/usr/bin:/bin
 export PYTHONPATH=$PREFIX/lib/python2.7/site-packages
+export GIT_TEMPLATE_DIR=$PREFIX/share/git-core/templates
+export GIT_EXEC_PATH=$PREFIX/libexec/git-core
 
 exec $*
+
