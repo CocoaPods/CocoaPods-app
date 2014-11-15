@@ -1,8 +1,8 @@
 platform :ios, '8'
 
-pod 'AFNetworking'   # Git
-pod 'eigen'          # Mercurial
-pod 'GTMHTTPFetcher' # Subversion
-pod 'boost'          # HTTP (and already a dep of gtm-oauth2)
+pod 'AFNetworking'        # Git
+pod 'VeriJSON'            # Mercurial
+pod 'GTMHTTPFetcher'      # Subversion
+pod 'Google-Maps-iOS-SDK' # HTTPS
 
 # TODO no public bazaar repos? :/
