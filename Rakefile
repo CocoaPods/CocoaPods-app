@@ -28,7 +28,6 @@ ENV['LDFLAGS'] = "-L#{File.join(DEPENDENCIES_PREFIX, 'lib')}"
 # script will simply decide that we don't want any .pc files.
 PKG_CONFIG_LIBDIR = File.join(DEPENDENCIES_PREFIX, 'lib/pkgconfig')
 ENV['PKG_CONFIG_LIBDIR'] = PKG_CONFIG_LIBDIR
-directory PKG_CONFIG_LIBDIR
 
 # ------------------------------------------------------------------------------
 # Package metadata
@@ -90,8 +89,9 @@ file pkg_config_bin => pkg_config_build_dir do
 end
 
 installed_pkg_config = File.join(DEPENDENCIES_DESTROOT, 'bin/pkg-config')
-file installed_pkg_config => [pkg_config_bin, PKG_CONFIG_LIBDIR] do
+file installed_pkg_config => pkg_config_bin do
   sh "cd #{pkg_config_build_dir} && make install"
+  mkdir_p PKG_CONFIG_LIBDIR
 end
 
 # ------------------------------------------------------------------------------
