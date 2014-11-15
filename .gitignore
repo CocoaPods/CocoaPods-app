@@ -3,4 +3,7 @@ workbench
 destroot
 tmp
 bundle.tar.gz
+
+DerivedData
 *.xcuserdatad
+*.xccheckout
