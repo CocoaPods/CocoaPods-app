@@ -495,6 +495,15 @@ end
 desc "Build bundle tarball"
 task :bundle => bundle_tarball
 
+desc "Test bundle"
+task :test => :build_bundle do
+  test_dir = 'tmp'
+  rm_rf test_dir
+  mkdir_p test_dir
+  cp 'Podfile', test_dir
+  sh "cd #{test_dir} && #{File.expand_path(installed_env_script)} pod install --no-integrate --verbose"
+end
+
 namespace :clean do
   task :build do
     rm_rf WORKBENCH_DIR
