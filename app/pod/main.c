@@ -3,19 +3,44 @@
 #include <CoreServices/CoreServices.h>
 
 int main(int argc, const char * argv[]) {
+  CFStringRef bundleID = CFSTR("org.cocoapods.CocoaPods");
+  CFStringRef envScript = CFSTR("bundle/bin/bundle-env");
+  const char *shPath = "/bin/sh";
+  const char *podBin = "pod";
+
   CFErrorRef error = NULL;
-  CFArrayRef URLs = LSCopyApplicationURLsForBundleIdentifier(CFSTR("org.cocoapods.CocoaPods"), &error);
+  CFArrayRef URLs = LSCopyApplicationURLsForBundleIdentifier(bundleID, &error);
+  if (error != NULL) {
+    if (CFErrorGetCode(error) == kLSApplicationNotFoundErr) {
+      fprintf(stderr, "[!] Unable to locate the CocoaPods.app application " \
+                      "bundle. Please ensure the application is available " \
+                      "and launch the application at least once.\n");
+    } else {
+      CFShow(error);
+    }
+    return -1;
+  }
+
   CFURLRef appURL = CFArrayGetValueAtIndex(URLs, 0);
-  CFURLRef bundleEnvURL = CFBundleCopyResourceURLInDirectory(appURL, CFSTR("bundle/bin/bundle-env"), NULL, NULL);
+  CFURLRef envScriptURL = CFBundleCopyResourceURLInDirectory(appURL,
+                                                             envScript,
+                                                             NULL,
+                                                             NULL);
+  assert(envScriptURL != NULL);
 
-  const char bundleEnvPath[PATH_MAX];
-  CFURLGetFileSystemRepresentation(bundleEnvURL, false, (UInt8 *)bundleEnvPath, PATH_MAX);
+  const char envScriptPath[PATH_MAX];
+  assert(CFURLGetFileSystemRepresentation(envScriptURL,
+                                          false,
+                                          (UInt8 *)envScriptPath,
+                                          PATH_MAX));
 
+  // Set up minimally required environment.
   size_t len;
 
   char *homePath = getenv("HOME");
   if (homePath == NULL) {
     homePath = getpwuid(getuid())->pw_dir;
+    assert(homePath);
   }
   len = strlen(homePath) + 6;
   char envHome[len];
@@ -29,19 +54,14 @@ int main(int argc, const char * argv[]) {
   char envTerm[len];
   snprintf(envTerm, len, "TERM=%s", term);
 
-  char *const env[] = {
-    "LANG=en_GB.UTF-8",
-    envHome,
-    envTerm,
-    NULL
-  };
+  char *const env[] = { "LANG=en_GB.UTF-8", envHome, envTerm, NULL };
 
-  char *shPath = "/bin/sh";
-
+  // Create arguments list for that calls `/bin/sh /path/to/bundle-env pod […]`
+  // and appends the arguments that were passed to this program.
   const char *args[argc+3];
   args[0] = shPath;
-  args[1] = bundleEnvPath;
-  args[2] = "pod";
+  args[1] = envScriptPath;
+  args[2] = podBin;
   for (int i = 1; i < argc; i++) {
     args[i+2] = *(argv+i);
   }
@@ -53,6 +73,8 @@ int main(int argc, const char * argv[]) {
 
   execve(shPath, (char *const *)args, env);
 
-  fprintf(stderr, "Failed to execute `%s` (%d - %s)\n", bundleEnvPath, errno, strerror(errno));
+  fprintf(stderr, "Failed to execute `%s` (%d - %s)\n", envScriptPath,
+                                                        errno,
+                                                        strerror(errno));
   return errno;
 }
