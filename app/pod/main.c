@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
   snprintf(envTerm, len, "TERM=%s", term);
 
   char *const env[] = {
-    "LANG=en_US.UTF-8",
+    "LANG=en_GB.UTF-8",
     envHome,
     envTerm,
     NULL
