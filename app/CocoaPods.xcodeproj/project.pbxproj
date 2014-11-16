@@ -12,7 +12,18 @@
 		51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E2B1A17AFF500DCFC94 /* MainMenu.xib */; };
 		51165E431A17B20700DCFC94 /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 51165E421A17B20700DCFC94 /* bundle */; };
 		51165E4B1A17B2D200DCFC94 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 51165E4A1A17B2D200DCFC94 /* main.c */; };
+		51165E511A190FAA00DCFC94 /* pod in Resources */ = {isa = PBXBuildFile; fileRef = 51165E481A17B2D200DCFC94 /* pod */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		51165E4F1A190F8D00DCFC94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51165E171A17AFF500DCFC94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51165E471A17B2D200DCFC94;
+			remoteInfo = pod;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		51165E461A17B2D200DCFC94 /* CopyFiles */ = {
@@ -137,6 +148,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				51165E501A190F8D00DCFC94 /* PBXTargetDependency */,
 			);
 			name = CocoaPods;
 			productName = CocoaPods;
@@ -201,6 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51165E511A190FAA00DCFC94 /* pod in Resources */,
 				51165E431A17B20700DCFC94 /* bundle in Resources */,
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 			);
@@ -227,6 +240,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		51165E501A190F8D00DCFC94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51165E471A17B2D200DCFC94 /* pod */;
+			targetProxy = 51165E4F1A190F8D00DCFC94 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		51165E2B1A17AFF500DCFC94 /* MainMenu.xib */ = {
