@@ -13,6 +13,7 @@
 		51165E431A17B20700DCFC94 /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 51165E421A17B20700DCFC94 /* bundle */; };
 		51165E4B1A17B2D200DCFC94 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 51165E4A1A17B2D200DCFC94 /* main.c */; };
 		51165E511A190FAA00DCFC94 /* pod in Resources */ = {isa = PBXBuildFile; fileRef = 51165E481A17B2D200DCFC94 /* pod */; };
+		51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		51165E421A17B20700DCFC94 /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bundle; path = ../destroot/bundle; sourceTree = "<group>"; };
 		51165E481A17B2D200DCFC94 /* pod */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pod; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E4A1A17B2D200DCFC94 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityFoundation.framework; path = System/Library/Frameworks/SecurityFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +75,7 @@
 		51165E161A17AFF500DCFC94 = {
 			isa = PBXGroup;
 			children = (
+				51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */,
 				51165E421A17B20700DCFC94 /* bundle */,
 				51165E211A17AFF500DCFC94 /* CocoaPods */,
 				51165E351A17AFF500DCFC94 /* CocoaPodsTests */,
@@ -278,7 +282,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -319,7 +323,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
