@@ -80,7 +80,7 @@
     } else {
       NSLog(@"Write contents of `%@` to destination.", sourcePath);
       int c;
-      while ((c = getc(source)) != EOF) {
+      while ((c = fgetc(source)) != EOF) {
         fwrite(&c, 1, 1, destination);
       }
       fclose(source);
