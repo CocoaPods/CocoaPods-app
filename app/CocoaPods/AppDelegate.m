@@ -13,7 +13,8 @@
 
 - (void)installBinstubIfNecessary;
 {
-  // TODO change this to just `pod` for real release.
+  // TODO change this to just `pod` for real release and then also update the
+  // `sprintf` calls to `snprintf` with hardcoded lengths.
   const char *destination_path = "/usr/bin/pod-binstub";
 
   if (access(destination_path, X_OK) == 0) {
