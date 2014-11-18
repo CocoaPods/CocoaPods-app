@@ -4,6 +4,7 @@
 @interface CPUserProject ()
 @property (weak) IBOutlet NSView *containerView;
 @property (strong) MGSFragaria *fragaria;
+@property (strong) NSString *contents;
 @end
 
 @implementation CPUserProject
@@ -18,19 +19,26 @@
   [super windowControllerDidLoadNib:controller];
 
   self.fragaria = [MGSFragaria new];
-  // [self.fragaria setObject:self forKey:MGSFragaria];
+  // [self.fragaria setObject:self forKey:MGSFODelegate];
   [self.fragaria setSyntaxColoured:YES];
   [self.fragaria setSyntaxDefinitionName:@"Ruby"];
   [self.fragaria embedInView:self.containerView];
-  [self.fragaria setString:@"# We don't need the future."];
+  [self.fragaria setString:self.contents];
 }
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL
              ofType:(NSString *)typeName
               error:(NSError **)outError;
 {
-  NSLog(@"Open: %@", absoluteURL);
-  return [[absoluteURL lastPathComponent] isEqualToString:@"Podfile"];
+  if ([[absoluteURL lastPathComponent] isEqualToString:@"Podfile"]) {
+    self.contents = [NSString stringWithContentsOfURL:absoluteURL
+                                             encoding:NSUTF8StringEncoding
+                                                error:outError];
+    if (self.contents != nil) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 - (BOOL)writeToURL:(NSURL *)absoluteURL
