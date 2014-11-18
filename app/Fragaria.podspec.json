@@ -7,8 +7,8 @@
     "Jonathan Mitchell": "jonathan@mugginsoft.com"
   },
   "source": {
-    "git": "https://github.com/explicitcall/Fragaria.git",
-    "tag": "1.0.1"
+    "git": "https://github.com/bitstadium/Fragaria.git",
+    "branch": "develop"
   },
   "source_files": [
     "NS*.{h,m}",
@@ -29,7 +29,7 @@
   },
   "libraries": "icucore",
   "license": "BSD",
-  "requires_arc": false,
+  "requires_arc": true,
   "subspecs": [
     {
       "name": "unicode",
