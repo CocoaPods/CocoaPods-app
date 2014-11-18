@@ -9,6 +9,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
   [self installBinstubIfNecessary];
+
+  [[NSDocumentController sharedDocumentController] newDocument:self];
 }
 
 - (void)installBinstubIfNecessary;
