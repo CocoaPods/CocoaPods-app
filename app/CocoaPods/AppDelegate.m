@@ -22,6 +22,17 @@
     return;
   }
 
+  NSAlert *alert = [NSAlert new];
+  alert.alertStyle = NSInformationalAlertStyle;
+  alert.messageText = @"Install CLI binstub tool.";
+  alert.informativeText = [NSString stringWithFormat:@"In order to easily access the standalone CocoaPods bundle a tool will be installed to `%s`.", destination_path];
+  [alert addButtonWithTitle:@"OK"];
+  [alert addButtonWithTitle:@"Cancel"];
+  if ([alert runModal] == NSAlertSecondButtonReturn) {
+    NSLog(@"Cancelled by user.");
+    return;
+  }
+
   NSLog(@"Try to install binstub to `%s`.", destination_path);
 
   // Configure requested authorization.
@@ -30,16 +41,14 @@
   AuthorizationFlags flags = kAuthorizationFlagInteractionAllowed |
                              kAuthorizationFlagExtendRights |
                              kAuthorizationFlagPreAuthorize;
-  AuthorizationEnvironment *env = kAuthorizationEmptyEnvironment;
-
-  AuthorizationItem item = { name, 0, NULL, 0};
-  AuthorizationRights rights = { 1, &item };
 
   // Request the user for authorization.
-  SFAuthorization *authorization;
-  authorization = [SFAuthorization authorizationWithFlags:flags
-                                                   rights:&rights
-                                              environment:env];
+  NSError *error = nil;
+  SFAuthorization *authorization = [SFAuthorization authorization];
+  if (![authorization obtainWithRight:name flags:flags error:&error]) {
+    NSLog(@"Did not authorize.");
+    return;
+  }
 
   // Serialize the AuthorizationRef so it can be passed to the `authopen` tool.
   AuthorizationRef authorizationRef = [authorization authorizationRef];
