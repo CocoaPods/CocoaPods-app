@@ -87,6 +87,7 @@
 		46126B404240E403B2193EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */,
 				FF53DC3F37552C5161A9C066 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -95,7 +96,6 @@
 		51165E161A17AFF500DCFC94 = {
 			isa = PBXGroup;
 			children = (
-				51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */,
 				51165E421A17B20700DCFC94 /* bundle */,
 				51165E211A17AFF500DCFC94 /* CocoaPods */,
 				51165E491A17B2D200DCFC94 /* pod */,
