@@ -45,8 +45,6 @@
 		51165E251A17AFF500DCFC94 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		51165E271A17AFF500DCFC94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		51165E2C1A17AFF500DCFC94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		51165E371A17AFF500DCFC94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		51165E381A17AFF500DCFC94 /* CocoaPodsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaPodsTests.m; sourceTree = "<group>"; };
 		51165E421A17B20700DCFC94 /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bundle; path = ../destroot/bundle; sourceTree = "<group>"; };
 		51165E481A17B2D200DCFC94 /* pod */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pod; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E4A1A17B2D200DCFC94 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 				51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */,
 				51165E421A17B20700DCFC94 /* bundle */,
 				51165E211A17AFF500DCFC94 /* CocoaPods */,
-				51165E351A17AFF500DCFC94 /* CocoaPodsTests */,
 				51165E491A17B2D200DCFC94 /* pod */,
 				51165E201A17AFF500DCFC94 /* Products */,
 			);
@@ -109,23 +106,6 @@
 			children = (
 				51165E231A17AFF500DCFC94 /* Info.plist */,
 				51165E271A17AFF500DCFC94 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		51165E351A17AFF500DCFC94 /* CocoaPodsTests */ = {
-			isa = PBXGroup;
-			children = (
-				51165E381A17AFF500DCFC94 /* CocoaPodsTests.m */,
-				51165E361A17AFF500DCFC94 /* Supporting Files */,
-			);
-			path = CocoaPodsTests;
-			sourceTree = "<group>";
-		};
-		51165E361A17AFF500DCFC94 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				51165E371A17AFF500DCFC94 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

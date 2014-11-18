@@ -2,7 +2,6 @@
 #import <SecurityFoundation/SFAuthorization.h>
 
 @interface AppDelegate ()
-@property (weak) IBOutlet NSWindow *window;
 @end
 
 @implementation AppDelegate
