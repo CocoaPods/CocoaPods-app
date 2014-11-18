@@ -19,7 +19,6 @@
 #import "ICUPattern.h"
 #import "ICUMatcher.h"
 #import "NSStringICUAdditions.h"
-#import "MGSPreferencesController.h"
 #import "MGSSyntaxController.h"
 #import "NSScanner+Fragaria.h"
 #import "MGSFragariaPreferences.h"

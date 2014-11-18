@@ -11,6 +11,6 @@ EXTERNAL SOURCES:
     :podspec: Fragaria.podspec.json
 
 SPEC CHECKSUMS:
-  Fragaria: a4c98230f618ca503fc7c600c3b2aa0044003bf7
+  Fragaria: 221021bc92c438bc970aa034793ce4f9f2349781
 
 COCOAPODS: 0.35.0.rc2

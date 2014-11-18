@@ -7,3 +7,5 @@ bundle.tar.gz
 DerivedData
 *.xcuserdatad
 *.xccheckout
+
+*.*-e

@@ -12,10 +12,9 @@
   },
   "source_files": [
     "NS*.{h,m}",
-    "MG*.{h,m}",
+    "MGS{Breakpoint,Extra,Fragaria,Glyph,Syntax,TextMenu}*.{h,m}",
     "ICU*.{h,m}",
     "SML*.{h,m}",
-    "DB*.{h,m}",
     "FRAFont*.{h,m}"
   ],
   "resources": [
@@ -36,5 +35,6 @@
       "header_dir": "unicode",
       "source_files": "icu/**/*.h"
     }
-  ]
+  ],
+  "prepare_command": "sed -i -e '/#import \"MGSPreferencesController\.h\"/d' MGSFragariaFramework.h"
 }
