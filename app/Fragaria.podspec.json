@@ -19,7 +19,7 @@
   ],
   "resources": [
     "SML*.xib",
-    "Syntax Definitions/*.plist",
+    "Syntax Definitions",
     "SyntaxDefinitions.plist"
   ],
   "public_header_files": "*.h",
