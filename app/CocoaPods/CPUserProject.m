@@ -63,18 +63,20 @@
 
 - (IBAction)updatePods:(id)sender;
 {
-  NSLog(@"pod update");
   [self taskWithCommand:@"update"];
 }
 
 - (IBAction)installPods:(id)sender;
 {
-  NSLog(@"pod install");
   [self taskWithCommand:@"install"];
 }
 
 - (void)taskWithCommand:(NSString *)command;
 {
+  if (self.isDocumentEdited) {
+    [self saveDocument:nil];
+  }
+
   NSArray *arguments = @[@"pod", command];
   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
     arguments = [arguments arrayByAddingObject:@"--verbose"];
