@@ -3,7 +3,7 @@
 
 @interface CPUserProject ()
 @property (weak) IBOutlet NSView *containerView;
-@property (strong) MGSFragaria *fragaria;
+@property (strong) MGSFragaria *editor;
 @property (strong) NSString *contents;
 @end
 
@@ -18,12 +18,15 @@
 {
   [super windowControllerDidLoadNib:controller];
 
-  self.fragaria = [MGSFragaria new];
-  // [self.fragaria setObject:self forKey:MGSFODelegate];
-  [self.fragaria setSyntaxColoured:YES];
-  [self.fragaria setSyntaxDefinitionName:@"Ruby"];
-  [self.fragaria embedInView:self.containerView];
-  [self.fragaria setString:self.contents];
+  self.editor = [MGSFragaria new];
+  [self.editor setObject:self forKey:MGSFODelegate];
+  [self.editor setSyntaxColoured:YES];
+  [self.editor setSyntaxDefinitionName:@"Ruby"];
+  [self.editor embedInView:self.containerView];
+  [self.editor setString:self.contents];
+
+  NSTextView *textView = [self.editor objectForKey:ro_MGSFOTextView];
+  self.undoManager = textView.undoManager;
 }
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL
@@ -45,13 +48,17 @@
             ofType:(NSString *)typeName
              error:(NSError **)outError;
 {
-  NSLog(@"Save to %@", absoluteURL);
-  return YES;
+  return [self.contents writeToURL:absoluteURL
+                        atomically:YES
+                          encoding:NSUTF8StringEncoding
+                             error:outError];
 }
 
-+ (BOOL)autosavesInPlace;
+- (void)textDidChange:(NSNotification *)notification;
 {
-    return YES;
+  NSTextView *textView = notification.object;
+  self.contents = textView.string;
+
 }
 
 @end
