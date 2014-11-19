@@ -32,6 +32,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="installPods:" target="-2" id="fWP-AB-2AN"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OKq-yL-mMd">
                         <rect key="frame" x="273" y="13" width="114" height="32"/>
@@ -42,6 +45,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="updatePods:" target="-2" id="Cv5-3D-Zjf"/>
+                        </connections>
                     </button>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dw2-KY-Hq6" userLabel="Source view">
                         <rect key="frame" x="0.0" y="61" width="507" height="352"/>

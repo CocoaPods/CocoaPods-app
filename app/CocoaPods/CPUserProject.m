@@ -5,6 +5,7 @@
 @property (weak) IBOutlet NSView *containerView;
 @property (strong) MGSFragaria *editor;
 @property (strong) NSString *contents;
+@property (strong) NSTask *task;
 @end
 
 @implementation CPUserProject
@@ -58,7 +59,70 @@
 {
   NSTextView *textView = notification.object;
   self.contents = textView.string;
+}
 
+- (IBAction)updatePods:(id)sender;
+{
+  NSLog(@"pod update");
+  [self taskWithCommand:@"update"];
+}
+
+- (IBAction)installPods:(id)sender;
+{
+  NSLog(@"pod install");
+  [self taskWithCommand:@"install"];
+}
+
+- (void)taskWithCommand:(NSString *)command;
+{
+  NSArray *arguments = @[@"pod", command];
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
+    arguments = [arguments arrayByAddingObject:@"--verbose"];
+  }
+
+  self.task = [NSTask new];
+  self.task.launchPath = [[NSBundle mainBundle] pathForResource:@"bundle-env" ofType:nil inDirectory:@"bundle/bin"];
+  self.task.arguments = arguments;
+  self.task.environment = @{ @"HOME":NSHomeDirectory(), @"TERM":@"xterm-256color" };
+  NSLog(@"(ENV: %@) %@ %@", self.task.environment, self.task.launchPath, [self.task.arguments componentsJoinedByString:@" "]);
+
+  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+
+  NSPipe *outputPipe = [NSPipe pipe];
+  self.task.standardOutput = outputPipe;
+  [nc addObserver:self
+         selector:@selector(outputAvailable:)
+             name:NSFileHandleDataAvailableNotification
+           object:[outputPipe fileHandleForReading]];
+  [[outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+
+  NSPipe *errorPipe = [NSPipe pipe];
+  self.task.standardError = errorPipe;
+  [nc addObserver:self
+         selector:@selector(outputAvailable:)
+             name:NSFileHandleDataAvailableNotification
+           object:[errorPipe fileHandleForReading]];
+  [[errorPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+
+  [self.task launch];
+}
+
+- (void)outputAvailable:(NSNotification *)notification;
+{
+  NSFileHandle *fileHandle = notification.object;
+  NSData *data = fileHandle.availableData;
+
+  if (data.length > 0) {
+    NSString *output = [[NSString alloc] initWithData:data
+                                             encoding:NSUTF8StringEncoding];
+    NSPipe *outputPipe = self.task.standardOutput;
+    BOOL standardOutput = fileHandle == outputPipe.fileHandleForReading;
+    NSLog(@"[%@] %@", standardOutput ? @"STDOUT" : @"STDERR", output);
+  }
+
+  if (self.task.isRunning) {
+    [fileHandle waitForDataInBackgroundAndNotify];
+  }
 }
 
 @end
