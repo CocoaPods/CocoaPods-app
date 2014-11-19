@@ -46,10 +46,22 @@
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dw2-KY-Hq6" userLabel="Source view">
                         <rect key="frame" x="0.0" y="61" width="507" height="352"/>
                     </customView>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="lXT-8h-yFh">
+                        <rect key="frame" x="201" y="21" width="72" height="18"/>
+                        <buttonCell key="cell" type="check" title="Verbose" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="leK-AC-8YV">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="S9G-l7-3sX" name="value" keyPath="values.CPShowVerboseCommandOutput" id="vlr-SD-blU"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ir8-yD-43r" firstAttribute="leading" secondItem="OKq-yL-mMd" secondAttribute="trailing" constant="12" id="087-hH-qPP"/>
                     <constraint firstItem="Dw2-KY-Hq6" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" id="6F9-Ns-Iff"/>
+                    <constraint firstItem="OKq-yL-mMd" firstAttribute="leading" secondItem="lXT-8h-yFh" secondAttribute="trailing" constant="8" id="780-Sh-sHE"/>
+                    <constraint firstAttribute="bottom" secondItem="lXT-8h-yFh" secondAttribute="bottom" constant="23" id="84y-mC-lpZ"/>
                     <constraint firstAttribute="bottom" secondItem="Ir8-yD-43r" secondAttribute="bottom" constant="20" id="D6V-pk-laP"/>
                     <constraint firstItem="OKq-yL-mMd" firstAttribute="top" secondItem="Dw2-KY-Hq6" secondAttribute="bottom" constant="20" id="HSS-fO-3x8"/>
                     <constraint firstItem="Dw2-KY-Hq6" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="LWT-RC-wyc"/>
@@ -63,5 +75,6 @@
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
         </window>
+        <userDefaultsController representsSharedInstance="YES" id="S9G-l7-3sX"/>
     </objects>
 </document>
