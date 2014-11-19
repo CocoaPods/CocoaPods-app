@@ -77,7 +77,7 @@
     [self saveDocument:nil];
   }
 
-  NSArray *arguments = @[@"pod", command];
+  NSArray *arguments = @[@"pod", command, @"--ansi"];
   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
     arguments = [arguments arrayByAddingObject:@"--verbose"];
   }
