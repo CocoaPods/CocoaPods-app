@@ -1,5 +1,6 @@
 #import "CPUserProject.h"
 #import <Fragaria/MGSFragariaFramework.h>
+#import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
 
 @interface CPUserProject ()
 @property (weak) IBOutlet NSView *containerView;
@@ -190,9 +191,25 @@
   }
 }
 
+static NSAttributedString *
+ANSIUnescapeString(NSString *input) {
+  static AMR_ANSIEscapeHelper *ANSIEscapeHelper = nil;
+  static dispatch_once_t onceToken = 0;
+  dispatch_once(&onceToken, ^{
+    // Re-use the font that the text editor is configured to use.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *fontData = [defaults valueForKey:MGSFragariaPrefsTextFont];
+    NSFont *font = [NSUnarchiver unarchiveObjectWithData:fontData];
+
+    ANSIEscapeHelper = [AMR_ANSIEscapeHelper new];
+    ANSIEscapeHelper.font = font;
+  });
+  return [ANSIEscapeHelper attributedStringWithANSIEscapedString:input];
+}
+
 - (void)appendTaskOutput:(NSString *)rawOutput;
 {
-  NSAttributedString *attributedOutput = [[NSAttributedString alloc] initWithString:rawOutput];
+  NSAttributedString *attributedOutput = ANSIUnescapeString(rawOutput);
   if (self.taskOutput) {
     NSMutableAttributedString *existingOutput = [self.taskOutput mutableCopy];
     [existingOutput appendAttributedString:attributedOutput];
