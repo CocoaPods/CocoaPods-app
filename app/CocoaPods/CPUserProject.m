@@ -138,7 +138,8 @@
   self.task.launchPath = [[NSBundle mainBundle] pathForResource:@"bundle-env" ofType:nil inDirectory:@"bundle/bin"];
   self.task.arguments = arguments;
   self.task.environment = @{ @"HOME":NSHomeDirectory(), @"TERM":@"xterm-256color" };
-  NSLog(@"(ENV: %@) %@ %@", self.task.environment, self.task.launchPath, [self.task.arguments componentsJoinedByString:@" "]);
+  self.task.currentDirectoryPath = [[self.fileURL URLByDeletingLastPathComponent] path];
+  NSLog(@"(PWD: %@ - ENV: %@) %@ %@", self.task.currentDirectoryPath, self.task.environment, self.task.launchPath, [self.task.arguments componentsJoinedByString:@" "]);
 
   NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 
