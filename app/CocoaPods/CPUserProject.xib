@@ -8,12 +8,14 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CPUserProject">
             <connections>
                 <outlet property="containerView" destination="Dw2-KY-Hq6" id="279-Lj-Yiw"/>
+                <outlet property="progressOutputView" destination="H0M-No-2Bd" id="G1J-82-yJU"/>
+                <outlet property="progressWindow" destination="zsF-GI-rqu" id="L66-8R-YAe"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Editor Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="507" height="413"/>
@@ -82,5 +84,79 @@
             </connections>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="S9G-l7-3sX"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="zsF-GI-rqu" userLabel="Progress Window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="131" y="158" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="hlJ-d9-aN0">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qg-Dx-m78">
+                        <rect key="frame" x="-1" y="61" width="482" height="210"/>
+                        <clipView key="contentView" id="fXK-26-mQA">
+                            <rect key="frame" x="1" y="1" width="223" height="133"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView editable="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="H0M-No-2Bd">
+                                    <rect key="frame" x="0.0" y="0.0" width="223" height="133"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="480" height="208"/>
+                                    <size key="maxSize" width="480" height="10000000"/>
+                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <size key="minSize" width="480" height="208"/>
+                                    <size key="maxSize" width="480" height="10000000"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Fdc-Tn-DqL">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="hVn-3h-vql">
+                            <rect key="frame" x="224" y="1" width="15" height="133"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j0v-Gb-GpI">
+                        <rect key="frame" x="384" y="13" width="83" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fi8-6z-lwe">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="dismissProgressSheet:" target="-2" id="UGn-SL-qdn"/>
+                        </connections>
+                    </button>
+                    <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="awf-Kn-Efq">
+                        <rect key="frame" x="20" y="20" width="362" height="20"/>
+                        <connections>
+                            <binding destination="-2" name="animate" keyPath="self.task" id="hFO-qv-mSY">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSIsNotNil</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </progressIndicator>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="awf-Kn-Efq" firstAttribute="leading" secondItem="hlJ-d9-aN0" secondAttribute="leading" constant="20" id="4BT-pe-tCz"/>
+                    <constraint firstItem="j0v-Gb-GpI" firstAttribute="leading" secondItem="awf-Kn-Efq" secondAttribute="trailing" constant="8" id="OeF-t2-ai9"/>
+                    <constraint firstItem="9Qg-Dx-m78" firstAttribute="leading" secondItem="hlJ-d9-aN0" secondAttribute="leading" constant="-1" id="Wai-4c-tPN"/>
+                    <constraint firstItem="9Qg-Dx-m78" firstAttribute="top" secondItem="hlJ-d9-aN0" secondAttribute="top" constant="-1" id="ZE1-S9-ZoB"/>
+                    <constraint firstItem="j0v-Gb-GpI" firstAttribute="top" secondItem="9Qg-Dx-m78" secondAttribute="bottom" constant="20" id="Zco-eX-Wok"/>
+                    <constraint firstAttribute="trailing" secondItem="j0v-Gb-GpI" secondAttribute="trailing" constant="19" id="dKj-qH-dBd"/>
+                    <constraint firstAttribute="trailing" secondItem="9Qg-Dx-m78" secondAttribute="trailing" constant="-1" id="kJo-SP-WVI"/>
+                    <constraint firstAttribute="bottom" secondItem="awf-Kn-Efq" secondAttribute="bottom" constant="21" id="rZn-yY-DGV"/>
+                    <constraint firstAttribute="bottom" secondItem="j0v-Gb-GpI" secondAttribute="bottom" constant="20" id="t9e-tH-GXe"/>
+                </constraints>
+            </view>
+        </window>
     </objects>
 </document>

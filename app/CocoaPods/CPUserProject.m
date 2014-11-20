@@ -3,6 +3,11 @@
 
 @interface CPUserProject ()
 @property (weak) IBOutlet NSView *containerView;
+// Such sin.
+// TODO: Add real custom window controllers.
+@property (strong) IBOutlet NSWindow *progressWindow;
+@property (assign) IBOutlet NSTextView *progressOutputView;
+
 @property (strong) MGSFragaria *editor;
 @property (strong) NSString *contents;
 @property (strong) NSTask *task;
@@ -61,6 +66,19 @@
   self.contents = textView.string;
 }
 
+- (void)presentProgressSheet;
+{
+  NSWindowController *controller = self.windowControllers[0];
+  [controller.window beginSheet:self.progressWindow
+              completionHandler:^(NSModalResponse returnCode) { NSLog(@"Closed!"); }];
+}
+
+- (IBAction)dismissProgressSheet:(id)sender;
+{
+  NSWindowController *controller = self.windowControllers[0];
+  [controller.window endSheet:self.progressWindow];
+}
+
 - (IBAction)updatePods:(id)sender;
 {
   [self taskWithCommand:@"update"];
@@ -107,6 +125,8 @@
   [[errorPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
 
   [self.task launch];
+
+  [self presentProgressSheet];
 }
 
 - (void)outputAvailable:(NSNotification *)notification;
@@ -117,13 +137,17 @@
   if (data.length > 0) {
     NSString *output = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
-    NSPipe *outputPipe = self.task.standardOutput;
-    BOOL standardOutput = fileHandle == outputPipe.fileHandleForReading;
-    NSLog(@"[%@] %@", standardOutput ? @"STDOUT" : @"STDERR", output);
+    // NSPipe *outputPipe = self.task.standardOutput;
+    // BOOL standardOutput = fileHandle == outputPipe.fileHandleForReading;
+    // NSLog(@"[%@] %@", standardOutput ? @"STDOUT" : @"STDERR", output);
+    self.progressOutputView.string = [self.progressOutputView.string stringByAppendingString:output];
   }
 
   if (self.task.isRunning) {
     [fileHandle waitForDataInBackgroundAndNotify];
+  } else {
+    // Setting to `nil` signals through bindings that task has finished.
+    self.task = nil;
   }
 }
 
