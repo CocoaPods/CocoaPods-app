@@ -86,13 +86,28 @@
 {
   NSWindowController *controller = self.windowControllers[0];
   [controller.window beginSheet:self.progressWindow
-              completionHandler:^(NSModalResponse returnCode) { NSLog(@"Closed!"); }];
+              completionHandler:^(NSModalResponse returnCode) {
+    if (returnCode == NSModalResponseAbort) {
+      [self.task interrupt];
+    }
+    // Reset the sheet /after/ it has been removed from screen.
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self resetSheet];
+    });
+  }];
 }
 
 - (IBAction)dismissProgressSheet:(id)sender;
 {
   NSWindowController *controller = self.windowControllers[0];
-  [controller.window endSheet:self.progressWindow];
+  [controller.window endSheet:self.progressWindow
+                   returnCode:(self.task.isRunning ?
+                                NSModalResponseAbort : NSModalResponseStop)];
+}
+
+- (void)resetSheet;
+{
+  self.progressOutputView.string = @"";
 }
 
 #pragma mark -
