@@ -1,3 +1,4 @@
 platform :osx
 
 pod 'Fragaria', :podspec => 'Fragaria.podspec.json'
+pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec'

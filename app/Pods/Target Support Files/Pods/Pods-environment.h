@@ -6,6 +6,12 @@
 // project.
 
 
+// ANSIEscapeHelper
+#define COCOAPODS_POD_AVAILABLE_ANSIEscapeHelper
+#define COCOAPODS_VERSION_MAJOR_ANSIEscapeHelper 0
+#define COCOAPODS_VERSION_MINOR_ANSIEscapeHelper 9
+#define COCOAPODS_VERSION_PATCH_ANSIEscapeHelper 6
+
 // Fragaria
 #define COCOAPODS_POD_AVAILABLE_Fragaria
 #define COCOAPODS_VERSION_MAJOR_Fragaria 1
