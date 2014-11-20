@@ -99,7 +99,7 @@
                             <rect key="frame" x="1" y="1" width="223" height="133"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="H0M-No-2Bd">
+                                <textView editable="NO" importsGraphics="NO" findStyle="panel" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="H0M-No-2Bd">
                                     <rect key="frame" x="0.0" y="0.0" width="223" height="208"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,7 +109,11 @@
                                     <size key="minSize" width="480" height="208"/>
                                     <size key="maxSize" width="482" height="10000000"/>
                                     <connections>
-                                        <binding destination="-2" name="attributedString" keyPath="self.taskOutput" id="AHb-B1-Bnq"/>
+                                        <binding destination="-2" name="attributedString" keyPath="self.taskOutput" id="whe-EK-dhh">
+                                            <dictionary key="options">
+                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                            </dictionary>
+                                        </binding>
                                     </connections>
                                 </textView>
                             </subviews>
