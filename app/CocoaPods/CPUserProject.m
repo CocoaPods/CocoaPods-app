@@ -11,6 +11,7 @@
 @property (strong) MGSFragaria *editor;
 @property (strong) NSString *contents;
 @property (strong) NSTask *task;
+@property (strong) NSAttributedString *taskOutput;
 @end
 
 @implementation CPUserProject
@@ -107,7 +108,7 @@
 
 - (void)resetSheet;
 {
-  self.progressOutputView.string = @"";
+  self.taskOutput = nil;
 }
 
 #pragma mark -
@@ -164,6 +165,9 @@
   [self presentProgressSheet];
 }
 
+#pragma mark -
+#pragma mark Command output
+
 - (void)outputAvailable:(NSNotification *)notification;
 {
   NSFileHandle *fileHandle = notification.object;
@@ -172,10 +176,10 @@
   if (data.length > 0) {
     NSString *output = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
-    // NSPipe *outputPipe = self.task.standardOutput;
-    // BOOL standardOutput = fileHandle == outputPipe.fileHandleForReading;
-    // NSLog(@"[%@] %@", standardOutput ? @"STDOUT" : @"STDERR", output);
-    self.progressOutputView.string = [self.progressOutputView.string stringByAppendingString:output];
+    //NSPipe *outputPipe = self.task.standardOutput;
+    //BOOL standardOutput = fileHandle == outputPipe.fileHandleForReading;
+    //NSLog(@"[%@] %@", standardOutput ? @"STDOUT" : @"STDERR", output);
+    [self appendTaskOutput:output];
   }
 
   if (self.task.isRunning) {
@@ -183,6 +187,18 @@
   } else {
     // Setting to `nil` signals through bindings that task has finished.
     self.task = nil;
+  }
+}
+
+- (void)appendTaskOutput:(NSString *)rawOutput;
+{
+  NSAttributedString *attributedOutput = [[NSAttributedString alloc] initWithString:rawOutput];
+  if (self.taskOutput) {
+    NSMutableAttributedString *existingOutput = [self.taskOutput mutableCopy];
+    [existingOutput appendAttributedString:attributedOutput];
+    self.taskOutput = [existingOutput copy];
+  } else {
+    self.taskOutput = attributedOutput;
   }
 }
 

@@ -108,6 +108,9 @@
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="480" height="208"/>
                                     <size key="maxSize" width="482" height="10000000"/>
+                                    <connections>
+                                        <binding destination="-2" name="attributedString" keyPath="self.taskOutput" id="AHb-B1-Bnq"/>
+                                    </connections>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
