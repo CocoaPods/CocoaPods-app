@@ -35,6 +35,15 @@
   self.undoManager = textView.undoManager;
 }
 
+- (void)textDidChange:(NSNotification *)notification;
+{
+  NSTextView *textView = notification.object;
+  self.contents = textView.string;
+}
+
+#pragma mark -
+#pragma mark Persistance
+
 - (BOOL)readFromURL:(NSURL *)absoluteURL
              ofType:(NSString *)typeName
               error:(NSError **)outError;
@@ -60,10 +69,17 @@
                              error:outError];
 }
 
-- (void)textDidChange:(NSNotification *)notification;
+#pragma mark -
+#pragma mark Progress sheet
+
++ (NSSet *)keyPathsForValuesAffectingProgressButtonTitle;
 {
-  NSTextView *textView = notification.object;
-  self.contents = textView.string;
+  return [NSSet setWithObject:@"task"];
+}
+
+- (NSString *)progressButtonTitle;
+{
+  return self.task == nil ? @"Done" : @"Cancel";
 }
 
 - (void)presentProgressSheet;
@@ -78,6 +94,9 @@
   NSWindowController *controller = self.windowControllers[0];
   [controller.window endSheet:self.progressWindow];
 }
+
+#pragma mark -
+#pragma mark Command execution
 
 - (IBAction)updatePods:(id)sender;
 {
