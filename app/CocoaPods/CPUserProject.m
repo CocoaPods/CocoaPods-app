@@ -104,8 +104,7 @@
 {
   NSWindowController *controller = self.windowControllers[0];
   [controller.window endSheet:self.progressWindow
-                   returnCode:(self.task.isRunning ?
-                                NSModalResponseAbort : NSModalResponseStop)];
+                   returnCode:(self.task.isRunning ? NSModalResponseAbort : NSModalResponseStop)];
 }
 
 - (void)resetSheet;
@@ -132,34 +131,51 @@
     [self saveDocument:nil];
   }
 
+  NSDictionary *environment = @{
+    @"HOME": NSHomeDirectory(),
+    @"LANG": @"en_GB.UTF-8",
+    @"TERM": @"xterm-256color"
+  };
+
+  NSString *workingDirectory = [[self.fileURL URLByDeletingLastPathComponent] path];
+
+  NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"bundle-env"
+                                                         ofType:nil
+                                                    inDirectory:@"bundle/bin"];
+
   NSArray *arguments = @[@"pod", command, @"--ansi"];
   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
     arguments = [arguments arrayByAddingObject:@"--verbose"];
   }
 
-  self.task = [NSTask new];
-  self.task.launchPath = [[NSBundle mainBundle] pathForResource:@"bundle-env" ofType:nil inDirectory:@"bundle/bin"];
-  self.task.arguments = arguments;
-  self.task.environment = @{ @"HOME":NSHomeDirectory(), @"LANG":@"en_GB.UTF-8", @"TERM":@"xterm-256color" };
-  self.task.currentDirectoryPath = [[self.fileURL URLByDeletingLastPathComponent] path];
-  NSLog(@"(PWD: %@ - ENV: %@) %@ %@", self.task.currentDirectoryPath, self.task.environment, self.task.launchPath, [self.task.arguments componentsJoinedByString:@" "]);
+  NSString *args = [arguments componentsJoinedByString:@" "];
+  NSLog(@"$ cd '%@' && env HOME='%@' LANG='%@' TERM='%@' %@ %@", workingDirectory,
+                                                                 environment[@"HOME"],
+                                                                 environment[@"LANG"],
+                                                                 environment[@"TERM"],
+                                                                 launchPath,
+                                                                 args);
 
-  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+  self.task = [NSTask new];
+  self.task.launchPath = launchPath;
+  self.task.arguments = arguments;
+  self.task.environment = environment;
+  self.task.currentDirectoryPath = workingDirectory;
 
   NSPipe *outputPipe = [NSPipe pipe];
   self.task.standardOutput = outputPipe;
-  [nc addObserver:self
-         selector:@selector(outputAvailable:)
-             name:NSFileHandleDataAvailableNotification
-           object:[outputPipe fileHandleForReading]];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(outputAvailable:)
+                                               name:NSFileHandleDataAvailableNotification
+                                             object:[outputPipe fileHandleForReading]];
   [[outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
 
   NSPipe *errorPipe = [NSPipe pipe];
   self.task.standardError = errorPipe;
-  [nc addObserver:self
-         selector:@selector(outputAvailable:)
-             name:NSFileHandleDataAvailableNotification
-           object:[errorPipe fileHandleForReading]];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(outputAvailable:)
+                                               name:NSFileHandleDataAvailableNotification
+                                             object:[errorPipe fileHandleForReading]];
   [[errorPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
 
   [self.task launch];
@@ -176,8 +192,7 @@
   NSData *data = fileHandle.availableData;
 
   if (data.length > 0) {
-    NSString *output = [[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding];
+    NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     //NSPipe *outputPipe = self.task.standardOutput;
     //BOOL standardOutput = fileHandle == outputPipe.fileHandleForReading;
     //NSLog(@"[%@] %@", standardOutput ? @"STDOUT" : @"STDERR", output);
@@ -193,10 +208,9 @@
 
 - (void)taskDidFinish;
 {
-  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-  [nc removeObserver:self
-                name:NSFileHandleDataAvailableNotification
-              object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                  name:NSFileHandleDataAvailableNotification
+                                                object:nil];
 
   // Setting to `nil` signals through bindings that task has finished.
   self.task = nil;
@@ -208,8 +222,7 @@ ANSIUnescapeString(NSString *input) {
   static dispatch_once_t onceToken = 0;
   dispatch_once(&onceToken, ^{
     // Re-use the font that the text editor is configured to use.
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *fontData = [defaults valueForKey:MGSFragariaPrefsTextFont];
+    NSData *fontData = [[NSUserDefaults standardUserDefaults] valueForKey:MGSFragariaPrefsTextFont];
     NSFont *font = [NSUnarchiver unarchiveObjectWithData:fontData];
 
     ANSIEscapeHelper = [AMR_ANSIEscapeHelper new];
