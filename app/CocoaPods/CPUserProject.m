@@ -27,11 +27,12 @@
   [super windowControllerDidLoadNib:controller];
 
   self.editor = [MGSFragaria new];
-  [self.editor setObject:self forKey:MGSFODelegate];
-  [self.editor setSyntaxColoured:YES];
-  [self.editor setSyntaxDefinitionName:@"Ruby"];
   [self.editor embedInView:self.containerView];
-  [self.editor setString:self.contents];
+  [self.editor setObject:self forKey:MGSFODelegate];
+
+  self.editor.syntaxColoured = YES;
+  self.editor.syntaxDefinitionName = @"Ruby";
+  self.editor.string = self.contents;
 
   NSTextView *textView = [self.editor objectForKey:ro_MGSFOTextView];
   self.undoManager = textView.undoManager;
