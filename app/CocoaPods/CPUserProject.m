@@ -117,15 +117,15 @@
 
 - (IBAction)updatePods:(id)sender;
 {
-  [self taskWithCommand:@"update"];
+  [self executeTaskWithCommand:@"update"];
 }
 
 - (IBAction)installPods:(id)sender;
 {
-  [self taskWithCommand:@"install"];
+  [self executeTaskWithCommand:@"install"];
 }
 
-- (void)taskWithCommand:(NSString *)command;
+- (void)executeTaskWithCommand:(NSString *)command;
 {
   if (self.isDocumentEdited) {
     [self saveDocument:nil];
