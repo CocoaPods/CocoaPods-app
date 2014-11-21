@@ -9,7 +9,7 @@
 //
 // IMPORTANT:
 //
-// A benefit of this is that we do not need to ask the user to install this tool *again* after an
+// A benefit of this is that we do *not* need to ask the user to install this tool *again* after an
 // update, unless there was a bug in this tool. As such, it is extremely important to keep this tool
 // as lean as possible. Any environmental settings pertaining to the working of bundled tools should
 // be updated in the `bundle-env` script instead, which resides inside the application bundle and as
