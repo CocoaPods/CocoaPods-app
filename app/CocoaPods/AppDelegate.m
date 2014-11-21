@@ -8,10 +8,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
-  [self installBinstubIfNecessary];
+  [self installBinstubIfNecessary:nil];
 }
 
-- (void)installBinstubIfNecessary;
+- (IBAction)installBinstubIfNecessary:(id)sender;
 {
   // TODO change this to just `pod` for real release and then also update the
   // `sprintf` calls to `snprintf` with hardcoded lengths.
