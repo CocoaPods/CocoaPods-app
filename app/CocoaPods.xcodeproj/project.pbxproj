@@ -17,6 +17,7 @@
 		51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */; };
 		51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E551A1B925300DCFC94 /* CPUserProject.m */; };
 		51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E561A1B925300DCFC94 /* CPUserProject.xib */; };
+		51C2188E1A1FC61B0066F071 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 51C2188D1A1FC61B0066F071 /* Icon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		51165E541A1B925200DCFC94 /* CPUserProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUserProject.h; sourceTree = "<group>"; };
 		51165E551A1B925300DCFC94 /* CPUserProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUserProject.m; sourceTree = "<group>"; };
 		51165E561A1B925300DCFC94 /* CPUserProject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPUserProject.xib; sourceTree = "<group>"; };
+		51C2188D1A1FC61B0066F071 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = SOURCE_ROOT; };
 		8400280B1B98668A2331DC84 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9067E96E1BBC7DDE73B99AD4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FF53DC3F37552C5161A9C066 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 			children = (
 				51165E231A17AFF500DCFC94 /* Info.plist */,
 				51165E271A17AFF500DCFC94 /* main.m */,
+				51C2188D1A1FC61B0066F071 /* Icon.icns */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			files = (
 				51165E511A190FAA00DCFC94 /* pod in Resources */,
 				51165E431A17B20700DCFC94 /* bundle in Resources */,
+				51C2188E1A1FC61B0066F071 /* Icon.icns in Resources */,
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 				51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */,
 			);
