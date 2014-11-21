@@ -187,9 +187,19 @@
   if (self.task.isRunning) {
     [fileHandle waitForDataInBackgroundAndNotify];
   } else {
-    // Setting to `nil` signals through bindings that task has finished.
-    self.task = nil;
+    [self taskDidFinish];
   }
+}
+
+- (void)taskDidFinish;
+{
+  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+  [nc removeObserver:self
+                name:NSFileHandleDataAvailableNotification
+              object:nil];
+
+  // Setting to `nil` signals through bindings that task has finished.
+  self.task = nil;
 }
 
 static NSAttributedString *
