@@ -5,7 +5,7 @@
 // To do this, it uses Launch Services to locate the application bundle by Bundle Identifier.
 // Meaning that the user is free to move the application bundle on disk after installing this tool.
 // Solutions like symbolic links would break if the bundle was moved and 'aliases' can break when
-// updating the application and the file tha alias pointed to no longer exists.
+// updating the application and the file the alias pointed to no longer exists.
 //
 // IMPORTANT:
 //
