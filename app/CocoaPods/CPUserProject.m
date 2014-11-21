@@ -138,12 +138,12 @@
   };
 
   NSString *workingDirectory = [[self.fileURL URLByDeletingLastPathComponent] path];
+  NSString *launchPath = @"/bin/sh";
+  NSString *envBundleScript = [[NSBundle mainBundle] pathForResource:@"bundle-env"
+                                                              ofType:nil
+                                                        inDirectory:@"bundle/bin"];
 
-  NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"bundle-env"
-                                                         ofType:nil
-                                                    inDirectory:@"bundle/bin"];
-
-  NSArray *arguments = @[@"pod", command, @"--ansi"];
+  NSArray *arguments = @[envBundleScript, @"pod", command, @"--ansi"];
   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
     arguments = [arguments arrayByAddingObject:@"--verbose"];
   }
