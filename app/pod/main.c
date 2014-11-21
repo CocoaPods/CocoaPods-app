@@ -1,3 +1,21 @@
+//
+// This tool is placed in the user's LOAD path so that they can use the CocoaPods CLI without having
+// to worry about where the tools are installed.
+//
+// To do this, it uses Launch Services to locate the application bundle by Bundle Identifier.
+// Meaning that the user is free to move the application bundle on disk after installing this tool.
+// Solutions like symbolic links would break if the bundle was moved and 'aliases' can break when
+// updating the application and the file tha alias pointed to no longer exists.
+//
+// IMPORTANT:
+//
+// A benefit of this is that we do not need to ask the user to install this tool *again* after an
+// update, unless there was a bug in this tool. As such, it is extremely important to keep this tool
+// as lean as possible. Any environmental settings pertaining to the working of bundled tools should
+// be updated in the `bundle-env` script instead, which resides inside the application bundle and as
+// such will be easily updatable.
+//
+
 #include <stdio.h>
 #include <pwd.h>
 #include <CoreServices/CoreServices.h>
