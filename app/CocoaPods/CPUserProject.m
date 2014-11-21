@@ -181,13 +181,13 @@
   [[errorPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
 
   [self.task launch];
-
   [self presentProgressSheet];
 }
 
 #pragma mark -
 #pragma mark Command output
 
+// Not doing anything differently with stdout vs stderr atm.
 - (void)outputAvailable:(NSNotification *)notification;
 {
   NSFileHandle *fileHandle = notification.object;
@@ -195,9 +195,6 @@
 
   if (data.length > 0) {
     NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    //NSPipe *outputPipe = self.task.standardOutput;
-    //BOOL standardOutput = fileHandle == outputPipe.fileHandleForReading;
-    //NSLog(@"[%@] %@", standardOutput ? @"STDOUT" : @"STDERR", output);
     [self appendTaskOutput:output];
   }
 
