@@ -67,13 +67,17 @@ int main(int argc, const char * argv[]) {
   }
   args[argc+2] = NULL;
 
-//  for (const char **i = args; *i != NULL; i++) {
-//    printf("ARG: %s\n", *i);
-//  }
-
   // -----------------------------------------------------------------------------------------------
   // Replace process.
   // -----------------------------------------------------------------------------------------------
+#ifdef DEBUG
+  printf("$ env HOME='%s' LANG='en_GB.UTF-8' TERM='%s' '%s'", homePath, envTerm, envScriptPath);
+  for (const char **i = args; *i != NULL; i++) {
+    printf(" '%s'", *i);
+  }
+  printf("\n");
+#endif
+
   execve(shPath, (char *const *)args, env);
 
   fprintf(stderr, "Failed to execute `%s` (%d - %s)\n", envScriptPath, errno, strerror(errno));

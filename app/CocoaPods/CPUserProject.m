@@ -148,6 +148,7 @@
     arguments = [arguments arrayByAddingObject:@"--verbose"];
   }
 
+#ifdef DEBUG
   NSString *args = [arguments componentsJoinedByString:@" "];
   NSLog(@"$ cd '%@' && env HOME='%@' LANG='%@' TERM='%@' %@ %@", workingDirectory,
                                                                  environment[@"HOME"],
@@ -155,6 +156,7 @@
                                                                  environment[@"TERM"],
                                                                  launchPath,
                                                                  args);
+#endif
 
   self.task = [NSTask new];
   self.task.launchPath = launchPath;
