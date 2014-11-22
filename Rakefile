@@ -29,6 +29,17 @@ ENV['LDFLAGS'] = "-L#{File.join(DEPENDENCIES_PREFIX, 'lib')}"
 PKG_CONFIG_LIBDIR = File.join(DEPENDENCIES_PREFIX, 'lib/pkgconfig')
 ENV['PKG_CONFIG_LIBDIR'] = PKG_CONFIG_LIBDIR
 
+# Defaults to the latest available version or the VERSION env variable.
+def install_cocoapods_version
+  return @install_cocoapods_version if @install_cocoapods_version
+  return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
+
+  sh "pod repo update master"
+  version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
+  require 'yaml'
+  @install_cocoapods_version = YAML.load(File.read(version_file))['last']
+end
+
 # ------------------------------------------------------------------------------
 # Package metadata
 # ------------------------------------------------------------------------------
@@ -343,7 +354,7 @@ end
 
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
 file installed_pod_bin => rubygems_update_dir do
-  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install cocoapods --pre --no-document --env-shebang"
+  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install cocoapods --version=#{install_cocoapods_version} --no-document --env-shebang"
 end
 
 # ------------------------------------------------------------------------------
