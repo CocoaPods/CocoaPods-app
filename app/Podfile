@@ -1,4 +1,8 @@
 platform :osx
 
-pod 'Fragaria', :podspec => 'Fragaria.podspec.json'
-pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec'
+# TODO inhibiting warnings (when they’re not harmfule) while working on the application.
+
+# Has 3 warnings about deprecated -[NSImage setFlipped:] API
+pod 'Fragaria', :podspec => 'Fragaria.podspec.json', :inhibit_warnings => true
+# Has 6 warnings about integer precision loss.
+pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec', :inhibit_warnings => true
