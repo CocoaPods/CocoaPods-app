@@ -41,7 +41,8 @@
                             "the Terminal, a `%s` tool can be installed which will allow you " \
                             "easy access to the CocoaPods installation contained inside this " \
                             "application.\n\nThis is not needed for the application to function " \
-                            "normally.", destination_basename];
+                            "normally and can always be installed at a later time by using the " \
+                            "menu item found under the application menu.", destination_basename];
   [alert addButtonWithTitle:[NSString stringWithFormat:@"Install to `%s`", destination_dirname]];
   [alert addButtonWithTitle:@"Install to Alternate Destination…"];
   [alert addButtonWithTitle:@"Cancel"];
