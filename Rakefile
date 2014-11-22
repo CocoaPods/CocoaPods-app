@@ -462,6 +462,11 @@ namespace :app do
     build = `/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{info_plist}'`.strip.to_i
     sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleVersion #{build+1}' '#{info_plist}'"
   end
+
+  desc 'Build release version of application'
+  task :build => :update_version do
+    sh "cd app && xcodebuild -workspace CocoaPods.xcworkspace -scheme CocoaPods -configuration Release"
+  end
 end
 
 # ------------------------------------------------------------------------------
