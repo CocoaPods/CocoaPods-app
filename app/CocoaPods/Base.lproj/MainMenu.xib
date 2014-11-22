@@ -116,6 +116,17 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
+                            <menuItem title="Install Pods" keyEquivalent="i" id="74x-1X-Sqd">
+                                <connections>
+                                    <action selector="installPods:" target="-1" id="eNF-z0-enS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Update Pods" keyEquivalent="u" id="QoN-NS-r0U">
+                                <connections>
+                                    <action selector="updatePods:" target="-1" id="cT2-2X-DPK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="7OG-jj-T7Z"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
