@@ -18,6 +18,7 @@
 		51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E551A1B925300DCFC94 /* CPUserProject.m */; };
 		51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E561A1B925300DCFC94 /* CPUserProject.xib */; };
 		51C2188E1A1FC61B0066F071 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 51C2188D1A1FC61B0066F071 /* Icon.icns */; };
+		51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,8 @@
 		51165E551A1B925300DCFC94 /* CPUserProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUserProject.m; sourceTree = "<group>"; };
 		51165E561A1B925300DCFC94 /* CPUserProject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPUserProject.xib; sourceTree = "<group>"; };
 		51C2188D1A1FC61B0066F071 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = SOURCE_ROOT; };
+		51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLIToolInstallationController.h; sourceTree = "<group>"; };
+		51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLIToolInstallationController.m; sourceTree = "<group>"; };
 		770382F31A2035B400435285 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		8400280B1B98668A2331DC84 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9067E96E1BBC7DDE73B99AD4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				51165E251A17AFF500DCFC94 /* AppDelegate.m */,
 				51165E541A1B925200DCFC94 /* CPUserProject.h */,
 				51165E551A1B925300DCFC94 /* CPUserProject.m */,
+				51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */,
+				51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */,
 				51165E561A1B925300DCFC94 /* CPUserProject.xib */,
 				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
@@ -289,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
+				51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */,
 				51165E261A17AFF500DCFC94 /* AppDelegate.m in Sources */,
 				51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */,
 			);
