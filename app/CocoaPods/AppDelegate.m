@@ -12,6 +12,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
+  //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPHaveAskedUserToInstallTool"];
+  //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPShowVerboseCommandOutput"];
+  //NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+
   [self installBinstubIfNecessary:nil];
 }
 
@@ -133,6 +137,7 @@
 {
   // Never ask the user to automatically install again.
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"CPHaveAskedUserToInstallTool"];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSURL *)runModalDestinationOpenPanel:(NSURL *)startingDirectoryURL;
