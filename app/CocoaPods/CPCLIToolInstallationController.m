@@ -42,10 +42,21 @@ NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInsta
 
 - (BOOL)installBinstub;
 {
+  BOOL installed = NO;
   if ([self runModalInstallationRequestAlert]) {
-    return [self installBinstubToPrivilegedDestination];
+    NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
+    NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
+    if (access(destinationDirURL.fileSystemRepresentation, W_OK) == 0) {
+      installed = [self installBinstubToAccessibleDestination];
+    } else {
+      installed = [self installBinstubToPrivilegedDestination];
+    }
+    if (installed) {
+      NSLog(@"Successfully wrote binstub to destination.");
+      [self setDoNotRequestInstallationAgain];
+    }
   }
-  return NO;
+  return installed;
 }
 
 #pragma mark - Utility
@@ -57,6 +68,11 @@ NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInsta
   NSLog(@"Not going to automatically request binstub installation anymore.");
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCPRequestCLIToolInstallationAgainKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSURL *)binstubSourceURL;
+{
+  return [[NSBundle mainBundle] URLForResource:@"pod" withExtension:nil];
 }
 
 #pragma mark - User interaction (modal windows)
@@ -122,6 +138,24 @@ NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInsta
 
 #pragma mark - Binstub installation
 
+// This simply performs a copy operation of the binstub to the destination without asking the user
+// for authorization.
+//
+// Returns whether or not it succeeded.
+//
+- (BOOL)installBinstubToAccessibleDestination;
+{
+  NSError *error = nil;
+  NSURL *sourceURL = self.binstubSourceURL;
+  BOOL succeeded = [[NSFileManager defaultManager] copyItemAtURL:sourceURL
+                                                           toURL:self.destinationURL
+                                                           error:&error];
+  if (error) {
+    NSLog(@"Failed to copy source `%@` (%@)", sourceURL.path, error);
+  }
+  return succeeded;
+}
+
 // Tries to install the binstub to `destinationURL` by asking the user for authorization to write to
 // the destination first.
 //
@@ -137,7 +171,6 @@ NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInsta
 - (BOOL)installBinstubToPrivilegedDestination;
 {
   const char *destination_path = self.destinationURL.fileSystemRepresentation;
-  NSLog(@"Try to install binstub to `%s`.", destination_path);
 
   // Configure requested authorization.
   char name[1024];
@@ -180,20 +213,17 @@ NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInsta
     fwrite(&serializedRef, sizeof(serializedRef), 1, destination_pipe);
     fflush(destination_pipe);
     // Now write the actual file data.
-    NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"pod" ofType:nil];
-    FILE *source_file = fopen([sourcePath UTF8String], "r");
+    NSURL *sourceURL = self.binstubSourceURL;
+    FILE *source_file = fopen(sourceURL.fileSystemRepresentation, "r");
     if (source_file == NULL) {
-      NSLog(@"Failed to open `%@` (%d - %s)", sourcePath, errno, strerror(errno));
+      NSLog(@"Failed to open source `%@` (%d - %s)", sourceURL.path, errno, strerror(errno));
     } else {
-      NSLog(@"Write contents of `%@` to destination.", sourcePath);
       int c;
       while ((c = fgetc(source_file)) != EOF) {
         fwrite(&c, 1, 1, destination_pipe);
       }
       fclose(source_file);
       succeeded = YES;
-      NSLog(@"Successfully wrote binstub to destination.");
-      [self setDoNotRequestInstallationAgain];
     }
     pclose(destination_pipe);
   }
