@@ -157,12 +157,16 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/"]];
 }
 
-- (IBAction)openPodspecReference:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podspec.html"]];
+- (IBAction)openPodspecReference:(id)sender;
+{
+  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podspec.html"];
+  [[NSWorkspace sharedWorkspace] openURL:URL];
 }
 
-- (IBAction)openPodfileReference:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podfile.html"]];
+- (IBAction)openPodfileReference:(id)sender;
+{
+  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podfile.html"];
+  [[NSWorkspace sharedWorkspace] openURL:URL];
 }
 
 @end
