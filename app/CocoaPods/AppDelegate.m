@@ -43,16 +43,11 @@
 
   NSAlert *alert = [NSAlert new];
   alert.alertStyle = NSInformationalAlertStyle;
-  alert.messageText = @"Do you wish to Install the Command-Line Tool?";
-  alert.informativeText = [NSString stringWithFormat:@"In case you wish to use CocoaPods from " \
-                            "the Terminal, a `%@` tool can be installed which will allow you " \
-                            "easy access to the CocoaPods installation contained inside this " \
-                            "application.\n\nThis is not needed for the application to function " \
-                            "normally and can always be installed at a later time by using the " \
-                            "menu item found under the application menu.", destinationFilename];
-  [alert addButtonWithTitle:[NSString stringWithFormat:@"Install to `%@`", destinationDir.path]];
-  [alert addButtonWithTitle:@"Install to Alternate Destination…"];
-  [alert addButtonWithTitle:@"Cancel"];
+  alert.messageText = NSLocalizedString(@"INSTALL_CLI_MESSAGE_TEXT", nil);
+  alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"INSTALL_CLI_INFORMATIVE_TEXT", nil), destinationFilename];
+  [alert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"INSTALL_CLI", nil), destinationDir.path]];
+  [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_ALTERNATE_DESTINATION", nil)];
+  [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_CANCEL", nil)];
 
   switch ([alert runModal]) {
     case NSAlertSecondButtonReturn:
