@@ -1,12 +1,12 @@
-#import "AppDelegate.h"
+#import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
 
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod-binstub";
 
-@interface AppDelegate ()
+@interface CPAppDelegate ()
 @end
 
-@implementation AppDelegate
+@implementation CPAppDelegate
 
 #pragma mark - NSApplicationDelegate
 
