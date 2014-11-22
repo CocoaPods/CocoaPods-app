@@ -209,6 +209,7 @@
 		51165E171A17AFF500DCFC94 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = CP;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
