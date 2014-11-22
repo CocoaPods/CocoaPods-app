@@ -31,7 +31,7 @@
   [self.editor setObject:self forKey:MGSFODelegate];
 
   self.editor.syntaxColoured = YES;
-  self.editor.syntaxDefinitionName = @"Ruby";
+  self.editor.syntaxDefinitionName = @"Podfile";
   self.editor.string = self.contents;
 
   NSTextView *textView = [self.editor objectForKey:ro_MGSFOTextView];

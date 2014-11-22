@@ -53,8 +53,8 @@ install_resource()
                     install_resource "Fragaria/SMLGoToLine.xib"
                     install_resource "Fragaria/SMLOpenPanelAccessoryView.xib"
                     install_resource "Fragaria/SMLRegularExpressionHelp.xib"
-                    install_resource "Fragaria/Syntax Definitions"
-                    install_resource "Fragaria/SyntaxDefinitions.plist"
+                    
+                    
           
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then

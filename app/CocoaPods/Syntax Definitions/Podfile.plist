@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beginCommand</key>
+	<string></string>
+	<key>endCommand</key>
+	<string></string>
+	<key>beginInstruction</key>
+	<string>{</string>
+	<key>endInstruction</key>
+	<string>}</string>
+	<key>beginVariable</key>
+	<string>$@</string>
+	<key>endVariable</key>
+	<string> .</string>
+	<key>firstString</key>
+	<string>"</string>
+	<key>secondString</key>
+	<string>'</string>
+	<key>firstSingleLineComment</key>
+	<string>#</string>
+	<key>secondSingleLineComment</key>
+	<string></string>
+	<key>beginFirstMultiLineComment</key>
+	<string></string>
+	<key>endFirstMultiLineComment</key>
+	<string></string>
+	<key>beginSecondMultiLineComment</key>
+	<string></string>
+	<key>endSecondMultiLineComment</key>
+	<string></string>
+	<key>functionDefinition</key>
+	<string>^\s*def.*</string>
+	<key>removeFromFunction</key>
+	<string>def </string>
+	<key>keywordsCaseSensitive</key>
+	<false/>
+	<key>recolourKeywordIfAlreadyColoured</key>
+	<true/>
+	<key>keywords</key>
+	<array>
+		<string>BEGIN</string>
+		<string>END</string>
+		<string>and</string>
+		<string>begin</string>
+		<string>break</string>
+		<string>case</string>
+		<string>catch</string>
+		<string>defined?</string>
+		<string>do</string>
+		<string>else</string>
+		<string>elsif</string>
+		<string>end</string>
+		<string>ensure</string>
+		<string>for</string>
+		<string>if</string>
+		<string>in</string>
+		<string>include</string>
+		<string>next</string>
+		<string>not</string>
+		<string>or</string>
+		<string>private</string>
+		<string>protected</string>
+		<string>public</string>
+		<string>redo</string>
+		<string>require</string>
+		<string>rescue</string>
+		<string>retry</string>
+		<string>return</string>
+		<string>then</string>
+		<string>throw</string>
+		<string>unless</string>
+		<string>until</string>
+		<string>when</string>
+		<string>while</string>
+		<string>yield</string>
+		<string>attr</string>
+		<string>attr_reader</string>
+		<string>attr_writer</string>
+		<string>attr_accessor</string>
+		<string>alias</string>
+		<string>module</string>
+		<string>class</string>
+		<string>def</string>
+		<string>undef</string>
+		<string>self</string>
+		<string>super</string>
+		<string>nil</string>
+		<string>false</string>
+		<string>true</string>
+		<string>__FILE__</string>
+		<string>__LINE__</string>
+	</array>
+	<key>autocompleteWords</key>
+	<array>
+		<!-- `pod` directive -->
+		<string>pod</string>
+		<string>:path</string>
+		<string>:podspec</string>
+		<string>:git</string>
+		<string>:svn</string>
+		<string>:tag</string>
+		<string>:branch</string>
+		<string>:commit</string>
+		<string>:configurations</string>
+		<string>:configuration</string>
+		<string>:inhibit_warnings</string>
+		<!-- `podspec` directive -->
+		<string>podspec</string>
+		<string>:path</string>
+		<string>:name</string>
+		<!-- `target` directive -->
+		<string>target</string>
+		<string>:exclusive</string>
+		<!-- `platform` directive -->
+		<string>platform</string>
+		<string>:ios</string>
+		<string>:osx</string>
+		<!-- `xcodeproj` directive -->
+		<string>xcodeproj</string>
+		<string>:debug</string>
+		<string>:release</string>
+		<!-- `link_with` directive -->
+		<string>link_with</string>
+		<!-- `inhibit_all_warnings!` directive -->
+		<string>inhibit_all_warnings!</string>
+		<!-- `workspace` directive -->
+		<string>workspace</string>
+		<!-- `generate_bridge_support!` directive -->
+		<string>generate_bridge_support!</string>
+		<!-- `set_arc_compatibility_flag!` directive -->
+		<string>set_arc_compatibility_flag!</string>
+		<!-- `source` directive -->
+		<string>source</string>
+		<!-- `plugin` directive -->
+		<string>plugin</string>
+		<!-- `pre_install` directive -->
+		<string>pre_install</string>
+		<!-- `post_install` directive -->
+		<string>post_install</string>
+	</array>
+</dict>
+</plist>
