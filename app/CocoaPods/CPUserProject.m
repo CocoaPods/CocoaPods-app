@@ -44,8 +44,7 @@
   self.contents = textView.string;
 }
 
-#pragma mark -
-#pragma mark Persistance
+#pragma mark - Persistance
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL
              ofType:(NSString *)typeName
@@ -72,8 +71,7 @@
                              error:outError];
 }
 
-#pragma mark -
-#pragma mark Progress sheet
+#pragma mark - Progress sheet
 
 + (NSSet *)keyPathsForValuesAffectingProgressButtonTitle;
 {
@@ -112,8 +110,7 @@
   self.taskOutput = nil;
 }
 
-#pragma mark -
-#pragma mark Command execution
+#pragma mark - Command execution
 
 - (IBAction)updatePods:(id)sender;
 {
@@ -184,8 +181,7 @@
   [self presentProgressSheet];
 }
 
-#pragma mark -
-#pragma mark Command output
+#pragma mark - Command output
 
 // Not doing anything differently with stdout vs stderr atm.
 - (void)outputAvailable:(NSNotification *)notification;

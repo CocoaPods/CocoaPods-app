@@ -19,27 +19,74 @@
   [self installBinstubIfNecessary:nil];
 }
 
-#pragma mark -
+#pragma mark - Actions
+
+- (IBAction)openGuides:(id)sender;
+{
+  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/"]];
+}
+
+- (IBAction)openPodspecReference:(id)sender;
+{
+  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podspec.html"];
+  [[NSWorkspace sharedWorkspace] openURL:URL];
+}
+
+- (IBAction)openPodfileReference:(id)sender;
+{
+  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podfile.html"];
+  [[NSWorkspace sharedWorkspace] openURL:URL];
+}
 
 - (IBAction)installBinstubIfNecessary:(id)sender;
 {
   // TODO change this to just `pod` for real release and then also update the
   // `sprintf` calls to `snprintf` with hardcoded lengths.
-  NSURL *destination = [NSURL fileURLWithPath:@"/usr/bin/pod-binstub"];
+  NSURL *destinationURL = [NSURL fileURLWithPath:@"/usr/bin/pod-binstub"];
 
   // Unless explicitely triggered by user, try to determine if we should continue.
   if (sender == nil) {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPHaveAskedUserToInstallTool"]) {
+    if (access(destinationURL.fileSystemRepresentation, X_OK) == 0) {
+      NSLog(@"Already installed binstub.");
       return;
     }
-    if (access(destination.fileSystemRepresentation, X_OK) == 0) {
-      NSLog(@"Already installed binstub.");
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPHaveAskedUserToInstallTool"]) {
+      NSLog(@"Asking the user to install the binstub again is prohibited.")
       return;
     }
   }
 
-  NSString *destinationFilename = destination.lastPathComponent;
-  NSURL *destinationDir = [destination URLByDeletingLastPathComponent];
+  destinationURL = [self runModalInstallationRequestAlert:destinationURL];
+  if (destinationURL) {
+    [self installBinstub:destinationURL];
+  }
+}
+
+#pragma mark - Utility
+
+// Never ask the user to automatically install again.
+//
+- (void)setDoNotRequestInstallationAgain;
+{
+  NSLog(@"Not going to automatically request binstub installation anymore.");
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"CPHaveAskedUserToInstallTool"];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - User interaction (modal windows)
+
+// Allows the user to select a different destination.
+//
+// Returns either the `suggestedDestination`, a newly selected destination, or nil in case the user
+// chose to cancel.
+//
+// In case the user chose to cancel the operation, this preference is stored and the user will not
+// be automatically asked to install again on the next launch.
+//
+- (NSURL *)runModalInstallationRequestAlert:(NSURL *)suggestedDestinationURL;
+{
+  NSString *destinationFilename = suggestedDestinationURL.lastPathComponent;
+  NSURL *destinationDirURL = [suggestedDestinationURL URLByDeletingLastPathComponent];
 
   NSAlert *alert = [NSAlert new];
   alert.alertStyle = NSInformationalAlertStyle;
@@ -47,29 +94,62 @@
   NSString *formatString = NSLocalizedString(@"INSTALL_CLI_INFORMATIVE_TEXT", nil);
   alert.informativeText = [NSString stringWithFormat:formatString, destinationFilename];
   formatString = NSLocalizedString(@"INSTALL_CLI", nil);
-  [alert addButtonWithTitle:[NSString stringWithFormat:formatString, destinationDir.path]];
+  [alert addButtonWithTitle:[NSString stringWithFormat:formatString, destinationDirURL.path]];
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_ALTERNATE_DESTINATION", nil)];
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_CANCEL", nil)];
 
   switch ([alert runModal]) {
     case NSAlertSecondButtonReturn:
-      NSLog(@"Select alternate destination!");
-      destinationDir = [self runModalDestinationOpenPanel:destinationDir];
-      if (destinationDir == nil) {
-        NSLog(@"Cancelled by user.");
+      destinationDirURL = [self runModalDestinationOpenPanel:destinationDirURL];
+      if (destinationDirURL == nil) {
         [self setDoNotRequestInstallationAgain];
-        return;
+        return nil;
       }
       break;
     case NSAlertThirdButtonReturn:
-      NSLog(@"Cancelled by user.");
       [self setDoNotRequestInstallationAgain];
-      return;
+      return nil;
   }
 
-  destination = [destinationDir URLByAppendingPathComponent:destinationFilename];
-  const char *destination_path = destination.fileSystemRepresentation;
+  return [destinationDirURL URLByAppendingPathComponent:destinationFilename];
+}
 
+// Allows the user to choose a different destination than the suggested destination.
+//
+// Returns either the `suggestedDirectoryURL`, a newly selected destination, or nil in case the user
+// chose to cancel.
+//
+- (NSURL *)runModalDestinationOpenPanel:(NSURL *)suggestedDirectoryURL;
+{
+  NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+  openPanel.canChooseFiles = NO;
+  openPanel.canChooseDirectories = YES;
+  openPanel.canCreateDirectories = YES;
+  openPanel.showsHiddenFiles = YES;
+  openPanel.resolvesAliases = YES;
+  openPanel.allowsMultipleSelection = NO;
+  openPanel.directoryURL = suggestedDirectoryURL;
+  if ([openPanel runModal] == NSFileHandlingPanelCancelButton) {
+    return nil;
+  }
+  return openPanel.URLs[0];
+}
+
+#pragma mark - Binstub installation
+
+// Tries to install the binstub to `destinationURL` by asking the user for authorization to write to
+// the destination first.
+//
+// Because the user might have selected an alternate destination, and persisting that location leads
+// to more complex rules about when to request for installation again, we configure the application to
+// never again request for installation once succeeded.
+//
+// Do *not* store this earlier, because authorization or writing might fail before it's succeeded in
+// which case the user should be requested for installation again on the next launch.
+//
+- (void)installBinstub:(NSURL *)destinationURL;
+{
+  const char *destination_path = destinationURL.fileSystemRepresentation;
   NSLog(@"Try to install binstub to `%s`.", destination_path);
 
   // Configure requested authorization.
@@ -128,45 +208,6 @@
     }
     pclose(destination_pipe);
   }
-}
-
-- (void)setDoNotRequestInstallationAgain;
-{
-  // Never ask the user to automatically install again.
-  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"CPHaveAskedUserToInstallTool"];
-  [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSURL *)runModalDestinationOpenPanel:(NSURL *)startingDirectoryURL;
-{
-  NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-  openPanel.canChooseFiles = NO;
-  openPanel.canChooseDirectories = YES;
-  openPanel.canCreateDirectories = YES;
-  openPanel.showsHiddenFiles = YES;
-  openPanel.resolvesAliases = YES;
-  openPanel.allowsMultipleSelection = NO;
-  openPanel.directoryURL = startingDirectoryURL;
-  if ([openPanel runModal] == NSFileHandlingPanelCancelButton) {
-    return nil;
-  }
-  return openPanel.URLs[0];
-}
-
-- (IBAction)openGuides:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/"]];
-}
-
-- (IBAction)openPodspecReference:(id)sender;
-{
-  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podspec.html"];
-  [[NSWorkspace sharedWorkspace] openURL:URL];
-}
-
-- (IBAction)openPodfileReference:(id)sender;
-{
-  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podfile.html"];
-  [[NSWorkspace sharedWorkspace] openURL:URL];
 }
 
 @end
