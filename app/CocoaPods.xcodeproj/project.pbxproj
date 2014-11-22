@@ -125,10 +125,10 @@
 			isa = PBXGroup;
 			children = (
 				51165E241A17AFF500DCFC94 /* AppDelegate.h */,
+				51165E251A17AFF500DCFC94 /* AppDelegate.m */,
 				51165E541A1B925200DCFC94 /* CPUserProject.h */,
 				51165E551A1B925300DCFC94 /* CPUserProject.m */,
 				51165E561A1B925300DCFC94 /* CPUserProject.xib */,
-				51165E251A17AFF500DCFC94 /* AppDelegate.m */,
 				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
 			);
