@@ -451,6 +451,20 @@ file installed_bzr => built_bzr_dir do
 end
 
 # ------------------------------------------------------------------------------
+# CocoaPods.app
+# ------------------------------------------------------------------------------
+
+namespace :app do
+  desc 'Updates the Info.plist of the application to reflect the CocoaPods version'
+  task :update_version do
+    info_plist = File.expand_path('app/CocoaPods/Info.plist')
+    sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleShortVersionString #{install_cocoapods_version}' '#{info_plist}'"
+    build = `/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{info_plist}'`.strip.to_i
+    sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleVersion #{build+1}' '#{info_plist}'"
+  end
+end
+
+# ------------------------------------------------------------------------------
 # Tasks
 # ------------------------------------------------------------------------------
 
