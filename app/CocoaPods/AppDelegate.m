@@ -44,8 +44,10 @@
   NSAlert *alert = [NSAlert new];
   alert.alertStyle = NSInformationalAlertStyle;
   alert.messageText = NSLocalizedString(@"INSTALL_CLI_MESSAGE_TEXT", nil);
-  alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"INSTALL_CLI_INFORMATIVE_TEXT", nil), destinationFilename];
-  [alert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"INSTALL_CLI", nil), destinationDir.path]];
+  NSString *formatString = NSLocalizedString(@"INSTALL_CLI_INFORMATIVE_TEXT", nil);
+  alert.informativeText = [NSString stringWithFormat:formatString, destinationFilename];
+  formatString = NSLocalizedString(@"INSTALL_CLI", nil);
+  [alert addButtonWithTitle:[NSString stringWithFormat:formatString, destinationDir.path]];
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_ALTERNATE_DESTINATION", nil)];
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_CANCEL", nil)];
 
