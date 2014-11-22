@@ -1,7 +1,12 @@
+DEPLOYMENT_TARGET = '10.8'
+
+$build_started_at = Time.now
+
 # OpenSSL fails if we set this make configuration through MAKEFLAGS, so we pass
 # it to each make invocation seperately.
 MAKE_CONCURRENCY = `sysctl hw.physicalcpu`.strip.match(/\d+$/)[0].to_i + 1
 
+PKG_DIR = 'pkg'
 DOWNLOAD_DIR = 'downloads'
 WORKBENCH_DIR = 'workbench'
 DESTROOT = 'destroot'
@@ -12,16 +17,21 @@ PATCHES_DIR = File.expand_path('patches')
 BUNDLE_PREFIX = File.expand_path(BUNDLE_DESTROOT)
 DEPENDENCIES_PREFIX = File.expand_path(DEPENDENCIES_DESTROOT)
 
+directory PKG_DIR
 directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
 directory DEPENDENCIES_DESTROOT
 
-# TODO Use OS X SDK option
-#ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:#{ENV['PATH']}"
+SDKROOT = File.join(`xcode-select -p`.strip, "Platforms/MacOSX.platform/Developer/SDKs/MacOSX#{DEPLOYMENT_TARGET}.sdk")
+unless File.exist?(SDKROOT)
+  puts "[!] Unable to find the SDK for the deployment target `#{DEPLOYMENT_TARGET}` at `#{SDKROOT}`."
+  exit 1
+end
+
 ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:/usr/bin:/bin"
 ENV['CC'] = '/usr/bin/clang'
 ENV['CXX'] = '/usr/bin/clang++'
-ENV['CFLAGS'] = "-I#{File.join(DEPENDENCIES_PREFIX, 'include')}"
+ENV['CFLAGS'] = "-I#{File.join(DEPENDENCIES_PREFIX, 'include')} -mmacosx-version-min=#{DEPLOYMENT_TARGET} -isysroot #{SDKROOT}"
 ENV['LDFLAGS'] = "-L#{File.join(DEPENDENCIES_PREFIX, 'lib')}"
 
 # If we don't create this dir and set the env var, the ncurses configure
@@ -451,8 +461,110 @@ file installed_bzr => built_bzr_dir do
 end
 
 # ------------------------------------------------------------------------------
+# Bundle tasks
+# ------------------------------------------------------------------------------
+
+installed_env_script = File.join(BUNDLE_DESTROOT, 'bin/bundle-env')
+file installed_env_script do
+  cp 'bundle-env', installed_env_script
+  sh "chmod +x #{installed_env_script}"
+end
+
+namespace :bundle do
+  task :build_tools => [
+    installed_pod_bin,
+    installed_ruby,
+    installed_git,
+    installed_svn,
+    installed_bzr,
+    installed_mercurial,
+    installed_env_script
+  ]
+
+  task :remove_unneeded_files => :build_tools do
+    remove_if_existant = lambda do |*paths|
+      paths.each do |path|
+        rm_rf(path) if File.exist?(path)
+      end
+    end
+    puts
+    puts "Before clean:"
+    sh "du -hs #{BUNDLE_DESTROOT}"
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a'))
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/.DS_Store'))
+    remove_if_existant.call File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/cache')
+    # TODO can we delete .py files if there are .pyc files?
+    # TODO can we delete any of the svn* commands?
+    puts "After clean:"
+    sh "du -hs #{BUNDLE_DESTROOT}"
+  end
+
+  desc "Verifies that no binaries in the bundle link to incorrect dylibs"
+  task :verify_linkage => :remove_unneeded_files do
+    skip = %w( .h .rb .py .pyc .tmpl .pem .png .ttf .css .rhtml .js .sample )
+    Dir.glob(File.join(BUNDLE_DESTROOT, '**/*')).each do |path|
+      next if File.directory?(path)
+      next if skip.include?(File.extname(path))
+      linkage = `otool -arch x86_64 -L '#{path}'`.strip
+      unless linkage.include?('is not an object file')
+        linkage = linkage.split("\n")[1..-1]
+
+        puts
+        puts "Linkage of `#{path}`:"
+        puts linkage
+
+        good = linkage.grep(%r{^\s+(/System/Library/Frameworks/|/usr/lib/)})
+        bad = linkage - good
+        unless bad.empty?
+          puts
+          puts "[!] Bad linkage found in `#{path}`:"
+          puts bad
+          exit 1
+        end
+      end
+    end
+  end
+
+  desc "Build complete dist bundle"
+  task :build => [:build_tools, :remove_unneeded_files, :verify_linkage] do
+    puts
+    puts "Finished building bundle in #{Time.now - $build_started_at} seconds"
+    puts
+  end
+
+  desc "Test bundle"
+  task :test => :build do
+    test_dir = 'tmp'
+    rm_rf test_dir
+    mkdir_p test_dir
+    cp 'Podfile', test_dir
+    sh "cd #{test_dir} && #{File.expand_path(installed_env_script)} pod install --no-integrate --verbose"
+  end
+
+  namespace :clean do
+    task :build do
+      rm_rf WORKBENCH_DIR
+    end
+
+    task :downloads do
+      rm_rf DOWNLOAD_DIR
+    end
+
+    task :destroot do
+      rm_rf DESTROOT
+    end
+
+    desc "Clean all artefacts, including downloads"
+    task :all => [:build, :destroot, :downloads]
+  end
+end
+
+# ------------------------------------------------------------------------------
 # CocoaPods.app
 # ------------------------------------------------------------------------------
+
+XCODEBUILD_COMMAND = "cd app && xcodebuild -workspace CocoaPods.xcworkspace -scheme CocoaPods -configuration Release"
 
 namespace :app do
   desc 'Updates the Info.plist of the application to reflect the CocoaPods version'
@@ -464,97 +576,38 @@ namespace :app do
   end
 
   desc 'Build release version of application'
-  task :build => :update_version do
-    sh "cd app && xcodebuild -workspace CocoaPods.xcworkspace -scheme CocoaPods -configuration Release"
+  task :build => ['bundle:build', :update_version] do
+    sh "#{XCODEBUILD_COMMAND} MACOSX_DEPLOYMENT_TARGET=#{DEPLOYMENT_TARGET} build"
+  end
+
+  desc "Clean"
+  task :clean do
+    sh "#{XCODEBUILD_COMMAND} clean"
   end
 end
 
 # ------------------------------------------------------------------------------
-# Tasks
+# Release tasks
 # ------------------------------------------------------------------------------
 
-installed_env_script = File.join(BUNDLE_DESTROOT, 'bin/bundle-env')
-file installed_env_script do
-  cp 'bundle-env', installed_env_script
-  sh "chmod +x #{installed_env_script}"
-end
+namespace :release do
+  task :clean => ['bundle:clean:all', 'app:clean']
 
-desc "Build all dependencies and Ruby"
-task :ruby => installed_ruby do
-  links = `otool -L #{File.join(BUNDLE_DESTROOT, 'bin/ruby')}`.strip.split("\n")[1..-1]
+  desc "Perform a full build of the bundle and app"
+  task :build => ['bundle:build', 'app:build', PKG_DIR] do
+    output = `#{XCODEBUILD_COMMAND} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
+    build_dir = output.split('= ').last
+    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
+    sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"
 
-  puts
-  puts "Ruby links against:"
-  puts links
-
-  good = links.grep(%r{^\s+(/System/Library/Frameworks/CoreFoundation|/usr/lib/)})
-  bad = links - good
-  unless bad.empty?
-    puts "Ruby is linking against these libs in unexpected locations:"
-    puts bad
-    exit 1
-  end
-end
-
-def remove_if_existant(*paths)
-  paths.each do |path|
-    rm_rf(path) if File.exist?(path)
-  end
-end
-
-$roughly_started_at = Time.now
-
-desc "Build complete dist bundle"
-task :build_bundle => [installed_pod_bin, installed_git, installed_svn, installed_bzr, installed_mercurial, installed_env_script] do
-  puts "Before clean:"
-  sh "du -hs #{BUNDLE_DESTROOT}"
-  remove_if_existant *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a'))
-  remove_if_existant *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
-  remove_if_existant *Dir.glob(File.join(BUNDLE_DESTROOT, '**/.DS_Store'))
-  remove_if_existant File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/cache')
-  # TODO can we delete .py files if there are .pyc files?
-  # TODO can we delete any of the svn* commands?
-  puts "After clean:"
-  sh "du -hs #{BUNDLE_DESTROOT}"
-  puts
-  puts "Finished building bundle in #{Time.now - $roughly_started_at} seconds"
-  puts
-end
-
-bundle_tarball = 'bundle.tar.gz'
-file bundle_tarball => :build_bundle do
-  sh "tar -zcvf #{bundle_tarball} #{BUNDLE_DESTROOT}"
-  sh "ls -lh #{bundle_tarball}"
-end
-
-desc "Build bundle tarball"
-task :bundle => bundle_tarball
-
-desc "Test bundle"
-task :test => :build_bundle do
-  test_dir = 'tmp'
-  rm_rf test_dir
-  mkdir_p test_dir
-  cp 'Podfile', test_dir
-  sh "cd #{test_dir} && #{File.expand_path(installed_env_script)} pod install --no-integrate --verbose"
-end
-
-namespace :clean do
-  task :build do
-    rm_rf WORKBENCH_DIR
+    puts
+    puts "Finished building release in #{Time.now - $build_started_at} seconds"
+    puts
   end
 
-  task :downloads do
-    rm_rf DOWNLOAD_DIR
-  end
-
-  task :destroot do
-    rm_rf DESTROOT
-  end
-
-  desc "Clean all artefacts, including downloads"
-  task :all => [:build, :destroot, :downloads]
+  desc "Create a clean build"
+  task :cleanbuild => [:clean, :build]
 end
 
-desc "Clean all build artefacts"
-task :clean => ['clean:build', 'clean:destroot']
+desc "Create a clean release build"
+task :release => 'release:cleanbuild'
