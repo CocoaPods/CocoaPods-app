@@ -27,7 +27,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Install CLI Tool…" id="5GT-fT-ahx">
+                            <menuItem title="Install the Command-Line Tool…" id="5GT-fT-ahx">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="installBinstubIfNecessary:" target="-1" id="1aC-DY-EQL"/>
