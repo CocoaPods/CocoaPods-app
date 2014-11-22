@@ -38,15 +38,18 @@ int main(int argc, const char * argv[]) {
     } else {
       CFShow(error);
     }
+    CFRelease(URLs);
     return -1;
   }
 
   CFURLRef appURL = CFArrayGetValueAtIndex(URLs, 0);
   CFURLRef envScriptURL = CFBundleCopyResourceURLInDirectory(appURL, envScript, NULL, NULL);
+  CFRelease(URLs);
   assert(envScriptURL != NULL);
 
   const char envScriptPath[PATH_MAX];
   assert(CFURLGetFileSystemRepresentation(envScriptURL, false, (UInt8 *)envScriptPath, PATH_MAX));
+  CFRelease(envScriptURL);
 
   // -----------------------------------------------------------------------------------------------
   // Set up minimally required environment.
