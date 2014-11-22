@@ -21,9 +21,9 @@
 {
   // TODO change this to just `pod` for real release and then also update the
   // `sprintf` calls to `snprintf` with hardcoded lengths.
-  const char *destination_path = "/usr/bin/pod-binstub";
+  NSURL *destination = [NSURL fileURLWithPath:@"/usr/bin/pod-binstub"];
 
-  if (access(destination_path, X_OK) == 0) {
+  if (access(destination.fileSystemRepresentation, X_OK) == 0) {
     NSLog(@"Already installed binstub.");
     // Unless explicitely triggered by the user, exit now.
     if (sender == nil) {
@@ -31,29 +31,38 @@
     }
   }
 
-  char *destination_basename = basename((char *)destination_path);
-  char *destination_dirname = dirname((char *)destination_path);
+  NSString *destinationFilename = destination.lastPathComponent;
+  NSURL *destinationDir = [destination URLByDeletingLastPathComponent];
 
   NSAlert *alert = [NSAlert new];
   alert.alertStyle = NSInformationalAlertStyle;
   alert.messageText = @"Do you wish to Install the Command-Line Tool?";
   alert.informativeText = [NSString stringWithFormat:@"In case you wish to use CocoaPods from " \
-                            "the Terminal, a `%s` tool can be installed which will allow you " \
+                            "the Terminal, a `%@` tool can be installed which will allow you " \
                             "easy access to the CocoaPods installation contained inside this " \
                             "application.\n\nThis is not needed for the application to function " \
                             "normally and can always be installed at a later time by using the " \
-                            "menu item found under the application menu.", destination_basename];
-  [alert addButtonWithTitle:[NSString stringWithFormat:@"Install to `%s`", destination_dirname]];
+                            "menu item found under the application menu.", destinationFilename];
+  [alert addButtonWithTitle:[NSString stringWithFormat:@"Install to `%@`", destinationDir.path]];
   [alert addButtonWithTitle:@"Install to Alternate Destination…"];
   [alert addButtonWithTitle:@"Cancel"];
+
   switch ([alert runModal]) {
     case NSAlertSecondButtonReturn:
       NSLog(@"Select alternate destination!");
-      return;
+      destinationDir = [self runModalDestinationOpenPanel:destinationDir];
+      if (destinationDir == nil) {
+        NSLog(@"Cancelled by user.");
+        return;
+      }
+      break;
     case NSAlertThirdButtonReturn:
       NSLog(@"Cancelled by user.");
       return;
   }
+
+  destination = [destinationDir URLByAppendingPathComponent:destinationFilename];
+  const char *destination_path = destination.fileSystemRepresentation;
 
   NSLog(@"Try to install binstub to `%s`.", destination_path);
 
@@ -86,32 +95,48 @@
   char command[1024];
   sprintf(command, "/usr/libexec/authopen -extauth -c -m 0755 -w %s", destination_path);
   errno = 0;
-  FILE *destination = popen(command, "w");
-  if (destination == NULL) {
+  FILE *destination_pipe = popen(command, "w");
+  if (destination_pipe == NULL) {
     NSLog(@"Failed to open pipe to `authopen` (%d - %s)", errno, strerror(errno));
   } else {
     // First send the pre-authorized and serialized AuthorizationRef so that the
     // `authopen` tool does not need to request authorization from the user,
     // which would lead to the user seeing an authorization dialog from
     // `authopen` instead of this app.
-    fwrite(&serializedRef, sizeof(serializedRef), 1, destination);
-    fflush(destination);
+    fwrite(&serializedRef, sizeof(serializedRef), 1, destination_pipe);
+    fflush(destination_pipe);
     // Now write the actual file data.
     NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"pod" ofType:nil];
-    FILE *source = fopen([sourcePath UTF8String], "r");
-    if (source == NULL) {
+    FILE *source_file = fopen([sourcePath UTF8String], "r");
+    if (source_file == NULL) {
       NSLog(@"Failed to open `%@` (%d - %s)", sourcePath, errno, strerror(errno));
     } else {
       NSLog(@"Write contents of `%@` to destination.", sourcePath);
       int c;
-      while ((c = fgetc(source)) != EOF) {
-        fwrite(&c, 1, 1, destination);
+      while ((c = fgetc(source_file)) != EOF) {
+        fwrite(&c, 1, 1, destination_pipe);
       }
-      fclose(source);
+      fclose(source_file);
       NSLog(@"Successfully wrote binstub to destination.");
     }
-    pclose(destination);
+    pclose(destination_pipe);
   }
+}
+
+- (NSURL *)runModalDestinationOpenPanel:(NSURL *)startingDirectoryURL;
+{
+  NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+  openPanel.canChooseFiles = NO;
+  openPanel.canChooseDirectories = YES;
+  openPanel.canCreateDirectories = YES;
+  openPanel.showsHiddenFiles = YES;
+  openPanel.resolvesAliases = YES;
+  openPanel.allowsMultipleSelection = NO;
+  openPanel.directoryURL = startingDirectoryURL;
+  if ([openPanel runModal] == NSFileHandlingPanelCancelButton) {
+    return nil;
+  }
+  return openPanel.URLs[0];
 }
 
 - (IBAction)openGuides:(id)sender {
