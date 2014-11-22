@@ -23,10 +23,13 @@
   // `sprintf` calls to `snprintf` with hardcoded lengths.
   NSURL *destination = [NSURL fileURLWithPath:@"/usr/bin/pod-binstub"];
 
-  if (access(destination.fileSystemRepresentation, X_OK) == 0) {
-    NSLog(@"Already installed binstub.");
-    // Unless explicitely triggered by the user, exit now.
-    if (sender == nil) {
+  // Unless explicitely triggered by user, try to determine if we should continue.
+  if (sender == nil) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPHaveAskedUserToInstallTool"]) {
+      return;
+    }
+    if (access(destination.fileSystemRepresentation, X_OK) == 0) {
+      NSLog(@"Already installed binstub.");
       return;
     }
   }
@@ -53,11 +56,13 @@
       destinationDir = [self runModalDestinationOpenPanel:destinationDir];
       if (destinationDir == nil) {
         NSLog(@"Cancelled by user.");
+        [self setDoNotRequestInstallationAgain];
         return;
       }
       break;
     case NSAlertThirdButtonReturn:
       NSLog(@"Cancelled by user.");
+      [self setDoNotRequestInstallationAgain];
       return;
   }
 
@@ -118,9 +123,16 @@
       }
       fclose(source_file);
       NSLog(@"Successfully wrote binstub to destination.");
+      [self setDoNotRequestInstallationAgain];
     }
     pclose(destination_pipe);
   }
+}
+
+- (void)setDoNotRequestInstallationAgain;
+{
+  // Never ask the user to automatically install again.
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"CPHaveAskedUserToInstallTool"];
 }
 
 - (NSURL *)runModalDestinationOpenPanel:(NSURL *)startingDirectoryURL;
