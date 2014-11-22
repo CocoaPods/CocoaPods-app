@@ -110,7 +110,9 @@
 				11F232EAD875E85E75E4B0C2 /* Pods */,
 				46126B404240E403B2193EE7 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		51165E201A17AFF500DCFC94 /* Products */ = {
 			isa = PBXGroup;
