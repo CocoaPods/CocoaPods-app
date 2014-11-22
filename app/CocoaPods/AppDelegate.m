@@ -6,10 +6,14 @@
 
 @implementation AppDelegate
 
+#pragma mark - NSApplicationDelegate
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
   [self installBinstubIfNecessary:nil];
 }
+
+#pragma mark -
 
 - (IBAction)installBinstubIfNecessary:(id)sender;
 {
@@ -97,6 +101,18 @@
     }
     pclose(destination);
   }
+}
+
+- (IBAction)openGuides:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/"]];
+}
+
+- (IBAction)openPodspecReference:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podspec.html"]];
+}
+
+- (IBAction)openPodfileReference:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podfile.html"]];
 }
 
 @end
