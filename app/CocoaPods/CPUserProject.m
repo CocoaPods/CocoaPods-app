@@ -1,8 +1,11 @@
 #import "CPUserProject.h"
+
 #import <Fragaria/MGSFragariaFramework.h>
 #import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
 
-@interface CPUserProject ()
+#import <objc/runtime.h>
+
+@interface CPUserProject () <NSTextViewDelegate>
 @property (weak) IBOutlet NSView *containerView;
 // Such sin.
 // TODO: Add real custom window controllers.
@@ -11,9 +14,21 @@
 
 @property (strong) MGSFragaria *editor;
 @property (strong) NSString *contents;
-@property (assign) BOOL autocompleting;
 @property (strong) NSTask *task;
 @property (strong) NSAttributedString *taskOutput;
+
+@property (assign) BOOL autocompleting;
+@property (assign) BOOL dontAutocompleteNextChange;
+@end
+
+@implementation SMLSyntaxColouring (CPExtendDelegateForwarding)
+// Extend Fragaria to forward this NSTextViewDelegate method to our instance as well.
+//
+- (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)selector;
+{
+  CPUserProject *delegate = [[self valueForKey:@"document"] valueForKey:MGSFODelegate];
+  return [delegate textView:textView doCommandBySelector:selector];
+}
 @end
 
 @implementation CPUserProject
@@ -30,6 +45,7 @@
   self.editor = [MGSFragaria new];
   [self.editor embedInView:self.containerView];
   [self.editor setObject:self forKey:MGSFODelegate];
+  // [self.editor setObject:self forKey:MGSFOAutoCompleteDelegate];
 
   self.editor.syntaxColoured = YES;
   self.editor.syntaxDefinitionName = @"Podfile";
@@ -71,11 +87,23 @@ CPCharacterIsAutocompletableCharacter(unichar character) {
   [NSObject cancelPreviousPerformRequestsWithTarget:self
                                            selector:@selector(autocompleteCurrentWord)
                                              object:nil];
-  // Enqueue autocompletion in case the last character of the current content is a possible
-  // autocompletion word, but first give the user a bit of time to keep on typing.
-  if (CPCharacterIsAutocompletableCharacter([contents characterAtIndex:contents.length-1])) {
-    [self performSelector:@selector(autocompleteCurrentWord) withObject:nil afterDelay:0.5];
+  if (self.dontAutocompleteNextChange) {
+    self.dontAutocompleteNextChange = NO;
+  } else {
+    // Enqueue autocompletion in case the last character of the current content is a possible
+    // autocompletion word, but first give the user a bit of time to keep on typing.
+    if (CPCharacterIsAutocompletableCharacter([contents characterAtIndex:contents.length-1])) {
+      [self performSelector:@selector(autocompleteCurrentWord) withObject:nil afterDelay:0.5];
+    }
   }
+}
+
+- (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)selector;
+{
+  if (sel_isEqual(selector, @selector(deleteBackward:))) {
+    self.dontAutocompleteNextChange = YES;
+  }
+  return NO;
 }
 
 - (void)autocompleteCurrentWord;
