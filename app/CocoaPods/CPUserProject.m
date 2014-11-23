@@ -5,6 +5,44 @@
 
 #import <objc/runtime.h>
 
+// Hack SMLTextView to also consider the leading colon when completing words, which are all the
+// symbols that we support.
+//
+@implementation SMLTextView (CPIncludeLeadingColonsInCompletions)
+
++ (void)load;
+{
+  Method m1 = class_getInstanceMethod(self,
+      @selector(completionsForPartialWordRange:indexOfSelectedItem:));
+  Method m2 = class_getInstanceMethod(self,
+      @selector(CP_completionsForPartialWordRange:indexOfSelectedItem:));
+  method_exchangeImplementations(m1, m2);
+}
+
+- (NSArray *)CP_completionsForPartialWordRange:(NSRange)charRange
+                           indexOfSelectedItem:(NSInteger *)index;
+{
+  if (charRange.location > 0) {
+    if ([self.string characterAtIndex:charRange.location-1] == ':') {
+      charRange = NSMakeRange(charRange.location-1, charRange.length+1);
+    }
+  }
+  return [self CP_completionsForPartialWordRange:charRange indexOfSelectedItem:index];
+}
+
+- (void)insertCompletion:(NSString *)word
+     forPartialWordRange:(NSRange)charRange
+                movement:(NSInteger)movement
+                 isFinal:(BOOL)flag;
+{
+  if ([word characterAtIndex:0] == ':') {
+    charRange = NSMakeRange(charRange.location-1, charRange.length+1);
+  }
+  [super insertCompletion:word forPartialWordRange:charRange movement:movement isFinal:flag];
+}
+
+@end
+
 @interface CPUserProject () <NSTextViewDelegate>
 @property (weak) IBOutlet NSView *containerView;
 // Such sin.
