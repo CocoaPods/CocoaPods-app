@@ -12,33 +12,19 @@
 
 + (void)load;
 {
-  Method m1 = class_getInstanceMethod(self,
-      @selector(completionsForPartialWordRange:indexOfSelectedItem:));
-  Method m2 = class_getInstanceMethod(self,
-      @selector(CP_completionsForPartialWordRange:indexOfSelectedItem:));
+  Method m1 = class_getInstanceMethod(self, @selector(rangeForUserCompletion));
+  Method m2 = class_getInstanceMethod(self, @selector(CP_rangeForUserCompletion));
   method_exchangeImplementations(m1, m2);
 }
 
-- (NSArray *)CP_completionsForPartialWordRange:(NSRange)charRange
-                           indexOfSelectedItem:(NSInteger *)index;
+-(NSRange)CP_rangeForUserCompletion;
 {
-  if (charRange.location > 0) {
-    if ([self.string characterAtIndex:charRange.location-1] == ':') {
-      charRange = NSMakeRange(charRange.location-1, charRange.length+1);
-    }
+  NSRange range = [self CP_rangeForUserCompletion];
+  if (range.location != NSNotFound && range.location > 0 &&
+        [self.string characterAtIndex:range.location-1] == ':') {
+    range = NSMakeRange(range.location-1, range.length+1);
   }
-  return [self CP_completionsForPartialWordRange:charRange indexOfSelectedItem:index];
-}
-
-- (void)insertCompletion:(NSString *)word
-     forPartialWordRange:(NSRange)charRange
-                movement:(NSInteger)movement
-                 isFinal:(BOOL)flag;
-{
-  if ([word characterAtIndex:0] == ':') {
-    charRange = NSMakeRange(charRange.location-1, charRange.length+1);
-  }
-  [super insertCompletion:word forPartialWordRange:charRange movement:movement isFinal:flag];
+  return range;
 }
 
 @end
