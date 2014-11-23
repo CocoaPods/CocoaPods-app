@@ -1,4 +1,5 @@
 DEPLOYMENT_TARGET = '10.8'
+DEPLOYMENT_TARGET_SDK = "MacOSX#{DEPLOYMENT_TARGET}.sdk"
 
 $build_started_at = Time.now
 
@@ -22,7 +23,13 @@ directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
 directory DEPENDENCIES_DESTROOT
 
-SDKROOT = File.expand_path(`xcrun --show-sdk-path --sdk macosx`.strip)
+# Prefer the SDK of the DEPLOYMENT_TARGET, but otherwise fallback to the current one.
+sdk_dir = File.join(`xcrun --show-sdk-platform-path --sdk macosx`.strip, 'Developer/SDKs')
+if Dir.entries(sdk_dir).include?(DEPLOYMENT_TARGET_SDK)
+  SDKROOT = File.join(sdk_dir, DEPLOYMENT_TARGET_SDK)
+else
+  SDKROOT = File.expand_path(`xcrun --show-sdk-path --sdk macosx`.strip)
+end
 unless File.exist?(SDKROOT)
   puts "[!] Unable to find a SDK for the Platform target `macosx`."
   exit 1
@@ -625,5 +632,12 @@ namespace :release do
   task :cleanbuild => [:clean, :build]
 end
 
-desc "Create a clean release build"
-task :release => 'release:cleanbuild'
+desc "Create a clean release build for distribution"
+task :release do
+  unless File.basename(SDKROOT) == DEPLOYMENT_TARGET_SDK
+    puts "[!] Unable to find the SDK for the deployment target `#{DEPLOYMENT_TARGET}`, which is " \
+         "required to create a distribution release."
+    exit 1
+  end
+  Rake::Task['release:cleanbuild'].invoke
+end
