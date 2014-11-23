@@ -5,6 +5,7 @@
 #import <SecurityFoundation/SFAuthorization.h>
 
 NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInstallationAgain";
+NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDestinations";
 
 @interface CPCLIToolInstallationController ()
 @property (strong) NSURL *destinationURL;
@@ -54,6 +55,39 @@ NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInsta
     if (installed) {
       NSLog(@"Successfully wrote binstub to destination.");
       [self setDoNotRequestInstallationAgain];
+
+      NSError *error = nil;
+      NSData *bookmarkData = [self.destinationURL bookmarkDataWithOptions:NSURLBookmarkCreationPreferFileIDResolution|NSURLBookmarkCreationSuitableForBookmarkFile
+                                           includingResourceValuesForKeys:nil
+                                                            relativeToURL:nil
+                                                                    error:&error];
+      if (error) {
+        NSLog(@"Unable to create bookmark data for binstub install destination (%@)", error);
+      } else {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *destinations = [defaults arrayForKey:kCPCLIToolInstalledToDestinationsKey];
+        if (destinations) {
+          for (NSData *destination in destinations) {
+            error = nil;
+            BOOL stale = NO;
+            NSURL *bookmark = [NSURL URLByResolvingBookmarkData:destination
+                                                        options:NSURLBookmarkResolutionWithoutUI|NSURLBookmarkResolutionWithoutMounting
+                                                  relativeToURL:nil
+                                            bookmarkDataIsStale:&stale
+                                                          error:&error];
+            if (error) {
+              NSLog(@"Unable to resolve bookmark (%@)", error);
+            } else {
+              NSLog(@"EXISTING BOOKMARK: %@ (STALE: %@)", bookmark, (stale ? @"YES" : @"NO"));
+            }
+          }
+          destinations = [destinations arrayByAddingObject:bookmarkData];
+        } else {
+          destinations = [NSArray arrayWithObject:bookmarkData];
+        }
+        [defaults setObject:destinations forKey:kCPCLIToolInstalledToDestinationsKey];
+        [defaults synchronize];
+      }
     }
   }
   return installed;
