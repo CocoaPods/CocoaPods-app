@@ -506,9 +506,10 @@ namespace :bundle do
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'share/man')
     # Remove all uncompiled `py` files.
     Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/python*/**/*.pyc')).each do |pyc|
-      rm pyc[0..-2]
+      remove_if_existant.call pyc[0..-2]
     end
-    # TODO can we delete any of the svn* commands?
+    # Remove all SVN commands except for the main `svn` command.
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'bin/svn[a-z]*'))
     puts "After clean:"
     sh "du -hs #{BUNDLE_DESTROOT}"
   end
