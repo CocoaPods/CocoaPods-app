@@ -65,8 +65,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 static NSData *
 CPBookmarkDataForURL(NSURL *URL) {
   NSError *error = nil;
-  NSData *data = [URL bookmarkDataWithOptions:NSURLBookmarkCreationPreferFileIDResolution |
-                                              NSURLBookmarkCreationSuitableForBookmarkFile
+  NSData *data = [URL bookmarkDataWithOptions:NSURLBookmarkCreationPreferFileIDResolution
                includingResourceValuesForKeys:nil
                                 relativeToURL:nil
                                         error:&error];
