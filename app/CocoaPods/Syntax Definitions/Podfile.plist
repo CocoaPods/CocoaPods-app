@@ -108,7 +108,7 @@
 		<string>:inhibit_warnings</string>
 		<!-- `podspec` directive -->
 		<string>podspec</string>
-		<string>:path</string>
+		<!--<string>:path</string>-->
 		<string>:name</string>
 		<!-- `target` directive -->
 		<string>target</string>
