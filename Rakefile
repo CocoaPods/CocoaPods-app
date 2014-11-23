@@ -542,20 +542,20 @@ namespace :bundle do
     end
   end
 
-  desc "Build complete dist bundle"
-  task :build => [:build_tools, :remove_unneeded_files, :verify_linkage] do
-    puts
-    puts "Finished building bundle in #{Time.now - $build_started_at} seconds"
-    puts
-  end
-
   desc "Test bundle"
-  task :test => :build do
+  task :test => :build_tools do
     test_dir = 'tmp'
     rm_rf test_dir
     mkdir_p test_dir
     cp 'Podfile', test_dir
     sh "cd #{test_dir} && #{File.expand_path(installed_env_script)} pod install --no-integrate --verbose"
+  end
+
+  desc "Build complete dist bundle"
+  task :build => [:build_tools, :remove_unneeded_files, :verify_linkage, :test] do
+    puts
+    puts "Finished building bundle in #{Time.now - $build_started_at} seconds"
+    puts
   end
 
   namespace :clean do
