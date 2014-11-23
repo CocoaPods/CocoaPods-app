@@ -497,19 +497,21 @@ namespace :bundle do
     puts
     puts "Before clean:"
     sh "du -hs #{BUNDLE_DESTROOT}"
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'bin/svn[a-z]*'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/.DS_Store'))
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'include/subversion-1')
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/cache')
+    remove_if_existant.call File.join(BUNDLE_DESTROOT, 'man')
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'share/gitweb')
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'share/man')
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/python*/site-packages/bzrlib/tests'))
     # Remove all uncompiled `py` files.
     Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/python*/**/*.pyc')).each do |pyc|
       remove_if_existant.call pyc[0..-2]
     end
-    # Remove all SVN commands except for the main `svn` command.
-    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'bin/svn[a-z]*'))
+    # TODO clean Ruby stdlib
     puts "After clean:"
     sh "du -hs #{BUNDLE_DESTROOT}"
   end
