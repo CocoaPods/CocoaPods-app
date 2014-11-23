@@ -500,8 +500,11 @@ namespace :bundle do
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/.DS_Store'))
+    remove_if_existant.call File.join(BUNDLE_DESTROOT, 'include/subversion-1')
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/cache')
     # TODO can we delete .py files if there are .pyc files?
+    remove_if_existant.call File.join(BUNDLE_DESTROOT, 'share/gitweb')
+    remove_if_existant.call File.join(BUNDLE_DESTROOT, 'share/man')
     # TODO can we delete any of the svn* commands?
     puts "After clean:"
     sh "du -hs #{BUNDLE_DESTROOT}"
