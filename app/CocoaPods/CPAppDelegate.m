@@ -13,6 +13,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod-binstub";
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
   // [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPRequestCLIToolInstallationAgainKey];
+  // [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
   // [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPShowVerboseCommandOutput"];
   // NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 
