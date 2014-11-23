@@ -11,6 +11,7 @@
 
 @property (strong) MGSFragaria *editor;
 @property (strong) NSString *contents;
+@property (assign) BOOL autocompleting;
 @property (strong) NSTask *task;
 @property (strong) NSAttributedString *taskOutput;
 @end
@@ -38,10 +39,49 @@
   self.undoManager = textView.undoManager;
 }
 
+// Returns a character set that contains the characters that occur in the `autocompleteWords`
+// section of the `Podfile.plist` syntax definition file.
+//
+static BOOL
+CPCharacterIsAutocompletableCharacter(unichar character) {
+  static NSCharacterSet *autocompletableCharacterSet = nil;
+  static dispatch_once_t onceToken = 0;
+  dispatch_once(&onceToken, ^{
+    NSMutableCharacterSet *set = [NSMutableCharacterSet characterSetWithCharactersInString:@":_"];
+    [set formUnionWithCharacterSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+    autocompletableCharacterSet = [set copy];
+  });
+  return [autocompletableCharacterSet characterIsMember:character];;
+}
+
 - (void)textDidChange:(NSNotification *)notification;
 {
+  // When triggering `-[NSTextView complete:]` this delegate method will be called again without a
+  // real change to the text, so return early to prevent an infinite loop.
+  if (self.autocompleting) {
+    self.autocompleting = NO;
+    return;
+  }
+
   NSTextView *textView = notification.object;
-  self.contents = textView.string;
+  NSString *contents = textView.string;
+  self.contents = contents;
+
+  // First cancel any previous autocompletion being enqueued.
+  [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                           selector:@selector(autocompleteCurrentWord)
+                                             object:nil];
+  // Enqueue autocompletion in case the last character of the current content is a possible
+  // autocompletion word, but first give the user a bit of time to keep on typing.
+  if (CPCharacterIsAutocompletableCharacter([contents characterAtIndex:contents.length-1])) {
+    [self performSelector:@selector(autocompleteCurrentWord) withObject:nil afterDelay:0.5];
+  }
+}
+
+- (void)autocompleteCurrentWord;
+{
+  self.autocompleting = YES;
+  [[self.editor objectForKey:ro_MGSFOTextView] complete:nil];
 }
 
 #pragma mark - Persistance
