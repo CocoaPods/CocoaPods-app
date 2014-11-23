@@ -22,9 +22,9 @@ directory DOWNLOAD_DIR
 directory WORKBENCH_DIR
 directory DEPENDENCIES_DESTROOT
 
-SDKROOT = File.join(`xcode-select -p`.strip, "Platforms/MacOSX.platform/Developer/SDKs/MacOSX#{DEPLOYMENT_TARGET}.sdk")
+SDKROOT = File.expand_path(`xcrun --show-sdk-path --sdk macosx`.strip)
 unless File.exist?(SDKROOT)
-  puts "[!] Unable to find the SDK for the deployment target `#{DEPLOYMENT_TARGET}` at `#{SDKROOT}`."
+  puts "[!] Unable to find a SDK for the Platform target `macosx`."
   exit 1
 end
 
