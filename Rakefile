@@ -389,7 +389,14 @@ end
 
 installed_git = File.join(BUNDLE_DESTROOT, 'bin/git')
 file installed_git => git_bin do
-  sh "cd #{git_build_dir} && make install"
+  sh "cd #{git_build_dir} && env NO_INSTALL_HARDLINKS=1 make install"
+  # Even after using the NO_INSTALL_HARDLINKS env var, `bin/git*` is still hardlinked to
+  # `libexec/git-core/git*`.
+  bin = File.join(BUNDLE_DESTROOT, 'bin')
+  Dir.glob(File.join(bin, 'git*')).reject { |f| File.symlink?(f) }.each do |file|
+    filename = File.basename(file)
+    sh "cd #{bin} && rm #{filename} && ln -s ../libexec/git-core/#{filename} #{filename}"
+  end
 end
 
 # ------------------------------------------------------------------------------
