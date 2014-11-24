@@ -29,22 +29,15 @@ int main(int argc, const char * argv[]) {
   // -----------------------------------------------------------------------------------------------
   // Try to locate the CocoaPods.app bundle.
   // -----------------------------------------------------------------------------------------------
-  CFErrorRef error = NULL;
-  CFArrayRef URLs = LSCopyApplicationURLsForBundleIdentifier(bundleID, &error);
-  if (error != NULL) {
-    if (CFErrorGetCode(error) == kLSApplicationNotFoundErr) {
-      fprintf(stderr, "[!] Unable to locate the CocoaPods.app application bundle. Please ensure " \
-                      "the application is available and launch the application at least once.\n");
-    } else {
-      CFShow(error);
-    }
-    CFRelease(URLs);
+  CFURLRef appURL = NULL;
+  OSStatus status = LSFindApplicationForInfo(kLSUnknownCreator, bundleID, CFSTR("CocoaPods.app"), NULL, &appURL);
+  if (status == kLSApplicationNotFoundErr) {
+    fprintf(stderr, "[!] Unable to locate the CocoaPods.app application bundle. Please ensure " \
+                    "the application is available and launch the application at least once.\n");
     return -1;
   }
 
-  CFURLRef appURL = CFArrayGetValueAtIndex(URLs, 0);
   CFURLRef envScriptURL = CFBundleCopyResourceURLInDirectory(appURL, envScript, NULL, NULL);
-  CFRelease(URLs);
   assert(envScriptURL != NULL);
 
   const char envScriptPath[PATH_MAX];
