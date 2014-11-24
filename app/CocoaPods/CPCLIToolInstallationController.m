@@ -31,7 +31,9 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 
 - (BOOL)installBinstubIfNecessary;
 {
-  if (access(self.destinationURL.fileSystemRepresentation, X_OK) == 0) {
+  [self verifyExistingInstallDestinations];
+
+  if (self.previouslyInstalledToDestinations.count > 0) {
     NSLog(@"Already installed binstub.");
     return NO;
   }
@@ -48,12 +50,11 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 {
   BOOL installed = NO;
   if ([self runModalInstallationRequestAlert]) {
-    NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
     [self verifyExistingInstallDestinations];
+    NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
     installed = [self installBinstubAccordingToPrivileges];
     if (installed) {
       NSLog(@"Successfully wrote binstub to destination.");
-      [self setDoNotRequestInstallationAgain];
       [self saveInstallationDestination];
     }
   }
@@ -84,9 +85,16 @@ CPBookmarkDataForURL(NSURL *URL) {
 //
 - (void)verifyExistingInstallDestinations;
 {
+  // Currently not designed to be thread-safe.
+  if (self.previouslyInstalledToDestinations != nil) {
+    return;
+  }
+
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSArray *bookmarks = [defaults arrayForKey:kCPCLIToolInstalledToDestinationsKey];
-  if (bookmarks) {
+  if (bookmarks == nil) {
+    self.previouslyInstalledToDestinations = [NSDictionary dictionary];
+  } else {
     NSLog(@"Verifying existing destinations.");
     NSUInteger bookmarkCount = bookmarks.count;
     NSMutableArray *verifiedBookmarks = [NSMutableArray arrayWithCapacity:bookmarkCount];
@@ -135,15 +143,10 @@ CPBookmarkDataForURL(NSURL *URL) {
 {
   NSData *bookmark = CPBookmarkDataForURL(self.destinationURL);
   if (bookmark) {
-    NSArray *bookmarks = nil;
-    if (self.previouslyInstalledToDestinations) {
-      NSMutableDictionary *URLs = [self.previouslyInstalledToDestinations mutableCopy];
-      // Update any previous bookmark data pointing to the same destination.
-      URLs[self.destinationURL] = bookmark;
-      bookmarks = [URLs allValues];
-    } else {
-      bookmarks = [NSArray arrayWithObject:bookmark];
-    }
+    NSMutableDictionary *URLs = [self.previouslyInstalledToDestinations mutableCopy];
+    // Update any previous bookmark data pointing to the same destination.
+    URLs[self.destinationURL] = bookmark;
+    NSArray *bookmarks = [URLs allValues];
     [[NSUserDefaults standardUserDefaults] setObject:bookmarks
                                               forKey:kCPCLIToolInstalledToDestinationsKey];
   }
@@ -262,13 +265,6 @@ CPBookmarkDataForURL(NSURL *URL) {
 
 // Tries to install the binstub to `destinationURL` by asking the user for authorization to write to
 // the destination first.
-//
-// Because the user might have selected an alternate destination, and persisting that location leads
-// to more complex rules about when to request for installation again, we configure the application to
-// never again request for installation once succeeded.
-//
-// Do *not* store this earlier, because authorization or writing might fail before it's succeeded in
-// which case the user should be requested for installation again on the next launch.
 //
 // Returns whether or not it succeeded.
 //
