@@ -30,15 +30,57 @@ int main(int argc, const char * argv[]) {
   // Try to locate the CocoaPods.app bundle.
   // -----------------------------------------------------------------------------------------------
   CFURLRef appURL = NULL;
-  OSStatus status = LSFindApplicationForInfo(kLSUnknownCreator, bundleID, CFSTR("CocoaPods.app"), NULL, &appURL);
-  if (status == kLSApplicationNotFoundErr) {
-    fprintf(stderr, "[!] Unable to locate the CocoaPods.app application bundle. Please ensure " \
-                    "the application is available and launch the application at least once.\n");
-    return -1;
+  CFStringRef appFilename = CFSTR("CocoaPods.app");
+
+  const char *explicitApp = getenv("CP_APP");
+  if (explicitApp) {
+    if (access(explicitApp, F_OK) == 0) {
+      // An existing path is specified, so assume that the user meant that that’s the app bundle.
+      size_t l = strlen(explicitApp);
+      appURL = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)explicitApp, l, true);
+    } else {
+      // Try to find an app bundle with the specified name (without extname) as filename.
+      size_t l = strlen(explicitApp)+5;
+      char filename[l];
+      snprintf(filename, l, "%s.app", explicitApp);
+      appFilename = CFStringCreateWithCString(NULL, filename, kCFStringEncodingUTF8);
+    }
+  } else {
+    // See if the user has specified a default that specifies the path to the app bundle.
+    // NOTE This is not going to be advertised just yet, but investigative users may use it :)
+    CFStringRef appPath = CFPreferencesCopyAppValue(CFSTR("CPApplicationBundlePath"), bundleID);
+    if (appPath) {
+      appURL = CFURLCreateWithFileSystemPath(NULL, appPath, kCFURLPOSIXPathStyle, true);
+      CFRelease(appPath);
+    }
+  }
+
+  if (appURL == NULL) {
+    OSType creator = kLSUnknownCreator;
+    OSStatus status = LSFindApplicationForInfo(creator, bundleID, appFilename, NULL, &appURL);
+    Boolean found = status != kLSApplicationNotFoundErr;
+    if (found && explicitApp != NULL) {
+      CFStringRef foundAppFilename = CFURLCopyLastPathComponent(appURL);
+      found = CFStringCompare(appFilename, foundAppFilename, 0) == kCFCompareEqualTo;
+      CFRelease(foundAppFilename);
+    }
+    if (!found) {
+      CFIndex l = CFStringGetLength(appFilename)+1;
+      char filename[l];
+      CFStringGetCString(appFilename, filename, l, kCFStringEncodingUTF8);
+      fprintf(stderr, "[!] Unable to locate the %s application bundle. Please ensure the " \
+                      "application is available and launch it at least once.\n", filename);
+      CFRelease(appURL);
+      CFRelease(appFilename);
+      return -1;
+    }
   }
 
   CFURLRef envScriptURL = CFBundleCopyResourceURLInDirectory(appURL, envScript, NULL, NULL);
   assert(envScriptURL != NULL);
+
+  CFRelease(appURL);
+  CFRelease(appFilename);
 
   const char envScriptPath[PATH_MAX];
   assert(CFURLGetFileSystemRepresentation(envScriptURL, false, (UInt8 *)envScriptPath, PATH_MAX));
