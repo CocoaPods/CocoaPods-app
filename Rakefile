@@ -505,7 +505,7 @@ namespace :bundle do
     puts "Before clean:"
     sh "du -hs #{BUNDLE_DESTROOT}"
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'bin/svn[a-z]*'))
-    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a'))
+    remove_if_existant.call *FileList[File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a')].exclude(/libruby-static/)
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/.DS_Store'))
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'include/subversion-1')
