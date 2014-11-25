@@ -36,13 +36,13 @@ int main(int argc, const char * argv[]) {
   if (explicitApp) {
     if (access(explicitApp, F_OK) == 0) {
       // An existing path is specified, so assume that the user meant that that’s the app bundle.
-      size_t l = strlen(explicitApp);
-      appURL = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)explicitApp, l, true);
+      size_t len = strlen(explicitApp);
+      appURL = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)explicitApp, len, true);
     } else {
       // Try to find an app bundle with the specified name (without extname) as filename.
-      size_t l = strlen(explicitApp)+5;
-      char filename[l];
-      snprintf(filename, l, "%s.app", explicitApp);
+      size_t len = strlen(explicitApp)+5;
+      char filename[len];
+      snprintf(filename, len, "%s.app", explicitApp);
       appFilename = CFStringCreateWithCString(NULL, filename, kCFStringEncodingUTF8);
     }
   } else {
@@ -65,9 +65,9 @@ int main(int argc, const char * argv[]) {
       CFRelease(foundAppFilename);
     }
     if (!found) {
-      CFIndex l = CFStringGetLength(appFilename)+1;
-      char filename[l];
-      CFStringGetCString(appFilename, filename, l, kCFStringEncodingUTF8);
+      CFIndex len = CFStringGetLength(appFilename)+1;
+      char filename[len];
+      CFStringGetCString(appFilename, filename, len, kCFStringEncodingUTF8);
       fprintf(stderr, "[!] Unable to locate the %s application bundle. Please ensure the " \
                       "application is available and launch it at least once.\n", filename);
       CFRelease(appURL);
@@ -87,30 +87,6 @@ int main(int argc, const char * argv[]) {
   CFRelease(envScriptURL);
 
   // -----------------------------------------------------------------------------------------------
-  // Set up minimally required environment.
-  // -----------------------------------------------------------------------------------------------
-  size_t len;
-
-  char *homePath = getenv("HOME");
-  if (homePath == NULL) {
-    homePath = getpwuid(getuid())->pw_dir;
-    assert(homePath);
-  }
-  len = strlen(homePath) + 6;
-  char envHome[len];
-  snprintf(envHome, len, "HOME=%s", homePath);
-
-  char *term = getenv("TERM");
-  if (term == NULL) {
-    term = "xterm-256color";
-  }
-  len = strlen(term) + 6;
-  char envTerm[len];
-  snprintf(envTerm, len, "TERM=%s", term);
-
-  char *const env[] = { "LANG=en_GB.UTF-8", envHome, envTerm, NULL };
-
-  // -----------------------------------------------------------------------------------------------
   // Create arguments list for that calls `/bin/sh /path/to/bundle-env pod […]` and appends the
   // arguments that were passed to this program.
   // -----------------------------------------------------------------------------------------------
@@ -127,14 +103,14 @@ int main(int argc, const char * argv[]) {
   // Replace process.
   // -----------------------------------------------------------------------------------------------
 #ifdef DEBUG
-  printf("$ env HOME='%s' LANG='en_GB.UTF-8' TERM='%s' '%s'", homePath, envTerm, envScriptPath);
+  printf("$ '%s'", envScriptPath);
   for (const char **i = args; *i != NULL; i++) {
     printf(" '%s'", *i);
   }
   printf("\n");
 #endif
 
-  execve(shPath, (char *const *)args, env);
+  execv(shPath, (char *const *)args);
 
   fprintf(stderr, "Failed to execute `%s` (%d - %s)\n", envScriptPath, errno, strerror(errno));
   return errno;

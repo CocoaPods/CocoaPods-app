@@ -1,14 +1,29 @@
 #!/bin/sh
 
-# OS X doesn't have `readlink -f`
+# Clear known env variables that can influence the standalone installation in a bad way.
+unset RUBYOPT
+unset GEM_HOME
+unset GEM_PATH
+unset GEM_CACHE
+
+# Now define env variables that we need for the standalone installation to work and override where
+# necessary.
 BIN=$(cd "$(dirname "$0")"; pwd)
-
 PREFIX=$(dirname $BIN)
-
 export PATH=$BIN:/usr/bin:/bin:/usr/sbin:/sbin
 export PYTHONPATH=$PREFIX/lib/python2.7/site-packages
 export GIT_TEMPLATE_DIR=$PREFIX/share/git-core/templates
 export GIT_EXEC_PATH=$PREFIX/libexec/git-core
+export LANG=en_GB.UTF-8
+export LC_CTYPE=UTF-8
+
+# Ensure these env variables we need are set.
+if [ -z "$HOME" ]; then
+  export HOME=$(cd ~; pwd)
+fi
+if [ -z "$TERM" ]; then
+  export TERM=xterm-256color
+fi
 
 exec $*
 
