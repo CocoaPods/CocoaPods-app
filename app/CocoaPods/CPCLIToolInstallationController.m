@@ -179,7 +179,6 @@ CPBookmarkDataForURL(NSURL *URL) {
 - (BOOL)runModalInstallationRequestAlert;
 {
   NSString *destinationFilename = self.destinationURL.lastPathComponent;
-  NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
 
   NSAlert *alert = [NSAlert new];
   alert.alertStyle = NSInformationalAlertStyle;
@@ -187,7 +186,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   NSString *formatString = NSLocalizedString(@"INSTALL_CLI_INFORMATIVE_TEXT", nil);
   alert.informativeText = [NSString stringWithFormat:formatString, destinationFilename];
   formatString = NSLocalizedString(@"INSTALL_CLI", nil);
-  [alert addButtonWithTitle:[NSString stringWithFormat:formatString, destinationDirURL.path]];
+  [alert addButtonWithTitle:[NSString stringWithFormat:formatString, self.destinationURL.path]];
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_ALTERNATE_DESTINATION", nil)];
   [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
 
