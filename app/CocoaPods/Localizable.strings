@@ -5,7 +5,7 @@
 "INSTALL_CLI" = "Install to `%@`";
 
 "INSTALL_CLI_WARNING_MESSAGE_TEXT" = "You already have a `%@` tool installed. Are you sure you want to overwrite it?";
-"INSTALL_CLI_WARNING_INFORMATIVE_TEXT" = "The tool was likely installed from the Terminal with:\n\n`gem install cocoapods`\n\nIf you wish to keep that installation in tact, be sure to choose an alternate filename or directory in your `PATH` for the tool of this application.";
+"INSTALL_CLI_WARNING_INFORMATIVE_TEXT" = "The tool was likely installed from the Terminal with:\n\n`gem install cocoapods`\n\nIf you wish to keep that installation intact, be sure to choose an alternate filename or directory in your `PATH` for this tool.";
 "INSTALL_CLI_WARNING_OVERWRITE" = "Overwrite";
 
 "CANCEL" = "Cancel";
