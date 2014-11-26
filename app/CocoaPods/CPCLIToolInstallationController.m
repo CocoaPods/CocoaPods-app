@@ -189,44 +189,57 @@ CPBookmarkDataForURL(NSURL *URL) {
   formatString = NSLocalizedString(@"INSTALL_CLI", nil);
   [alert addButtonWithTitle:[NSString stringWithFormat:formatString, destinationDirURL.path]];
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_ALTERNATE_DESTINATION", nil)];
-  [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_CANCEL", nil)];
+  [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
 
   switch ([alert runModal]) {
     case NSAlertSecondButtonReturn:
-      destinationDirURL = [self runModalDestinationOpenPanel:destinationDirURL];
-      if (destinationDirURL == nil) {
+      if (![self runModalDestinationSavePanel]) {
+        // The user cancelled.
         [self setDoNotRequestInstallationAgain];
         return NO;
       }
       break;
     case NSAlertThirdButtonReturn:
+      // The user cancelled.
       [self setDoNotRequestInstallationAgain];
       return NO;
   }
 
-  self.destinationURL = [destinationDirURL URLByAppendingPathComponent:destinationFilename];
+  if (access([self.destinationURL.path UTF8String], F_OK) == 0) {
+    alert = [NSAlert new];
+    alert.alertStyle = NSCriticalAlertStyle;
+    formatString = NSLocalizedString(@"INSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
+    alert.messageText = [NSString stringWithFormat:formatString, self.destinationURL.path];
+    alert.informativeText = NSLocalizedString(@"INSTALL_CLI_WARNING_INFORMATIVE_TEXT", nil);
+    [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_WARNING_OVERWRITE", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
+    if ([alert runModal] == NSAlertSecondButtonReturn) {
+      // Call recursive until user either saves or cancels from above alert.
+      return [self runModalInstallationRequestAlert];
+    }
+  }
+
   return YES;
 }
 
 // Allows the user to choose a different destination than the suggested destination.
 //
-// Returns either the `suggestedDirectoryURL`, a newly selected destination, or nil in case the user
-// chose to cancel.
+// Updates the `destinationURL` if the user chooses a new one.
 //
-- (NSURL *)runModalDestinationOpenPanel:(NSURL *)suggestedDirectoryURL;
+// Returns whether or not a destination was chosen or if the user cancelled.
+//
+- (BOOL)runModalDestinationSavePanel;
 {
-  NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-  openPanel.canChooseFiles = NO;
-  openPanel.canChooseDirectories = YES;
-  openPanel.canCreateDirectories = YES;
-  openPanel.showsHiddenFiles = YES;
-  openPanel.resolvesAliases = YES;
-  openPanel.allowsMultipleSelection = NO;
-  openPanel.directoryURL = suggestedDirectoryURL;
-  if ([openPanel runModal] == NSFileHandlingPanelCancelButton) {
-    return nil;
+  NSSavePanel *savePanel = [NSSavePanel savePanel];
+  savePanel.canCreateDirectories = YES;
+  savePanel.showsHiddenFiles = YES;
+  savePanel.directoryURL = [self.destinationURL URLByDeletingLastPathComponent];
+  savePanel.nameFieldStringValue = self.destinationURL.lastPathComponent;
+  if ([savePanel runModal] == NSFileHandlingPanelCancelButton) {
+    return NO;
   }
-  return openPanel.URLs[0];
+  self.destinationURL = savePanel.URL;
+  return YES;
 }
 
 #pragma mark - Binstub installation
