@@ -20,8 +20,8 @@
 -(NSRange)CP_rangeForUserCompletion;
 {
   NSRange range = [self CP_rangeForUserCompletion];
-  if (range.location != NSNotFound && range.location > 0 &&
-        [self.string characterAtIndex:range.location-1] == ':') {
+  if (range.location != NSNotFound && range.location > 0
+      && [self.string characterAtIndex:range.location-1] == ':') {
     range = NSMakeRange(range.location-1, range.length+1);
   }
   return range;
@@ -150,7 +150,6 @@ typedef NSInteger NSModalResponse;
 
 - (IBAction)dismissProgressSheet:(id)sender;
 {
-  NSWindowController *controller = self.windowControllers[0];
   [NSApp endSheet:self.progressWindow
        returnCode:(self.task.isRunning ? NSModalResponseAbort : NSModalResponseStop)];
 }
