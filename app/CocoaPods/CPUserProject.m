@@ -29,6 +29,15 @@
 
 @end
 
+#if __MAC_OS_X_VERSION_MAX_ALLOWED < 1090
+enum {
+   NSModalResponseStop                 = (-1000),
+   NSModalResponseAbort                = (-1001),
+   NSModalResponseContinue             = (-1002),
+};
+typedef NSInteger NSModalResponse;
+#endif
+
 @interface CPUserProject () <NSTextViewDelegate>
 @property (weak) IBOutlet NSView *containerView;
 // Such sin.
@@ -118,23 +127,32 @@
 - (void)presentProgressSheet;
 {
   NSWindowController *controller = self.windowControllers[0];
-  [controller.window beginSheet:self.progressWindow
-              completionHandler:^(NSModalResponse returnCode) {
-    if (returnCode == NSModalResponseAbort) {
-      [self.task interrupt];
-    }
-    // Reset the sheet /after/ it has been removed from screen.
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self resetSheet];
-    });
-  }];
+  [NSApp beginSheet:self.progressWindow
+     modalForWindow:controller.window
+      modalDelegate:self
+     didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
+        contextInfo:NULL];
+}
+
+- (void)sheetDidEnd:(NSWindow *)sheet
+         returnCode:(NSModalResponse)returnCode
+        contextInfo:(void *)contextInfo;
+{
+  if (returnCode == NSModalResponseAbort) {
+    [self.task interrupt];
+  }
+  [sheet orderOut:self];
+  // Reset the sheet /after/ it has been removed from screen.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self resetSheet];
+  });
 }
 
 - (IBAction)dismissProgressSheet:(id)sender;
 {
   NSWindowController *controller = self.windowControllers[0];
-  [controller.window endSheet:self.progressWindow
-                   returnCode:(self.task.isRunning ? NSModalResponseAbort : NSModalResponseStop)];
+  [NSApp endSheet:self.progressWindow
+       returnCode:(self.task.isRunning ? NSModalResponseAbort : NSModalResponseStop)];
 }
 
 - (void)resetSheet;

@@ -238,7 +238,7 @@ CPBookmarkDataForURL(NSURL *URL) {
 - (BOOL)installBinstubAccordingToPrivileges;
 {
   NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
-  if (access(destinationDirURL.fileSystemRepresentation, W_OK) == 0) {
+  if (access([destinationDirURL.path UTF8String], W_OK) == 0) {
     return [self installBinstubToAccessibleDestination];
   } else {
     return [self installBinstubToPrivilegedDestination];
@@ -270,7 +270,7 @@ CPBookmarkDataForURL(NSURL *URL) {
 //
 - (BOOL)installBinstubToPrivilegedDestination;
 {
-  const char *destination_path = self.destinationURL.fileSystemRepresentation;
+  const char *destination_path = [self.destinationURL.path UTF8String];
 
   // Configure requested authorization.
   char name[1024];
@@ -314,7 +314,7 @@ CPBookmarkDataForURL(NSURL *URL) {
     fflush(destination_pipe);
     // Now write the actual file data.
     NSURL *sourceURL = self.binstubSourceURL;
-    FILE *source_file = fopen(sourceURL.fileSystemRepresentation, "r");
+    FILE *source_file = fopen([sourceURL.path UTF8String], "r");
     if (source_file == NULL) {
       NSLog(@"Failed to open source `%@` (%d - %s)", sourceURL.path, errno, strerror(errno));
     } else {
