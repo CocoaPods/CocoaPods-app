@@ -571,7 +571,7 @@ namespace :bundle do
   end
 
   desc "Build complete dist bundle"
-  task :build => [:build_tools, :remove_unneeded_files, :verify_linkage, :test] do
+  task :build => [:build_tools, :remove_unneeded_files] do
     puts
     puts "Finished building bundle in #{Time.now - $build_started_at} seconds"
     puts
@@ -632,7 +632,7 @@ namespace :release do
   task :clean => ['bundle:clean:all', 'app:clean']
 
   desc "Perform a full build of the bundle and app"
-  task :build => ['bundle:build', 'app:build', PKG_DIR] do
+  task :build => ['bundle:build', 'bundle:verify_linkage', 'bundle:test', 'app:build', PKG_DIR] do
     output = `#{XCODEBUILD_COMMAND} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
     build_dir = output.split('= ').last
     tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
