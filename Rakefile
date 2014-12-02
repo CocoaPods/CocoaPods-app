@@ -356,12 +356,29 @@ file installed_ruby => ruby_static_lib do
 end
 
 # ------------------------------------------------------------------------------
+# bundle-env
+# ------------------------------------------------------------------------------
+
+installed_env_script = File.join(BUNDLE_DESTROOT, 'bin/bundle-env')
+file installed_env_script do
+  cp 'bundle-env', installed_env_script
+  sh "chmod +x #{installed_env_script}"
+end
+
+# ------------------------------------------------------------------------------
 # Gems
 # ------------------------------------------------------------------------------
 
-rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/gems/rubygems-update-2.4.2')
-directory rubygems_update_dir => installed_ruby do
-  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem update --system --no-document --env-shebang"
+rubygems_url = "https://rubygems.org/downloads/rubygems-update-2.4.4.gem"
+rubygems_gem = File.join(DOWNLOAD_DIR, File.basename(rubygems_url))
+file rubygems_gem => DOWNLOAD_DIR do
+  sh "curl -sSL #{rubygems_url} -o #{rubygems_gem}"
+end
+
+rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/gems/rubygems-update-2.4.4')
+directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems_gem] do
+  sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' gem install #{rubygems_gem} --no-document --env-shebang"
+  sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' update_rubygems"
   bin = File.join(BUNDLE_DESTROOT, 'bin/gem')
   lines = File.read(bin).split("\n")
   lines[0] = '#!/usr/bin/env ruby'
@@ -478,12 +495,6 @@ end
 # Bundle tasks
 # ------------------------------------------------------------------------------
 
-installed_env_script = File.join(BUNDLE_DESTROOT, 'bin/bundle-env')
-file installed_env_script do
-  cp 'bundle-env', installed_env_script
-  sh "chmod +x #{installed_env_script}"
-end
-
 namespace :bundle do
   task :build_tools => [
     installed_pod_bin,
@@ -529,6 +540,7 @@ namespace :bundle do
     Dir.glob(File.join(BUNDLE_DESTROOT, '**/*')).each do |path|
       next if File.directory?(path)
       next if skip.include?(File.extname(path))
+      next if File.basename(path) == 'libruby-static.a'
       linkage = `otool -arch x86_64 -L '#{path}'`.strip
       unless linkage.include?('is not an object file')
         linkage = linkage.split("\n")[1..-1]
