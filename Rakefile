@@ -578,8 +578,11 @@ namespace :bundle do
       rm_rf DESTROOT
     end
 
+    desc "Clean build and destroot artefacts"
+    task :artefacts => [:build, :destroot]
+
     desc "Clean all artefacts, including downloads"
-    task :all => [:build, :destroot, :downloads]
+    task :all => [:artefacts, :downloads]
   end
 end
 
