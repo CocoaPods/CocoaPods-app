@@ -18,6 +18,9 @@ the _most_ important goal.
 
 ### Building from source
 
+A release build will require the OS X 10.8 SDK that comes with Xcode 5.1.1, which can be downloaded
+[here](https://developer.apple.com/downloads).
+
 The main tasks can be found with `rake -T`:
 
 ```
