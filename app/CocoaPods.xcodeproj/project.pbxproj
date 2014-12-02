@@ -20,6 +20,8 @@
 		5127C3291A23E6CA0093143B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C3281A23E6CA0093143B /* CoreFoundation.framework */; };
 		5127C32B1A23E6DD0093143B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C32A1A23E6DD0093143B /* CoreServices.framework */; };
 		51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */; };
+		51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7831A2DF88700F9ABCB /* Security.framework */; };
+		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
@@ -66,6 +68,8 @@
 		5127C32A1A23E6DD0093143B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLIToolInstallationController.h; sourceTree = "<group>"; };
 		51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLIToolInstallationController.m; sourceTree = "<group>"; };
+		51CFC7831A2DF88700F9ABCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		51D2E5AF1A212A0800C0B153 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
 		51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinitions.plist; sourceTree = "<group>"; };
 		770382F31A2035B400435285 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */,
+				51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */,
 				51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */,
 				1ABDBC9F691D0ED49854319A /* libPods.a in Frameworks */,
 			);
@@ -109,6 +115,8 @@
 		46126B404240E403B2193EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */,
+				51CFC7831A2DF88700F9ABCB /* Security.framework */,
 				5127C32A1A23E6DD0093143B /* CoreServices.framework */,
 				5127C3281A23E6CA0093143B /* CoreFoundation.framework */,
 				51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */,
@@ -384,7 +392,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.8;
 			};
 			name = Debug;
 		};
@@ -419,7 +426,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx10.8;
 			};
 			name = Release;
 		};
