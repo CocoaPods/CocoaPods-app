@@ -70,7 +70,7 @@ LIBYAML_URL = "http://pyyaml.org/download/libyaml/yaml-#{LIBYAML_VERSION}.tar.gz
 ZLIB_VERSION = '1.2.8'
 ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
 
-OPENSSL_VERSION = '1.0.1j'
+OPENSSL_VERSION = '1.0.2'
 OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
 
 NCURSES_VERSION = '5.9'
@@ -82,19 +82,22 @@ READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.t
 LIBFFI_VERSION = '3.1'
 LIBFFI_URL = "ftp://sourceware.org/pub/libffi/libffi-#{LIBFFI_VERSION}.tar.gz"
 
-RUBY__VERSION = '2.1.4'
-RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-#{RUBY__VERSION}.tar.gz"
+RUBY__VERSION = '2.2.0'
+RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz"
 
-GIT_VERSION = '2.1.3'
+RUBYGEMS_VERSION = '2.4.5'
+RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSION}.gem"
+
+GIT_VERSION = '2.2.2'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
 SCONS_URL = "http://prdownloads.sourceforge.net/scons/scons-local-2.3.4.tar.gz"
 SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-1.3.8.tar.bz2"
-SVN_URL = "http://apache.hippo.nl/subversion/subversion-1.8.10.tar.gz"
+SVN_URL = "http://apache.hippo.nl/subversion/subversion-1.8.11.tar.gz"
 
 BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-2.6.0.tar.gz"
 
-MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-3.2.tar.gz"
+MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-3.3.tar.gz"
 
 # ------------------------------------------------------------------------------
 # pkg-config
@@ -369,13 +372,12 @@ end
 # Gems
 # ------------------------------------------------------------------------------
 
-rubygems_url = "https://rubygems.org/downloads/rubygems-update-2.4.4.gem"
-rubygems_gem = File.join(DOWNLOAD_DIR, File.basename(rubygems_url))
+rubygems_gem = File.join(DOWNLOAD_DIR, File.basename(RUBYGEMS_URL))
 file rubygems_gem => DOWNLOAD_DIR do
-  sh "curl -sSL #{rubygems_url} -o #{rubygems_gem}"
+  sh "curl -sSL #{RUBYGEMS_URL} -o #{rubygems_gem}"
 end
 
-rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/gems/rubygems-update-2.4.4')
+rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'), 'gems', File.basename(RUBYGEMS_URL, '.gem'))
 directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems_gem] do
   sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' gem install #{rubygems_gem} --no-document --env-shebang"
   sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' update_rubygems"
