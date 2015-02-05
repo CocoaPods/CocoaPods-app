@@ -197,9 +197,15 @@ file openssl_static_lib => [installed_pkg_config, installed_zlib, openssl_build_
   # Seems to be a OpenSSL bug in the pkg-config, as libz is required when
   # linking libssl, otherwise Ruby's openssl ext will fail to configure.
   # So add it ourselves.
-  openssl_pc_file = File.join(openssl_build_dir, 'openssl.pc')
-  content = File.read(openssl_pc_file).sub(/Libs:/, 'Libs: -lz')
-  File.open(openssl_pc_file, 'w') { |f| f.write(content) }
+  %w( libcrypto.pc libssl.pc ).each do |pc_filename|
+    pc_file = File.join(openssl_build_dir, pc_filename)
+    original_content = File.read(pc_file)
+    content = original_content.sub(/Libs:/, 'Libs: -lz')
+    if original_content == content
+      raise "[!] Did not patch anything in: #{pc_file}"
+    end
+    File.open(pc_file, 'w') { |f| f.write(content) }
+  end
 end
 
 installed_openssl = File.join(DEPENDENCIES_DESTROOT, 'lib/libssl.a')
@@ -319,10 +325,14 @@ serf_static_lib = File.join(serf_build_dir, 'libserf-1.a')
 file serf_static_lib => [installed_pkg_config, installed_openssl, installed_zlib, scons_build_dir, serf_build_dir] do
   sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}'"
   # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
-  # required when linking libssl, otherwise Ruby's openssl ext will fail to
-  # configure. So add it ourselves.
+  # required when linking libssl, otherwise svn will fail to build with our
+  # OpenSSl. So add it ourselves.
   serf_pc_file = File.join(serf_build_dir, 'serf-1.pc')
-  content = File.read(serf_pc_file).sub('Libs: -L${libdir}', 'Libs: -L${libdir} -lssl -lcrypto -lz')
+  original_content = File.read(serf_pc_file)
+  content = original_content.sub('Libs: -L${libdir}', 'Libs: -L${libdir} -lssl -lcrypto -lz')
+  if original_content == content
+    raise "[!] Did not patch anything in: #{serf_pc_file}"
+  end
   File.open(serf_pc_file, 'w') { |f| f.write(content) }
 end
 
