@@ -38,7 +38,8 @@ end
 ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:/usr/bin:/bin"
 ENV['CC'] = '/usr/bin/clang'
 ENV['CXX'] = '/usr/bin/clang++'
-ENV['CFLAGS'] = "-I#{File.join(DEPENDENCIES_PREFIX, 'include')} -mmacosx-version-min=#{DEPLOYMENT_TARGET} -isysroot #{SDKROOT}"
+ENV['CFLAGS'] = "-mmacosx-version-min=#{DEPLOYMENT_TARGET} -isysroot #{SDKROOT}"
+ENV['CPPFLAGS'] = "-I#{File.join(DEPENDENCIES_PREFIX, 'include')}"
 ENV['LDFLAGS'] = "-L#{File.join(DEPENDENCIES_PREFIX, 'lib')}"
 
 # If we don't create this dir and set the env var, the ncurses configure
@@ -85,6 +86,9 @@ RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz
 RUBYGEMS_VERSION = '2.4.6'
 RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSION}.gem"
 
+CURL_VERSION = '7.41.0'
+CURL_URL = "http://curl.haxx.se/download/curl-#{CURL_VERSION}.tar.gz"
+
 GIT_VERSION = '2.3.5'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
@@ -109,7 +113,7 @@ MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-#{MERCURIAL_VERS
 
 pkg_config_tarball = File.join(DOWNLOAD_DIR, File.basename(PKG_CONFIG_URL))
 file pkg_config_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{PKG_CONFIG_URL} -o #{pkg_config_tarball}"
+  sh "/usr/bin/curl -sSL #{PKG_CONFIG_URL} -o #{pkg_config_tarball}"
 end
 
 pkg_config_build_dir = File.join(WORKBENCH_DIR, File.basename(PKG_CONFIG_URL, '.tar.gz'))
@@ -135,7 +139,7 @@ end
 
 yaml_tarball = File.join(DOWNLOAD_DIR, File.basename(LIBYAML_URL))
 file yaml_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{LIBYAML_URL} -o #{yaml_tarball}"
+  sh "/usr/bin/curl -sSL #{LIBYAML_URL} -o #{yaml_tarball}"
 end
 
 yaml_build_dir = File.join(WORKBENCH_DIR, File.basename(LIBYAML_URL, '.tar.gz'))
@@ -160,7 +164,7 @@ end
 
 zlib_tarball = File.join(DOWNLOAD_DIR, File.basename(ZLIB_URL))
 file zlib_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{ZLIB_URL} -o #{zlib_tarball}"
+  sh "/usr/bin/curl -sSL #{ZLIB_URL} -o #{zlib_tarball}"
 end
 
 zlib_build_dir = File.join(WORKBENCH_DIR, File.basename(ZLIB_URL, '.tar.gz'))
@@ -185,7 +189,7 @@ end
 
 openssl_tarball = File.join(DOWNLOAD_DIR, File.basename(OPENSSL_URL))
 file openssl_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{OPENSSL_URL} -o #{openssl_tarball}"
+  sh "/usr/bin/curl -sSL #{OPENSSL_URL} -o #{openssl_tarball}"
 end
 
 openssl_build_dir = File.join(WORKBENCH_DIR, File.basename(OPENSSL_URL, '.tar.gz'))
@@ -223,7 +227,7 @@ end
 
 ncurses_tarball = File.join(DOWNLOAD_DIR, File.basename(NCURSES_URL))
 file ncurses_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{NCURSES_URL} -o #{ncurses_tarball}"
+  sh "/usr/bin/curl -sSL #{NCURSES_URL} -o #{ncurses_tarball}"
 end
 
 ncurses_build_dir = File.join(WORKBENCH_DIR, File.basename(NCURSES_URL, '.tar.gz'))
@@ -249,7 +253,7 @@ end
 
 readline_tarball = File.join(DOWNLOAD_DIR, File.basename(READLINE_URL))
 file readline_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{READLINE_URL} -o #{readline_tarball}"
+  sh "/usr/bin/curl -sSL #{READLINE_URL} -o #{readline_tarball}"
 end
 
 readline_build_dir = File.join(WORKBENCH_DIR, File.basename(READLINE_URL, '.tar.gz'))
@@ -274,7 +278,7 @@ end
 
 scons_tarball = File.join(DOWNLOAD_DIR, File.basename(SCONS_URL))
 file scons_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{SCONS_URL} -o #{scons_tarball}"
+  sh "/usr/bin/curl -sSL #{SCONS_URL} -o #{scons_tarball}"
 end
 
 scons_build_dir = File.join(WORKBENCH_DIR, File.basename(SCONS_URL, '.tar.gz'))
@@ -291,7 +295,7 @@ scons_bin = File.expand_path(File.join(scons_build_dir, 'scons.py'))
 
 serf_tarball = File.join(DOWNLOAD_DIR, File.basename(SERF_URL))
 file serf_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{SERF_URL} -o #{serf_tarball}"
+  sh "/usr/bin/curl -sSL #{SERF_URL} -o #{serf_tarball}"
 end
 
 serf_build_dir = File.join(WORKBENCH_DIR, File.basename(SERF_URL, '.tar.bz2'))
@@ -326,7 +330,7 @@ end
 
 ruby_tarball = File.join(DOWNLOAD_DIR, File.basename(RUBY_URL))
 file ruby_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{RUBY_URL} -o #{ruby_tarball}"
+  sh "/usr/bin/curl -sSL #{RUBY_URL} -o #{ruby_tarball}"
 end
 
 ruby_build_dir = File.join(WORKBENCH_DIR, File.basename(RUBY_URL, '.tar.gz'))
@@ -361,7 +365,7 @@ end
 
 rubygems_gem = File.join(DOWNLOAD_DIR, File.basename(RUBYGEMS_URL))
 file rubygems_gem => DOWNLOAD_DIR do
-  sh "curl -sSL #{RUBYGEMS_URL} -o #{rubygems_gem}"
+  sh "/usr/bin/curl -sSL #{RUBYGEMS_URL} -o #{rubygems_gem}"
 end
 
 rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'), 'gems', File.basename(RUBYGEMS_URL, '.gem'))
@@ -381,12 +385,37 @@ file installed_pod_bin => rubygems_update_dir do
 end
 
 # ------------------------------------------------------------------------------
+# cURL
+# ------------------------------------------------------------------------------
+
+curl_tarball = File.join(DOWNLOAD_DIR, File.basename(CURL_URL))
+file curl_tarball => DOWNLOAD_DIR do
+  sh "/usr/bin/curl -sSL #{CURL_URL} -o #{curl_tarball}"
+end
+
+curl_build_dir = File.join(WORKBENCH_DIR, File.basename(CURL_URL, '.tar.gz'))
+directory curl_build_dir => [curl_tarball, WORKBENCH_DIR] do
+  sh "tar -zxvf #{curl_tarball} -C #{WORKBENCH_DIR}"
+end
+
+libcurl = File.join(curl_build_dir, 'lib/.libs/libcurl.a')
+file libcurl => [installed_pkg_config, installed_openssl, installed_zlib, curl_build_dir] do
+  sh "cd #{curl_build_dir} && ./configure --disable-shared --enable-static --prefix '#{DEPENDENCIES_PREFIX}'"
+  sh "cd #{curl_build_dir} && make -j #{MAKE_CONCURRENCY}"
+end
+
+installed_libcurl = File.join(DEPENDENCIES_DESTROOT, 'lib/libcurl.a')
+file installed_libcurl => libcurl do
+  sh "cd #{curl_build_dir} && make install"
+end
+
+# ------------------------------------------------------------------------------
 # Git
 # ------------------------------------------------------------------------------
 
 git_tarball = File.join(DOWNLOAD_DIR, File.basename(GIT_URL))
 file git_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{GIT_URL} -o #{git_tarball}"
+  sh "/usr/bin/curl -sSL #{GIT_URL} -o #{git_tarball}"
 end
 
 git_build_dir = File.join(WORKBENCH_DIR, File.basename(GIT_URL, '.tar.gz'))
@@ -395,7 +424,7 @@ directory git_build_dir => [git_tarball, WORKBENCH_DIR] do
 end
 
 git_bin = File.join(git_build_dir, 'git')
-file git_bin => [installed_pkg_config, git_build_dir] do
+file git_bin => [installed_pkg_config, installed_libcurl, git_build_dir] do
   sh "cd #{git_build_dir} && ./configure --without-tcltk --prefix '#{BUNDLE_PREFIX}'"
   sh "cd #{git_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
@@ -418,7 +447,7 @@ end
 
 svn_tarball = File.join(DOWNLOAD_DIR, File.basename(SVN_URL))
 file svn_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{SVN_URL} -o #{svn_tarball}"
+  sh "/usr/bin/curl -sSL #{SVN_URL} -o #{svn_tarball}"
 end
 
 svn_build_dir = File.join(WORKBENCH_DIR, File.basename(SVN_URL, '.tar.gz'))
@@ -427,7 +456,7 @@ directory svn_build_dir => [svn_tarball, WORKBENCH_DIR] do
 end
 
 svn_bin = File.join(svn_build_dir, 'subversion/svn/svn')
-file svn_bin => [installed_pkg_config, installed_serf, svn_build_dir] do
+file svn_bin => [installed_pkg_config, installed_serf, installed_libcurl, svn_build_dir] do
   sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}'"
   sh "cd #{svn_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
@@ -443,7 +472,7 @@ end
 
 mercurial_tarball = File.join(DOWNLOAD_DIR, File.basename(MERCURIAL_URL))
 file mercurial_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{MERCURIAL_URL} -o #{mercurial_tarball}"
+  sh "/usr/bin/curl -sSL #{MERCURIAL_URL} -o #{mercurial_tarball}"
 end
 
 mercurial_build_dir = File.join(WORKBENCH_DIR, File.basename(MERCURIAL_URL, '.tar.gz'))
@@ -452,7 +481,7 @@ directory mercurial_build_dir => [mercurial_tarball, WORKBENCH_DIR] do
 end
 
 installed_mercurial = File.join(BUNDLE_DESTROOT, 'bin/hg')
-file installed_mercurial => mercurial_build_dir do
+file installed_mercurial => [installed_libcurl, mercurial_build_dir] do
   sh "cd #{mercurial_build_dir} && make PREFIX='#{BUNDLE_PREFIX}' install-bin"
 end
 
@@ -462,7 +491,7 @@ end
 
 bzr_tarball = File.join(DOWNLOAD_DIR, File.basename(BZR_URL))
 file bzr_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{BZR_URL} -o #{bzr_tarball}"
+  sh "/usr/bin/curl -sSL #{BZR_URL} -o #{bzr_tarball}"
 end
 
 bzr_build_dir = File.join(WORKBENCH_DIR, File.basename(BZR_URL, '.tar.gz'))
@@ -471,7 +500,7 @@ directory bzr_build_dir => [bzr_tarball, WORKBENCH_DIR] do
 end
 
 built_bzr_dir = File.join(bzr_build_dir, 'build')
-directory built_bzr_dir => [installed_pkg_config, bzr_build_dir] do
+directory built_bzr_dir => [installed_pkg_config, installed_libcurl, bzr_build_dir] do
   sh "cd #{bzr_build_dir} && python setup.py build"
 end
 
