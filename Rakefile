@@ -510,6 +510,16 @@ file installed_bzr => built_bzr_dir do
 end
 
 # ------------------------------------------------------------------------------
+# Root Certificates
+# ------------------------------------------------------------------------------
+
+installed_cacert = File.join(BUNDLE_DESTROOT, 'share/cacert.pem')
+file installed_cacert do
+  sh "security find-certificate -a -p /Library/Keychains/System.keychain > '#{installed_cacerts}'"
+  sh "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > '#{installed_cacerts}'"
+end
+
+# ------------------------------------------------------------------------------
 # Bundle tasks
 # ------------------------------------------------------------------------------
 
@@ -521,7 +531,8 @@ namespace :bundle do
     installed_svn,
     installed_bzr,
     installed_mercurial,
-    installed_env_script
+    installed_env_script,
+    installed_cacert,
   ]
 
   task :remove_unneeded_files => :build_tools do
