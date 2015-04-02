@@ -79,9 +79,6 @@ NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.g
 READLINE_VERSION = '6.3'
 READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.tar.gz"
 
-LIBFFI_VERSION = '3.1'
-LIBFFI_URL = "ftp://sourceware.org/pub/libffi/libffi-#{LIBFFI_VERSION}.tar.gz"
-
 RUBY__VERSION = '2.2.1'
 RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz"
 
@@ -272,32 +269,6 @@ file installed_readline => readline_static_lib do
 end
 
 # ------------------------------------------------------------------------------
-# libFFI
-# ------------------------------------------------------------------------------
-
-libffi_tarball = File.join(DOWNLOAD_DIR, File.basename(LIBFFI_URL))
-file libffi_tarball => DOWNLOAD_DIR do
-  sh "curl -sSL #{LIBFFI_URL} -o #{libffi_tarball}"
-end
-
-libffi_build_dir = File.join(WORKBENCH_DIR, File.basename(LIBFFI_URL, '.tar.gz'))
-directory libffi_build_dir => [libffi_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{libffi_tarball} -C #{WORKBENCH_DIR}"
-end
-
-# TODO fix for other OS X versions
-libffi_static_lib = File.join(libffi_build_dir, 'x86_64-apple-darwin14.0.0/.libs/libffi.a')
-file libffi_static_lib => [installed_pkg_config, libffi_build_dir] do
-  sh "cd #{libffi_build_dir} && ./configure --disable-shared --enable-static --prefix '#{DEPENDENCIES_PREFIX}'"
-  sh "cd #{libffi_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_libffi = File.join(DEPENDENCIES_DESTROOT, 'lib/libffi.a')
-file installed_libffi => libffi_static_lib do
-  sh "cd #{libffi_build_dir} && make install"
-end
-
-# ------------------------------------------------------------------------------
 # Scons
 # ------------------------------------------------------------------------------
 
@@ -364,7 +335,7 @@ directory ruby_build_dir => [ruby_tarball, WORKBENCH_DIR] do
 end
 
 ruby_static_lib = File.join(ruby_build_dir, 'libruby-static.a')
-#file ruby_static_lib => [installed_pkg_config, installed_ncurses, installed_yaml, installed_zlib, installed_readline, installed_openssl, installed_libffi, ruby_build_dir] do
+#file ruby_static_lib => [installed_pkg_config, installed_ncurses, installed_yaml, installed_zlib, installed_readline, installed_openssl, ruby_build_dir] do
 file ruby_static_lib => [installed_pkg_config, installed_yaml, installed_openssl, ruby_build_dir] do
   sh "cd #{ruby_build_dir} && ./configure --enable-load-relative --disable-shared --with-static-linked-ext --disable-install-doc --with-out-ext=,dbm,gdbm,sdbm,dl/win32,fiddle/win32,tk/tkutil,tk,win32ole,-test-/win32/dln,-test-/win32/fd_setsize,-test-/win32/dln/empty --prefix '#{BUNDLE_PREFIX}'"
   sh "cd #{ruby_build_dir} && make -j #{MAKE_CONCURRENCY}"
