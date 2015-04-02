@@ -425,8 +425,8 @@ end
 
 git_bin = File.join(git_build_dir, 'git')
 file git_bin => [installed_pkg_config, installed_libcurl, git_build_dir] do
-  sh "cd #{git_build_dir} && ./configure --without-tcltk --prefix '#{BUNDLE_PREFIX}'"
-  sh "cd #{git_build_dir} && make -j #{MAKE_CONCURRENCY}"
+  sh "cd #{git_build_dir} && ./configure --without-tcltk --prefix '#{BUNDLE_PREFIX}' LDFLAGS='-L \"#{DEPENDENCIES_PREFIX}/lib\" -lssl -lcrypto -lz -lcurl -lldap' CPPFLAGS='-I\"#{DEPENDENCIES_PREFIX}/include\"'"
+  sh "cd #{git_build_dir} && make -j #{MAKE_CONCURRENCY} V=1"
 end
 
 installed_git = File.join(BUNDLE_DESTROOT, 'bin/git')
