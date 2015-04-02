@@ -70,8 +70,8 @@ LIBYAML_URL = "http://pyyaml.org/download/libyaml/yaml-#{LIBYAML_VERSION}.tar.gz
 ZLIB_VERSION = '1.2.8'
 ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
 
-OPENSSL_VERSION = '1.0.2'
-OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}-latest.tar.gz"
+OPENSSL_VERSION = '1.0.2a'
+OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
 
 NCURSES_VERSION = '5.9'
 NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.gz"
@@ -335,7 +335,6 @@ directory ruby_build_dir => [ruby_tarball, WORKBENCH_DIR] do
 end
 
 ruby_static_lib = File.join(ruby_build_dir, 'libruby-static.a')
-#file ruby_static_lib => [installed_pkg_config, installed_ncurses, installed_yaml, installed_zlib, installed_readline, installed_openssl, ruby_build_dir] do
 file ruby_static_lib => [installed_pkg_config, installed_yaml, installed_openssl, ruby_build_dir] do
   sh "cd #{ruby_build_dir} && ./configure --enable-load-relative --disable-shared --with-static-linked-ext --disable-install-doc --with-out-ext=,dbm,gdbm,sdbm,dl/win32,fiddle/win32,tk/tkutil,tk,win32ole,-test-/win32/dln,-test-/win32/fd_setsize,-test-/win32/dln/empty --prefix '#{BUNDLE_PREFIX}'"
   sh "cd #{ruby_build_dir} && make -j #{MAKE_CONCURRENCY}"
