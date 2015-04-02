@@ -71,7 +71,7 @@ ZLIB_VERSION = '1.2.8'
 ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
 
 OPENSSL_VERSION = '1.0.2'
-OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
+OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}-latest.tar.gz"
 
 NCURSES_VERSION = '5.9'
 NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.gz"
@@ -82,22 +82,29 @@ READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.t
 LIBFFI_VERSION = '3.1'
 LIBFFI_URL = "ftp://sourceware.org/pub/libffi/libffi-#{LIBFFI_VERSION}.tar.gz"
 
-RUBY__VERSION = '2.2.0'
+RUBY__VERSION = '2.2.1'
 RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz"
 
-RUBYGEMS_VERSION = '2.4.5'
+RUBYGEMS_VERSION = '2.4.6'
 RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSION}.gem"
 
-GIT_VERSION = '2.2.2'
+GIT_VERSION = '2.3.5'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
-SCONS_URL = "http://prdownloads.sourceforge.net/scons/scons-local-2.3.4.tar.gz"
-SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-1.3.8.tar.bz2"
-SVN_URL = "http://apache.hippo.nl/subversion/subversion-1.8.11.tar.gz"
+SCONS_VERSION = '2.3.4'
+SCONS_URL = "http://prdownloads.sourceforge.net/scons/scons-local-#{SCONS_VERSION}.tar.gz"
 
-BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-2.6.0.tar.gz"
+SERF_VERSION = '1.3.8'
+SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-#{SERF_VERSION}.tar.bz2"
 
-MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-3.3.tar.gz"
+SVN_VERSION = '1.8.13'
+SVN_URL = "http://apache.hippo.nl/subversion/subversion-#{SVN_VERSION}.tar.gz"
+
+BZR_VERSION = '2.6.0'
+BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-#{BZR_VERSION}.tar.gz"
+
+MERCURIAL_VERSION = '3.3.3'
+MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-#{MERCURIAL_VERSION}.tar.gz"
 
 # ------------------------------------------------------------------------------
 # pkg-config
