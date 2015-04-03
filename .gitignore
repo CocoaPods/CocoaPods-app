@@ -4,6 +4,7 @@ workbench
 destroot
 tmp
 bundle.tar.gz
+cocoapods-plugins-install/*.gem
 
 DerivedData
 *.xcuserdatad
