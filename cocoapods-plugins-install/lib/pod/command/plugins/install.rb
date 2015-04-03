@@ -33,7 +33,9 @@ module Pod
         executable :gem
 
         def run
-          gem! "install", "--file", temp_gemfile
+          UI.section "Installing plugin: #{@name}" do
+            gem! "install", "--file", temp_gemfile
+          end
         end
 
         private
