@@ -1,4 +1,5 @@
 require 'pod/command/plugins'
+require 'cocoapods/executable'
 
 module Pod
   class Command
@@ -22,8 +23,29 @@ module Pod
           help! "A CocoaPods plugin name is required." unless @name
         end
 
+        extend Executable
+        executable :gem
+
         def run
-          UI.puts "Add your implementation for the cocoapods-plugins-install plugin in #{__FILE__}"
+          gem! "install", "--file", temp_gemfile
+        end
+
+        private
+
+        def temp_gemfile
+          unless @temp_gemfile
+            require 'cocoapods/gem_version'
+            require 'tempfile'
+            Tempfile.open("cocoapods-plugins-install-#{@name}") do |gemfile|
+              gemfile.write <<-GEMFILE
+                source 'https://rubygems.org'
+                gem 'cocoapods', '#{Pod::VERSION}'
+                gem '#{@name}'
+              GEMFILE
+              @temp_gemfile = gemfile.path
+            end
+          end
+          @temp_gemfile
         end
       end
     end
