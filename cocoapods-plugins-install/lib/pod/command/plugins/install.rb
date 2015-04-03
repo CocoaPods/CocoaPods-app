@@ -10,7 +10,7 @@ module Pod
           Install a CocoaPods plugin into the current CocoaPods.app bundle.
         DESC
 
-        self.arguments = 'NAME'
+        self.arguments = [CLAide::Argument.new('NAME', true)]
 
         def initialize(argv)
           @name = argv.shift_argument
