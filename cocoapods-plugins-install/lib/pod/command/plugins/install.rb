@@ -1,6 +1,5 @@
 require 'pod/command/plugins'
 require 'cocoapods/executable'
-require 'rubygems/defaults'
 
 module Pod
   class Command
@@ -15,13 +14,15 @@ module Pod
         self.arguments = [CLAide::Argument.new('NAME', true)]
 
         def initialize(argv)
-          @name = argv.shift_argument
+          @name = argv.shift_argument.strip
           super
         end
 
         def validate!
           super
           help! "A CocoaPods plugin name is required." unless @name
+
+          require 'rubygems/defaults'
           unless File.writable?(Gem.default_dir)
             raise Informative, 'You do not have permissions to install a ' \
                                'plugin. Perhaps try prefixing this command ' \
@@ -35,6 +36,7 @@ module Pod
         def run
           UI.section "Installing plugin: #{@name}" do
             gem! "install", "--file", temp_gemfile
+            record_plugin_installation
           end
         end
 
@@ -54,6 +56,18 @@ module Pod
             end
           end
           @temp_gemfile
+        end
+
+        def record_plugin_installation
+          require 'rbconfig'
+          require 'yaml'
+          share_dir = RbConfig::CONFIG['datadir']
+          path = File.join(share_dir, 'cocoapods-plugins.yml')
+          manifest = File.exist?(path) ? YAML.load_file(path) : []
+          manifest << @name
+          manifest.uniq!
+          manifest.sort!
+          File.write(path, manifest.to_yaml)
         end
       end
     end
