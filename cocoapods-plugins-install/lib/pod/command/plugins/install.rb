@@ -1,5 +1,6 @@
 require 'pod/command/plugins'
 require 'cocoapods/executable'
+require 'rubygems/defaults'
 
 module Pod
   class Command
@@ -21,6 +22,11 @@ module Pod
         def validate!
           super
           help! "A CocoaPods plugin name is required." unless @name
+          unless File.writable?(Gem.default_dir)
+            raise Informative, 'You do not have permissions to install a ' \
+                               'plugin. Perhaps try prefixing this command ' \
+                               'with sudo.'
+          end
         end
 
         extend Executable
