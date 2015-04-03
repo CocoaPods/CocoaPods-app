@@ -363,12 +363,14 @@ end
 # Gems
 # ------------------------------------------------------------------------------
 
+ruby_gems_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'), 'gems')
+
 rubygems_gem = File.join(DOWNLOAD_DIR, File.basename(RUBYGEMS_URL))
 file rubygems_gem => DOWNLOAD_DIR do
   sh "/usr/bin/curl -sSL #{RUBYGEMS_URL} -o #{rubygems_gem}"
 end
 
-rubygems_update_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'), 'gems', File.basename(RUBYGEMS_URL, '.gem'))
+rubygems_update_dir = File.join(ruby_gems_dir, File.basename(RUBYGEMS_URL, '.gem'))
 directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems_gem] do
   sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' gem install #{rubygems_gem} --no-document --env-shebang"
   sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' update_rubygems"
@@ -382,6 +384,23 @@ end
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
 file installed_pod_bin => rubygems_update_dir do
   sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install cocoapods --version=#{install_cocoapods_version} --no-document --env-shebang"
+end
+
+# ------------------------------------------------------------------------------
+# pod plugins install
+# ------------------------------------------------------------------------------
+
+plugin = 'cocoapods-plugins-install'
+$:.unshift "#{plugin}/lib"
+require "#{plugin}/gem_version"
+plugin_with_version = "#{plugin}-#{CocoapodsPluginsInstall::VERSION}"
+
+installed_cocoapods_plugins_install = File.join(ruby_gems_dir, plugin_with_version)
+directory installed_cocoapods_plugins_install => installed_pod_bin do
+  Dir.chdir(plugin) do
+    sh "gem build #{plugin}.gemspec"
+  end
+  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install #{plugin}/#{plugin_with_version}.gem --no-document --env-shebang"
 end
 
 # ------------------------------------------------------------------------------
@@ -525,8 +544,9 @@ end
 
 namespace :bundle do
   task :build_tools => [
-    installed_pod_bin,
     installed_ruby,
+    installed_pod_bin,
+    installed_cocoapods_plugins_install,
     installed_git,
     installed_svn,
     installed_bzr,
