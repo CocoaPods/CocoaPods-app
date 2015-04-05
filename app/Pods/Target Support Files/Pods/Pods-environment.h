@@ -24,3 +24,9 @@
 #define COCOAPODS_VERSION_MINOR_Fragaria_unicode 0
 #define COCOAPODS_VERSION_PATCH_Fragaria_unicode 1
 
+// Sparkle
+#define COCOAPODS_POD_AVAILABLE_Sparkle
+#define COCOAPODS_VERSION_MAJOR_Sparkle 1
+#define COCOAPODS_VERSION_MINOR_Sparkle 9
+#define COCOAPODS_VERSION_PATCH_Sparkle 0
+
