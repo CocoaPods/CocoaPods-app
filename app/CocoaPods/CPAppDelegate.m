@@ -1,8 +1,6 @@
 #import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
 
-#import <Sparkle/Sparkle.h>
-
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod";
 
 @interface CPAppDelegate ()

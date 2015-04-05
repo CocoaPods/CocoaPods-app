@@ -534,8 +534,8 @@ end
 
 installed_cacert = File.join(BUNDLE_DESTROOT, 'share/cacert.pem')
 file installed_cacert do
-  sh "security find-certificate -a -p /Library/Keychains/System.keychain > '#{installed_cacerts}'"
-  sh "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > '#{installed_cacerts}'"
+  sh "security find-certificate -a -p /Library/Keychains/System.keychain > '#{installed_cacert}'"
+  sh "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > '#{installed_cacert}'"
 end
 
 # ------------------------------------------------------------------------------
@@ -656,10 +656,9 @@ XCODEBUILD_COMMAND = "cd app && xcodebuild -workspace CocoaPods.xcworkspace -sch
 namespace :app do
   desc 'Updates the Info.plist of the application to reflect the CocoaPods version'
   task :update_version do
-    info_plist = File.expand_path('app/CocoaPods/Info.plist')
+    info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
     sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleShortVersionString #{install_cocoapods_version}' '#{info_plist}'"
-    build = `/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{info_plist}'`.strip.to_i
-    sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleVersion #{build+1}' '#{info_plist}'"
+    sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleVersion #{install_cocoapods_version}' '#{info_plist}'"
   end
 
   desc 'Build release version of application'
