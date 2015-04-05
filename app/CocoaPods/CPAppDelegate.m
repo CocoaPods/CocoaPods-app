@@ -1,6 +1,8 @@
 #import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
 
+#import <Sparkle/Sparkle.h>
+
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod";
 
 @interface CPAppDelegate ()
@@ -23,6 +25,11 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod";
 }
 
 #pragma mark - Actions
+
+- (IBAction)checkForUpdates:(id)sender;
+{
+  [[SUUpdater sharedUpdater] checkForUpdates:sender];
+}
 
 - (IBAction)openGuides:(id)sender;
 {
