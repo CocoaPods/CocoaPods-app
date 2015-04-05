@@ -26,11 +26,6 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod";
 
 #pragma mark - Actions
 
-- (IBAction)checkForUpdates:(id)sender;
-{
-  [[SUUpdater sharedUpdater] checkForUpdates:sender];
-}
-
 - (IBAction)openGuides:(id)sender;
 {
   [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/"]];
