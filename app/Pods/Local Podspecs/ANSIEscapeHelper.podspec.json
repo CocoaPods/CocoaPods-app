@@ -1,0 +1,16 @@
+{
+  "name": "ANSIEscapeHelper",
+  "version": "0.9.6",
+  "summary": "Objective-C class for translating between ANSI-escaped NSStrings and NSAttributedStrings.",
+  "homepage": "https://github.com/ali-rantakari/ANSIEscapeHelper",
+  "license": "MIT",
+  "authors": {
+    "Ali Rantakari": "visit-with-web-browser@hasseg.org"
+  },
+  "source": {
+    "git": "https://github.com/ali-rantakari/ANSIEscapeHelper.git",
+    "commit": "2931e9e3d162ad76613231358f3d6a77eebd760f"
+  },
+  "source_files": "AMR_ANSIEscapeHelper.{h,m}",
+  "requires_arc": true
+}

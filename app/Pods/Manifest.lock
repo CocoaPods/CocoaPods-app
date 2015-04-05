@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :podspec: Fragaria.podspec.json
 
 SPEC CHECKSUMS:
-  ANSIEscapeHelper: 5d695302185f772d66e9c7eb4370ccb9498ba1ad
+  ANSIEscapeHelper: 1d57a8d7af5b9f9d3d48dcf9bf1726f42ab9b99d
   Fragaria: e9d2dfc249d394732f784bfb939cbba1618e45b1
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.3
