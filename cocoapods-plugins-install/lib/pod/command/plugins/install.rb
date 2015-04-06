@@ -35,7 +35,7 @@ module Pod
 
         def run
           UI.section "Installing plugin: #{@name}" do
-            gem! "install", "--file", temp_gemfile
+            gem! "install", "--no-document", "--env-shebang", "--file", temp_gemfile
             record_plugin_installation
           end
         end
