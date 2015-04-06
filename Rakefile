@@ -1,3 +1,5 @@
+RELEASE_PLATFORM = '10.10'
+
 DEPLOYMENT_TARGET = '10.8'
 DEPLOYMENT_TARGET_SDK = "MacOSX#{DEPLOYMENT_TARGET}.sdk"
 
@@ -363,14 +365,14 @@ end
 # Gems
 # ------------------------------------------------------------------------------
 
-ruby_gems_dir = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'), 'gems')
+gem_home = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'))
 
 rubygems_gem = File.join(DOWNLOAD_DIR, File.basename(RUBYGEMS_URL))
 file rubygems_gem => DOWNLOAD_DIR do
   sh "/usr/bin/curl -sSL #{RUBYGEMS_URL} -o #{rubygems_gem}"
 end
 
-rubygems_update_dir = File.join(ruby_gems_dir, File.basename(RUBYGEMS_URL, '.gem'))
+rubygems_update_dir = File.join(gem_home, 'gems', File.basename(RUBYGEMS_URL, '.gem'))
 directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems_gem] do
   sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' gem install #{rubygems_gem} --no-document --env-shebang"
   sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' update_rubygems"
@@ -381,9 +383,13 @@ directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems
   sh "chmod +x #{bin}"
 end
 
+def install_gem(name, version = nil)
+  sh "'#{File.join(BUNDLE_PREFIX, 'bin', 'bundle-env')}' gem install #{name} #{"--version=#{version}" if version} --no-document --env-shebang"
+end
+
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
 file installed_pod_bin => rubygems_update_dir do
-  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install cocoapods --version=#{install_cocoapods_version} --no-document --env-shebang"
+  install_gem 'cocoapods', install_cocoapods_version
 end
 
 # ------------------------------------------------------------------------------
@@ -395,12 +401,44 @@ $:.unshift "#{plugin}/lib"
 require "#{plugin}/gem_version"
 plugin_with_version = "#{plugin}-#{CocoapodsPluginsInstall::VERSION}"
 
-installed_cocoapods_plugins_install = File.join(ruby_gems_dir, plugin_with_version)
+installed_cocoapods_plugins_install = File.join(gem_home, 'gems', plugin_with_version)
 directory installed_cocoapods_plugins_install => installed_pod_bin do
   Dir.chdir(plugin) do
     sh "gem build #{plugin}.gemspec"
   end
-  sh "env PATH='#{File.join(BUNDLE_PREFIX, 'bin')}' gem install #{plugin}/#{plugin_with_version}.gem --no-document --env-shebang"
+  install_gem "#{plugin}/#{plugin_with_version}.gem"
+end
+
+# ------------------------------------------------------------------------------
+# Third-party gems
+# ------------------------------------------------------------------------------
+
+# Note, this assumes its being build on the latest OS X version.
+installed_osx_gems = []
+Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby/gems/*/specifications/*.gemspec').each do |gemspec|
+  # We have to make some file that does not contain any version information, otherwise we'd first have to query rubygems
+  # for the available versions, which is going to take a long time.
+  installed_gem = File.join(gem_home, 'specifications', "#{File.basename(gemspec, '.gemspec').split('-')[0..-2].join('-')}.CocoaPods-app.installed")
+  installed_osx_gems << installed_gem
+  file installed_gem => rubygems_update_dir do
+    require 'rubygems/specification'
+    gem = Gem::Specification.load(gemspec)
+    # First install the exact same version that Apple included in OS X.
+    case gem.name
+    when 'libxml-ruby'
+      # libxml-ruby-2.6.0 has an extconf.rb that depends on old behavior where `RbConfig` was available as `Config`.
+      install_gem(File.join(PATCHES_DIR, "#{File.basename(gemspec, '.gemspec')}.gem"))
+    when 'sqlite3'
+      # sqlite3-1.3.7 depends on BigDecimal header from before BigDecimal was made into a gem. I doubt anybody really
+      # uses sqlite for CocoaPods dependencies anyways, so just skip this old version.
+    else
+      install_gem(gem.name, gem.version)
+    end
+    # Now install the latest version of the gem.
+    install_gem(gem.name)
+    # Create our nonsense file that's only used to track whether or not the gems were installed.
+    touch installed_gem
+  end
 end
 
 # ------------------------------------------------------------------------------
@@ -553,7 +591,7 @@ namespace :bundle do
     installed_mercurial,
     installed_env_script,
     installed_cacert,
-  ]
+  ].concat(installed_osx_gems)
 
   task :remove_unneeded_files => :build_tools do
     remove_if_existant = lambda do |*paths|
@@ -697,9 +735,14 @@ end
 
 desc "Create a clean release build for distribution"
 task :release do
+  unless `sw_vers -productVersion`.strip.split('.').first(2).join('.') == RELEASE_PLATFORM
+    puts "[!] A release build must be performed on the latest OS X version to ensure all the gems that Apple includes" \
+         "in its OS will be bundled."
+    exit 1
+  end
   unless File.basename(SDKROOT) == DEPLOYMENT_TARGET_SDK
-    puts "[!] Unable to find the SDK for the deployment target `#{DEPLOYMENT_TARGET}`, which is " \
-         "required to create a distribution release."
+    puts "[!] Unable to find the SDK for the deployment target `#{DEPLOYMENT_TARGET}`, which is required to create a " \
+         "distribution release."
     exit 1
   end
   Rake::Task['release:cleanbuild'].invoke
