@@ -19,6 +19,7 @@
 		51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E561A1B925300DCFC94 /* CPUserProject.xib */; };
 		5127C3291A23E6CA0093143B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C3281A23E6CA0093143B /* CoreFoundation.framework */; };
 		5127C32B1A23E6DD0093143B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C32A1A23E6DD0093143B /* CoreServices.framework */; };
+		5180FE941AD2A51300314D61 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5180FE931AD2A51300314D61 /* LICENSE */; };
 		51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */; };
 		51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7831A2DF88700F9ABCB /* Security.framework */; };
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
@@ -66,6 +67,7 @@
 		51165E561A1B925300DCFC94 /* CPUserProject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPUserProject.xib; sourceTree = "<group>"; };
 		5127C3281A23E6CA0093143B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5127C32A1A23E6DD0093143B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		5180FE931AD2A51300314D61 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../../LICENSE; sourceTree = "<group>"; };
 		51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLIToolInstallationController.h; sourceTree = "<group>"; };
 		51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLIToolInstallationController.m; sourceTree = "<group>"; };
 		51CFC7831A2DF88700F9ABCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -167,6 +169,7 @@
 		51165E221A17AFF500DCFC94 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5180FE931AD2A51300314D61 /* LICENSE */,
 				77356D741A2253F1002822CF /* Media.xcassets */,
 				51D2E5AF1A212A0800C0B153 /* Syntax Definitions */,
 				51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */,
@@ -275,6 +278,7 @@
 				51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */,
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
+				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
 				51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */,
 			);
