@@ -47,11 +47,14 @@ module Pod
             require 'cocoapods/gem_version'
             require 'tempfile'
             Tempfile.open("cocoapods-plugins-install-#{@name}") do |gemfile|
-              gemfile.write <<-GEMFILE
-                source 'https://rubygems.org'
-                gem 'cocoapods', '#{Pod::VERSION}'
-                gem '#{@name}'
-              GEMFILE
+              gemfile.puts "source 'https://rubygems.org'"
+              gemfile.puts "gem 'cocoapods', '#{Pod::VERSION}'"
+              unless dev_tools_installed?
+                available_gems_that_require_dev_tools.each do |gem|
+                  gemfile.puts "gem '#{gem.name}', '#{gem.version}'"
+                end
+              end
+              gemfile.puts "gem '#{@name}'"
               @temp_gemfile = gemfile.path
             end
           end
@@ -68,6 +71,28 @@ module Pod
           manifest.uniq!
           manifest.sort!
           File.write(path, manifest.to_yaml)
+        end
+
+        # http://stackoverflow.com/a/15371967/95397
+        def dev_tools_installed?
+          osx_version = `/usr/bin/sw_vers -productVersion`.strip.split('.').first(2).join('.')
+          case osx_version
+          when '10.8'
+            system('/usr/sbin/pkgutil --pkg-info=com.apple.pkg.DeveloperToolsCLI > /dev/null 2>&1')
+          when '10.9', '10.10'
+            system('/usr/sbin/pkgutil --pkg-info=com.apple.pkg.CLTools_Executables > /dev/null 2>&1')
+          else
+            $stderr.puts "[!] Unable to determine if dev tools are installed, assuming they are."
+            true
+          end
+        end
+
+        def available_gems_that_require_dev_tools
+          Gem::Specification.reject { |spec| spec.extensions.empty? }
+                            .sort_by { |gem| [gem.name, gem.version] }
+                            .reverse
+                            .inject({}) { |gems, gem| gems[gem.name] ||= gem; gems }
+                            .values
         end
       end
     end
