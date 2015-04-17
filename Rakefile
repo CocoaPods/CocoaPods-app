@@ -721,8 +721,10 @@ namespace :release do
   task :build => ['bundle:build', 'bundle:verify_linkage', 'bundle:test', 'app:build', PKG_DIR] do
     output = `#{XCODEBUILD_COMMAND} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
     build_dir = output.split('= ').last
-    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
-    sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"
+    #tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
+    #sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"
+    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
+    sh "cd '#{build_dir}' && tar cfj '#{tarball}' CocoaPods.app"
 
     puts
     puts "Finished building release in #{Time.now - $build_started_at} seconds"
