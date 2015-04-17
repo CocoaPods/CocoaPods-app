@@ -47,3 +47,4 @@ Git, Subversion, Mercurial, or Bazaar, be sure to checkout _all_ the tasks with 
 3. Checkout the `gh-pages` branch: `git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages`.
 4. Add `gh-pages/releases/VERSION.html` and recreate the changelog you added to the GitHub release as HTML.
 5. Update `gh-pages/sparkle.xml` to include the new version ‘item’.
+6. Make a pull request to [https://github.com/caskroom/homebrew-cask/blob/master/Casks/cocoapods.rb](homebrew-cask) updating the `version` and `sha256`
