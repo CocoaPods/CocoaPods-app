@@ -38,3 +38,12 @@ rake release:cleanbuild     # Create a clean build
 
 If you’re working on the build system and want to debug intermediate steps, such as building Ruby,
 Git, Subversion, Mercurial, or Bazaar, be sure to checkout _all_ the tasks with `rake -T -A`.
+
+
+### Creating a release
+
+1. Run `rake release`.
+2. [Create a new ‘release’](https://github.com/CocoaPods/CocoaPods-app/releases/new) on GitHub, which should show app specific changelog notes followed by the CocoaPods release changelog notes.
+3. Checkout the `gh-pages` branch: `git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages`.
+4. Add `gh-pages/releases/VERSION.html` and recreate the changelog you added to the GitHub release as HTML.
+5. Update `gh-pages/sparkle.xml` to include the new version ‘item’.
