@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <h1>0.36.4</h1>
+
+    <h3>App</h3>
+    <ul>
+      <li>Add new app icon.<br /><a href="https://github.com/majino">Marian Mraz</a></li>
+      <li>Update bundled Ruby version to 2.2.2, which deals with a <a href="https://www.ruby-lang.org/en/news/2015/04/13/ruby-openssl-hostname-matching-vulnerability/">security issue</a>.<br /><a href="https://github.com/segiddins">Samuel Giddins</a></li>
+      <li>Bundle all gems that Apple bundles with OS X’s Ruby as well.<br /><a href="https://github.com/alloy">Eloy Durán</a></li>
+      <li>Pin gems that require compilation to the ones that are bundled if the user does not have the Xcode Command-Line Tools installed.<br /><a href="https://github.com/alloy">Eloy Durán</a> <a href="https://github.com/CocoaPods/CocoaPods-app/issues/36">#36</a></li>
+    </ul>
+
+    <h3>Bug Fixes</h3>
+    <ul>
+      <li>Fixes various problems with Pods that use xcasset bundles. Pods that use xcassets can now be used with the <code>pod :path</code> option.<br /><a href="https://github.com/kylef">Kyle Fuller</a> <a href="https://github.com/CocoaPods/CocoaPods/issues/1549">#1549</a> <a href="https://github.com/CocoaPods/CocoaPods/pull/3384">#3384</a> <a href="https://github.com/CocoaPods/CocoaPods/pull/3358">#3358</a></li>
+    </ul>
+  </body>
+</html>
+
