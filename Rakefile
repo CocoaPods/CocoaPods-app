@@ -604,10 +604,11 @@ namespace :bundle do
     sh "du -hs #{BUNDLE_DESTROOT}"
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'bin/svn[a-z]*'))
     remove_if_existant.call *FileList[File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a')].exclude(/libruby-static/)
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/**/*.o'))
+    remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/*/cache'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/.DS_Store'))
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'include/subversion-1')
-    remove_if_existant.call File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/2.1.0/cache')
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'man')
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'share/gitweb')
     remove_if_existant.call File.join(BUNDLE_DESTROOT, 'share/man')
