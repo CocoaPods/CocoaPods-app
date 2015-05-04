@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <h1>0.37.0</h1>
+
+    <p>For more details, see 📝 <a href="http://blog.cocoapods.org/CocoaPods-0.37/">CocoaPods 0.37</a> on our blog.</p>
+
+    <h5>Bug Fixes</h5>
+
+    <ul>
+      <li>Print the UTF-8 warning to STDERR.<br>
+        <a href="https://github.com/mjholgate">Matt Holgate</a>
+      </li>
+    </ul>
+
+    <h2>0.37.0.rc.2</h2>
+
+    <h5>Bug Fixes</h5>
+
+    <ul>
+      <li><p>Handle caching specs that have subspecs with higher minimum deployment targets<br>
+        without deleting needed source files.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3471">#3471</a></p></li>
+      <li><p>Automatically detect JSON podspecs in <code>pod lib lint</code>.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3477">#3477</a></p></li>
+    </ul>
+
+    <h2>0.37.0.rc.1</h2>
+
+    <p><a href="https://github.com/CocoaPods/Core/compare/0.37.0.beta.1...0.37.0.rc.1">Core</a><br>
+    <a href="https://github.com/CocoaPods/Xcodeproj/compare/0.24.0...0.24.1">Xcodeproj</a></p>
+
+    <h5>Enhancements</h5>
+
+    <ul>
+      <li><p>Add environment variable <code>COCOAPODS_SKIP_UPDATE_MESSAGE</code> to disable new<br>
+        version message.<br><br>
+        <a href="https://github.com/andreamazz">Andrea Mazzini</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3364">#3364</a></p></li>
+      <li><p>Use user project's object version for pods project.<br><br>
+        <a href="https://github.com/neonichu">Boris Bügling</a><br>
+        <a href="https://github.com/CocoaPods/Xcodeproj/issues/253">#253</a></p></li>
+    </ul>
+
+    <h5>Bug Fixes</h5>
+
+    <ul>
+      <li><p>Adding <code>$(inherited)</code> to <code>FRAMEWORK_SEARCH_PATHS</code> build setting in xcconfig for aggregate.<br><br>
+        <a href="https://github.com/EZ-NET">Tomohiro Kumagai</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/pull/3429">#3429</a></p></li>
+      <li><p>Don't crash when the downloader can't find an appropriate podspec in a <code>git</code><br>
+        pod.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3433">#3433</a></p></li>
+      <li><p>Automatically lock Pod source files after installing.<br><br>
+        <a href="https://github.com/mglidden">Mason Glidden</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/1154">#1154</a></p></li>
+      <li><p>Handle subprocesses leaking STDOUT/STDERR pipes by more strictly managing<br>
+        process lifetime and not allowing I/O to block completion of the task.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3101">#3101</a></p></li>
+      <li><p>Do not create pod target if <code>source_files</code> only contains headers.<br><br>
+        <a href="https://github.com/neonichu">Boris Bügling</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3106">#3106</a></p></li>
+      <li><p>Run a pod's <code>prepare_command</code> (if it has one) before it is cleaned in the<br>
+        download cache.<br><br>
+        <a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3436">#3436</a></p></li>
+      <li><p>Don't set the <code>-fno-objc-arc</code> compiler flags for files for which the flag<br>
+        makes no sense.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2559">#2559</a></p></li>
+      <li><p>Also apply a pod's configuration to any resource targets defined by the pod.<br><br>
+        <a href="https://github.com/inferis">Tom Adriaenssen</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3463">#3463</a></p></li>
+    </ul>
+
+    <h2>0.37.0.beta.1</h2>
+
+    <h5>Enhancements</h5>
+
+    <ul>
+      <li><p>Allow the specification of custom module map files.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3145">#3145</a></p></li>
+      <li><p>Show the source URI for local Pod specification repositories in<br>
+        <code>pod repo list</code>.<br><br>
+        <a href="https://github.com/kylef">Kyle Fuller</a></p></li>
+      <li><p>Only show a warning when there is a minimum deployment target mismatch<br>
+        between target and spec, instead of throwing a hard error.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/1241">#1241</a></p></li>
+      <li><p>Add download caching for pods, which speeds up <code>pod install</code> and linting,<br>
+        potentially by several orders of magnitude.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2863">#2863</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3172">#3172</a></p></li>
+      <li><p>Add a <code>--fail-fast</code> option to both <code>pod spec lint</code> and <code>pod lib lint</code> that<br>
+        causes the linter to exit as soon as a single subspec or platform fails<br>
+        linting.<br><br>
+        <a href="https://github.com/mrackwitz">Marius Rackwitz</a></p></li>
+      <li><p>Naïvely prevent base xcconfig warnings for targets that have custom<br>
+        config files set.<br><br>
+        <a href="https://github.com/cbrauchli">Chris Brauchli</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2633">#2633</a></p></li>
+      <li><p>Ensure private headers are declared as such in a framework's generated module<br>
+        map.<br><br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2974">#2974</a></p></li>
+    </ul>
+
+    <h5>Bug Fixes</h5>
+
+    <ul>
+      <li><p>Do not pass code-sign arguments to xcodebuild when linting OS X targets.<br><br>
+        <a href="https://github.com/neonichu">Boris Bügling</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3310">#3310</a></p></li>
+      <li><p>Fixes an issue showing the URL to remote resources in <code>pod repo list</code>.<br><br>
+        <a href="https://github.com/kylef">Kyle Fuller</a></p></li>
+      <li><p>Fixes a problem with code signing when integrating CocoaPods<br>
+        into a Today Widget extension.<br><br>
+        <a href="https://github.com/chrisfsampaio">Christian Sampaio</a><br>
+        <a href="https://github.com/CocoaPods/CocoaPods/pull/3390">#3390</a></p></li>
+    </ul>
+  </body>
+</html>
+
