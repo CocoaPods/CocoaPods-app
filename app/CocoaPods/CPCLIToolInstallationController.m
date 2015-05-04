@@ -4,7 +4,7 @@
 #import <Cocoa/Cocoa.h>
 #import <SecurityFoundation/SFAuthorization.h>
 
-NSString * const kCPRequestCLIToolInstallationAgainKey = @"CPRequestCLIToolInstallationAgain";
+NSString * const kCPDoNotRequestCLIToolInstallationAgainKey = @"CPDoNotRequestCLIToolInstallationAgain";
 NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDestinations";
 
 @interface CPCLIToolInstallationController ()
@@ -38,7 +38,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
     return NO;
   }
 
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kCPRequestCLIToolInstallationAgainKey]) {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kCPDoNotRequestCLIToolInstallationAgainKey]) {
     NSLog(@"Asking the user to install the binstub again is prohibited.");
     return NO;
   }
@@ -159,7 +159,7 @@ CPBookmarkDataForURL(NSURL *URL) {
 - (void)setDoNotRequestInstallationAgain;
 {
   NSLog(@"Not going to automatically request binstub installation anymore.");
-  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCPRequestCLIToolInstallationAgainKey];
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCPDoNotRequestCLIToolInstallationAgainKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

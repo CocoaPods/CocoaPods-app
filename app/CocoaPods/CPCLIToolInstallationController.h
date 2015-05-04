@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-extern NSString * const kCPRequestCLIToolInstallationAgainKey;
+extern NSString * const kCPDoNotRequestCLIToolInstallationAgainKey;
 extern NSString * const kCPCLIToolInstalledToDestinationsKey;
 
 @interface CPCLIToolInstallationController : NSObject
