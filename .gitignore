@@ -5,6 +5,7 @@ destroot
 tmp
 bundle.tar.gz
 cocoapods-plugins-install/*.gem
+.github_access_token
 
 DerivedData
 *.xcuserdatad
