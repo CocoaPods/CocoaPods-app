@@ -715,6 +715,10 @@ end
 # Release tasks
 # ------------------------------------------------------------------------------
 
+def github_access_token
+  File.read('.github_access_token').strip rescue nil
+end
+
 namespace :release do
   task :clean => ['bundle:clean:all', 'app:clean']
 
@@ -734,6 +738,36 @@ namespace :release do
 
   desc "Create a clean build"
   task :cleanbuild => [:clean, :build]
+
+  desc "Upload release"
+  task :upload => [] do
+    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
+    sha = `shasum -a 256 -b '#{tarball}'`.split(' ').first
+
+    require 'net/http'
+    require 'json'
+
+    github_headers = {
+      'Content-Type' => 'application/json',
+      'User-Agent' => 'runscope/0.1,segiddins',
+      'Accept' => '*/*',
+    }
+
+    github = Net::HTTP.new('https://api.github.com')
+    response = github.post2("/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
+                            {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
+                            github_headers)
+
+    tarball_name = File.basename(tarball)
+    upload_url = JSON.load(response.body)['upload_url'],gsub('{?name}', "?name=#{tarball_name}&Content-Type=application/x-tar")
+    response = github.post2(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
+    tarball_download_url = JSON.load(response.body)['browser_download_url']
+
+    puts
+    puts "Make a PR to https://github.com/CocoaPods/CocoaPods-app/blob/master/homebrew-cask " \
+         "updating the version to #{install_cocoapods_version} and the sha to #{sha}"
+    puts
+  end
 end
 
 desc "Create a clean release build for distribution"
@@ -748,5 +782,11 @@ task :release do
          "distribution release."
     exit 1
   end
+  unless github_access_token
+    puts "[!] You have not provided a github access token via `.github_access_token`, " \
+         'so a GitHub release cannot be made.'
+    exit 1
+  end
   Rake::Task['release:cleanbuild'].invoke
+  Rake::Task['release:upload'].invoke
 end
