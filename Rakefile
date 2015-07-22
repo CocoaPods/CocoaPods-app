@@ -746,21 +746,22 @@ namespace :release do
 
     require 'net/http'
     require 'json'
+    require 'rest'
 
     github_headers = {
       'Content-Type' => 'application/json',
       'User-Agent' => 'runscope/0.1,segiddins',
-      'Accept' => '*/*',
+      'Accept' => 'application/json',
     }
 
-    github = Net::HTTP.new('https://api.github.com')
-    response = github.post2("/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
-                            {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
-                            github_headers)
+    response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
+                         {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
+                         github_headers)
 
     tarball_name = File.basename(tarball)
-    upload_url = JSON.load(response.body)['upload_url'],gsub('{?name}', "?name=#{tarball_name}&Content-Type=application/x-tar")
-    response = github.post2(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
+
+    upload_url = JSON.load(response.body)['upload_url'].gsub('{?name}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
+    response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
 
     puts
