@@ -73,7 +73,7 @@ LIBYAML_URL = "http://pyyaml.org/download/libyaml/yaml-#{LIBYAML_VERSION}.tar.gz
 ZLIB_VERSION = '1.2.8'
 ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
 
-OPENSSL_VERSION = '1.0.2a'
+OPENSSL_VERSION = '1.0.2d'
 OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
 
 NCURSES_VERSION = '5.9'
