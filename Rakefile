@@ -773,7 +773,7 @@ end
 desc "Create a clean release build for distribution"
 task :release do
   unless `sw_vers -productVersion`.strip.split('.').first(2).join('.') == RELEASE_PLATFORM
-    puts "[!] A release build must be performed on the latest OS X version to ensure all the gems that Apple includes" \
+    puts "[!] A release build must be performed on the latest OS X version to ensure all the gems that Apple includes " \
          "in its OS will be bundled."
     exit 1
   end
