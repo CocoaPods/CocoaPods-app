@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <h1>0.38.0</h1>
+
+  <p>For more details, see 📝 <a href="http://blog.cocoapods.org/CocoaPods-0.38/">CocoaPods 0.38</a> on our blog.</p <h5>Enhancements</h5>
+
+  <ul>
+    <li>Improve the message shown when trying to use Swift Pods without frameworks. Now it includes the offending Pods so that the user can take action to remove the Pods, if they don’t want to move to frameworks yet.
+      <br>
+      <a href="https://github.com/CocoaPods/CocoaPods/pull/3830">#3830</a>
+      <a href="https://github.com/alloy">Eloy Durán</a></li>
+  </ul>
+
+  <h5>Bug Fixes</h5>
+
+  <ul>
+    <li>Properly merge the
+      <code>user_target_xcconfig</code>s of multiple subspecs.
+      <br>
+      <a href="https://github.com/CocoaPods/CocoaPods/issues/3813">#3813</a>
+      <a href="https://github.com/segiddins">Samuel Giddins</a></li>
+  </ul>
+
+  <h2>0.38.0.beta.2</h2>
+
+  <h5>Enhancements</h5>
+
+  <ul>
+    <li>
+      <p>The resolver will now take supported platform deployment targets into account when resolving dependencies.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2443">#2443</a></p>
+    </li>
+    <li>
+      <p>
+        <code>Pods.xcodeproj</code> will now be written with deterministic UUIDs, vastly reducing project churn and merge conflicts. This behavior can be disabled via the new
+        <code>COCOAPODS_DISABLE_DETERMINISTIC_UUIDS</code> environment variable.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a></p>
+    </li>
+    <li>
+      <p>
+        <a href="https://github.com/CocoaPods/cocoapods-stats">
+          <code>cocoapods-stats</code>
+        </a>
+        is now a default plugin.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a></p>
+    </li>
+  </ul>
+
+  <h5>Bug Fixes</h5>
+
+  <ul>
+    <li>
+      <p>Ensure that the
+        <code>prepare_command</code> is run even when skipping the download cache.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3674">#3674</a></p>
+    </li>
+    <li>
+      <p>Public headers inside a directory named
+        <code>framework</code> should be linked in the sandbox.
+        <br>
+        <a href="https://github.com/vincentisambart">Vincent Isambart</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3751">#3751</a></p>
+    </li>
+    <li>
+      <p>Properly support targets with spaces in their name in the embed frameworks script.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3754">#3754</a></p>
+    </li>
+    <li>
+      <p>Don&#39;t add the
+        <code>-ObjC</code> linker flag if it&#39;s unnecessary.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3537">#3537</a></p>
+    </li>
+    <li>
+      <p>Ensure that no duplicate framework or target dependencies are created.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3763">#3763</a></p>
+    </li>
+  </ul>
+
+  <h2>0.38.0.beta.1</h2>
+
+  <h5>Highlighted Enhancement That Needs Testing</h5>
+
+  <ul>
+    <li>De-duplicate Pod Targets: CocoaPods now recognizes when a dependency is used multiple times across different user targets, but needs to be built only once. The targets in
+      <code>Pods.xcodeproj</code> need to be duplicated when one of the following applies:
+
+      <ul>
+        <li>They are used on different platforms.</li>
+        <li>They are used with differents sets of subspecs.</li>
+        <li>They have any dependency which needs to be duplicated.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p>You can opt-out of this behavior installation-wise, by setting the following option in your
+    <code>~/.cocoapods/config.yaml`:
+    </code>
+    <code>yaml deduplicate_targets: false
+    </code>``</p>
+
+  <p><a href="https://github.com/mrackwitz">Marius Rackwitz</a>
+    <a href="https://github.com/CocoaPods/CocoaPods/issues/3550">#3550</a></p>
+
+  <h5>Breaking</h5>
+
+  <ul>
+    <li>
+      <p>The CocoaPods environment header has been removed.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2390">#2390</a></p>
+    </li>
+    <li>
+      <p>The
+        <code>Installer</code> is passed directly to the
+        <code>pre_install</code> and
+        <code>post_install</code>
+        hooks defined in the Podfile, instead of the previously used
+        <code>Hooks::InstallerRepresentation</code>.
+        <br>
+        <a href="https://github.com/mrackwitz">Marius Rackwitz</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3648">#3648</a></p>
+    </li>
+    <li>
+      <p>Deprecate the
+        <code>xcconfig</code> attribute in the Podspec DSL, which is replaced by the new attributes
+        <code>pod_target_xcconfig</code> and
+        <code>user_target_xcconfig</code>.
+        <br>
+        <a href="https://github.com/mrackwitz">Marius Rackwitz</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3465">CocoaPods#3465</a></p>
+    </li>
+  </ul>
+
+  <h5>Enhancements</h5>
+
+  <ul>
+    <li>
+      <p>The notice about a new version being available will now include our recommendation of using the latest stable version.
+        <br>
+        <a href="https://github.com/k0nserv">Hugo Tunius</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/pull/3667">#3667</a></p>
+    </li>
+    <li>
+      <p>New commands
+        <code>pod cache list</code> and
+        <code>pod cache clean</code> allows you to see the contents of the cache and clean it.
+        <br>
+        <a href="https://github.com/AliSoftware">Olivier Halligon</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3508">#3508</a></p>
+    </li>
+    <li>
+      <p>The download cache will automatically be reset when changing CocoaPods versions.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3542">#3542</a></p>
+    </li>
+    <li>
+      <p>Supports running pre-install hooks in plugins. This happens before the resolver does its work, and offers easy access to the sandbox, podfile and lockfile via a
+        <code>PreInstallHooksContext</code> object. This also renames the post-install hooks from
+        <code>HooksContext</code>
+        to
+        <code>PostInstallHooksContext</code>.
+        <br>
+        <a href="https://github.com/orta">Orta Therox</a>
+        <a href="https://github.com/CocoaPods/cocoapods/issues/3409">#3540</a></p>
+    </li>
+    <li>
+      <p>Allow passing additional arguments to
+        <code>pod lib create</code>, which then get passed as-is to the
+        <code>configure</code> scripts.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2160">#2160</a></p>
+    </li>
+    <li>
+      <p>Use
+        <code>-analyzer-disable-all-checks</code> to disable static analyzer for pods with
+        <code>inhibit_warnings</code> enabled (requires Xcode &gt;= 6.1).
+        <br>
+        <a href="https://github.com/kommen">Dieter Komendera</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2402">#2402</a></p>
+    </li>
+    <li>
+      <p>Cache globbing in
+        <code>PathList</code> to speed up
+        <code>pod install</code>.
+        <br>
+        <a href="https://github.com/vincentisambart">Vincent Isambart</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/pull/3699">#3699</a></p>
+    </li>
+    <li>
+      <p>CocoaPods will validate your podfile and try to identify problems and conflicts in how you&#39;ve specified the dependencies.
+        <br>
+        <a href="https://github.com/k0nserv">Hugo Tunius</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/995">#995</a></p>
+    </li>
+    <li>
+      <p>
+        <code>pod update</code> will now accept root pod names, even when only subspecs are installed.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3689">#3689</a></p>
+    </li>
+    <li>
+      <p>Support for the new
+        <code>watchos</code> platform.
+        <br>
+        <a href="https://github.com/neonichu">Boris Bügling</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/pull/3681">#3681</a></p>
+    </li>
+  </ul>
+
+  <h5>Bug Fixes</h5>
+
+  <ul>
+    <li>
+      <p>Added recursive support to the public headers of vendored frameworks that are automatically linked in the sandbox. This fixes and issue for framework header directories that contain sub-directories.
+        <br>
+        <a href="https://github.com/vhariable">Todd Casey</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3161">#3161</a></p>
+    </li>
+    <li>
+      <p>Public headers of vendored frameworks are now automatically linked in the sandbox. That allows transitive inclusion of headers from other pods.
+        <br>
+        <a href="https://github.com/vincentisambart">Vincent Isambart</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3161">#3161</a></p>
+    </li>
+    <li>
+      <p>Fixes an issue that prevented static libraries from building.
+        <code>OTHER_LIBTOOLFLAGS</code>
+        is no longer set to the value of
+        <code>OTHER_LDFLAGS</code>. If you want to create a static library that includes all dependencies for (internal/external) distribution then you should use a tool like
+        <code>cocoapods-packager</code>.
+        <br>
+        <a href="https://github.com/themackworth">Michael Moscardini</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2747">#2747</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/2704">#2704</a></p>
+    </li>
+    <li>
+      <p>The embed frameworks script will now properly filter out symlinks to the directories that are filtered, which fixes an issue when submitting to the Mac App Store.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a></p>
+    </li>
+    <li>
+      <p>The error report template is now more robust against missing executables.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3719">#3719</a></p>
+    </li>
+    <li>
+      <p>Attempting to specify a
+        <code>git</code> source where a Podspec for the requested pod is not found will have a more helpful error message.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a></p>
+    </li>
+    <li>
+      <p>
+        <code>pod outdated</code> will now accept the
+        <code>--no-repo-update</code> and
+        <code>--no-integrate</code>
+        options.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a></p>
+    </li>
+    <li>
+      <p>Fixes an issue which prevented using a custom
+        <code>CONFIGURATION_BUILD_DIR</code> when integrating CocoaPods via dynamic frameworks.
+        <br>
+        <a href="https://github.com/timrosenblatt">Tim Rosenblatt</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/pull/3675">#3675</a></p>
+    </li>
+    <li>
+      <p>Pods frameworks in codesigned Mac apps are now signed.
+        <br>
+        <a href="https://github.com/nschum">Nikolaj Schumacher</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3646">#3646</a></p>
+    </li>
+  </ul>
+</body>
+
+</html>
