@@ -79,7 +79,7 @@ module Pod
           case osx_version
           when '10.8'
             system('/usr/sbin/pkgutil --pkg-info=com.apple.pkg.DeveloperToolsCLI > /dev/null 2>&1')
-          when '10.9', '10.10'
+          when '10.9', '10.10', '10.11'
             system('/usr/sbin/pkgutil --pkg-info=com.apple.pkg.CLTools_Executables > /dev/null 2>&1')
           else
             $stderr.puts "[!] Unable to determine if dev tools are installed, assuming they are."
@@ -98,4 +98,3 @@ module Pod
     end
   end
 end
-
