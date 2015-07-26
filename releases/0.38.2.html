@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <h1>0.38.2</h1>
+  <h5>Bug Fixes</h5>
+
+  <ul>
+    <li>
+      <p>Fix generation of xcconfig files that specify both
+        <code>-iquote</code> and
+        <code>-isystem</code>
+        headers.
+        <br>
+        <a href="https://github.com/russbishop">Russ Bishop</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3893">#3893</a></p>
+    </li>
+    <li>
+      <p>Pods integrated as static libraries can no longer be imported as modules, as that change had unexpected side-effects.
+        <br>
+        <a href="https://github.com/neonichu">Boris Bügling</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/pull/3898">#3898</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3879">#3879</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3888">#3888</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3886">#3886</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3889">#3889</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3884">#3884</a></p>
+    </li>
+    <li>
+      <p>Source file locking now happens after plugin and podfile post-install hooks have run.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3529">#3529</a></p>
+    </li>
+    <li>
+      <p>Only set project, dylib, and compatibility versions to valid, three integer values.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3887">#3887</a></p>
+    </li>
+  </ul>
+
+  <h2>0.38.1</h2>
+
+  <h5>Enhancements</h5>
+
+  <ul>
+    <li>
+      <p>Set project, dylib, and compatibility versions when building pods as frameworks.
+        <br>
+        <a href="https://github.com/mrackwitz">Marius Rackwitz</a></p>
+    </li>
+    <li>
+      <p>Pods integrated as static libraries can now be imported as modules.
+        <br>
+        <a href="https://github.com/TomasLinhart">Tomas Linhart</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3874">#3874</a></p>
+    </li>
+  </ul>
+
+  <h5>Bug Fixes</h5>
+
+  <ul>
+    <li>
+      <p>Ensure the aggregate
+        <code>.xcconfig</code> file only has the settings for the appropriate build configuration.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3842">#3842</a></p>
+    </li>
+    <li>
+      <p>Show the correct error when
+        <code>pod spec lint</code> finds multiple podspecs, and at least one of them fails linting.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3869">#3869</a></p>
+    </li>
+    <li>
+      <p>Set header search paths properly on the user target when
+        <code>vendored_libraries</code>
+        Pods are used while integrating Pods as frameworks.
+        <br>
+        <a href="https://github.com/perotinus">Jonathan MacMillan</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3857">#3857</a></p>
+    </li>
+    <li>
+      <p>Only link public headers in the sandbox for Pods that are not being built into dynamic frameworks, when integrating Pods as frameworks.
+        <br>
+        <a href="https://github.com/perotinus">Jonathan MacMillan</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3867">#3867</a></p>
+    </li>
+    <li>
+      <p>Don&#39;t lock resource files, only source files.
+        <br>
+        <a href="https://github.com/mglidden">Mason Glidden</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3557">#3557</a></p>
+    </li>
+    <li>
+      <p>Fix copying frameworks when integrating with today extensions.
+        <br>
+        <a href="https://github.com/segiddins">Samuel Giddins</a>
+        <a href="https://github.com/CocoaPods/CocoaPods/issues/3819">#3819</a></p>
+    </li>
+  </ul>
+
+</body>
+
+</html>
