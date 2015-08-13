@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="cocoapodsVersionTextField" destination="8mn-Z8-QE9" id="V6N-YU-h3E"/>
                 <outlet property="commandLineToolsHeightConstraint" destination="0dU-Fs-zRp" id="TiI-Cj-7vc"/>
+                <outlet property="cpIconImage" destination="YAO-eB-e3O" id="RjJ-rW-NYZ"/>
                 <outlet property="installCommandLineToolsView" destination="3g8-qK-y7T" id="VyY-Wu-pUz"/>
                 <outlet property="openChangelogButton" destination="c72-1G-DgX" id="WMJ-bT-qBk"/>
                 <outlet property="openGuidesButton" destination="jOz-TV-Fbo" id="W3S-M3-KIQ"/>
@@ -23,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -284,7 +285,7 @@ Command-Line Tools?</string>
                     <rect key="frame" x="258" y="-112" width="1844" height="304"/>
                     <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="Zpq-J5-F7o">
                         <font key="font" size="13" name="Menlo-Regular"/>
-                        <mutableString key="title">-&gt; Alamofire (3.1.4)
+                        <string key="title">-&gt; Alamofire (3.1.4)
    Elegant HTTP Networking in Swift
    pod 'Alamofire', '~&gt; 3.1.4'
    - Homepage: https://github.com/Alamofire/Alamofire
@@ -299,7 +300,7 @@ Command-Line Tools?</string>
    - Versions: 0.3.3, 0.3.2, 0.3.1, 0.3, 0.2, 0.1 [master repo]
    - Subspecs:
      - RxAlamofire/Core (0.3.3)
-     - RxAlamofire/RxCocoa (0.3.3)</mutableString>
+     - RxAlamofire/RxCocoa (0.3.3)</string>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

@@ -14,6 +14,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 @property (weak) IBOutlet NSButton *openGuidesButton;
 @property (weak) IBOutlet NSButton *openSearchButton;
 @property (weak) IBOutlet NSButton *openChangelogButton;
+@property (weak) IBOutlet NSImageView *cpIconImage;
 
 @property (strong) IBOutlet NSView *installCommandLineToolsView;
 @property (weak) IBOutlet NSLayoutConstraint *commandLineToolsHeightConstraint;
@@ -35,6 +36,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   self.openSearchButton.title = NSLocalizedString(@"MAIN_WINDOW_OPEN_SEARCH_BUTTON_TITLE", nil);
   self.openChangelogButton.title = NSLocalizedString(@"MAIN_WINDOW_CHANGELOG_BUTTON_TITLE", nil);
   self.window.excludedFromWindowsMenu = YES;
+    self.cpIconImage.image = [NSApp applicationIconImage];
 
   [self.tableView setTarget:self];
   [self.tableView setDoubleAction:@selector(didDoubleTapOnRecentItem:)];
