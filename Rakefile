@@ -101,7 +101,7 @@ SERF_VERSION = '1.3.8'
 SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-#{SERF_VERSION}.tar.bz2"
 
 SVN_VERSION = '1.8.13'
-SVN_URL = "http://apache.hippo.nl/subversion/subversion-#{SVN_VERSION}.tar.gz"
+SVN_URL = "https://archive.apache.org/dist/subversion/subversion-#{SVN_VERSION}.tar.gz"
 
 BZR_VERSION = '2.6.0'
 BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-#{BZR_VERSION}.tar.gz"
