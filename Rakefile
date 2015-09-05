@@ -54,7 +54,7 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  #sh "pod repo update master"
+  sh "pod repo update master"
   version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
   require 'yaml'
   @install_cocoapods_version = YAML.load(File.read(version_file))['last']
