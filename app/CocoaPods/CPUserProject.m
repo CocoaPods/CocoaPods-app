@@ -5,9 +5,12 @@
 
 #import <objc/runtime.h>
 
+#import "CPANSIEscapeHelper.h" 
+
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the
 // symbols that we support.
 //
+
 @implementation SMLTextView (CPIncludeLeadingColonsInCompletions)
 
 + (void)load;
@@ -262,17 +265,13 @@ typedef NSInteger NSModalResponse;
 
 static NSAttributedString *
 ANSIUnescapeString(NSString *input) {
-  static AMR_ANSIEscapeHelper *ANSIEscapeHelper = nil;
+  static CPANSIEscapeHelper *cpANSIEscapeHelper = nil;
   static dispatch_once_t onceToken = 0;
   dispatch_once(&onceToken, ^{
     // Re-use the font that the text editor is configured to use.
-    NSData *fontData = [[NSUserDefaults standardUserDefaults] valueForKey:MGSFragariaPrefsTextFont];
-    NSFont *font = [NSUnarchiver unarchiveObjectWithData:fontData];
-
-    ANSIEscapeHelper = [AMR_ANSIEscapeHelper new];
-    ANSIEscapeHelper.font = font;
+    cpANSIEscapeHelper = [[CPANSIEscapeHelper alloc] init];
   });
-  return [ANSIEscapeHelper attributedStringWithANSIEscapedString:input];
+  return [cpANSIEscapeHelper attributedStringWithANSIEscapedString:input];
 }
 
 - (void)appendTaskOutput:(NSString *)rawOutput;

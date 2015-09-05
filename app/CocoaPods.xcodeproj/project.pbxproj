@@ -27,6 +27,7 @@
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
 		77356D751A2253F1002822CF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77356D741A2253F1002822CF /* Media.xcassets */; };
+		7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinitions.plist; sourceTree = "<group>"; };
 		770382F31A2035B400435285 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		77356D741A2253F1002822CF /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPANSIEscapeHelper.h; sourceTree = "<group>"; };
+		7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPANSIEscapeHelper.m; sourceTree = "<group>"; };
 		8400280B1B98668A2331DC84 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9067E96E1BBC7DDE73B99AD4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FF53DC3F37552C5161A9C066 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +160,8 @@
 				51165E251A17AFF500DCFC94 /* CPAppDelegate.m */,
 				51165E541A1B925200DCFC94 /* CPUserProject.h */,
 				51165E551A1B925300DCFC94 /* CPUserProject.m */,
+				7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */,
+				7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */,
 				51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */,
 				51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */,
 				51165E561A1B925300DCFC94 /* CPUserProject.xib */,
@@ -338,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
