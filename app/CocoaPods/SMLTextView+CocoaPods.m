@@ -25,8 +25,9 @@
 {
   NSRange range = [self CP_rangeForUserCompletion];
   if (range.location != NSNotFound && range.location > 0
-      && [self.string characterAtIndex:range.location-1] == ':') {
-    range = NSMakeRange(range.location-1, range.length+1);
+      && [self.string characterAtIndex:range.location -1] == ':') {
+    
+    range = NSMakeRange(range.location -1, range.length +1);
   }
   return range;
 }
