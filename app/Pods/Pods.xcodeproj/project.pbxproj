@@ -584,7 +584,7 @@
 		81226FDC8F1440A578C4F886 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 5E6F887B821205BF4352E9F3 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -676,6 +676,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 602EB9815D24D23193543591 /* Pods-ANSIEscapeHelper-Private.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-ANSIEscapeHelper/Pods-ANSIEscapeHelper-prefix.pch";
@@ -692,6 +693,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72B5AB389E0F6A62148A94D6 /* Pods-Fragaria-Private.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
@@ -709,6 +711,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88F9979E4F8B4AADC2BC7852 /* Pods.release.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
@@ -775,6 +778,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -800,6 +804,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72B5AB389E0F6A62148A94D6 /* Pods-Fragaria-Private.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-Fragaria/Pods-Fragaria-prefix.pch";
@@ -816,6 +821,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D146DE30090E5B4B04DA21BC /* Pods.debug.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
@@ -833,6 +839,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 602EB9815D24D23193543591 /* Pods-ANSIEscapeHelper-Private.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
