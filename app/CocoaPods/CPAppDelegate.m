@@ -1,7 +1,7 @@
 #import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
 
-NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod";
+NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPAppDelegate ()
 @end
