@@ -1,0 +1,1 @@
+FRAGARIA_OTHER_LDFLAGS = -l"icucore"
