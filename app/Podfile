@@ -1,7 +1,7 @@
 # coding: utf-8
 platform :osx, '10.8'
 
-# TODO inhibiting warnings (when they’re not harmfule) while working on the application.
+# TODO inhibiting warnings (when they're not harmful) while working on the application.
 
 # Has 3 warnings about deprecated -[NSImage setFlipped:] API
 pod 'Fragaria', :podspec => 'Fragaria.podspec.json', :inhibit_warnings => true
