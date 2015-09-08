@@ -1,0 +1,5 @@
+#include "ANSIEscapeHelper.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/ANSIEscapeHelper" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ANSIEscapeHelper" "${PODS_ROOT}/Headers/Public/Fragaria" "${PODS_ROOT}/Headers/Public/Fragaria/unicode" "${PODS_ROOT}/Headers/Public/Sparkle" "${PODS_ROOT}/Headers/Public/Sparkle/Sparkle"
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

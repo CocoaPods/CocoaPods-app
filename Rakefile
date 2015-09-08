@@ -37,6 +37,7 @@ unless File.exist?(SDKROOT)
   exit 1
 end
 
+ORIGINAL_PATH = ENV['PATH']
 ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:/usr/bin:/bin"
 ENV['CC'] = '/usr/bin/clang'
 ENV['CXX'] = '/usr/bin/clang++'
@@ -54,7 +55,7 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  sh "pod repo update master"
+  sh "PATH=#{ORIGINAL_PATH} pod repo update master"
   version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
   require 'yaml'
   @install_cocoapods_version = YAML.load(File.read(version_file))['last']
