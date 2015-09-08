@@ -435,10 +435,10 @@ Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby
       # sqlite3-1.3.7 depends on BigDecimal header from before BigDecimal was made into a gem. I doubt anybody really
       # uses sqlite for CocoaPods dependencies anyways, so just skip this old version.
     when 'nokogiri'
-      # nokogiri has a annoying design flaw that results in its build
+      # nokogiri currently has a design flaw that results in its build
       # failing every time unless I manually patch extconf.rb. I have
       # included a patched copy of nokogiri in the patches/ directory.
-      # Until this bug is patched, I cannot install the upstream version
+      # Until this is remedied, I cannot install the upstream version
       # of nokogiri.
       install_gem(File.join(PATCHES_DIR, "#{File.basename(gemspec, '.gemspec')}.gem"))
       suppress_upstream = true
