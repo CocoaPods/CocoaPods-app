@@ -516,7 +516,8 @@ end
 
 svn_bin = File.join(svn_build_dir, 'subversion/svn/svn')
 file svn_bin => [installed_pkg_config, installed_serf, installed_libcurl, svn_build_dir] do
-  sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}'"
+  sdkroot = `/usr/bin/xcrun --show-sdk-path`.chomp
+  sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}' CPPFLAGS='-I#{sdkroot}/usr/include/apr-1'"
   sh "cd #{svn_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 
