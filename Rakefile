@@ -308,7 +308,8 @@ end
 
 serf_static_lib = File.join(serf_build_dir, 'libserf-1.a')
 file serf_static_lib => [installed_pkg_config, installed_openssl, installed_zlib, scons_build_dir, serf_build_dir] do
-  sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}'"
+  xcode_sdk_root = `/usr/bin/xcrun --show-sdk-path`.chomp
+  sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}' CPPFLAGS='-I#{xcode_sdk_root}/usr/include/apr-1'"
   # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
   # required when linking libssl, otherwise svn will fail to build with our
   # OpenSSl. So add it ourselves.
