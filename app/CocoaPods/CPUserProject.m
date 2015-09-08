@@ -3,32 +3,6 @@
 #import <Fragaria/MGSFragariaFramework.h>
 #import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
 
-#import <objc/runtime.h>
-
-// Hack SMLTextView to also consider the leading colon when completing words, which are all the
-// symbols that we support.
-//
-@implementation SMLTextView (CPIncludeLeadingColonsInCompletions)
-
-+ (void)load;
-{
-  Method m1 = class_getInstanceMethod(self, @selector(rangeForUserCompletion));
-  Method m2 = class_getInstanceMethod(self, @selector(CP_rangeForUserCompletion));
-  method_exchangeImplementations(m1, m2);
-}
-
--(NSRange)CP_rangeForUserCompletion;
-{
-  NSRange range = [self CP_rangeForUserCompletion];
-  if (range.location != NSNotFound && range.location > 0
-      && [self.string characterAtIndex:range.location-1] == ':') {
-    range = NSMakeRange(range.location-1, range.length+1);
-  }
-  return range;
-}
-
-@end
-
 #if __MAC_OS_X_VERSION_MAX_ALLOWED < 1090
 enum {
    NSModalResponseStop                 = (-1000),
