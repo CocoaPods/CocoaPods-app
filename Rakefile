@@ -511,6 +511,7 @@ end
 svn_build_dir = File.join(WORKBENCH_DIR, File.basename(SVN_URL, '.tar.gz'))
 directory svn_build_dir => [svn_tarball, WORKBENCH_DIR] do
   sh "tar -zxvf #{svn_tarball} -C #{WORKBENCH_DIR}"
+  sh "cd #{svn_build_dir} && patch -p0 < #{File.join(PATCHES_DIR, 'svn-configure.diff')}"
 end
 
 svn_bin = File.join(svn_build_dir, 'subversion/svn/svn')
