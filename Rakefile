@@ -423,6 +423,8 @@ Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby
   installed_gem = File.join(gem_home, 'specifications', "#{File.basename(gemspec, '.gemspec').split('-')[0..-2].join('-')}.CocoaPods-app.installed")
   installed_osx_gems << installed_gem
   file installed_gem => rubygems_update_dir do
+    suppress_upstream = false
+
     require 'rubygems/specification'
     gem = Gem::Specification.load(gemspec)
     # First install the exact same version that Apple included in OS X.
@@ -433,11 +435,19 @@ Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby
     when 'sqlite3'
       # sqlite3-1.3.7 depends on BigDecimal header from before BigDecimal was made into a gem. I doubt anybody really
       # uses sqlite for CocoaPods dependencies anyways, so just skip this old version.
+    when 'nokogiri'
+      # nokogiri currently has a design flaw that results in its build
+      # failing every time unless I manually patch extconf.rb. I have
+      # included a patched copy of nokogiri in the patches/ directory.
+      # Until this is remedied, I cannot install the upstream version
+      # of nokogiri.
+      install_gem(File.join(PATCHES_DIR, "#{File.basename(gemspec, '.gemspec')}.gem"))
+      suppress_upstream = true
     else
       install_gem(gem.name, gem.version)
     end
     # Now install the latest version of the gem.
-    install_gem(gem.name)
+    install_gem(gem.name) unless suppress_upstream
     # Create our nonsense file that's only used to track whether or not the gems were installed.
     touch installed_gem
   end
