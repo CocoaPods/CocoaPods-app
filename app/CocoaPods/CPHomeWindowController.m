@@ -16,4 +16,9 @@
 
 @implementation CPHomeWindowController
 
+- (id)init;
+{
+  return [self initWithWindowNibName:@"CPHomeWindowController"];
+}
+
 @end
