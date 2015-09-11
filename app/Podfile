@@ -9,6 +9,7 @@ pod 'Fragaria', :podspec => 'Fragaria.podspec.json', :inhibit_warnings => true
 pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec', :inhibit_warnings => true
 
 pod 'Sparkle'
+pod 'INAppStoreWindow'
 
 post_install do |installer|
   # We don't need all of Fragaria's syntax definitions.

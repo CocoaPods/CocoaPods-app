@@ -224,6 +224,14 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>INAppStoreWindow is licensed under the BSD license.</string>
+			<key>Title</key>
+			<string>INAppStoreWindow</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2006-2013 Andy Matuschak.
 Copyright (c) 2009-2013 Elgato Systems GmbH.
 Copyright (c) 2011-2014 Kornel Lesi&#324;ski.
