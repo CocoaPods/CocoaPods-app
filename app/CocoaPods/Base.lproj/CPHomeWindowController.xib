@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8173.3"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="CPHomeWindowController">
+            <connections>
+                <outlet property="titleBarView" destination="0J0-DM-CmI" id="b7q-Dw-M0f"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5" customClass="INAppStoreWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="600" height="380"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="240.5" y="301"/>
+        </window>
+        <customView id="0J0-DM-CmI">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o3D-2b-cXd">
+                    <rect key="frame" x="227" y="9" width="146" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Helping you build apps" id="ea6-u1-oPA">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="windowFrameTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P3Q-2A-PUB">
+                    <rect key="frame" x="248" y="28" width="105" height="23"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="CocoaPods" id="Bn7-53-1xK">
+                        <font key="font" size="19" name=".HelveticaNeueDeskInterface-Regular"/>
+                        <color key="textColor" name="windowFrameTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="o3D-2b-cXd" secondAttribute="bottom" constant="9" id="7cN-1l-YsP"/>
+                <constraint firstItem="o3D-2b-cXd" firstAttribute="centerX" secondItem="0J0-DM-CmI" secondAttribute="centerX" id="UbM-R7-5pV"/>
+                <constraint firstItem="o3D-2b-cXd" firstAttribute="top" secondItem="P3Q-2A-PUB" secondAttribute="bottom" constant="2" id="Y13-bF-tP5"/>
+                <constraint firstItem="P3Q-2A-PUB" firstAttribute="centerX" secondItem="o3D-2b-cXd" secondAttribute="centerX" id="ci4-dn-IfE"/>
+                <constraint firstItem="P3Q-2A-PUB" firstAttribute="centerX" secondItem="0J0-DM-CmI" secondAttribute="centerX" id="oil-z4-JHY"/>
+                <constraint firstItem="P3Q-2A-PUB" firstAttribute="top" secondItem="0J0-DM-CmI" secondAttribute="top" constant="9" id="tqA-6P-USr"/>
+            </constraints>
+            <point key="canvasLocation" x="214" y="324"/>
+        </customView>
+    </objects>
+</document>
