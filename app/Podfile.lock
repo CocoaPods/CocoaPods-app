@@ -3,13 +3,11 @@ PODS:
   - Fragaria (1.0.1):
     - Fragaria/unicode (= 1.0.1)
   - Fragaria/unicode (1.0.1)
-  - INAppStoreWindow (1.4)
   - Sparkle (1.9.0)
 
 DEPENDENCIES:
   - ANSIEscapeHelper (from `ANSIEscapeHelper.podspec`)
   - Fragaria (from `Fragaria.podspec.json`)
-  - INAppStoreWindow
   - Sparkle
 
 EXTERNAL SOURCES:
@@ -21,7 +19,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   ANSIEscapeHelper: 1d57a8d7af5b9f9d3d48dcf9bf1726f42ab9b99d
   Fragaria: e9d2dfc249d394732f784bfb939cbba1618e45b1
-  INAppStoreWindow: 4fd569f7435557239e78316de139e886ccbaec4d
   Sparkle: 75bbbc5ab2d666f7f77c241afe7fd28364a8f9f7
 
 COCOAPODS: 0.39.0.beta.4

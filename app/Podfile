@@ -7,8 +7,6 @@ platform :osx, '10.8'
 pod 'Fragaria', :podspec => 'Fragaria.podspec.json', :inhibit_warnings => true
 # Has 6 warnings about integer precision loss.
 pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec', :inhibit_warnings => true
-# Has 2 warnings about deprecated point/screen conversion API
-pod 'INAppStoreWindow', :inhibit_warnings => true
 
 pod 'Sparkle'
 

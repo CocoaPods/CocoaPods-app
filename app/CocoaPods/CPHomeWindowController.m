@@ -7,7 +7,6 @@
 //
 
 #import "CPHomeWindowController.h"
-#import <INAppStoreWindow/INAppStoreWindow.h>
 
 @interface CPHomeWindowController ()
 
@@ -16,13 +15,5 @@
 @end
 
 @implementation CPHomeWindowController
-
-- (void)windowDidLoad {
-  [super windowDidLoad];
-
-  INAppStoreWindow *window = (INAppStoreWindow *)self.window;
-  window.titleBarHeight = self.titleBarView.frame.size.height;
-  [window.titleBarView addSubview:self.titleBarView];
-}
 
 @end

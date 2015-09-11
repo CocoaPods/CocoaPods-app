@@ -207,10 +207,6 @@ This application makes use of the following third party libraries:
    limitations under the License.
 
 
-## INAppStoreWindow
-
-INAppStoreWindow is licensed under the BSD license.
-
 ## Sparkle
 
 Copyright (c) 2006-2013 Andy Matuschak.
