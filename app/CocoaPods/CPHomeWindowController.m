@@ -19,4 +19,9 @@
   return [self initWithWindowNibName:@"CPHomeWindowController"];
 }
 
+- (void)windowDidLoad;
+{
+  self.window.excludedFromWindowsMenu = YES;
+}
+
 @end
