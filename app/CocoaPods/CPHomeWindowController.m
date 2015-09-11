@@ -10,8 +10,6 @@
 
 @interface CPHomeWindowController ()
 
-@property IBOutlet NSView *titleBarView;
-
 @end
 
 @implementation CPHomeWindowController
