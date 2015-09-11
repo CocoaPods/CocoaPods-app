@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		1ABDBC9F691D0ED49854319A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF53DC3F37552C5161A9C066 /* libPods.a */; };
 		1FFFBB0D1BA25519004A8D1E /* NSURL+CPAppendComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFBB0C1BA25519004A8D1E /* NSURL+CPAppendComponents.m */; };
+		1FFFBB0A1BA25486004A8D1E /* pod in Copy Support Executables */ = {isa = PBXBuildFile; fileRef = 51165E481A17B2D200DCFC94 /* pod */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E251A17AFF500DCFC94 /* CPAppDelegate.m */; };
 		51165E281A17AFF500DCFC94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E271A17AFF500DCFC94 /* main.m */; };
 		51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E2B1A17AFF500DCFC94 /* MainMenu.xib */; };
 		51165E431A17B20700DCFC94 /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 51165E421A17B20700DCFC94 /* bundle */; };
 		51165E4B1A17B2D200DCFC94 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 51165E4A1A17B2D200DCFC94 /* main.c */; };
-		51165E511A190FAA00DCFC94 /* pod in Resources */ = {isa = PBXBuildFile; fileRef = 51165E481A17B2D200DCFC94 /* pod */; };
 		51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51165E521A1973CC00DCFC94 /* SecurityFoundation.framework */; };
 		51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E551A1B925300DCFC94 /* CPUserProject.m */; };
 		51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E561A1B925300DCFC94 /* CPUserProject.xib */; };
@@ -43,6 +43,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1FFFBB091BA25469004A8D1E /* Copy Support Executables */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Support;
+			dstSubfolderSpec = 1;
+			files = (
+				1FFFBB0A1BA25486004A8D1E /* pod in Copy Support Executables */,
+			);
+			name = "Copy Support Executables";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51165E461A17B2D200DCFC94 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -242,6 +253,7 @@
 				51165E1B1A17AFF500DCFC94 /* Sources */,
 				51165E1C1A17AFF500DCFC94 /* Frameworks */,
 				51165E1D1A17AFF500DCFC94 /* Resources */,
+				1FFFBB091BA25469004A8D1E /* Copy Support Executables */,
 				6BD77045CBC4B67B3E622EE9 /* Copy Pods Resources */,
 				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 			);
@@ -315,7 +327,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51165E511A190FAA00DCFC94 /* pod in Resources */,
 				770382F41A2035B400435285 /* Localizable.strings in Resources */,
 				51165E431A17B20700DCFC94 /* bundle in Resources */,
 				51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */,
