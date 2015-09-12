@@ -1,5 +1,4 @@
 #import "CPCLIToolInstallationController.h"
-#import "NSURL+CPAppendComponents.h"
 
 #import <libgen.h>
 #import <Cocoa/Cocoa.h>
@@ -166,8 +165,8 @@ CPBookmarkDataForURL(NSURL *URL) {
 
 - (NSURL *)binstubSourceURL;
 {
-  NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
-  return [bundleURL URLByAppendingPathComponents:@[ @"Contents", @"Helpers", @"pod" ]];
+  NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+  return [NSURL fileURLWithPathComponents:@[ bundlePath, @"Contents", @"Helpers", @"pod" ]];
 }
 
 #pragma mark - User interaction (modal windows)
