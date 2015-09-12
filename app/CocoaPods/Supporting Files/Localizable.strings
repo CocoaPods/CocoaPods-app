@@ -1,11 +1,11 @@
-"INSTALL_CLI_MESSAGE_TEXT" = "Do you wish to Install the Command-Line Tool?";
-"INSTALL_CLI_INFORMATIVE_TEXT" = "In case you wish to use CocoaPods from the Terminal, a `%@` tool can be installed which will allow you easy access to the CocoaPods installation contained inside this application.\n\nThis is not needed for the application to function normally and can always be installed at a later time by using the menu item found under the application menu.";
+"INSTALL_CLI_MESSAGE_TEXT" = "Do you wish to install the CocoaPods Command-Line Tool?";
+"INSTALL_CLI_INFORMATIVE_TEXT" = "If you wish to use CocoaPods from the Terminal, a “%@” tool can be installed which will allow you easy access to the CocoaPods installation contained inside this application.\n\nThis is not needed for the application to function normally and can always be installed at a later time by using the menu item found under the application menu.";
 
 "INSTALL_CLI_ALTERNATE_DESTINATION" = "Install to Alternate Destination…";
-"INSTALL_CLI" = "Install to `%@`";
+"INSTALL_CLI" = "Install to “%@”";
 
-"INSTALL_CLI_WARNING_MESSAGE_TEXT" = "You already have a `%@` tool installed. Are you sure you want to overwrite it?";
-"INSTALL_CLI_WARNING_INFORMATIVE_TEXT" = "The tool was likely installed from the Terminal with:\n\n`gem install cocoapods`\n\nIf you wish to keep that installation intact, be sure to choose an alternate filename or directory in your `PATH` for this tool.\n\nNote that you can always revert by running the aforementioned Terminal command again.";
+"INSTALL_CLI_WARNING_MESSAGE_TEXT" = "You already have a “%@” tool installed. Are you sure you want to overwrite it?";
+"INSTALL_CLI_WARNING_INFORMATIVE_TEXT" = "The tool was likely installed from the Terminal by running the “gem install cocoapods” command. If you wish to keep that installation intact, be sure to choose an alternate filename or directory (preferably in your Terminal PATH) for this tool.\n\nNote that you can always revert by running the aforementioned Terminal command again.";
 "INSTALL_CLI_WARNING_OVERWRITE" = "Overwrite";
 
 "CANCEL" = "Cancel";
