@@ -165,7 +165,8 @@ CPBookmarkDataForURL(NSURL *URL) {
 
 - (NSURL *)binstubSourceURL;
 {
-  return [[NSBundle mainBundle] URLForResource:@"pod" withExtension:nil];
+  NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+  return [NSURL fileURLWithPathComponents:@[ bundlePath, @"Contents", @"Helpers", @"pod" ]];
 }
 
 #pragma mark - User interaction (modal windows)
