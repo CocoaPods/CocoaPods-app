@@ -39,7 +39,7 @@
 
 @implementation CPHomeWindowController
 
-- (id)init;
+- (instancetype)init;
 {
   return [self initWithWindowNibName:@"CPHomeWindowController"];
 }
