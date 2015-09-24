@@ -101,11 +101,11 @@ typedef NSInteger NSModalResponse;
 - (void)presentProgressSheet;
 {
   NSWindowController *controller = self.windowControllers[0];
-  [NSApp beginSheet:self.progressWindow
-     modalForWindow:controller.window
-      modalDelegate:self
-     didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
-        contextInfo:NULL];
+  [controller.window beginSheet:self.progressWindow completionHandler:^(NSModalResponse returnCode) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self sheetDidEnd:self.progressWindow returnCode:returnCode contextInfo:NULL];
+    });
+  }];
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet
