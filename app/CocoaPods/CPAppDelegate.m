@@ -50,8 +50,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 - (IBAction)showHomeWindow:(id)sender;
 {
-  if (self.homeWindowController == nil)
-  {
+  if (self.homeWindowController == nil) {
     self.homeWindowController = [[CPHomeWindowController alloc] init];
   }
 
