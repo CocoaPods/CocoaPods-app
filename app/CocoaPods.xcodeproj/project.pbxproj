@@ -27,6 +27,7 @@
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
+		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
@@ -92,6 +93,8 @@
 		51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		51D2E5AF1A212A0800C0B153 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
 		51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinitions.plist; sourceTree = "<group>"; };
+		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
+		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
 		60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SUUpdater+DebugMode.m"; sourceTree = "<group>"; };
 		770382F31A2035B400435285 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -177,7 +180,7 @@
 				60FE01641B9B76520027EEE3 /* Project */,
 				60FE01631B9B76470027EEE3 /* Project Document */,
 				60FE016D1B9B7F000027EEE3 /* Categories */,
-				60FE01621B9B76400027EEE3 /* Splash */,
+				60FE01621B9B76400027EEE3 /* Home Window */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
 			);
 			path = CocoaPods;
@@ -205,7 +208,7 @@
 			path = pod;
 			sourceTree = "<group>";
 		};
-		60FE01621B9B76400027EEE3 /* Splash */ = {
+		60FE01621B9B76400027EEE3 /* Home Window */ = {
 			isa = PBXGroup;
 			children = (
 				51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */,
@@ -213,8 +216,10 @@
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
 				1F9177561BA27592006698C9 /* CPHomeWindowController.m */,
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
+				6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */,
+				6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */,
 			);
-			name = Splash;
+			name = "Home Window";
 			sourceTree = "<group>";
 		};
 		60FE01631B9B76470027EEE3 /* Project Document */ = {
@@ -398,6 +403,7 @@
 			files = (
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
+				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
 				51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
