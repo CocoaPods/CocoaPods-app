@@ -1,7 +1,7 @@
 #import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
 
-NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod";
+NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPAppDelegate ()
 @end
@@ -18,7 +18,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/bin/pod";
   //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPShowVerboseCommandOutput"];
   //NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 #endif
-
+  
   [[self CLIToolInstallationController] installBinstubIfNecessary];
 }
 

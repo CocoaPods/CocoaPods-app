@@ -37,6 +37,7 @@ unless File.exist?(SDKROOT)
   exit 1
 end
 
+ORIGINAL_PATH = ENV['PATH']
 ENV['PATH'] = "#{File.join(DEPENDENCIES_PREFIX, 'bin')}:/usr/bin:/bin"
 ENV['CC'] = '/usr/bin/clang'
 ENV['CXX'] = '/usr/bin/clang++'
@@ -54,7 +55,7 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  sh "pod repo update master"
+  sh "PATH=#{ORIGINAL_PATH} pod repo update master"
   version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
   require 'yaml'
   @install_cocoapods_version = YAML.load(File.read(version_file))['last']
@@ -307,7 +308,8 @@ end
 
 serf_static_lib = File.join(serf_build_dir, 'libserf-1.a')
 file serf_static_lib => [installed_pkg_config, installed_openssl, installed_zlib, scons_build_dir, serf_build_dir] do
-  sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}'"
+  xcode_sdk_root = `/usr/bin/xcrun --show-sdk-path`.chomp
+  sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}' CPPFLAGS='-I#{xcode_sdk_root}/usr/include/apr-1'"
   # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
   # required when linking libssl, otherwise svn will fail to build with our
   # OpenSSl. So add it ourselves.
@@ -421,6 +423,8 @@ Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby
   installed_gem = File.join(gem_home, 'specifications', "#{File.basename(gemspec, '.gemspec').split('-')[0..-2].join('-')}.CocoaPods-app.installed")
   installed_osx_gems << installed_gem
   file installed_gem => rubygems_update_dir do
+    suppress_upstream = false
+
     require 'rubygems/specification'
     gem = Gem::Specification.load(gemspec)
     # First install the exact same version that Apple included in OS X.
@@ -431,11 +435,19 @@ Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby
     when 'sqlite3'
       # sqlite3-1.3.7 depends on BigDecimal header from before BigDecimal was made into a gem. I doubt anybody really
       # uses sqlite for CocoaPods dependencies anyways, so just skip this old version.
+    when 'nokogiri'
+      # nokogiri currently has a design flaw that results in its build
+      # failing every time unless I manually patch extconf.rb. I have
+      # included a patched copy of nokogiri in the patches/ directory.
+      # Until this is remedied, I cannot install the upstream version
+      # of nokogiri.
+      install_gem(File.join(PATCHES_DIR, "#{File.basename(gemspec, '.gemspec')}.gem"))
+      suppress_upstream = true
     else
       install_gem(gem.name, gem.version)
     end
     # Now install the latest version of the gem.
-    install_gem(gem.name)
+    install_gem(gem.name) unless suppress_upstream
     # Create our nonsense file that's only used to track whether or not the gems were installed.
     touch installed_gem
   end
@@ -510,11 +522,13 @@ end
 svn_build_dir = File.join(WORKBENCH_DIR, File.basename(SVN_URL, '.tar.gz'))
 directory svn_build_dir => [svn_tarball, WORKBENCH_DIR] do
   sh "tar -zxvf #{svn_tarball} -C #{WORKBENCH_DIR}"
+  sh "cd #{svn_build_dir} && patch -p0 < #{File.join(PATCHES_DIR, 'svn-configure.diff')}"
 end
 
 svn_bin = File.join(svn_build_dir, 'subversion/svn/svn')
 file svn_bin => [installed_pkg_config, installed_serf, installed_libcurl, svn_build_dir] do
-  sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}'"
+  sdkroot = `/usr/bin/xcrun --show-sdk-path`.chomp
+  sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}' CPPFLAGS='-I#{sdkroot}/usr/include/apr-1'"
   sh "cd #{svn_build_dir} && make -j #{MAKE_CONCURRENCY}"
 end
 

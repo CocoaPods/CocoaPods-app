@@ -1,6 +1,0 @@
-#include "Pods-Fragaria.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Fragaria" "${PODS_ROOT}/Headers/Private/Fragaria/unicode" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ANSIEscapeHelper" "${PODS_ROOT}/Headers/Public/Fragaria" "${PODS_ROOT}/Headers/Public/Fragaria/unicode" "${PODS_ROOT}/Headers/Public/Sparkle"
-OTHER_LDFLAGS = ${PODS_FRAGARIA_OTHER_LDFLAGS} -ObjC
-PODS_ROOT = ${SRCROOT}
-SKIP_INSTALL = YES

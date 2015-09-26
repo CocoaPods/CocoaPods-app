@@ -66,7 +66,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 static NSData *
 CPBookmarkDataForURL(NSURL *URL) {
   NSError *error = nil;
-  NSData *data = [URL bookmarkDataWithOptions:NSURLBookmarkCreationPreferFileIDResolution
+  NSData *data = [URL bookmarkDataWithOptions:0
                includingResourceValuesForKeys:nil
                                 relativeToURL:nil
                                         error:&error];
@@ -165,7 +165,8 @@ CPBookmarkDataForURL(NSURL *URL) {
 
 - (NSURL *)binstubSourceURL;
 {
-  return [[NSBundle mainBundle] URLForResource:@"pod" withExtension:nil];
+  NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+  return [NSURL fileURLWithPathComponents:@[ bundlePath, @"Contents", @"Helpers", @"pod" ]];
 }
 
 #pragma mark - User interaction (modal windows)
