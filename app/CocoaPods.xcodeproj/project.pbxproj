@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1ABDBC9F691D0ED49854319A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF53DC3F37552C5161A9C066 /* libPods.a */; };
+		1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9177561BA27592006698C9 /* CPHomeWindowController.m */; };
+		1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */; };
 		1FFFBB0A1BA25486004A8D1E /* pod in Copy Helper Executables */ = {isa = PBXBuildFile; fileRef = 51165E481A17B2D200DCFC94 /* pod */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E251A17AFF500DCFC94 /* CPAppDelegate.m */; };
 		51165E281A17AFF500DCFC94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E271A17AFF500DCFC94 /* main.m */; };
@@ -65,6 +67,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F9177551BA27592006698C9 /* CPHomeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeWindowController.h; sourceTree = "<group>"; };
+		1F9177561BA27592006698C9 /* CPHomeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowController.m; sourceTree = "<group>"; };
+		1F91775B1BA27598006698C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPHomeWindowController.xib; sourceTree = "<group>"; };
 		51165E1F1A17AFF500DCFC94 /* CocoaPods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E231A17AFF500DCFC94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51165E241A17AFF500DCFC94 /* CPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPAppDelegate.h; sourceTree = "<group>"; };
@@ -205,6 +210,9 @@
 			children = (
 				51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */,
 				51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */,
+				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
+				1F9177561BA27592006698C9 /* CPHomeWindowController.m */,
+				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
 			);
 			name = Splash;
 			sourceTree = "<group>";
@@ -328,6 +336,7 @@
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
 				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
+				1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
 				51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */,
 			);
@@ -388,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
+				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
@@ -415,6 +425,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F91775B1BA27598006698C9 /* Base */,
+			);
+			name = CPHomeWindowController.xib;
+			sourceTree = "<group>";
+		};
 		51165E2B1A17AFF500DCFC94 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -1,6 +1,6 @@
-FRAMEWORK_SEARCH_PATHS = "${PODS_ROOT}/Sparkle" "${PODS_ROOT}/Sparkle" "$(PODS_ROOT)/Sparkle"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Sparkle" "$(PODS_ROOT)/Sparkle"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ANSIEscapeHelper" "${PODS_ROOT}/Headers/Public/Fragaria" "${PODS_ROOT}/Headers/Public/Fragaria/unicode" "${PODS_ROOT}/Headers/Public/Sparkle" "${PODS_ROOT}/Headers/Public/Sparkle/Sparkle"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ANSIEscapeHelper" -isystem "${PODS_ROOT}/Headers/Public/Fragaria" -isystem "${PODS_ROOT}/Headers/Public/Fragaria/unicode" -isystem "${PODS_ROOT}/Headers/Public/Sparkle" -isystem "${PODS_ROOT}/Headers/Public/Sparkle/Sparkle"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ANSIEscapeHelper" "${PODS_ROOT}/Headers/Public/Fragaria" "${PODS_ROOT}/Headers/Public/Sparkle"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ANSIEscapeHelper" -isystem "${PODS_ROOT}/Headers/Public/Fragaria" -isystem "${PODS_ROOT}/Headers/Public/Sparkle"
 OTHER_LDFLAGS = $(inherited) -ObjC -l"ANSIEscapeHelper" -l"Fragaria" -l"icucore" -framework "Sparkle"
 PODS_ROOT = ${SRCROOT}/Pods

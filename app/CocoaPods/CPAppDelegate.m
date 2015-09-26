@@ -1,9 +1,11 @@
 #import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
+#import "CPHomeWindowController.h"
 
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPAppDelegate ()
+@property (strong) CPHomeWindowController *homeWindowController;
 @end
 
 @implementation CPAppDelegate
@@ -44,6 +46,15 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 - (IBAction)installBinstubIfNecessary:(id)sender;
 {
   [[self CLIToolInstallationController] installBinstub];
+}
+
+- (IBAction)showHomeWindow:(id)sender;
+{
+  if (self.homeWindowController == nil) {
+    self.homeWindowController = [[CPHomeWindowController alloc] init];
+  }
+
+  [self.homeWindowController showWindow:sender];
 }
 
 #pragma mark - Private
