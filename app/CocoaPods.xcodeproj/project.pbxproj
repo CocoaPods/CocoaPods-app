@@ -215,8 +215,6 @@
 		60FE01621B9B76400027EEE3 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */,
-				51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */,
 			);
 			name = Splash;
 			sourceTree = "<group>";
@@ -224,9 +222,6 @@
 		60FE01631B9B76470027EEE3 /* Project Document */ = {
 			isa = PBXGroup;
 			children = (
-				51165E561A1B925300DCFC94 /* CPUserProject.xib */,
-				51165E541A1B925200DCFC94 /* CPUserProject.h */,
-				51165E551A1B925300DCFC94 /* CPUserProject.m */,
 				60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */,
 			);
 			name = "Project Document";
@@ -235,8 +230,6 @@
 		60FE01641B9B76520027EEE3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				51165E241A17AFF500DCFC94 /* CPAppDelegate.h */,
-				51165E251A17AFF500DCFC94 /* CPAppDelegate.m */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -263,6 +256,7 @@
 				1FFFBB091BA25469004A8D1E /* Copy Helper Executables */,
 				6BD77045CBC4B67B3E622EE9 /* Copy Pods Resources */,
 				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
+				C389B243CFF5D9C401BC4F6D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -390,6 +384,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C389B243CFF5D9C401BC4F6D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
