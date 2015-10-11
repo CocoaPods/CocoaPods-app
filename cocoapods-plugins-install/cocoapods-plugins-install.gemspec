@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/CocoaPods/CocoaPods.app/blob/master/cocoapods-plugins-install"
   spec.license       = "MIT"
 
-  spec.files         = Dir.glob('lib/**/*.rb')
+  spec.files         = Dir.glob('lib/**/*.rb') << __FILE__
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
