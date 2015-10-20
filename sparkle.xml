@@ -55,5 +55,15 @@
                        type="application/octet-stream" />
             <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
         </item>
+        <item>
+            <title>Version 0.39.0</title>
+            <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.39.0</sparkle:releaseNotesLink>
+            <pubDate>Tue, 20 Oct 2015 16:40:00 +0000</pubDate>
+            <enclosure url="https://github.com/CocoaPods/CocoaPods-app/releases/download/0.39.0/CocoaPods.app-0.39.0.tar.bz2"
+                       sparkle:version="0.39.0"
+                       length="30119439"
+                       type="application/octet-stream" />
+            <sparkle:minimumSystemVersion>10.9</sparkle:minimumSystemVersion>
+        </item>
     </channel>
 </rss>
