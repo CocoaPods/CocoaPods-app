@@ -774,7 +774,7 @@ namespace :release do
 
     tarball_name = File.basename(tarball)
 
-    upload_url = JSON.load(response.body)['upload_url'].gsub('{?name}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
+    upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
 
