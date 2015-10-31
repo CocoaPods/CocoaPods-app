@@ -1,6 +1,6 @@
 #import "CPUserProject.h"
 
-#import <Fragaria/MGSFragariaFramework.h>
+#import <Fragaria/Fragaria.h>
 #import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
 
 #import <objc/runtime.h>
@@ -48,7 +48,7 @@ typedef NSInteger NSModalResponse;
 @property (strong) IBOutlet NSWindow *progressWindow;
 @property (assign) IBOutlet NSTextView *progressOutputView;
 
-@property (strong) MGSFragaria *editor;
+@property (strong) IBOutlet MGSFragariaView *editor;
 @property (strong) NSString *contents;
 @property (strong) NSTask *task;
 @property (strong) NSAttributedString *taskOutput;
@@ -65,20 +65,11 @@ typedef NSInteger NSModalResponse;
 {
   [super windowControllerDidLoadNib:controller];
 
-  self.editor = [MGSFragaria new];
-  [self.editor embedInView:self.containerView];
-  [self.editor setObject:self forKey:MGSFODelegate];
-  // [self.editor setObject:self forKey:MGSFOAutoCompleteDelegate];
-
   self.editor.syntaxColoured = YES;
   self.editor.syntaxDefinitionName = @"Podfile";
   self.editor.string = self.contents;
 
-  NSTextView *textView = [self.editor objectForKey:ro_MGSFOTextView];
-  self.undoManager = textView.undoManager;
-
-  [[NSUserDefaults standardUserDefaults] setBool:YES
-                                          forKey:MGSFragariaPrefsAutocompleteSuggestAutomatically];
+  self.undoManager = self.editor.textView.undoManager;
 }
 
 - (void)textDidChange:(NSNotification *)notification;

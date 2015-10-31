@@ -1,0 +1,6 @@
+framework module ANSIEscapeHelper {
+  umbrella header "ANSIEscapeHelper-umbrella.h"
+
+  export *
+  module * { export * }
+}

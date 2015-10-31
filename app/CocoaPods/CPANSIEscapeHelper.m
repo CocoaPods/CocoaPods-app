@@ -7,7 +7,7 @@
 //
 
 #import "CPANSIEscapeHelper.h"
-#import <Fragaria/MGSFragariaFramework.h>
+#import <Fragaria/Fragaria.h>
 
 @implementation CPANSIEscapeHelper
 
@@ -18,7 +18,7 @@
   }
   
   
-  NSData *fontData = [[NSUserDefaults standardUserDefaults] valueForKey:MGSFragariaPrefsTextFont];
+  NSData *fontData = [[NSUserDefaults standardUserDefaults] valueForKey:MGSFragariaDefaultsTextFont];
   NSFont *font = [NSUnarchiver unarchiveObjectWithData:fontData];
     
   self.font = font;

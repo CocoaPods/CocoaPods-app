@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>numberDefinition</key>
+	<string>(?&lt;=\W)(([-+]?[0-9]+(\.[0-9]*)?(?=[^xb]))|(0x[0-9A-Fa-f]+)|(0b[01]+))</string>
 	<key>beginCommand</key>
 	<string></string>
 	<key>endCommand</key>
@@ -35,9 +37,13 @@
 	<key>removeFromFunction</key>
 	<string></string>
 	<key>keywordsCaseSensitive</key>
-	<false/>
+	<true/>
 	<key>recolourKeywordIfAlreadyColoured</key>
 	<true/>
+	<key>excludeFromKeywordStartCharacterSet</key>
+	<string>:</string>
+	<key>excludeFromKeywordEndCharacterSet</key>
+	<string>:</string>
 	<key>keywords</key>
 	<array>
 		<string>#import</string>

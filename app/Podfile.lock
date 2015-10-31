@@ -16,9 +16,14 @@ EXTERNAL SOURCES:
   Fragaria:
     :podspec: Fragaria.podspec.json
 
+CHECKOUT OPTIONS:
+  Fragaria:
+    :commit: 11ea9399cd01d061218a99a67b4e01a65eb07696
+    :git: https://github.com/bitstadium/Fragaria.git
+
 SPEC CHECKSUMS:
   ANSIEscapeHelper: 1d57a8d7af5b9f9d3d48dcf9bf1726f42ab9b99d
-  Fragaria: e9d2dfc249d394732f784bfb939cbba1618e45b1
+  Fragaria: 1c6e242d591aaca2fd2a2d64b9d980c8c0b12a2f
   Sparkle: 75bbbc5ab2d666f7f77c241afe7fd28364a8f9f7
 
 COCOAPODS: 0.39.0

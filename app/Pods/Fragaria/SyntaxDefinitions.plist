@@ -68,6 +68,14 @@
 	</dict>
 	<dict>
 		<key>name</key>
+		<string>ASM-m68k</string>
+		<key>file</key>
+		<string>asm-m68k</string>
+		<key>extensions</key>
+		<string>asm s</string>
+	</dict>
+	<dict>
+		<key>name</key>
 		<string>ASM-MIPS</string>
 		<key>file</key>
 		<string>asm-mips</string>
@@ -377,6 +385,14 @@
 		<string>matlab</string>
 		<key>extensions</key>
 		<string>grl mat mex myt</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Markdown</string>
+		<key>file</key>
+		<string>markdown</string>
+		<key>extensions</key>
+		<string>md</string>
 	</dict>
 	<dict>
 		<key>name</key>

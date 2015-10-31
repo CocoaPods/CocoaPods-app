@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 CocoaPods. All rights reserved.
 //
 
-#import <Fragaria/MGSFragariaFramework.h>
+#import <Fragaria/Fragaria.h>
 #import <objc/runtime.h>
 
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the

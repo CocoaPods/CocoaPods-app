@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>autocompleteWords</key>
+	<array/>
+	<key>beginCommand</key>
+	<string>&lt;</string>
+	<key>beginFirstMultiLineComment</key>
+	<string></string>
+	<key>beginInstruction</key>
+	<string>[</string>
+	<key>beginSecondMultiLineComment</key>
+	<string></string>
+	<key>beginVariable</key>
+	<string></string>
+	<key>endCommand</key>
+	<string>&gt;</string>
+	<key>endFirstMultiLineComment</key>
+	<string></string>
+	<key>endInstruction</key>
+	<string>]</string>
+	<key>endSecondMultiLineComment</key>
+	<string></string>
+	<key>endVariable</key>
+	<string></string>
+	<key>firstSingleLineComment</key>
+	<string></string>
+	<key>firstString</key>
+	<string></string>
+	<key>numberDefinition</key>
+	<string>(\n\s?(=|-|\*\s|\+\s)*\n|((?&lt;=&gt;\s)|(?&lt;!-))[0-9]+\.\s|\n?(?&lt;![\*\+-])[\*\+-]{1}\s)</string>
+	<key>keywords</key>
+	<array>
+		<string>#</string>
+		<string>**</string>
+	</array>
+	<key>keywordsCaseSensitive</key>
+	<false/>
+	<key>recolourKeywordIfAlreadyColoured</key>
+	<true/>
+	<key>removeFromFunction</key>
+	<string></string>
+	<key>secondSingleLineComment</key>
+	<string></string>
+	<key>secondString</key>
+	<string>`</string>
+	<key>singleLineCommentRegex</key>
+	<string>\n?\s?(?&lt;![a-zA-Z0-9/])&gt;\s</string>
+	<key>variableRegex</key>
+	<string>(\s(\*{1,2}([^*\s]*)\*\*?|_{1,2}([^_]*)__?)\s|[&amp;#]([^;\s]*);)</string>
+</dict>
+</plist>
