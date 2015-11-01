@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CPUserProject">
             <connections>
-                <outlet property="containerView" destination="Dw2-KY-Hq6" id="279-Lj-Yiw"/>
+                <outlet property="editor" destination="keE-0i-vgu" id="S7N-Zp-VGt"/>
                 <outlet property="progressOutputView" destination="H0M-No-2Bd" id="G1J-82-yJU"/>
                 <outlet property="progressWindow" destination="zsF-GI-rqu" id="L66-8R-YAe"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
@@ -19,7 +19,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="507" height="413"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="507" height="413"/>
@@ -30,6 +30,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="94" id="Uh1-Qb-vfd"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Pod Install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ctl-8l-vzA">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -43,6 +44,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="102" id="lL8-lV-yMU"/>
                         </constraints>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Pod Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V8M-Qb-30g">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -51,11 +53,9 @@
                             <action selector="updatePods:" target="-2" id="Cv5-3D-Zjf"/>
                         </connections>
                     </button>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dw2-KY-Hq6" userLabel="Source view">
-                        <rect key="frame" x="0.0" y="61" width="507" height="352"/>
-                    </customView>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="lXT-8h-yFh">
                         <rect key="frame" x="201" y="21" width="72" height="18"/>
+                        <animations/>
                         <buttonCell key="cell" type="check" title="Verbose" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="leK-AC-8YV">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -64,20 +64,21 @@
                             <binding destination="S9G-l7-3sX" name="value" keyPath="values.CPShowVerboseCommandOutput" id="vlr-SD-blU"/>
                         </connections>
                     </button>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="keE-0i-vgu" customClass="MGSFragariaView">
+                        <rect key="frame" x="0.0" y="54" width="507" height="359"/>
+                        <animations/>
+                    </customView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ir8-yD-43r" firstAttribute="leading" secondItem="OKq-yL-mMd" secondAttribute="trailing" constant="12" id="087-hH-qPP"/>
-                    <constraint firstItem="Dw2-KY-Hq6" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" id="6F9-Ns-Iff"/>
                     <constraint firstItem="OKq-yL-mMd" firstAttribute="leading" secondItem="lXT-8h-yFh" secondAttribute="trailing" constant="8" id="780-Sh-sHE"/>
                     <constraint firstAttribute="bottom" secondItem="lXT-8h-yFh" secondAttribute="bottom" constant="23" id="84y-mC-lpZ"/>
                     <constraint firstAttribute="bottom" secondItem="Ir8-yD-43r" secondAttribute="bottom" constant="20" id="D6V-pk-laP"/>
-                    <constraint firstItem="OKq-yL-mMd" firstAttribute="top" secondItem="Dw2-KY-Hq6" secondAttribute="bottom" constant="20" id="HSS-fO-3x8"/>
-                    <constraint firstItem="Dw2-KY-Hq6" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="LWT-RC-wyc"/>
-                    <constraint firstAttribute="trailing" secondItem="Dw2-KY-Hq6" secondAttribute="trailing" id="T61-yd-B1d"/>
                     <constraint firstItem="Ir8-yD-43r" firstAttribute="leading" secondItem="OKq-yL-mMd" secondAttribute="trailing" constant="12" id="oBi-kZ-jul"/>
                     <constraint firstAttribute="bottom" secondItem="OKq-yL-mMd" secondAttribute="bottom" constant="20" id="roZ-8U-E03"/>
                     <constraint firstAttribute="trailing" secondItem="Ir8-yD-43r" secondAttribute="trailing" constant="20" id="z9Y-ej-xRv"/>
                 </constraints>
+                <animations/>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
@@ -88,7 +89,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="hlJ-d9-aN0">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -102,6 +103,7 @@
                                 <textView editable="NO" importsGraphics="NO" findStyle="panel" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="H0M-No-2Bd">
                                     <rect key="frame" x="0.0" y="0.0" width="223" height="208"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="480" height="208"/>
                                     <size key="maxSize" width="482" height="10000000"/>
@@ -117,19 +119,24 @@
                                     </connections>
                                 </textView>
                             </subviews>
+                            <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
+                        <animations/>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Fdc-Tn-DqL">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <animations/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="hVn-3h-vql">
                             <rect key="frame" x="465" y="1" width="16" height="208"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <animations/>
                         </scroller>
                     </scrollView>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j0v-Gb-GpI">
+                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j0v-Gb-GpI">
                         <rect key="frame" x="384" y="13" width="83" height="32"/>
+                        <animations/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fi8-6z-lwe">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -142,8 +149,9 @@ Gw
                             <binding destination="-2" name="title" keyPath="self.progressButtonTitle" id="DpO-jp-NWT"/>
                         </connections>
                     </button>
-                    <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="awf-Kn-Efq">
+                    <progressIndicator misplaced="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="awf-Kn-Efq">
                         <rect key="frame" x="20" y="20" width="362" height="20"/>
+                        <animations/>
                         <connections>
                             <binding destination="-2" name="animate" keyPath="self.task" id="hFO-qv-mSY">
                                 <dictionary key="options">
@@ -164,6 +172,7 @@ Gw
                     <constraint firstAttribute="bottom" secondItem="awf-Kn-Efq" secondAttribute="bottom" constant="21" id="rZn-yY-DGV"/>
                     <constraint firstAttribute="bottom" secondItem="j0v-Gb-GpI" secondAttribute="bottom" constant="20" id="t9e-tH-GXe"/>
                 </constraints>
+                <animations/>
             </view>
         </window>
     </objects>

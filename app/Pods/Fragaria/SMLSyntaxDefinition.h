@@ -29,7 +29,6 @@ extern NSString *SMLSyntaxDefinitionEndFirstMultiLineComment ;
 extern NSString *SMLSyntaxDefinitionBeginSecondMultiLineComment;
 extern NSString *SMLSyntaxDefinitionEndSecondMultiLineComment;
 extern NSString *SMLSyntaxDefinitionFunctionDefinition;
-extern NSString *SMLSyntaxDefinitionRemoveFromFunction ;
 extern NSString *SMLSyntaxDefinitionExcludeFromKeywordStartCharacterSet;
 extern NSString *SMLSyntaxDefinitionExcludeFromKeywordEndCharacterSet;
 extern NSString *SMLSyntaxDefinitionIncludeInKeywordStartCharacterSet;

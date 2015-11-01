@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>numberDefinition</key>
+	<string>(?&lt;=\W)(([-+]?[0-9]+(?=[^xb]))|(0x[0-9A-Fa-f]+)|(0b[01]+))</string>
 	<key>autocompleteWords</key>
 	<array/>
 	<key>beginCommand</key>
@@ -27,12 +29,12 @@
 	<key>firstSingleLineComment</key>
 	<string>#</string>
 	<key>firstString</key>
-	<string>"</string>
+	<string>&quot;</string>
 	<key>functionDefinition</key>
 	<string></string>
 	<key>includeInKeywordStartCharacterSet</key>
 	<string>.</string>
-	<key>keywords</key>
+	<key>instructions</key>
 	<array>
 		<string>ABS</string>
 		<string>ADD</string>
@@ -134,6 +136,8 @@
 	<key>secondSingleLineComment</key>
 	<string></string>
 	<key>secondString</key>
-	<string>'</string>
+	<string>&apos;</string>
+	<key>excludeFromKeywordEndCharacterSet</key>
+	<string>:</string>
 </dict>
 </plist>
