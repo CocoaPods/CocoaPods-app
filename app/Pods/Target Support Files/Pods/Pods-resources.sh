@@ -58,25 +58,9 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "Fragaria/SMLCommandResult.xib"
-  install_resource "Fragaria/SMLDetab.xib"
-  install_resource "Fragaria/SMLEntab.xib"
-  install_resource "Fragaria/SMLGoToLine.xib"
-  install_resource "Fragaria/SMLOpenPanelAccessoryView.xib"
-  install_resource "Fragaria/SMLRegularExpressionHelp.xib"
-  
-  
   install_resource "Sparkle/Sparkle.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "Fragaria/SMLCommandResult.xib"
-  install_resource "Fragaria/SMLDetab.xib"
-  install_resource "Fragaria/SMLEntab.xib"
-  install_resource "Fragaria/SMLGoToLine.xib"
-  install_resource "Fragaria/SMLOpenPanelAccessoryView.xib"
-  install_resource "Fragaria/SMLRegularExpressionHelp.xib"
-  
-  
   install_resource "Sparkle/Sparkle.framework"
 fi
 

@@ -1,6 +1,6 @@
 RELEASE_PLATFORM = '10.11'
 
-DEPLOYMENT_TARGET = '10.8'
+DEPLOYMENT_TARGET = '10.9'
 DEPLOYMENT_TARGET_SDK = "MacOSX#{DEPLOYMENT_TARGET}.sdk"
 
 $build_started_at = Time.now
@@ -83,7 +83,7 @@ NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.g
 READLINE_VERSION = '6.3'
 READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.tar.gz"
 
-RUBY__VERSION = '2.2.2'
+RUBY__VERSION = '2.2.3'
 RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz"
 
 RUBYGEMS_VERSION = '2.4.8'
@@ -92,7 +92,7 @@ RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSIO
 CURL_VERSION = '7.41.0'
 CURL_URL = "http://curl.haxx.se/download/curl-#{CURL_VERSION}.tar.gz"
 
-GIT_VERSION = '2.4.3'
+GIT_VERSION = '2.6.2'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
 SCONS_VERSION = '2.3.4'
@@ -774,7 +774,7 @@ namespace :release do
 
     tarball_name = File.basename(tarball)
 
-    upload_url = JSON.load(response.body)['upload_url'].gsub('{?name}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
+    upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
 

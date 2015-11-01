@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>numberDefinition</key>
+	<string>(?&lt;=\W)(([-+]?[0-9]+(?=\W))|(([0-9][0-9A-Fa-f]*)h)|(([01_]+)b)|(([0-7]+)o))</string>
 	<key>beginCommand</key>
 	<string></string>
 	<key>endCommand</key>
@@ -15,9 +17,9 @@
 	<key>endVariable</key>
 	<string></string>
 	<key>firstString</key>
-	<string>"</string>
+	<string>&quot;</string>
 	<key>secondString</key>
-	<string>'</string>
+	<string>&apos;</string>
 	<key>firstSingleLineComment</key>
 	<string>;</string>
 	<key>secondSingleLineComment</key>
@@ -40,6 +42,8 @@
 	<true/>
 	<key>includeInKeywordStartCharacterSet</key>
 	<string>.</string>
+	<key>excludeFromKeywordEndCharacterSet</key>
+	<string>:</string>
 	<key>keywords</key>
 	<array>
 		<string>.186</string>
@@ -274,78 +278,9 @@
 		<string>REAL4</string>
 		<string>REAL8</string>
 		<string>REAL10</string>
-		<string>AL</string>
-		<string>BL</string>
-		<string>CL</string>
-		<string>DL</string>
-		<string>AH</string>
-		<string>BH</string>
-		<string>CH</string>
-		<string>DH</string>
-		<string>AX</string>
-		<string>BX</string>
-		<string>CX</string>
-		<string>DX</string>
-		<string>SI</string>
-		<string>DI</string>
-		<string>SP</string>
-		<string>BP</string>
-		<string>EAX</string>
-		<string>EBX</string>
-		<string>ECX</string>
-		<string>EDX</string>
-		<string>ESI</string>
-		<string>EDI</string>
-		<string>ESP</string>
-		<string>EBP</string>
-		<string>CS</string>
-		<string>DS</string>
-		<string>SS</string>
-		<string>ES</string>
-		<string>FS</string>
-		<string>GS</string>
-		<string>ST</string>
-		<string>ST0</string>
-		<string>ST1</string>
-		<string>ST2</string>
-		<string>ST3</string>
-		<string>ST4</string>
-		<string>ST5</string>
-		<string>ST6</string>
-		<string>ST7</string>
-		<string>MM0</string>
-		<string>MM1</string>
-		<string>MM2</string>
-		<string>MM3</string>
-		<string>MM4</string>
-		<string>MM5</string>
-		<string>MM6</string>
-		<string>MM7</string>
-		<string>XMM0</string>
-		<string>XMM1</string>
-		<string>XMM2</string>
-		<string>XMM3</string>
-		<string>XMM4</string>
-		<string>XMM5</string>
-		<string>XMM6</string>
-		<string>XMM7</string>
-		<string>CR0</string>
-		<string>CR2</string>
-		<string>CR3</string>
-		<string>CR4</string>
-		<string>DR0</string>
-		<string>DR1</string>
-		<string>DR2</string>
-		<string>DR3</string>
-		<string>DR4</string>
-		<string>DR5</string>
-		<string>DR6</string>
-		<string>DR7</string>
-		<string>TR3</string>
-		<string>TR4</string>
-		<string>TR5</string>
-		<string>TR6</string>
-		<string>TR7</string>
+	</array>
+	<key>instructions</key>
+	<array>
 		<string>AAA</string>
 		<string>AAD</string>
 		<string>AAM</string>
@@ -833,7 +768,6 @@
 		<string>PREFETCHT2</string>
 	</array>
 	<key>autocompleteWords</key>
-	<array>
-	</array>
+	<array/>
 </dict>
 </plist>

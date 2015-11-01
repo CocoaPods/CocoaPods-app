@@ -1,0 +1,1 @@
+../../../Fragaria/MGSUserDefaultsControllerProtocol.h

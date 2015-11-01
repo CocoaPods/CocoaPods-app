@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>beginCommand</key>
@@ -7,19 +7,19 @@
 	<key>endCommand</key>
 	<string></string>
 	<key>beginInstruction</key>
-	<string>{</string>
+	<string></string>
 	<key>endInstruction</key>
-	<string>}</string>
+	<string></string>
 	<key>beginVariable</key>
-	<string>:</string>
+	<string></string>
 	<key>endVariable</key>
-	<string>;,</string>
+	<string></string>
 	<key>firstString</key>
-	<string>"</string>
+	<string>&quot;</string>
 	<key>secondString</key>
 	<string></string>
 	<key>firstSingleLineComment</key>
-	<string>//</string>	
+	<string>//</string>
 	<key>secondSingleLineComment</key>
 	<string></string>
 	<key>beginFirstMultiLineComment</key>
@@ -39,8 +39,9 @@
 	<key>recolourKeywordIfAlreadyColoured</key>
 	<true/>
 	<key>keywords</key>
-	<array>
-	</array>
+	<array/>
+	<key>numberDefinition</key>
+	<string>(#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?)|([-+]?[0-9]+(\.[0-9]+)?%?)|([-+]?\.[0-9]+%?)</string>
 	<key>autocompleteWords</key>
 	<array>
 		<string>background</string>

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>autocompleteWords</key>
 	<array/>
 	<key>beginCommand</key>
-	<string>&amp;lt;</string>
+	<string>&lt;</string>
 	<key>beginFirstMultiLineComment</key>
 	<string>/*</string>
 	<key>beginInstruction</key>
-	<string>&amp;lt;%</string>
+	<string>&lt;%</string>
 	<key>beginSecondMultiLineComment</key>
 	<string></string>
 	<key>beginVariable</key>
 	<string>$</string>
 	<key>endCommand</key>
-	<string>&amp;gt;</string>
+	<string>&gt;</string>
 	<key>endFirstMultiLineComment</key>
 	<string>*/</string>
 	<key>endInstruction</key>
-	<string>%&amp;gt;</string>
+	<string>%&gt;</string>
 	<key>endSecondMultiLineComment</key>
 	<string></string>
 	<key>endVariable</key>
@@ -27,7 +27,7 @@
 	<key>firstSingleLineComment</key>
 	<string>`</string>
 	<key>firstString</key>
-	<string>"</string>
+	<string>&quot;</string>
 	<key>functionDefinition</key>
 	<string>^\s*Method\s+.*</string>
 	<key>keywords</key>
@@ -333,6 +333,6 @@
 	<key>secondSingleLineComment</key>
 	<string></string>
 	<key>secondString</key>
-	<string>'</string>
+	<string>&apos;</string>
 </dict>
 </plist>

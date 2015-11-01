@@ -1,5 +1,6 @@
 # coding: utf-8
-platform :osx, '10.8'
+platform :osx, '10.9'
+use_frameworks!
 
 # TODO inhibiting warnings (when they're not harmful) while working on the application.
 
