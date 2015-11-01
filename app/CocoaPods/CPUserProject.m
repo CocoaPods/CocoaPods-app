@@ -121,30 +121,22 @@ typedef NSInteger NSModalResponse;
 - (void)presentProgressSheet;
 {
   NSWindowController *controller = self.windowControllers[0];
-  [controller.window beginSheet:self.progressWindow completionHandler:^(NSModalResponse returnCode) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self sheetDidEnd:self.progressWindow returnCode:returnCode contextInfo:NULL];
-    });
-  }];
+  [controller.window beginSheet:self.progressWindow completionHandler:nil];
 }
-
-- (void)sheetDidEnd:(NSWindow *)sheet
-         returnCode:(NSModalResponse)returnCode
-        contextInfo:(void *)contextInfo;
+- (IBAction)dismissProgressSheet:(id)sender;
 {
-  if (returnCode == NSModalResponseAbort) {
+  if (self.task.isRunning) {
     [self.task interrupt];
   }
-  [sheet orderOut:self];
+  
+  [NSApp endSheet:self.progressWindow returnCode:NSModalResponseStop];
+
+  [self.progressWindow orderOut:self];
   // Reset the sheet /after/ it has been removed from screen.
   dispatch_async(dispatch_get_main_queue(), ^{
     [self resetSheet];
   });
-}
 
-- (IBAction)dismissProgressSheet:(id)sender;
-{
-  [NSApp endSheet:self.progressWindow returnCode:(self.task.isRunning ? NSModalResponseAbort : NSModalResponseStop)];
 }
 
 - (void)resetSheet;
