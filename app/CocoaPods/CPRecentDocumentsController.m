@@ -1,4 +1,5 @@
 #import "CPRecentDocumentsController.h"
+#import "NSURL+TersePaths.h"
 
 @implementation CPHomeWindowDocumentEntry
 
@@ -9,7 +10,7 @@
     [copy setName:[self.name copyWithZone:zone]];
     [copy setPodfileURL:[self.podfileURL copyWithZone:zone]];
     [copy setImage:[self.image copyWithZone:zone]];
-    [copy setFolderPath:[self.folderPath copyWithZone:zone]];
+    [copy setFileDescription:[self.fileDescription copyWithZone:zone]];
   }
 
   return copy;
@@ -49,9 +50,9 @@
 
   CPHomeWindowDocumentEntry *document = [CPHomeWindowDocumentEntry new];
   document.name = [bestURL lastPathComponent];
-  document.folderPath = [[bestURL pathComponents] componentsJoinedByString:@"/"];
-  document.image = [[NSWorkspace sharedWorkspace] iconForFile:bestURL.absoluteString];
+  document.image = [NSImage imageNamed:@"Podfile-icon"];
   document.podfileURL = url;
+  document.fileDescription = workspaceURL? @"Podfile" : [bestURL tersePath];
   return document;
 }
 

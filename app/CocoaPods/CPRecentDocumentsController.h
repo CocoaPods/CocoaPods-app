@@ -19,5 +19,5 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSURL *podfileURL;
 @property (nonatomic, copy) NSImage *image;
-@property (nonatomic, copy) NSString *folderPath;
+@property (nonatomic, copy) NSString *fileDescription;
 @end

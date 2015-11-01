@@ -26,23 +26,6 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 #pragma mark - Actions
 
-- (IBAction)openGuides:(id)sender;
-{
-  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://guides.cocoapods.org/"]];
-}
-
-- (IBAction)openPodspecReference:(id)sender;
-{
-  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podspec.html"];
-  [[NSWorkspace sharedWorkspace] openURL:URL];
-}
-
-- (IBAction)openPodfileReference:(id)sender;
-{
-  NSURL *URL = [NSURL URLWithString:@"http://guides.cocoapods.org/syntax/podfile.html"];
-  [[NSWorkspace sharedWorkspace] openURL:URL];
-}
-
 - (IBAction)installBinstubIfNecessary:(id)sender;
 {
   [[self CLIToolInstallationController] installBinstub];

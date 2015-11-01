@@ -42,7 +42,7 @@ typedef NSInteger NSModalResponse;
 #endif
 
 @interface CPUserProject () <NSTextViewDelegate>
-@property (weak) IBOutlet NSView *containerView;
+
 // Such sin.
 // TODO: Add real custom window controllers.
 @property (strong) IBOutlet NSWindow *progressWindow;

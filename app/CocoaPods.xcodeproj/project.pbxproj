@@ -26,6 +26,9 @@
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
+		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
+		601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */; };
+		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
@@ -95,6 +98,11 @@
 		51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		51D2E5AF1A212A0800C0B153 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
 		51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinitions.plist; sourceTree = "<group>"; };
+		601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExternalLinksHelper.h; sourceTree = "<group>"; };
+		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
+		601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podfile-icon@2x.png"; sourceTree = "<group>"; };
+		601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TersePaths.h"; sourceTree = "<group>"; };
+		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
 		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
 		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
@@ -185,6 +193,8 @@
 				60FE016D1B9B7F000027EEE3 /* Categories */,
 				60FE01621B9B76400027EEE3 /* Home Window */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
+				601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */,
+				601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */,
 			);
 			path = CocoaPods;
 			sourceTree = "<group>";
@@ -211,11 +221,18 @@
 			path = pod;
 			sourceTree = "<group>";
 		};
+		601F910E1BE6405B00AD22B1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		60FE01621B9B76400027EEE3 /* Home Window */ = {
 			isa = PBXGroup;
 			children = (
-				51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */,
-				51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */,
+				601F910E1BE6405B00AD22B1 /* Resources */,
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
 				1F9177561BA27592006698C9 /* CPHomeWindowController.m */,
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
@@ -244,6 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */,
+				601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */,
+				601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -350,6 +369,7 @@
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
 				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
 				1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */,
+				601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
 				51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */,
 			);
@@ -428,11 +448,13 @@
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
+				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */,
 				60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */,
+				601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
