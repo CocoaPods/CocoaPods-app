@@ -20,8 +20,16 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPShowVerboseCommandOutput"];
   //NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 #endif
-  
+
   [[self CLIToolInstallationController] installBinstubIfNecessary];
+}
+
+- (void)applicationWillBecomeActive:(NSNotification *)notification
+{
+  // Show the home window when there's no active Podfile edits going on
+  if ([NSApp orderedDocuments].count == 0) {
+    [self showHomeWindow:self];
+  }
 }
 
 #pragma mark - Actions
