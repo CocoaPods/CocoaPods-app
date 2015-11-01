@@ -144,8 +144,7 @@ typedef NSInteger NSModalResponse;
 
 - (IBAction)dismissProgressSheet:(id)sender;
 {
-  [NSApp endSheet:self.progressWindow
-       returnCode:(self.task.isRunning ? NSModalResponseAbort : NSModalResponseStop)];
+  [NSApp endSheet:self.progressWindow returnCode:(self.task.isRunning ? NSModalResponseAbort : NSModalResponseStop)];
 }
 
 - (void)resetSheet;

@@ -64,16 +64,20 @@
                             <binding destination="S9G-l7-3sX" name="value" keyPath="values.CPShowVerboseCommandOutput" id="vlr-SD-blU"/>
                         </connections>
                     </button>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="keE-0i-vgu" customClass="MGSFragariaView">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="keE-0i-vgu" customClass="MGSFragariaView">
                         <rect key="frame" x="0.0" y="54" width="507" height="359"/>
                         <animations/>
                     </customView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ir8-yD-43r" firstAttribute="leading" secondItem="OKq-yL-mMd" secondAttribute="trailing" constant="12" id="087-hH-qPP"/>
+                    <constraint firstAttribute="bottom" secondItem="keE-0i-vgu" secondAttribute="bottom" constant="54" id="14Y-4b-gOJ"/>
                     <constraint firstItem="OKq-yL-mMd" firstAttribute="leading" secondItem="lXT-8h-yFh" secondAttribute="trailing" constant="8" id="780-Sh-sHE"/>
                     <constraint firstAttribute="bottom" secondItem="lXT-8h-yFh" secondAttribute="bottom" constant="23" id="84y-mC-lpZ"/>
                     <constraint firstAttribute="bottom" secondItem="Ir8-yD-43r" secondAttribute="bottom" constant="20" id="D6V-pk-laP"/>
+                    <constraint firstAttribute="trailing" secondItem="keE-0i-vgu" secondAttribute="trailing" id="NzI-mI-ZwD"/>
+                    <constraint firstItem="keE-0i-vgu" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="SGl-MB-MmH"/>
+                    <constraint firstItem="keE-0i-vgu" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" id="ilC-3I-w6H"/>
                     <constraint firstItem="Ir8-yD-43r" firstAttribute="leading" secondItem="OKq-yL-mMd" secondAttribute="trailing" constant="12" id="oBi-kZ-jul"/>
                     <constraint firstAttribute="bottom" secondItem="OKq-yL-mMd" secondAttribute="bottom" constant="20" id="roZ-8U-E03"/>
                     <constraint firstAttribute="trailing" secondItem="Ir8-yD-43r" secondAttribute="trailing" constant="20" id="z9Y-ej-xRv"/>
@@ -97,11 +101,11 @@
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qg-Dx-m78">
                         <rect key="frame" x="-1" y="61" width="482" height="210"/>
                         <clipView key="contentView" id="fXK-26-mQA">
-                            <rect key="frame" x="1" y="1" width="223" height="133"/>
+                            <rect key="frame" x="1" y="1" width="480" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" findStyle="panel" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="H0M-No-2Bd">
-                                    <rect key="frame" x="0.0" y="0.0" width="223" height="208"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="208"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
