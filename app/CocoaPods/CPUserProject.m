@@ -242,7 +242,7 @@ typedef NSInteger NSModalResponse;
                                                 object:nil];
 
   NSUserNotification *completionNotification = [[NSUserNotification alloc] init];
-  completionNotification.title = @"Pod Workspace Ready";
+  completionNotification.title = NSLocalizedString(@"WORKSPACE_GENERATED_NOTIFICATION_TITLE", nil);
   completionNotification.subtitle = [[self.fileURL relativePath] stringByAbbreviatingWithTildeInPath];
   [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:completionNotification];
   
