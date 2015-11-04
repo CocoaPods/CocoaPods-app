@@ -16,7 +16,7 @@
 
 - (instancetype)init;
 {
-  return [self initWithWindowNibName:@"CPHomeWindowController"];
+  return [super initWithWindowNibName:@"CPHomeWindowController"];
 }
 
 - (void)windowDidLoad;

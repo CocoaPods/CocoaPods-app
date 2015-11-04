@@ -10,22 +10,22 @@
 
 - (IBAction)openGuides:(id)sender;
 {
-  [self open:@"http://guides.cocoapods.org/"];
+  [self open:@"https://guides.cocoapods.org/"];
 }
 
 - (IBAction)openPodspecReference:(id)sender;
 {
-  [self open:@"http://guides.cocoapods.org/syntax/podspec.html"];
+  [self open:@"https://guides.cocoapods.org/syntax/podspec.html"];
 }
 
 - (IBAction)openPodfileReference:(id)sender;
 {
-  [self  open:@"http://guides.cocoapods.org/syntax/podfile.html"];
+  [self open:@"https://guides.cocoapods.org/syntax/podfile.html"];
 }
 
 - (IBAction)openSearch:(id)sender;
 {
-  [self  open:@"http://cocoapods.org/"];
+  [self open:@"https://cocoapods.org/"];
 }
 
 
