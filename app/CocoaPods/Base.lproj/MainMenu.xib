@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -15,6 +15,7 @@
         <customObject id="Voe-Tx-rLC" customClass="CPAppDelegate"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="Byb-Tq-L28" customClass="SUUpdater"/>
+        <customObject id="bzE-zY-Vxb" customClass="CPExternalLinksHelper"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="CocoaPods" id="1Xt-HY-uBw">
@@ -365,6 +366,13 @@
                                     <action selector="performZoom:" target="-1" id="DIl-cC-cCs"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="anW-4K-Lpx"/>
+                            <menuItem title="Welcome to CocoaPods" keyEquivalent="0" id="YNu-0l-fyd">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="showHomeWindow:" target="Voe-Tx-rLC" id="QBk-oi-oXi"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                             <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -379,21 +387,28 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                         <items>
-                            <menuItem title="CocoaPods Guides" keyEquivalent="?" id="FKE-Sm-Kum">
+                            <menuItem title="What's New?" keyEquivalent="?" id="FKE-Sm-Kum">
                                 <connections>
-                                    <action selector="openGuides:" target="Voe-Tx-rLC" id="5zf-2b-TTK"/>
+                                    <action selector="whatsNew:" target="bzE-zY-Vxb" id="d8O-OZ-Yfj"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="XkM-Wf-pEG"/>
+                            <menuItem title="CocoaPods Guides" keyEquivalent="?" id="Zq3-IX-sou">
+                                <connections>
+                                    <action selector="openGuides:" target="bzE-zY-Vxb" id="aBt-l7-xuk"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="AvA-TO-OpV"/>
                             <menuItem title="Podfile Reference" id="Cn5-UY-U9F">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="openPodfileReference:" target="Voe-Tx-rLC" id="vk3-r2-red"/>
+                                    <action selector="openPodfileReference:" target="bzE-zY-Vxb" id="jeZ-3P-NZx"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Podspec Reference" id="caG-fM-VOX">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="openPodspecReference:" target="Voe-Tx-rLC" id="KrG-Bk-7zo"/>
+                                    <action selector="openPodspecReference:" target="bzE-zY-Vxb" id="pH8-E8-ehC"/>
                                 </connections>
                             </menuItem>
                         </items>

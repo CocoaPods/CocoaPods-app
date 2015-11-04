@@ -18,7 +18,7 @@
   }
   
   
-  NSData *fontData = [[NSUserDefaults standardUserDefaults] valueForKey:MGSFragariaDefaultsTextFont];
+  NSData *fontData = [[MGSFragariaView defaultsDictionary] valueForKey:MGSFragariaDefaultsTextFont];
   NSFont *font = [NSUnarchiver unarchiveObjectWithData:fontData];
     
   self.font = font;
