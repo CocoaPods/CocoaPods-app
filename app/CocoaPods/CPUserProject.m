@@ -272,9 +272,11 @@ ANSIUnescapeString(NSString *input) {
     self.taskOutput = attributedOutput;
   }
 
-  // Keep the text view at the bottom if it was previously.
+  // Keep the text view at the bottom if it was previously, otherwise restore the previous position.
   if (scrolledToBottom) {
     [self.progressOutputView scrollToEndOfDocument:self];
+  } else {
+    [self.progressOutputView scrollPoint:visibleRect.origin];
   }
 }
 
