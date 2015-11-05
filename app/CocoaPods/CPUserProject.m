@@ -258,6 +258,11 @@ ANSIUnescapeString(NSString *input) {
 
 - (void)appendTaskOutput:(NSString *)rawOutput;
 {
+  // Determine if we're at the tail of the output log (and should scroll) before we append more to it.
+  CGRect visibleRect = self.progressOutputView.enclosingScrollView.documentVisibleRect;
+  CGFloat maxContentOffset = self.progressOutputView.bounds.size.height - visibleRect.size.height;
+  BOOL scrolledToBottom = visibleRect.origin.y == maxContentOffset;
+
   NSAttributedString *attributedOutput = ANSIUnescapeString(rawOutput);
   if (self.taskOutput) {
     NSMutableAttributedString *existingOutput = [self.taskOutput mutableCopy];
@@ -265,6 +270,11 @@ ANSIUnescapeString(NSString *input) {
     self.taskOutput = [existingOutput copy];
   } else {
     self.taskOutput = attributedOutput;
+  }
+
+  // Keep the text view at the bottom if it was previously.
+  if (scrolledToBottom) {
+    [self.progressOutputView scrollToEndOfDocument:self];
   }
 }
 
