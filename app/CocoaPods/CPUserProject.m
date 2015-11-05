@@ -241,6 +241,11 @@ typedef NSInteger NSModalResponse;
                                                   name:NSFileHandleDataAvailableNotification
                                                 object:nil];
 
+  NSUserNotification *completionNotification = [[NSUserNotification alloc] init];
+  completionNotification.title = NSLocalizedString(@"WORKSPACE_GENERATED_NOTIFICATION_TITLE", nil);
+  completionNotification.subtitle = [[self.fileURL relativePath] stringByAbbreviatingWithTildeInPath];
+  [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:completionNotification];
+  
   // Setting to `nil` signals through bindings that task has finished.
   self.task = nil;
 }
