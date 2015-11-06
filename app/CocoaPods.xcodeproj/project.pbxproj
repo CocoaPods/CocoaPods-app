@@ -10,6 +10,8 @@
 		1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9177561BA27592006698C9 /* CPHomeWindowController.m */; };
 		1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */; };
 		1FFFBB0A1BA25486004A8D1E /* pod in Copy Helper Executables */ = {isa = PBXBuildFile; fileRef = 51165E481A17B2D200DCFC94 /* pod */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */; };
+		3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */ = {isa = PBXBuildFile; fileRef = 331188591BEBCB4200272793 /* CPCLITask.m */; };
 		51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E251A17AFF500DCFC94 /* CPAppDelegate.m */; };
 		51165E281A17AFF500DCFC94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E271A17AFF500DCFC94 /* main.m */; };
 		51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E2B1A17AFF500DCFC94 /* MainMenu.xib */; };
@@ -21,7 +23,6 @@
 		5127C3291A23E6CA0093143B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C3281A23E6CA0093143B /* CoreFoundation.framework */; };
 		5127C32B1A23E6DD0093143B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C32A1A23E6DD0093143B /* CoreServices.framework */; };
 		5180FE941AD2A51300314D61 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5180FE931AD2A51300314D61 /* LICENSE */; };
-		51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */; };
 		51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7831A2DF88700F9ABCB /* Security.framework */; };
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
@@ -75,6 +76,10 @@
 		1F9177551BA27592006698C9 /* CPHomeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeWindowController.h; sourceTree = "<group>"; };
 		1F9177561BA27592006698C9 /* CPHomeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowController.m; sourceTree = "<group>"; };
 		1F91775B1BA27598006698C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPHomeWindowController.xib; sourceTree = "<group>"; };
+		331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLIToolInstallationController.h; sourceTree = "<group>"; };
+		331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLIToolInstallationController.m; sourceTree = "<group>"; };
+		331188581BEBCB4200272793 /* CPCLITask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLITask.h; sourceTree = "<group>"; };
+		331188591BEBCB4200272793 /* CPCLITask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLITask.m; sourceTree = "<group>"; };
 		48BFECFC4C849B1ABEB40B43 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E1F1A17AFF500DCFC94 /* CocoaPods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E231A17AFF500DCFC94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -92,8 +97,6 @@
 		5127C3281A23E6CA0093143B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5127C32A1A23E6DD0093143B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		5180FE931AD2A51300314D61 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../../LICENSE; sourceTree = "<group>"; };
-		51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLIToolInstallationController.h; sourceTree = "<group>"; };
-		51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLIToolInstallationController.m; sourceTree = "<group>"; };
 		51CFC7831A2DF88700F9ABCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		51D2E5AF1A212A0800C0B153 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
@@ -139,6 +142,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		331188541BEBCB0F00272793 /* CLI Integrations */ = {
+			isa = PBXGroup;
+			children = (
+				331188581BEBCB4200272793 /* CPCLITask.h */,
+				331188591BEBCB4200272793 /* CPCLITask.m */,
+				331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */,
+				331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */,
+			);
+			path = "CLI Integrations";
+			sourceTree = "<group>";
+		};
 		46126B404240E403B2193EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,10 +198,9 @@
 				51165E551A1B925300DCFC94 /* CPUserProject.m */,
 				7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */,
 				7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */,
-				51C2188F1A20A8090066F071 /* CPCLIToolInstallationController.h */,
-				51C218901A20A8090066F071 /* CPCLIToolInstallationController.m */,
 				51165E561A1B925300DCFC94 /* CPUserProject.xib */,
 				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
+				331188541BEBCB0F00272793 /* CLI Integrations */,
 				60FE01641B9B76520027EEE3 /* Project */,
 				60FE01631B9B76470027EEE3 /* Project Document */,
 				60FE016D1B9B7F000027EEE3 /* Categories */,
@@ -448,9 +461,10 @@
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
+				3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
-				51C218911A20A8090066F071 /* CPCLIToolInstallationController.m in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
+				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */,
 				60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */,

@@ -114,13 +114,6 @@
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="480" height="208"/>
                                     <size key="maxSize" width="482" height="10000000"/>
-                                    <connections>
-                                        <binding destination="-2" name="attributedString" keyPath="self.taskOutput" id="whe-EK-dhh">
-                                            <dictionary key="options">
-                                                <bool key="NSConditionallySetsEditable" value="NO"/>
-                                            </dictionary>
-                                        </binding>
-                                    </connections>
                                 </textView>
                             </subviews>
                             <animations/>
@@ -153,15 +146,13 @@ Gw
                             <binding destination="-2" name="title" keyPath="self.progressButtonTitle" id="DpO-jp-NWT"/>
                         </connections>
                     </button>
-                    <progressIndicator misplaced="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="awf-Kn-Efq">
                         <rect key="frame" x="20" y="20" width="362" height="20"/>
+                    <progressIndicator wantsLayer="YES" misplaced="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="awf-Kn-Efq">
                         <animations/>
                         <connections>
-                            <binding destination="-2" name="animate" keyPath="self.task" id="hFO-qv-mSY">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">NSIsNotNil</string>
-                                </dictionary>
-                            </binding>
+                            <binding destination="-2" name="animate" keyPath="task.running" id="ibE-Av-nMH"/>
+                            <binding destination="-2" name="isIndeterminate" keyPath="task.progress.indeterminate" previousBinding="ibE-Av-nMH" id="8fp-DH-ruh"/>
+                            <binding destination="-2" name="toolTip" keyPath="task.progress.localizedDescription" id="Z8u-Yj-V6i"/>
                         </connections>
                     </progressIndicator>
                 </subviews>
