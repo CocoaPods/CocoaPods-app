@@ -32,6 +32,16 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   }
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)hasVisibleWindows
+{
+  // When the dock icon is clicked, show the home window if there are no other windows open
+  if (!hasVisibleWindows) {
+    [self showHomeWindow:sender];
+  }
+
+  return YES;
+}
+
 #pragma mark - Actions
 
 - (IBAction)installBinstubIfNecessary:(id)sender;
