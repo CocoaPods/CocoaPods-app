@@ -16,7 +16,20 @@ perform commands equivalent to `pod install` and `pod update`.
 In time it will undoubtedly evolve into a full-featured GUI application, but for now this is **not**
 the _most_ important goal.
 
-### Building from source
+### Building for Development
+
+If you want to hack on `CocoaPods.app`:
+
+``` sh
+git clone https://github.com/CocoaPods/CocoaPods-app.git
+cd CocoaPods-app
+rake  bundle:build
+open app/CocoaPods.xcworkspace
+```
+
+This will set up your environment with a compiled versions of: ruby, git, cocoapods (the gem), hg, openssl, etc into both `destroot` and `workbench`.
+
+### Building for Release
 
 A release build will require the OS X 10.8 SDK that comes with Xcode 5.1.1, which can be downloaded
 [here](https://developer.apple.com/downloads).
@@ -28,7 +41,7 @@ rake app:build              # Build release version of application
 rake app:clean              # Clean
 rake app:update_version     # Updates the Info.plist of the application to reflect the CocoaPods version
 rake bundle:build           # Build complete dist bundle
-rake bundle:clean:all       # Clean all artefacts, including downloads
+rake bundle:clean:all       # Clean all artifacts, including downloads
 rake bundle:test            # Test bundle
 rake bundle:verify_linkage  # Verifies that no binaries in the bundle link to incorrect dylibs
 rake release                # Create a clean release build for distribution
