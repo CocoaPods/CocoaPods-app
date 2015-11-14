@@ -716,7 +716,7 @@ namespace :app do
 
   desc 'Build release version of application'
   task :build => ['bundle:build', :update_version] do
-    sh "#{XCODEBUILD_COMMAND} MACOSX_DEPLOYMENT_TARGET=#{DEPLOYMENT_TARGET} SDKROOT='#{SDKROOT}' build"
+    sh "#{XCODEBUILD_COMMAND} MACOSX_DEPLOYMENT_TARGET=#{DEPLOYMENT_TARGET} SDKROOT='#{SDKROOT}' CODE_SIGN_IDENTITY='Developer ID Application' build"
   end
 
   desc "Clean"
