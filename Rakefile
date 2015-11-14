@@ -96,7 +96,7 @@ GIT_VERSION = '2.6.2'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
 SCONS_VERSION = '2.3.4'
-SCONS_URL = "http://prdownloads.sourceforge.net/scons/scons-local-#{SCONS_VERSION}.tar.gz"
+SCONS_URL = "https://bitbucket.org/scons/scons/get/#{SCONS_VERSION}.tar.gz"
 
 SERF_VERSION = '1.3.8'
 SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-#{SERF_VERSION}.tar.bz2"
@@ -288,9 +288,10 @@ scons_build_dir = File.join(WORKBENCH_DIR, File.basename(SCONS_URL, '.tar.gz'))
 directory scons_build_dir => [scons_tarball, WORKBENCH_DIR] do
   mkdir_p scons_build_dir
   sh "tar -zxvf #{scons_tarball} -C #{scons_build_dir}"
+  File.chmod(0777, File.join(scons_build_dir, 'scons-scons-1a5fef7318d5/src/script/scons.py'))
 end
 
-scons_bin = File.expand_path(File.join(scons_build_dir, 'scons.py'))
+scons_bin = File.expand_path(File.join(scons_build_dir, 'scons-scons-1a5fef7318d5/src/script/scons.py'))
 
 # ------------------------------------------------------------------------------
 # SERF
