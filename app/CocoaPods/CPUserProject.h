@@ -6,4 +6,7 @@
 /// metadata is handled by `CPPodfile` from CocoaPods-ObjC
 
 @interface CPUserProject : NSDocument
+
+@property (strong) NSString *contents;
+
 @end

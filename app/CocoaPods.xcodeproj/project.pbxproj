@@ -271,6 +271,13 @@
 			name = "Presenting Text";
 			sourceTree = "<group>";
 		};
+		606D1EDB1BF93079000B7148 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		60FE01621B9B76400027EEE3 /* Home Window */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +305,7 @@
 		60FE01641B9B76520027EEE3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				606D1EDB1BF93079000B7148 /* Views */,
 			);
 			name = Project;
 			sourceTree = "<group>";

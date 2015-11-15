@@ -8,6 +8,8 @@
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
@@ -642,10 +644,8 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
-                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-478" y="-440"/>
+            <point key="canvasLocation" x="-384" y="-724"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -662,7 +662,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-461" y="-211"/>
+            <point key="canvasLocation" x="-580" y="-268"/>
         </scene>
         <!--Podfile View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -672,12 +672,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="586" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU">
                                 <rect key="frame" x="0.0" y="0.0" width="78" height="800"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="78" id="LtX-g5-vc6"/>
                                 </constraints>
                                 <animations/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                        <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </visualEffectView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="qbz-Ij-gAY">
                                 <rect key="frame" x="78" y="0.0" width="508" height="746"/>
@@ -706,7 +711,7 @@
         <!--Tab View Controller-->
         <scene sceneID="qoe-kJ-9tu">
             <objects>
-                <tabViewController storyboardIdentifier="Podfile Content Tab Controller" selectedTabViewItemIndex="2" id="KFF-tZ-pTU" sceneMemberID="viewController">
+                <tabViewController storyboardIdentifier="Podfile Content Tab Controller" selectedTabViewItemIndex="0" id="KFF-tZ-pTU" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="LD4-sS-rWv"/>
                         <tabViewItem identifier="" id="R0S-ss-GjB"/>
@@ -736,6 +741,31 @@
                     <view key="view" id="RpM-VO-LAG">
                         <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wMp-gc-M8Q">
+                                <rect key="frame" x="38" y="459" width="104" height="104"/>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="af5-Mc-KYA"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbW-6i-8GX">
+                                <rect key="frame" x="142" y="541" width="102" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Name of project" id="5Ga-Sa-cxZ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5hh-Nc-DKI">
+                                <rect key="frame" x="142" y="516" width="46" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="etc etc" id="zTF-NG-VAy">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
                         <animations/>
                     </view>
                 </viewController>
@@ -743,7 +773,7 @@
             </objects>
             <point key="canvasLocation" x="1246" y="462"/>
         </scene>
-        <!--Podfile Editor-->
+        <!--Text View Delegate-->
         <scene sceneID="ujT-LT-6Ml">
             <objects>
                 <viewController title="Podfile Editor" id="KSf-K2-QFT" customClass="CPPodfileEditorViewController" customModule="CocoaPods" customModuleProvider="target" sceneMemberID="viewController">
@@ -754,6 +784,9 @@
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8cU-n6-ob5" customClass="MGSFragariaView">
                                 <rect key="frame" x="0.0" y="70" width="512" height="530"/>
                                 <animations/>
+                                <connections>
+                                    <outlet property="textViewDelegate" destination="KSf-K2-QFT" id="46h-Fl-LQo"/>
+                                </connections>
                             </customView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Awc-Ci-ey9">
                                 <rect key="frame" x="392" y="13" width="106" height="32"/>
@@ -797,6 +830,9 @@
                         </constraints>
                         <animations/>
                     </view>
+                    <connections>
+                        <outlet property="editor" destination="8cU-n6-ob5" id="whO-4g-Tul"/>
+                    </connections>
                 </viewController>
                 <customObject id="L5g-vS-Aib" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -809,6 +845,41 @@
                     <view key="view" id="133-hW-tOB">
                         <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9i-w9-w0u">
+                                <rect key="frame" x="8" y="26" width="493" height="563"/>
+                                <clipView key="contentView" ambiguous="YES" id="EeO-Vl-j8p">
+                                    <rect key="frame" x="1" y="1" width="491" height="561"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView ambiguous="YES" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="GuO-Ek-akK">
+                                            <rect key="frame" x="0.0" y="0.0" width="491" height="561"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="491" height="561"/>
+                                            <size key="maxSize" width="491" height="10000000"/>
+                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="491" height="561"/>
+                                            <size key="maxSize" width="491" height="10000000"/>
+                                        </textView>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <animations/>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="C7I-cw-YLR">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="gUJ-tJ-SOq">
+                                    <rect key="frame" x="476" y="1" width="16" height="561"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
                         <animations/>
                     </view>
                 </viewController>
@@ -817,4 +888,7 @@
             <point key="canvasLocation" x="707" y="462"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSApplicationIcon" width="128" height="128"/>
+    </resources>
 </document>

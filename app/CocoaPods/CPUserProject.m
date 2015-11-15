@@ -10,31 +10,6 @@
 
 #import "CocoaPods-Swift.h"
 
-// Hack SMLTextView to also consider the leading colon when completing words, which are all the
-// symbols that we support.
-//
-
-@implementation SMLTextView (CPIncludeLeadingColonsInCompletions)
-
-+ (void)load;
-{
-  Method m1 = class_getInstanceMethod(self, @selector(rangeForUserCompletion));
-  Method m2 = class_getInstanceMethod(self, @selector(CP_rangeForUserCompletion));
-  method_exchangeImplementations(m1, m2);
-}
-
--(NSRange)CP_rangeForUserCompletion;
-{
-  NSRange range = [self CP_rangeForUserCompletion];
-  if (range.location != NSNotFound && range.location > 0
-      && [self.string characterAtIndex:range.location-1] == ':') {
-    range = NSMakeRange(range.location-1, range.length+1);
-  }
-  return range;
-}
-
-@end
-
 #if __MAC_OS_X_VERSION_MAX_ALLOWED < 1090
 enum {
    NSModalResponseStop                 = (-1000),
@@ -54,7 +29,6 @@ typedef NSInteger NSModalResponse;
 @property (strong) IBOutlet MGSFragariaView *editor;
 
 @property (strong) NSStoryboard *storyboard;
-@property (strong) NSString *contents;
 @property (strong) CPCLITask *task;
 @end
 
@@ -63,34 +37,25 @@ typedef NSInteger NSModalResponse;
 - (void)makeWindowControllers {
   self.storyboard = [NSStoryboard storyboardWithName:@"Podfile" bundle:nil];
 
-  NSWindowController *rootViewController = [self.storyboard instantiateControllerWithIdentifier:@"Podfile Editor"];
+  NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"Podfile Editor"];
+
+  CPPodfileViewController *podfileVC = (id)windowController.contentViewController;
+  podfileVC.userProject = self;
 
   /// This could move into a CPPodfileWindowController?
-  NSWindow *window = rootViewController.window;
+  NSWindow *window = windowController.window;
   window.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
   window.titleVisibility = NSWindowTitleHidden;
   window.titlebarAppearsTransparent = YES;
   window.movableByWindowBackground = YES;
 
-  [self addWindowController:rootViewController];
+  [self addWindowController:windowController];
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)controller;
 {
   [super windowControllerDidLoadNib:controller];
 
-  self.editor.syntaxColoured = YES;
-  self.editor.syntaxDefinitionName = @"Podfile";
-  self.editor.string = self.contents;
-
-  self.undoManager = self.editor.textView.undoManager;
-}
-
-- (void)textDidChange:(NSNotification *)notification;
-{
-  NSTextView *textView = notification.object;
-  NSString *contents = textView.string;
-  self.contents = contents;
 }
 
 #pragma mark - Persistance

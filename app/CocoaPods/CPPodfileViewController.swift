@@ -14,6 +14,12 @@ import Cocoa
 /// access place for mutable state within the Podfile
 /// section of CocoaPods.app
 
+/// TODO:
+///  setting tabs via the images
+///  cmd + 1,2,3
+///  add commands for `pod install` / `update`
+
+
 class CPPodfileViewController: NSViewController {
 
   var userProject:CPUserProject!
@@ -43,4 +49,18 @@ class CPPodfileViewController: NSViewController {
     contentView.addConstraints([left, right, top, bottom])
   }
     
+}
+
+extension NSViewController {
+
+  /// Recurse the parentViewControllers till we find a CPPodfileViewController
+  var podfileViewController: CPPodfileViewController? {
+
+    guard let parent = self.parentViewController else { return nil }
+    if let appVC = parent as? CPPodfileViewController {
+      return appVC
+    } else {
+      return parent.podfileViewController
+    }
+  }
 }
