@@ -288,10 +288,8 @@ scons_build_dir = File.join(WORKBENCH_DIR, File.basename(SCONS_URL, '.tar.gz'))
 directory scons_build_dir => [scons_tarball, WORKBENCH_DIR] do
   mkdir_p scons_build_dir
   sh "tar -zxvf #{scons_tarball} -C #{scons_build_dir}"
-  File.chmod(0777, File.join(scons_build_dir, 'scons-scons-1a5fef7318d5/src/script/scons.py'))
+  File.chmod(0777, File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
 end
-
-scons_bin = File.expand_path(File.join(scons_build_dir, 'scons-scons-1a5fef7318d5/src/script/scons.py'))
 
 # ------------------------------------------------------------------------------
 # SERF
@@ -310,6 +308,7 @@ end
 serf_static_lib = File.join(serf_build_dir, 'libserf-1.a')
 file serf_static_lib => [installed_pkg_config, installed_openssl, installed_zlib, scons_build_dir, serf_build_dir] do
   xcode_sdk_root = `/usr/bin/xcrun --show-sdk-path`.chomp
+  scons_bin = File.expand_path(File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
   sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}' CPPFLAGS='-I#{xcode_sdk_root}/usr/include/apr-1'"
   # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
   # required when linking libssl, otherwise svn will fail to build with our
@@ -325,6 +324,7 @@ end
 
 installed_serf = File.join(DEPENDENCIES_DESTROOT, 'lib/libserf-1.a')
 file installed_serf => serf_static_lib do
+  scons_bin = File.expand_path(File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
   sh "cd #{serf_build_dir} && #{scons_bin} install"
   sh "rm #{File.join(DEPENDENCIES_DESTROOT, 'lib', '*.dylib')}"
 end
