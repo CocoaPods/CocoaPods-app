@@ -49,6 +49,10 @@ typedef NSInteger NSModalResponse;
 @property (strong) IBOutlet NSWindow *progressWindow;
 @property (assign) IBOutlet NSTextView *progressOutputView;
 
+@property (weak) IBOutlet NSButton *verboseModeButton;
+@property (weak) IBOutlet NSButton *podUpdateButton;
+@property (weak) IBOutlet NSButton *podInstallButton;
+
 @property (strong) IBOutlet MGSFragariaView *editor;
 @property (strong) NSString *contents;
 @property (strong) CPCLITask *task;
@@ -68,6 +72,10 @@ typedef NSInteger NSModalResponse;
   self.editor.syntaxColoured = YES;
   self.editor.syntaxDefinitionName = @"Podfile";
   self.editor.string = self.contents;
+  
+  self.verboseModeButton.title = NSLocalizedString(@"PODFILE_WINDOW_VERBOSE_SWITCH_TITLE", nil);
+  self.podUpdateButton.title = NSLocalizedString(@"PODFILE_WINDOW_POD_UPDATE_BUTTON_TITLE", nil);
+  self.podInstallButton.title = NSLocalizedString(@"PODFILE_WINDOW_POD_INSTALL_BUTTON_TITLE", nil);
 
   self.undoManager = self.editor.textView.undoManager;
 }
