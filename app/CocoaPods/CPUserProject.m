@@ -8,6 +8,8 @@
 #import "CPANSIEscapeHelper.h" 
 #import "CPCLITask.h"
 
+#import "CocoaPods-Swift.h"
+
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the
 // symbols that we support.
 //
@@ -50,15 +52,27 @@ typedef NSInteger NSModalResponse;
 @property (assign) IBOutlet NSTextView *progressOutputView;
 
 @property (strong) IBOutlet MGSFragariaView *editor;
+
+@property (strong) NSStoryboard *storyboard;
 @property (strong) NSString *contents;
 @property (strong) CPCLITask *task;
 @end
 
 @implementation CPUserProject
 
-- (NSString *)windowNibName;
-{
-  return @"CPUserProject";
+- (void)makeWindowControllers {
+  self.storyboard = [NSStoryboard storyboardWithName:@"Podfile" bundle:nil];
+
+  NSWindowController *rootViewController = [self.storyboard instantiateControllerWithIdentifier:@"Podfile Editor"];
+
+  /// This could move into a CPPodfileWindowController?
+  NSWindow *window = rootViewController.window;
+  window.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
+  window.titleVisibility = NSWindowTitleHidden;
+  window.titlebarAppearsTransparent = YES;
+  window.movableByWindowBackground = YES;
+
+  [self addWindowController:rootViewController];
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)controller;
