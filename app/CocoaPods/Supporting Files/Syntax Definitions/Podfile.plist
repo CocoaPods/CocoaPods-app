@@ -91,6 +91,22 @@
 		<string>true</string>
 		<string>__FILE__</string>
 		<string>__LINE__</string>
+		<string>set_arc_compatibility_flag!</string>
+		<string>plugin</string>
+		<string>pre_install</string>
+		<string>post_install</string>
+		<string>pod</string>
+		<string>podspec</string>
+		<string>target</string>
+		<string>platform</string>
+		<string>xcodeproj</string>
+		<string>link_with</string>
+		<string>inhibit_all_warnings!</string>
+		<string>use_frameworks!</string>
+		<string>workspace</string>
+		<string>generate_bridge_support!</string>
+		<string>set_arc_compatibility_flag!</string>
+		<string>source</string>
 	</array>
 	<key>autocompleteWords</key>
 	<array>
