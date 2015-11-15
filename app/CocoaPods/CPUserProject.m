@@ -115,7 +115,7 @@ typedef NSInteger NSModalResponse;
 
 - (NSString *)progressButtonTitle;
 {
-  return self.task.progress.fractionCompleted == 1.0f ? @"Done" : @"Cancel";
+  return self.task.progress.fractionCompleted == 1.0f ? NSLocalizedString(@"POD_INSTALL_SHEET_COMPLETED_BUTTON_TITLE", nil) : NSLocalizedString(@"POD_INSTALL_SHEET_IN_PROGRESS_BUTTON_TITLE", nil);
 }
 
 - (void)presentProgressSheet;
