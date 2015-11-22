@@ -23,6 +23,7 @@
 		5127C3291A23E6CA0093143B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C3281A23E6CA0093143B /* CoreFoundation.framework */; };
 		5127C32B1A23E6DD0093143B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C32A1A23E6DD0093143B /* CoreServices.framework */; };
 		5180FE941AD2A51300314D61 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5180FE931AD2A51300314D61 /* LICENSE */; };
+		519C328D1C028B94003BDC49 /* thread.rb in Resources */ = {isa = PBXBuildFile; fileRef = 519C328C1C028B94003BDC49 /* thread.rb */; };
 		51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7831A2DF88700F9ABCB /* Security.framework */; };
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
@@ -114,6 +115,7 @@
 		5127C3281A23E6CA0093143B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5127C32A1A23E6DD0093143B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		5180FE931AD2A51300314D61 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../../LICENSE; sourceTree = "<group>"; };
+		519C328C1C028B94003BDC49 /* thread.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = thread.rb; sourceTree = "<group>"; };
 		51CFC7831A2DF88700F9ABCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		51D2E5AF1A212A0800C0B153 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				51EA178A1C00D279000DC69A /* RBObject+CocoaPods.h */,
 				51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */,
 				51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */,
+				519C328C1C028B94003BDC49 /* thread.rb */,
 			);
 			path = "Ruby Integration";
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
 				51165E581A1B925300DCFC94 /* CPUserProject.xib in Resources */,
+				519C328D1C028B94003BDC49 /* thread.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
