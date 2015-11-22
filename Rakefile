@@ -19,6 +19,7 @@ DEPENDENCIES_DESTROOT = File.join(DESTROOT, 'dependencies')
 PATCHES_DIR = File.expand_path('patches')
 BUNDLE_PREFIX = File.expand_path(BUNDLE_DESTROOT)
 DEPENDENCIES_PREFIX = File.expand_path(DEPENDENCIES_DESTROOT)
+BUNDLE_ENV = File.join(BUNDLE_PREFIX, 'bin', 'bundle-env')
 
 directory PKG_DIR
 directory DOWNLOAD_DIR
@@ -376,8 +377,8 @@ end
 
 rubygems_update_dir = File.join(gem_home, 'gems', File.basename(RUBYGEMS_URL, '.gem'))
 directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems_gem] do
-  sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' gem install #{rubygems_gem} --no-document --env-shebang"
-  sh "'#{File.join(BUNDLE_PREFIX, 'bin/bundle-env')}' update_rubygems"
+  sh "'#{BUNDLE_ENV}' gem install #{rubygems_gem} --no-document --env-shebang"
+  sh "'#{BUNDLE_ENV}' update_rubygems"
   bin = File.join(BUNDLE_DESTROOT, 'bin/gem')
   lines = File.read(bin).split("\n")
   lines[0] = '#!/usr/bin/env ruby'
@@ -386,7 +387,7 @@ directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems
 end
 
 def install_gem(name, version = nil)
-  sh "'#{File.join(BUNDLE_PREFIX, 'bin', 'bundle-env')}' gem install #{name} #{"--version=#{version}" if version} --no-document --env-shebang"
+  sh "'#{BUNDLE_ENV}' gem install #{name} #{"--version=#{version}" if version} --no-document --env-shebang"
 end
 
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
@@ -701,6 +702,18 @@ namespace :bundle do
 end
 
 # ------------------------------------------------------------------------------
+# RubyCocoa
+# ------------------------------------------------------------------------------
+
+built_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
+file built_rubycocoa => [installed_ruby, installed_env_script] do
+  Dir.chdir('app/RubyCocoa') do
+    sh "'#{BUNDLE_ENV}' rake build[true]"
+  end
+  sh "/usr/bin/install_name_tool -id @rpath/RubyCocoa.framework/Versions/A/RubyCocoa #{built_rubycocoa}"
+end
+
+# ------------------------------------------------------------------------------
 # CocoaPods.app
 # ------------------------------------------------------------------------------
 
@@ -714,12 +727,15 @@ namespace :app do
     sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleVersion #{install_cocoapods_version}' '#{info_plist}'"
   end
 
+  desc 'Prepare all prerequisites for building the app'
+  task :prerequisites => ['bundle:build', built_rubycocoa, :update_version]
+
   desc 'Build release version of application'
-  task :build => ['bundle:build', :update_version] do
+  task :build => :prerequisites do
     sh "#{XCODEBUILD_COMMAND} MACOSX_DEPLOYMENT_TARGET=#{DEPLOYMENT_TARGET} SDKROOT='#{SDKROOT}' CODE_SIGN_IDENTITY='Developer ID Application' build"
   end
 
-  desc "Clean"
+  desc 'Clean'
   task :clean do
     sh "#{XCODEBUILD_COMMAND} clean"
   end

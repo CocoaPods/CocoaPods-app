@@ -23,7 +23,7 @@ If you want to hack on `CocoaPods.app`:
 ``` sh
 git clone https://github.com/CocoaPods/CocoaPods-app.git
 cd CocoaPods-app
-rake  bundle:build
+rake app:prerequisites
 open app/CocoaPods.xcworkspace
 ```
 
