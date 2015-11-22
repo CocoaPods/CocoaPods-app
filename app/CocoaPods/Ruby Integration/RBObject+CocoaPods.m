@@ -36,6 +36,11 @@
 @end
 
 static RBThread *RBThreadInstance = nil;
+static ID to_ruby;
+
+@interface RBObject (Private)
+- (VALUE)fetchForwardArgumentsOf:(NSInvocation *)invocation;
+@end
 
 @implementation RBObject (CocoaPods)
 
@@ -55,6 +60,8 @@ static RBThread *RBThreadInstance = nil;
   [self cp_forwardInvocation:invocation];
 }
 
+#endif
+
 static void
 SwizzleMethods(SEL original, SEL swizzled)
 {
@@ -63,18 +70,43 @@ SwizzleMethods(SEL original, SEL swizzled)
   method_exchangeImplementations(originalMethod, swizzledMethod);
 }
 
-#endif
-
 + (void)load;
 {
 #ifdef CP_ENABLE_THREAD_ASSERTIONS
   SwizzleMethods(@selector(initWithRubyScriptCString:), @selector(cp_initWithRubyScriptCString:));
   SwizzleMethods(@selector(forwardInvocation:), @selector(cp_forwardInvocation:));
 #endif
+  SwizzleMethods(@selector(fetchForwardArgumentsOf:), @selector(cp_fetchForwardArgumentsOf:));
   
   RBThreadInstance = [RBThread new];
   RBThreadInstance.name = @"org.cocoapods.app.RBObjectThread";
   [RBThreadInstance start];
+  
+  [self performBlock:^{
+    to_ruby = rb_intern("to_ruby");
+  }];
+}
+
+// Automatically convert all NSObject objects to their Ruby
+// counterparts by calling RubyCocoa’s NSObject#to_ruby on them.
+//
+// TODO Might make sense to submit this to RubyCocoa, but not yet
+// sure how the user would configure it.
+- (VALUE)cp_fetchForwardArgumentsOf:(NSInvocation *)invocation;
+{
+  // Call original RubyCocoa implementation.
+  VALUE args = [self cp_fetchForwardArgumentsOf:invocation];
+
+  int count = RARRAY_LENINT(args);
+  VALUE coerced_args = rb_ary_new2(count);
+  for (int i = 0; i < count; i++) {
+    VALUE arg = rb_ary_entry(args, i);
+    if (rb_respond_to(arg, to_ruby)) {
+      arg = rb_funcall(arg, to_ruby, 0);
+    }
+    rb_ary_store(coerced_args, i, arg);
+  }
+  return coerced_args;
 }
 
 + (void)performBlock:(void (^ _Nonnull)(void))block;
