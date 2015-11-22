@@ -7,3 +7,8 @@ require 'osx/objc/foundation'
 #      Need to make it so that RubyCocoa automatically invokes the NSObject#to_ruby
 #      method after sending a message from the Objective-C side.
 
+class SomeRubyClass
+  def some_ruby_method(array, flag)
+    { :key => "#{array.to_ruby.first[42]}, you are #{flag.to_ruby ? 'now' : 'not'} rocking with the best!" }
+  end
+end

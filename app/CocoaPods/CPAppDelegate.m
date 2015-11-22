@@ -2,10 +2,16 @@
 #import "CPCLIToolInstallationController.h"
 #import "CPHomeWindowController.h"
 
+#import "RBObject+CocoaPods.h"
+
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPAppDelegate ()
 @property (strong) CPHomeWindowController *homeWindowController;
+@end
+
+@protocol SomeRubyClass <NSObject>
+- (NSDictionary *)some_ruby_method:(NSArray *)array :(NSNumber *)flag;
 @end
 
 @implementation CPAppDelegate
@@ -20,6 +26,15 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPShowVerboseCommandOutput"];
   //NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 #endif
+  
+  [RBObject performBlock:^{
+    RBObject<SomeRubyClass> *object = [RBObject RBObjectWithRubyScriptString:@"SomeRubyClass.new"];
+    NSLog(@"%@", [object some_ruby_method:@[@{ @42: @"Oh yes" }] :@YES]);
+  }];
+  [RBObject performBlock:^{
+    RBObject<SomeRubyClass> *object = [RBObject RBObjectWithRubyScriptString:@"SomeRubyClass.new"];
+    NSLog(@"%@", [object some_ruby_method:@[@{ @42: @"Oh no" }] :@NO]);
+  }];
 
   [[self CLIToolInstallationController] installBinstubIfNecessary];
 }
