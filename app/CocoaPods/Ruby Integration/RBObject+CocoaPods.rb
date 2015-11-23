@@ -18,9 +18,3 @@ module Pod
     end
   end
 end
-
-class SomeRubyClass
-  def some_ruby_method(array, flag)
-    { :key => "#{array.first[42]}, you are #{flag ? 'now' : 'not'} rocking with the best!" }
-  end
-end
