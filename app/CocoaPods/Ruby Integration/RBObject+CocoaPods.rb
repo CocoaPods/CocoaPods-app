@@ -3,14 +3,21 @@ require 'osx/objc/foundation'
 
 app_bundle = OSX::NSBundle.mainBundle
 bundle_path = File.join(app_bundle.resourcePath, 'bundle')
-rubycocoa_framework = File.join(app_bundle.privateFrameworksPath, 'RubyCocoa.framework/Versions/A')
+incorrect_root = File.join(app_bundle.bundlePath, 'Contents/MacOS')
 
 # Fix all load paths to point to the bundled Ruby.
 $LOAD_PATH.map! do |path|
-  path.sub(rubycocoa_framework, bundle_path)
+  path.sub(incorrect_root, bundle_path)
 end
 
-require 'rubygems'
+module Pod
+  module App
+    def self.load_gems
+      require 'rubygems'
+      require 'cocoapods-core'
+    end
+  end
+end
 
 class SomeRubyClass
   def some_ruby_method(array, flag)

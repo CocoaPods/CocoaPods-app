@@ -14,6 +14,27 @@
 - (void)main;
 {
   RBBundleInit("RBObject+CocoaPods.rb", self.class, nil);
+
+  rb_provide("thread");
+  
+  void Init_pathname(void);
+  Init_pathname();
+  rb_provide("pathname.so");
+  
+  void Init_date_core(void);
+  Init_date_core();
+  rb_provide("date_core");
+  
+  void Init_bigdecimal(void);
+  Init_bigdecimal();
+  rb_provide("bigdecimal");
+  
+  void Init_stringio(void);
+  Init_stringio();
+  rb_provide("stringio");
+
+  [[RBObject RBObjectWithRubyScriptString:@"Pod::App"] performSelector:@selector(load_gems)];
+  
   [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
 }
 

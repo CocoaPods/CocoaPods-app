@@ -35,6 +35,10 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
     RBObject<SomeRubyClass> *object = [RBObject RBObjectWithRubyScriptString:@"SomeRubyClass.new"];
     NSLog(@"%@", [object some_ruby_method:@[@{ @42: @"Oh no" }] :@NO]);
   }];
+  [RBObject performBlock:^{
+    RBObject *podfile = [RBObject RBObjectWithRubyScriptString:[NSString stringWithFormat:@"Pod::Podfile.from_file('%@')", @"/Users/eloy/Code/CocoaPods/CocoaPods-app/app/Podfile"]];
+    NSLog(@"%@", [podfile performSelector:@selector(to_hash)]);
+  }];
 
   [[self CLIToolInstallationController] installBinstubIfNecessary];
 }
