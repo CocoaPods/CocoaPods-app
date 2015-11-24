@@ -6,6 +6,15 @@
 #import <objc/runtime.h>
 #endif
 
+
+id _Nonnull
+RBObjectFromString(NSString * _Nonnull source)
+{
+  return [RBObject RBObjectWithRubyScriptString:source];
+}
+
+
+
 @interface RBThread : NSThread
 @end
 

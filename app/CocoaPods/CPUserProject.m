@@ -8,6 +8,8 @@
 #import "CPANSIEscapeHelper.h" 
 #import "CPCLITask.h"
 
+#import "RBObject+CocoaPods.h"
+
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the
 // symbols that we support.
 //
@@ -87,6 +89,14 @@ typedef NSInteger NSModalResponse;
   self.contents = contents;
 }
 
+- (void)parsePodfile;
+{
+  [RBObject performBlock:^{
+    CPPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:@"/some/path/to/Podfile" :self.contents];
+    NSLog(@"%@", podfile.plugins.allKeys);
+  }];
+}
+
 #pragma mark - Persistance
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL
@@ -98,6 +108,7 @@ typedef NSInteger NSModalResponse;
                                              encoding:NSUTF8StringEncoding
                                                 error:outError];
     if (self.contents != nil) {
+      [self parsePodfile];
       return YES;
     }
   }
