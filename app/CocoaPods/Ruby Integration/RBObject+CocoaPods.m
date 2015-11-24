@@ -22,29 +22,29 @@ RBObjectFromString(NSString * _Nonnull source)
 
 - (void)main;
 {
+  // Initialize the Ruby runtime and load our Ruby setup file.
   RBBundleInit("RBObject+CocoaPods.rb", self.class, nil);
 
+  // These are C exts that are included in libruby, but we need
+  // to initialize them ourselves and tell the runtime that they
+  // have been loaded (provided).
+  #define INIT_EXT(name) void Init_##name(void); Init_##name();
+  #define PROVIDE_EXT(name) INIT_EXT(name); rb_provide(#name);
   rb_provide("thread");
-  
-  void Init_pathname(void);
-  Init_pathname();
+  INIT_EXT(pathname);
   rb_provide("pathname.so");
-  
-  void Init_date_core(void);
-  Init_date_core();
-  rb_provide("date_core");
-  
-  void Init_bigdecimal(void);
-  Init_bigdecimal();
-  rb_provide("bigdecimal");
-  
-  void Init_stringio(void);
-  Init_stringio();
-  rb_provide("stringio");
+  PROVIDE_EXT(date_core);
+  PROVIDE_EXT(bigdecimal);
+  PROVIDE_EXT(stringio);
 
-  [[RBObject RBObjectWithRubyScriptString:@"Pod::App"] performSelector:@selector(load_gems)];
-  
-  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
+  // Now we can load RubyGems and the gems we need.
+  int error = 0;
+  rb_eval_string_protect("require 'rubygems'; require 'cocoapods-core'", &error);
+  NSAssert(!error, @"Failed to load gems");
+
+  if (!error) {
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
+  }
 }
 
 - (void)performTask:(void (^ _Nonnull)(void))block waitUntilDone:(BOOL)waitUntilDone;

@@ -9,12 +9,3 @@ incorrect_root = File.join(app_bundle.bundlePath, 'Contents/MacOS')
 $LOAD_PATH.map! do |path|
   path.sub(incorrect_root, bundle_path)
 end
-
-module Pod
-  module App
-    def self.load_gems
-      require 'rubygems'
-      require 'cocoapods-core'
-    end
-  end
-end
