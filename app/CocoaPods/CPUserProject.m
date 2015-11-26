@@ -35,6 +35,8 @@ typedef NSInteger NSModalResponse;
 @implementation CPUserProject
 
 - (void)makeWindowControllers {
+  if (self.fileURL == nil) { return; }
+
   self.storyboard = [NSStoryboard storyboardWithName:@"Podfile" bundle:nil];
 
   NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"Podfile Editor"];
@@ -146,19 +148,9 @@ typedef NSInteger NSModalResponse;
 
 - (void)task:(CPCLITask *)task didUpdateOutputContents:(NSAttributedString *)updatedOutput
 {
-  // Determine if we're at the tail of the output log (and should scroll) before we append more to it.
-  CGRect visibleRect = self.progressOutputView.enclosingScrollView.documentVisibleRect;
-  CGFloat maxContentOffset = self.progressOutputView.bounds.size.height - visibleRect.size.height;
-  BOOL scrolledToBottom = visibleRect.origin.y == maxContentOffset;
 
   [self.progressOutputView.textStorage setAttributedString:updatedOutput];
 
-  // Keep the text view at the bottom if it was previously, otherwise restore the previous position.
-  if (scrolledToBottom) {
-    [self.progressOutputView scrollToEndOfDocument:self];
-  } else {
-    [self.progressOutputView scrollPoint:visibleRect.origin];
-  }
 }
 
 @end
