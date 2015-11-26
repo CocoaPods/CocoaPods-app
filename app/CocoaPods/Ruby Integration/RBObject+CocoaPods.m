@@ -20,6 +20,15 @@ RBObjectFromString(NSString * _Nonnull source)
 
 @implementation RBThread
 
+- (void)start;
+{
+  // TODO Figure out why calling RBBundleInit leads to loading WebKit.
+  //      Until then, load WebKit from the main thread so that it doesn’t complain.
+  [NSClassFromString(@"WebScriptObject") class];
+
+  [super start];
+}
+
 - (void)main;
 {
   // Initialize the Ruby runtime and load our Ruby setup file.
