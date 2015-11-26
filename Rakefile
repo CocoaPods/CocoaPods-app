@@ -718,9 +718,9 @@ end
 built_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
 file built_rubycocoa => [installed_ruby, installed_env_script] do
   Dir.chdir('app/RubyCocoa') do
-    sh "'#{BUNDLE_ENV}' rake build[true]"
+    sh "'#{BUNDLE_ENV}' ruby install.rb config --target-archs=x86_64 --build-as-embeddable=yes"
+    sh "'#{BUNDLE_ENV}' ruby install.rb setup"
   end
-  sh "/usr/bin/install_name_tool -id @rpath/RubyCocoa.framework/Versions/A/RubyCocoa #{built_rubycocoa}"
 end
 
 # ------------------------------------------------------------------------------
