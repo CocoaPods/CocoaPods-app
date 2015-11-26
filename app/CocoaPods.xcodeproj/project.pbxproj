@@ -33,6 +33,7 @@
 		606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */; };
 		606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */; };
 		6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
+		6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075BA661C06963700A5C491 /* CPInstallAction.swift */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
@@ -113,6 +114,7 @@
 		606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileEditorViewController.swift; sourceTree = "<group>"; };
 		606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileViewController.swift; sourceTree = "<group>"; };
 		6075BA641C068B5F00A5C491 /* Podfile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Podfile.xcassets; sourceTree = "<group>"; };
+		6075BA661C06963700A5C491 /* CPInstallAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInstallAction.swift; sourceTree = "<group>"; };
 		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
 		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			children = (
 				606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */,
 				606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */,
+				6075BA661C06963700A5C491 /* CPInstallAction.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
+				6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */,
 				3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,

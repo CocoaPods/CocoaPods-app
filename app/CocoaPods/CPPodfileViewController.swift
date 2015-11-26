@@ -24,6 +24,7 @@ class CPPodfileViewController: NSViewController {
 
   var userProject:CPUserProject!
   @IBOutlet var contentView:NSView!
+  dynamic var installAction: CPInstallAction!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -40,15 +41,22 @@ class CPPodfileViewController: NSViewController {
     tabController.view.frame = contentView.bounds
     contentView.addSubview(tabController.view)
 
-    let left   = NSLayoutConstraint(item: tabController.view, attribute: .Leading, relatedBy: .Equal, toItem: contentView, attribute: .Leading, multiplier: 1, constant: 0)
-    let right  = NSLayoutConstraint(item: tabController.view, attribute: .Trailing, relatedBy: .Equal, toItem: contentView, attribute: .Trailing, multiplier: 1, constant: 0)
-    let top    = NSLayoutConstraint(item: tabController.view, attribute: .Top, relatedBy: .Equal, toItem: contentView, attribute: .Top, multiplier: 1, constant: 0)
-    let bottom = NSLayoutConstraint(item: tabController.view, attribute: .Bottom, relatedBy: .Equal, toItem: contentView, attribute: .Bottom, multiplier: 1, constant: 0)
-
-    // TODO: Why does this not let the window resize?
-    contentView.addConstraints([left, right, top, bottom])
+    // This just aligns the contentview at 0 to all edges
+    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabController.view]))
+    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabController.view]))
   }
-    
+
+  override func viewWillAppear() {
+    super.viewWillAppear()
+    // This is DI'd in after viewDidLoad
+    installAction = CPInstallAction(userProject: userProject)
+  }
+
+  @IBAction func install(obj: AnyObject) {
+    // switch tabs
+    installAction.performAction(.Install(verbose: false))
+  }
+
 }
 
 extension NSViewController {

@@ -52,12 +52,6 @@ typedef NSInteger NSModalResponse;
   [self addWindowController:windowController];
 }
 
-- (void)windowControllerDidLoadNib:(NSWindowController *)controller;
-{
-  [super windowControllerDidLoadNib:controller];
-
-}
-
 #pragma mark - Persistance
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL
