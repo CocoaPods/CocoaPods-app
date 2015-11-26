@@ -627,9 +627,7 @@ namespace :bundle do
     puts "Before clean:"
     sh "du -hs #{BUNDLE_DESTROOT}"
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'bin/svn[a-z]*'))
-    # TODO libruby-static only needs to be in this location because RubyCocoa’s build
-    #      expects it to be there, which it probably gets from RbConfig.
-    remove_if_existant.call *FileList[File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a')].exclude(/libruby-static/)
+    remove_if_existant.call *FileList[File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a')]
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/**/*.o'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/*/cache'))
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, '**/man[0-9]'))
