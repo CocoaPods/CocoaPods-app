@@ -1,0 +1,2 @@
+# To have this auto-loaded when using Xcode, install this plugin https://github.com/alloy/LLDB-Is-It-Not
+command script import lldb_ruby.py
