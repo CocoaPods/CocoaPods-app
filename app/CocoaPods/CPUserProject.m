@@ -33,7 +33,7 @@ SyntaxErrorFromException(NSException * _Nonnull exception)
   //          ^
   NSArray *lines = [result.lastObject componentsSeparatedByString:@"\n"];
   NSString *description = nil;
-  if (descriptionLines.count > 1) {
+  if (lines.count > 1) {
     // Skip first line.
     description = [[lines subarrayWithRange:NSMakeRange(1, lines.count-1)] componentsJoinedByString:@"\n"];
   } else {
