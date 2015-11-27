@@ -25,44 +25,27 @@ class CPPodfileViewController: NSViewController {
   var userProject:CPUserProject!
   @IBOutlet var contentView:NSView!
   dynamic var installAction: CPInstallAction!
-  var tabController: NSTabViewController!
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    guard let storyboard = self.storyboard else {
-      return print("This VC needs a storyboard to set itself up.")
-    }
-
-    guard let tabViewController = storyboard.instantiateControllerWithIdentifier("Podfile Content Tab Controller") as? NSTabViewController else {
-      return print("Could not get the Content Tab View Controller")
-    }
-
-
-    addChildViewController(tabViewController)
-    tabViewController.view.frame = contentView.bounds
-    contentView.addSubview(tabViewController.view)
-
-    // This just aligns the contentview at 0 to all edges
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabViewController.view]))
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabViewController.view]))
-    tabController = tabViewController
-  }
-
   override func viewWillAppear() {
-    // The userProject is DI'd in after viewDidLoad
 
+    // The userProject is DI'd in after viewDidLoad
     installAction = CPInstallAction(userProject: userProject)
 
-    // The view needs to be added to a window before we can
+    // The view needs to be added to a window before we can use
+    // the window to pull out to the document icon from the window
     guard let window = view.window as? CPModifiedDecorationsWindow, let documentIcon = window.documentIconButton else {
       return print("Window type is not CPModifiedDecorationsWindow")
     }
+
     documentIcon.frame = documentIcon.bounds
     documentIconContainer.addSubview(documentIcon)
+  }
+
+  var tabController: NSTabViewController {
+    return childViewControllers.filter { $0.isKindOfClass(NSTabViewController) }.first! as! NSTabViewController
   }
 
   @IBAction func install(obj: AnyObject) {
@@ -86,6 +69,8 @@ class CPPodfileViewController: NSViewController {
 extension NSViewController {
 
   /// Recurse the parentViewControllers till we find a CPPodfileViewController
+  /// this lets child view controllers access this class for shared state.
+
   var podfileViewController: CPPodfileViewController? {
 
     guard let parent = self.parentViewController else { return nil }

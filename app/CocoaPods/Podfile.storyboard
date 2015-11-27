@@ -645,7 +645,7 @@
                     </connections>
                 </application>
             </objects>
-            <point key="canvasLocation" x="-666" y="-519"/>
+            <point key="canvasLocation" x="-554" y="-1017"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -667,7 +667,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-596" y="-269"/>
+            <point key="canvasLocation" x="-490" y="-1253"/>
         </scene>
         <!--Podfile View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -725,10 +725,6 @@
                                 </constraints>
                                 <animations/>
                             </visualEffectView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="qbz-Ij-gAY">
-                                <rect key="frame" x="78" y="0.0" width="541" height="752"/>
-                                <animations/>
-                            </customView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="heY-ac-ofy">
                                 <rect key="frame" x="90" y="765" width="517" height="23"/>
                                 <constraints>
@@ -766,35 +762,41 @@
                                 <rect key="frame" x="104" y="769" width="16" height="16"/>
                                 <animations/>
                             </customView>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="5f5-Xa-ani">
+                                <rect key="frame" x="78" y="0.0" width="541" height="753"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="KFF-tZ-pTU" kind="embed" id="1uM-66-lzo"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="12" id="1zy-aS-oFa"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="leading" constant="-40" id="2nk-XB-P8M"/>
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-72" id="4oX-cC-xIH"/>
-                            <constraint firstItem="qbz-Ij-gAY" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="Lak-RT-MSI"/>
+                            <constraint firstAttribute="trailing" secondItem="5f5-Xa-ani" secondAttribute="trailing" id="8ms-0x-CSc"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="Nfy-M9-N65"/>
-                            <constraint firstItem="qbz-Ij-gAY" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="48" id="Rvp-hq-YgU"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Teg-8i-KM9"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" constant="12" id="Vy5-h8-UQn"/>
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="trailing" constant="8" id="Zhg-MU-fmQ"/>
+                            <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="heY-ac-ofy" secondAttribute="bottom" constant="12" id="aRL-46-n83"/>
                             <constraint firstItem="hwg-nj-RtL" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="aYA-pe-JOj"/>
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="b6m-gk-R5U"/>
-                            <constraint firstAttribute="trailing" secondItem="qbz-Ij-gAY" secondAttribute="trailing" id="c2c-Lh-fc2"/>
+                            <constraint firstAttribute="bottom" secondItem="5f5-Xa-ani" secondAttribute="bottom" id="bLf-bF-NnC"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="12" id="cXO-av-sNX"/>
-                            <constraint firstAttribute="bottom" secondItem="qbz-Ij-gAY" secondAttribute="bottom" id="h5f-k6-yJl"/>
+                            <constraint firstItem="5f5-Xa-ani" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="ct4-aP-2qI"/>
                             <constraint firstAttribute="bottom" secondItem="Md7-X2-GxU" secondAttribute="bottom" id="yY9-Qk-qJq"/>
                         </constraints>
                         <animations/>
                     </view>
                     <connections>
                         <outlet property="actionTitleLabel" destination="hwg-nj-RtL" id="doO-U4-vRA"/>
-                        <outlet property="contentView" destination="qbz-Ij-gAY" id="mYf-u5-UMM"/>
                         <outlet property="documentIconContainer" destination="A2C-cQ-r2M" id="XjI-Gp-RjM"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-595.5" y="544"/>
+            <point key="canvasLocation" x="-489.5" y="-394"/>
         </scene>
         <!--Hidden Tab View Controller-->
         <scene sceneID="qoe-kJ-9tu">
@@ -821,7 +823,7 @@
                 </tabViewController>
                 <customObject id="SYV-9c-xfk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="-225.5"/>
+            <point key="canvasLocation" x="707" y="-332"/>
         </scene>
         <!--Project Information-->
         <scene sceneID="MYC-t2-O4B">
@@ -908,7 +910,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView editable="NO" importsGraphics="NO" selectionGranularity="word" findStyle="bar" incrementalSearchingEnabled="YES" allowsUndo="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="GuO-Ek-akK">
+                                        <textView editable="NO" importsGraphics="NO" richText="NO" selectionGranularity="word" findStyle="bar" incrementalSearchingEnabled="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="GuO-Ek-akK">
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <animations/>
