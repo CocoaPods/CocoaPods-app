@@ -263,6 +263,14 @@
 			name = "Custom Subviews";
 			sourceTree = "<group>";
 		};
+		605119211C08D7CD0037B95E /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
 		606D1ED61BF91062000B7148 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,7 +279,6 @@
 				6075BA661C06963700A5C491 /* CPInstallAction.swift */,
 				604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */,
 				6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */,
-				6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -323,6 +330,7 @@
 				6075BA641C068B5F00A5C491 /* Podfile.xcassets */,
 				606D1ED71BF91076000B7148 /* NSDocument Details */,
 				606D1ED81BF9108B000B7148 /* Presenting Text */,
+				605119211C08D7CD0037B95E /* Custom Views */,
 				606D1ED61BF91062000B7148 /* View Controllers */,
 			);
 			name = "Podfile Window";

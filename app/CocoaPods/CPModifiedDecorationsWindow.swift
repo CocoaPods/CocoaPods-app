@@ -28,14 +28,20 @@ class CPModifiedDecorationsWindow: NSWindow {
     documentIconButton = standardWindowButton(.DocumentIconButton)
 
     titleVisibility = .Hidden
-
-    let verticalOffset = 6
-    [NSWindowButton.CloseButton, NSWindowButton.MiniaturizeButton, NSWindowButton.ZoomButton].forEach { type in
-      guard let button = standardWindowButton(type) else { return }
-      button.setFrameOrigin(NSMakePoint(button.frame.origin.x, button.frame.origin.y - CGFloat(verticalOffset)))
-    }
-
     super.makeKeyAndOrderFront(sender)
+
+    [NSWindowDidResizeNotification, NSWindowDidResizeNotification, NSWindowDidMoveNotification].forEach { notification in
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moveWindowButtons", name: notification, object: self)
+    }
+    moveWindowButtons()
   }
 
+  func moveWindowButtons(){
+    let verticalOffset = 6
+    
+    [NSWindowButton.CloseButton, NSWindowButton.MiniaturizeButton, NSWindowButton.ZoomButton].forEach { type in
+        guard let button = standardWindowButton(type) else { return }
+        button.setFrameOrigin(NSMakePoint(button.frame.origin.x, CGFloat(verticalOffset)))
+    }
+  }
 }
