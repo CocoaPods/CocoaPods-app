@@ -16,7 +16,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="CocoaPods" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About dasdassdad" id="5kV-Vb-QxS">
+                                        <menuItem title="About CocoaPods" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -30,7 +30,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide dasdassdad" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide CocoaPods" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -48,7 +48,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit dasdassdad" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit CocoaPods" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -585,17 +585,8 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
+                                        <menuItem title="Show Console" id="TQU-5q-Tfm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
-                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -615,6 +606,10 @@
                                                 <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="qA4-h0-eti"/>
+                                        <menuItem title="Show Podfile Editor" keyEquivalent="1" id="h4Y-OH-C1U"/>
+                                        <menuItem title="Show Podfile Console" keyEquivalent="2" id="hhZ-lI-0Di"/>
+                                        <menuItem title="Show Podfile Info" keyEquivalent="3" id="CFk-GF-n18"/>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -629,7 +624,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="dasdassdad Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="CocoaPods Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -674,6 +669,41 @@
                         <subviews>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU">
                                 <rect key="frame" x="0.0" y="0.0" width="78" height="800"/>
+                                <subviews>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-Q7-aZp">
+                                        <rect key="frame" x="15" y="679" width="48" height="48"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_editor" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="jIp-ly-K6T">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showEditorTab:" target="5gI-5U-AMq" id="WLs-ih-h2d"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-af-RfI">
+                                        <rect key="frame" x="15" y="605" width="48" height="48"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_console" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" inset="2" id="Xxt-bb-qej">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showConsoleTab:" target="5gI-5U-AMq" id="aSl-EN-ciF"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jx-vo-Lx4">
+                                        <rect key="frame" x="15" y="535" width="48" height="48"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_information" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="mww-XL-8Ss">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showInformationTab:" target="5gI-5U-AMq" id="AoC-RV-gge"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="78" id="LtX-g5-vc6"/>
                                 </constraints>
@@ -700,6 +730,11 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="install:" target="5gI-5U-AMq" id="H2t-I2-J0N"/>
+                                    <binding destination="5gI-5U-AMq" name="enabled" keyPath="self.installAction.task.running" id="iwK-cb-fgz">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
@@ -737,18 +772,19 @@
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-461" y="494"/>
+            <point key="canvasLocation" x="-579.5" y="423"/>
         </scene>
-        <!--Tab View Controller-->
+        <!--Hidden Tab View Controller-->
         <scene sceneID="qoe-kJ-9tu">
             <objects>
-                <tabViewController storyboardIdentifier="Podfile Content Tab Controller" selectedTabViewItemIndex="0" id="KFF-tZ-pTU" sceneMemberID="viewController">
+                <tabViewController storyboardIdentifier="Podfile Content Tab Controller" selectedTabViewItemIndex="0" tabStyle="unspecified" id="KFF-tZ-pTU" customClass="CPHiddenTabViewController" customModule="CocoaPods" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="LD4-sS-rWv"/>
-                        <tabViewItem identifier="" id="R0S-ss-GjB"/>
                         <tabViewItem id="gLn-Ae-pxb"/>
+                        <tabViewItem identifier="" id="R0S-ss-GjB"/>
                     </tabViewItems>
-                    <tabView key="tabView" type="noTabsNoBorder" id="qHT-LQ-YPj">
+                    <viewControllerTransitionOptions key="transitionOptions" crossfade="YES"/>
+                    <tabView key="tabView" id="qHT-LQ-YPj">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="313"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
@@ -757,13 +793,13 @@
                     </tabView>
                     <connections>
                         <segue destination="KSf-K2-QFT" kind="relationship" relationship="tabItems" id="Oey-mK-Xjh"/>
-                        <segue destination="hxh-b1-faZ" kind="relationship" relationship="tabItems" id="aja-OM-qZB"/>
                         <segue destination="mRe-Ue-0Lb" kind="relationship" relationship="tabItems" id="b48-nf-1xU"/>
+                        <segue destination="hxh-b1-faZ" kind="relationship" relationship="tabItems" id="aja-OM-qZB"/>
                     </connections>
                 </tabViewController>
                 <customObject id="SYV-9c-xfk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="-224.5"/>
+            <point key="canvasLocation" x="707" y="-225.5"/>
         </scene>
         <!--Project Information-->
         <scene sceneID="MYC-t2-O4B">
@@ -936,5 +972,8 @@
     <resources>
         <image name="NSApplicationIcon" width="128" height="128"/>
         <image name="actionbar_background" width="250.5" height="23"/>
+        <image name="icon_console" width="44" height="35"/>
+        <image name="icon_editor" width="16" height="34"/>
+        <image name="icon_information" width="40" height="40"/>
     </resources>
 </document>

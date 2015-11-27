@@ -16,7 +16,7 @@ enum InstallActionType {
 class CPInstallAction: NSObject, CPCLITaskDelegate {
   let userProject: CPUserProject
   dynamic var taskAttributedString: NSAttributedString?
-  var task: CPCLITask?
+  dynamic var task: CPCLITask?
 
   init(userProject: CPUserProject) {
     self.userProject = userProject

@@ -25,6 +25,7 @@ class CPPodfileViewController: NSViewController {
   var userProject:CPUserProject!
   @IBOutlet var contentView:NSView!
   dynamic var installAction: CPInstallAction!
+  var tabController: NSTabViewController!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,17 +34,18 @@ class CPPodfileViewController: NSViewController {
       return print("This VC needs a storyboard to set itself up.")
     }
 
-    guard let tabController = storyboard.instantiateControllerWithIdentifier("Podfile Content Tab Controller") as? NSTabViewController else {
+    guard let tabViewController = storyboard.instantiateControllerWithIdentifier("Podfile Content Tab Controller") as? NSTabViewController else {
       return print("Could not get the Content Tab View Controller")
     }
 
-    addChildViewController(tabController)
-    tabController.view.frame = contentView.bounds
-    contentView.addSubview(tabController.view)
+    addChildViewController(tabViewController)
+    tabViewController.view.frame = contentView.bounds
+    contentView.addSubview(tabViewController.view)
 
     // This just aligns the contentview at 0 to all edges
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabController.view]))
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabController.view]))
+    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabViewController.view]))
+    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[subview]-0-|", options: NSLayoutFormatOptions.DirectionLeadingToTrailing, metrics:nil, views:["subview":tabViewController.view]))
+    tabController = tabViewController
   }
 
   override func viewWillAppear() {
@@ -53,10 +55,21 @@ class CPPodfileViewController: NSViewController {
   }
 
   @IBAction func install(obj: AnyObject) {
-    // switch tabs
     installAction.performAction(.Install(verbose: false))
+    showConsoleTab(self)
   }
 
+  @IBAction func showEditorTab(sender: AnyObject) {
+    tabController.selectedTabViewItemIndex = 0
+  }
+
+  @IBAction func showConsoleTab(sender: AnyObject) {
+    tabController.selectedTabViewItemIndex = 1
+  }
+
+  @IBAction func showInformationTab(sender: AnyObject) {
+    tabController.selectedTabViewItemIndex = 2
+  }
 }
 
 extension NSViewController {

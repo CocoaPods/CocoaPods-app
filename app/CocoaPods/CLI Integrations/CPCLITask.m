@@ -13,7 +13,7 @@
 @property (nonatomic) NSQualityOfService qualityOfService;
 @property (nonatomic) NSProgress *progress;
 @property (nonatomic, copy) NSAttributedString *output;
-
+@property (nonatomic, assign) BOOL running;
 @end
 
 @implementation CPCLITask
@@ -36,11 +36,6 @@
 }
 
 #pragma mark - Start/End Task
-
-- (BOOL)running
-{
-  return self.task.running;
-}
 
 - (void)cancel
 {
@@ -102,7 +97,7 @@
                                                name:NSFileHandleDataAvailableNotification
                                              object:[errorPipe fileHandleForReading]];
   [[errorPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
-
+  self.running = true;
   [self.task launch];
 }
 
@@ -157,6 +152,7 @@
   // Mark the task as complete.
   self.progress.totalUnitCount = 1;
   self.progress.completedUnitCount = 1;
+  self.running = false;
 }
 
 #pragma mark - Utilities
