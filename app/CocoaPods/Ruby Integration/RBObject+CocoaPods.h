@@ -11,6 +11,7 @@ id _Nonnull RBObjectFromString(NSString * _Nonnull source);
 #pragma mark - Ruby class interfaces
 
 @interface RBObject (Ruby)
++ (instancetype _Nonnull)new:(id _Nonnull)arg __attribute__((ns_returns_autoreleased));
 - (id _Nullable)send:(NSString * _Nonnull)methodName;
 @end
 

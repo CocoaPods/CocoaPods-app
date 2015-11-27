@@ -134,7 +134,7 @@ typedef NSInteger NSModalResponse;
 - (void)parsePodfile;
 {
   [RBObject performBlock:^{
-    RBPathname *pathname = RBObjectFromString([NSString stringWithFormat:@"Pathname.new('%@')", self.fileURL.path]);
+    RBPathname *pathname = [RBObjectFromString(@"Pathname") new:self.fileURL.path];
     RBPodfile *podfile = nil;
 
     @try {
