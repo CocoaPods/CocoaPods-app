@@ -34,6 +34,7 @@ SyntaxErrorFromException(NSException * _Nonnull exception)
   NSArray *descriptionLines = [result.lastObject componentsSeparatedByString:@"\n"];
   NSString *description = nil;
   if (descriptionLines.count > 1) {
+    // Skip first line.
     description = [[descriptionLines subarrayWithRange:NSMakeRange(1, descriptionLines.count-1)] componentsJoinedByString:@"\n"];
   } else {
     description = result.lastObject;
@@ -45,7 +46,6 @@ SyntaxErrorFromException(NSException * _Nonnull exception)
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the
 // symbols that we support.
 //
-
 @implementation SMLTextView (CPIncludeLeadingColonsInCompletions)
 
 + (void)load;
@@ -76,7 +76,7 @@ enum {
 typedef NSInteger NSModalResponse;
 #endif
 
-@interface CPUserProject () <CPCLITaskDelegate, NSTextViewDelegate>
+@interface CPUserProject () <CPCLITaskDelegate, MGSFragariaTextViewDelegate>
 
 // Such sin.
 // TODO: Add real custom window controllers.
@@ -105,7 +105,10 @@ typedef NSInteger NSModalResponse;
 {
   [super windowControllerDidLoadNib:controller];
 
-  self.editor.textViewDelegate = self;
+  // Seeing as this class doesn’t actually implement any drag operation actions, I don’t feel like marking the class
+  // as such. It seems like a bit of bug to me that it would be required for a textViewDelegate.
+  self.editor.textViewDelegate = (id<MGSFragariaTextViewDelegate, MGSDragOperationDelegate>)self;
+
   self.editor.syntaxColoured = YES;
   self.editor.syntaxDefinitionName = @"Podfile";
   self.editor.showsSyntaxErrors = YES;
