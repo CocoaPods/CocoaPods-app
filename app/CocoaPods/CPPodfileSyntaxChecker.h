@@ -6,8 +6,16 @@
 //  Copyright © 2015 CocoaPods. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-@interface CPPodfileSyntaxChecker : NSObject
+@class MGSFragariaView, CPPodfileEditorViewController;
+
+/// Handles keeping on top of the syntax for the Podfile
+/// at runtime. Note: Comes with a side-effect of setting the
+/// plugins array on the
+
+@interface CPPodfileSyntaxChecker : NSObject <NSTextViewDelegate>
+
+- (instancetype)initWithPodfileEditorVC:(CPPodfileEditorViewController *)editor fragariaEditor:(MGSFragariaView *)fragaria;
 
 @end

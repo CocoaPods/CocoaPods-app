@@ -16,7 +16,8 @@ import Fragaria
 class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate{
 
   @IBOutlet var editor: MGSFragariaView!
-  
+  var syntaxChecker: CPPodfileSyntaxChecker!
+
   // As the userProject is DI'd into the PodfileVC
   // it occurs after the view is set up.
 
@@ -41,13 +42,16 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate{
     editor.colourForInstructions = settings.cpBrightMagenta
 
     project.undoManager = editor.textView.undoManager
+    syntaxChecker = CPPodfileSyntaxChecker(podfileEditorVC: self, fragariaEditor: editor)
   }
 
   func textDidChange(notification: NSNotification) {
-    if let textView = notification.object as? NSTextView,
-           podfileVC = podfileViewController {
+    guard let textView = notification.object as? NSTextView,
+      let podfileVC = podfileViewController else { return }
 
-      podfileVC.userProject.contents = textView.string
-    }
+    podfileVC.userProject.contents = textView.string
+
+    // Passing the message on to the syntax checker
+    syntaxChecker.textDidChange(notification)
   }
 }

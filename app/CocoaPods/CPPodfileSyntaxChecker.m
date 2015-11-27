@@ -15,16 +15,22 @@
 
 @interface CPPodfileSyntaxChecker() <MGSFragariaTextViewDelegate>
 
-@property (weak) IBOutlet MGSFragariaView *editor;
-@property (weak) IBOutlet CPPodfileEditorViewController *editorViewController;
+@property (weak) MGSFragariaView *editor;
+@property (weak) CPPodfileEditorViewController *editorViewController;
 
 @end
 
 @implementation CPPodfileSyntaxChecker
 
-- (void)awakeFromNib
+- (instancetype)initWithPodfileEditorVC:(CPPodfileEditorViewController *)editor fragariaEditor:(MGSFragariaView *)fragaria
 {
+  self = [super init];
+  if (!self) { return nil; }
 
+  _editor = fragaria;
+  _editorViewController = editor;
+
+  return self;
 }
 
 - (void)textDidChange:(NSNotification *)notification;
