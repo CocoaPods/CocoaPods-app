@@ -1,6 +1,7 @@
 #import "CPUserProject.h"
 
 #import <Fragaria/Fragaria.h>
+#import <Fragaria/SMLSyntaxError.h>
 #import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
 
 #import <objc/runtime.h>
@@ -9,6 +10,37 @@
 #import "CPCLITask.h"
 
 #import "RBObject+CocoaPods.h"
+
+static SMLSyntaxError * _Nullable
+SyntaxErrorFromException(NSException * _Nonnull exception)
+{
+  RBObject *rubyException = exception.userInfo[@"$!"];
+
+  // TODO Pod::DSLError#parse_line_number_from_description is a private method. Make it public?
+  NSArray *result = [rubyException send:@"parse_line_number_from_description"];
+  NSString *location = result.firstObject;
+  if ([location isEqual:[NSNull null]]) {
+    NSLog(@"DSL error has no location info.");
+    return nil;
+  }
+  NSInteger lineNumber = [location componentsSeparatedByString:@":"].lastObject.integerValue;
+
+  // Example:
+  //
+  // Invalid `Podfile` file: Pod::DSLError
+  // syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
+  // {source 'https://github.com/artsy/Specs.git'
+  //          ^
+  NSArray *descriptionLines = [result.lastObject componentsSeparatedByString:@"\n"];
+  NSString *description = nil;
+  if (descriptionLines.count > 1) {
+    description = [[descriptionLines subarrayWithRange:NSMakeRange(1, descriptionLines.count-1)] componentsJoinedByString:@"\n"];
+  } else {
+    description = result.lastObject;
+  }
+
+  return [SMLSyntaxError errorWithDescription:description ofLevel:kMGSErrorCategoryError atLine:lineNumber];
+}
 
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the
 // symbols that we support.
@@ -58,6 +90,8 @@ typedef NSInteger NSModalResponse;
 @property (strong) IBOutlet MGSFragariaView *editor;
 @property (strong) NSString *contents;
 @property (strong) CPCLITask *task;
+
+@property (strong) NSArray *podfilePlugins;
 @end
 
 @implementation CPUserProject
@@ -71,8 +105,10 @@ typedef NSInteger NSModalResponse;
 {
   [super windowControllerDidLoadNib:controller];
 
+  self.editor.textViewDelegate = self;
   self.editor.syntaxColoured = YES;
   self.editor.syntaxDefinitionName = @"Podfile";
+  self.editor.showsSyntaxErrors = YES;
   self.editor.string = self.contents;
   
   self.verboseModeButton.title = NSLocalizedString(@"PODFILE_WINDOW_VERBOSE_SWITCH_TITLE", nil);
@@ -87,13 +123,39 @@ typedef NSInteger NSModalResponse;
   NSTextView *textView = notification.object;
   NSString *contents = textView.string;
   self.contents = contents;
+
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(parsePodfile) object:nil];
+  [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:1];
 }
 
 - (void)parsePodfile;
 {
   [RBObject performBlock:^{
-    CPPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:@"/some/path/to/Podfile" :self.contents];
-    NSLog(@"%@", podfile.plugins.allKeys);
+    RBPathname *pathname = RBObjectFromString([NSString stringWithFormat:@"Pathname.new('%@')", self.fileURL.path]);
+    RBPodfile *podfile = nil;
+
+    @try {
+      podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :self.contents];
+    }
+    @catch (NSException *exception) {
+      if ([exception.reason isEqualToString:@"Pod::DSLError"]) {
+        SMLSyntaxError *syntaxError = SyntaxErrorFromException(exception);
+        if (syntaxError) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+            self.editor.syntaxErrors = @[syntaxError];
+          });
+        }
+      }
+      return;
+    }
+
+    NSArray *plugins = podfile.plugins.allKeys;
+    NSLog(@"Plugins: %@", plugins);
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self.podfilePlugins = plugins;
+      // Clear any previous syntax errors.
+      self.editor.syntaxErrors = nil;
+    });
   }];
 }
 

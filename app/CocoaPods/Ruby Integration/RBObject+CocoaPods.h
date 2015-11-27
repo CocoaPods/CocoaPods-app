@@ -8,9 +8,16 @@ id _Nonnull RBObjectFromString(NSString * _Nonnull source);
 + (void)performBlockAndWait:(void (^ _Nonnull)(void))block;
 @end
 
-#pragma mark - CocoaPods classes
+#pragma mark - Ruby class interfaces
 
-@interface CPPodfile : RBObject
-+ (instancetype _Nonnull)from_ruby:(NSString * _Nonnull)path :(NSString * _Nullable)contents;
+@interface RBObject (Ruby)
+- (id _Nullable)send:(NSString * _Nonnull)methodName;
+@end
+
+@interface RBPathname : RBObject
+@end
+
+@interface RBPodfile : RBObject
++ (instancetype _Nonnull)from_ruby:(RBPathname * _Nonnull)path :(NSString * _Nullable)contents;
 - (NSDictionary<NSString *, NSDictionary *> * _Nonnull)plugins;
 @end
