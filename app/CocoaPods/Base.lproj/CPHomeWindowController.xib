@@ -230,11 +230,7 @@
             </connections>
             <point key="canvasLocation" x="528.5" y="415"/>
         </window>
-        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController">
-            <connections>
-                <outlet property="documentsTableView" destination="xXw-3l-NGv" id="Xdo-Al-1qd"/>
-            </connections>
-        </customObject>
+        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController"/>
         <customObject id="TsL-KI-RcJ" customClass="CPExternalLinksHelper"/>
     </objects>
     <resources>

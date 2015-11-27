@@ -645,7 +645,7 @@
                     </connections>
                 </application>
             </objects>
-            <point key="canvasLocation" x="-554" y="-1017"/>
+            <point key="canvasLocation" x="-678" y="-1377"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -667,7 +667,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-490" y="-1253"/>
+            <point key="canvasLocation" x="-40" y="-1253"/>
         </scene>
         <!--Podfile View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -734,7 +734,7 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="actionbar_background" id="Inw-FC-Y25"/>
                             </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2o8-QD-aZz">
-                                <rect key="frame" x="535" y="766" width="43" height="19"/>
+                                <rect key="frame" x="550" y="766" width="43" height="19"/>
                                 <animations/>
                                 <buttonCell key="cell" type="roundTextured" title="install" bezelStyle="texturedRounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QsN-ks-HtL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -750,9 +750,9 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
-                                <rect key="frame" x="128" y="768" width="401" height="17"/>
+                                <rect key="frame" x="122" y="769" width="401" height="17"/>
                                 <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Text thing" id="UOR-9c-QMh">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Podfile" id="UOR-9c-QMh">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -772,15 +772,15 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="12" id="1zy-aS-oFa"/>
-                            <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="leading" constant="-40" id="2nk-XB-P8M"/>
-                            <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-72" id="4oX-cC-xIH"/>
+                            <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="leading" constant="-34" id="2nk-XB-P8M"/>
+                            <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-57" id="4oX-cC-xIH"/>
                             <constraint firstAttribute="trailing" secondItem="5f5-Xa-ani" secondAttribute="trailing" id="8ms-0x-CSc"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="Nfy-M9-N65"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Teg-8i-KM9"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" constant="12" id="Vy5-h8-UQn"/>
-                            <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="trailing" constant="8" id="Zhg-MU-fmQ"/>
+                            <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="trailing" constant="29" id="Zhg-MU-fmQ"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="heY-ac-ofy" secondAttribute="bottom" constant="12" id="aRL-46-n83"/>
-                            <constraint firstItem="hwg-nj-RtL" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="aYA-pe-JOj"/>
+                            <constraint firstItem="hwg-nj-RtL" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" constant="-1" id="aYA-pe-JOj"/>
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="b6m-gk-R5U"/>
                             <constraint firstAttribute="bottom" secondItem="5f5-Xa-ani" secondAttribute="bottom" id="bLf-bF-NnC"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="12" id="cXO-av-sNX"/>
@@ -796,7 +796,7 @@
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-489.5" y="-394"/>
+            <point key="canvasLocation" x="-39.5" y="-508"/>
         </scene>
         <!--Hidden Tab View Controller-->
         <scene sceneID="qoe-kJ-9tu">

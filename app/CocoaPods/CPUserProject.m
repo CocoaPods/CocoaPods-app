@@ -23,7 +23,6 @@
   self.storyboard = [NSStoryboard storyboardWithName:@"Podfile" bundle:nil];
 
   NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"Podfile Editor"];
-
   CPPodfileViewController *podfileVC = (id)windowController.contentViewController;
   podfileVC.userProject = self;
 
@@ -32,14 +31,10 @@
 
 #pragma mark - Persistance
 
-- (BOOL)readFromURL:(NSURL *)absoluteURL
-             ofType:(NSString *)typeName
-              error:(NSError **)outError;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 {
   if ([[absoluteURL lastPathComponent] isEqualToString:@"Podfile"]) {
-    self.contents = [NSString stringWithContentsOfURL:absoluteURL
-                                             encoding:NSUTF8StringEncoding
-                                                error:outError];
+    self.contents = [NSString stringWithContentsOfURL:absoluteURL encoding:NSUTF8StringEncoding error:outError];
     if (self.contents != nil) {
       return YES;
     }
@@ -47,14 +42,9 @@
   return NO;
 }
 
-- (BOOL)writeToURL:(NSURL *)absoluteURL
-            ofType:(NSString *)typeName
-             error:(NSError **)outError;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 {
-  return [self.contents writeToURL:absoluteURL
-                        atomically:YES
-                          encoding:NSUTF8StringEncoding
-                             error:outError];
+  return [self.contents writeToURL:absoluteURL atomically:YES encoding:NSUTF8StringEncoding error:outError];
 }
 
 

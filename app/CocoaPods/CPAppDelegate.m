@@ -32,6 +32,12 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   }
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender;
+{
+  [self showHomeWindow:sender];
+  return NO;
+}
+
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)hasVisibleWindows
 {
   // When the dock icon is clicked, show the home window if there are no other windows open
@@ -56,6 +62,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   }
 
   [self.homeWindowController showWindow:sender];
+  [self.homeWindowController.window center];
 }
 
 #pragma mark - Private
