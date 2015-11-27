@@ -27,4 +27,6 @@ class CPFontAndColourGateKeeper: NSObject {
   let cpBrightMagenta = NSColor(calibratedRed:0.553, green:0.522, blue:0.898, alpha:1.00)
   let cpBrightCyan = NSColor(calibratedRed:0.282, green:0.729, blue:0.902, alpha:1.00)
   let cpBrightWhite = NSColor(calibratedRed:0.773, green:0.773, blue:0.773, alpha:1.00)
+  let cpBrightLightBrown = NSColor(calibratedRed: 232/255, green:226/255 , blue: 224/255, alpha: 1)
+  let cpBrightBrown = NSColor(calibratedRed: 209/255, green:196/255 , blue: 192/255, alpha: 1)
 }

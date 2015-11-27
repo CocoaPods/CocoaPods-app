@@ -35,11 +35,10 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate{
     editor.textFont = settings.defaultFont
     editor.colourForNumbers = settings.cpGreen
     editor.colourForStrings = settings.cpRed
-    editor.colourForComments = settings.cpBrightWhite
+    editor.colourForComments = settings.cpBrightBrown
     editor.colourForKeywords = settings.cpBlue
     editor.colourForVariables = settings.cpGreen
     editor.colourForInstructions = settings.cpBrightMagenta
-    editor.colourForCommands = settings.cpBrightCyan
 
     project.undoManager = editor.textView.undoManager
   }
