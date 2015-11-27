@@ -31,7 +31,17 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate{
     editor.syntaxDefinitionName = "Podfile"
     editor.string = project.contents
 
-    project.undoManager = editor.textView.undoManager;
+    let settings = CPFontAndColourGateKeeper()
+    editor.textFont = settings.defaultFont
+    editor.colourForNumbers = settings.cpGreen
+    editor.colourForStrings = settings.cpRed
+    editor.colourForComments = settings.cpBrightWhite
+    editor.colourForKeywords = settings.cpBlue
+    editor.colourForVariables = settings.cpGreen
+    editor.colourForInstructions = settings.cpBrightMagenta
+    editor.colourForCommands = settings.cpBrightCyan
+
+    project.undoManager = editor.textView.undoManager
   }
 
   func textDidChange(notification: NSNotification) {

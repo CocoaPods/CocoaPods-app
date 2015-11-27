@@ -9,6 +9,14 @@
 import Cocoa
 
 class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
+  @IBOutlet var textView: NSTextView!
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    let settings = CPFontAndColourGateKeeper()
+    textView.font = settings.defaultFont;
+  }
 
   func textView(textView: NSTextView, willChangeSelectionFromCharacterRanges oldSelectedCharRanges: [NSValue], toCharacterRanges newSelectedCharRanges: [NSValue]) -> [NSValue] {
 

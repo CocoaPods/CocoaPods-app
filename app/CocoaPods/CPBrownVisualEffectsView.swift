@@ -24,7 +24,7 @@ class CPBrownVisualEffectsView: NSVisualEffectView {
 
 class BrownView: NSView {
   override func drawRect(dirtyRect: NSRect) {
-    NSColor.init(colorLiteralRed: 56/256, green: 1/256, blue: 0, alpha: 4).set()
+    NSColor.init(colorLiteralRed: 56/256, green: 1/256, blue: 0, alpha: 0.6).set()
     NSRectFill(dirtyRect);
   }
 }
