@@ -10,6 +10,8 @@ import Cocoa
 
 class CPModifiedDecorationsWindow: NSWindow {
 
+  var documentIconButton: NSButton?
+
   /// We want to offset the window buttons to make them centered.
   /// To make the title bar fit we also use a hidden toolbar from interface builder
 
@@ -18,6 +20,13 @@ class CPModifiedDecorationsWindow: NSWindow {
     appearance = NSAppearance(named:NSAppearanceNameVibrantLight)
     titlebarAppearsTransparent = true
     movableByWindowBackground = true
+
+    // Confusing? Yes
+    // So: I couldn't find a way to move the titlebar items if you show the document title,
+    //     instead we keep track of the button and provide it as a property on the window,
+    //     then it can be placed inside the view heirarchy.
+    documentIconButton = standardWindowButton(.DocumentIconButton)
+
     titleVisibility = .Hidden
 
     let verticalOffset = 6
@@ -26,16 +35,7 @@ class CPModifiedDecorationsWindow: NSWindow {
       button.setFrameOrigin(NSMakePoint(button.frame.origin.x, button.frame.origin.y - CGFloat(verticalOffset)))
     }
 
-    guard let button = standardWindowButton(.DocumentIconButton) else { return }
-    button.setFrameOrigin(NSMakePoint(button.frame.origin.x, button.frame.origin.y - CGFloat(verticalOffset)))
-
-    setFrame(NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height - 1), display: true, animate: true)
-    setFrame(NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height + 1), display: true, animate: true)
-
     super.makeKeyAndOrderFront(sender)
   }
 
-  override func setFrame(frameRect: NSRect, display flag: Bool) {
-    super.setFrame(frameRect, display: flag)
-  }
 }

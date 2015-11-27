@@ -28,6 +28,7 @@ class CPPodfileViewController: NSViewController {
   var tabController: NSTabViewController!
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
+  @IBOutlet weak var documentIconContainer: NSView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,6 +40,7 @@ class CPPodfileViewController: NSViewController {
     guard let tabViewController = storyboard.instantiateControllerWithIdentifier("Podfile Content Tab Controller") as? NSTabViewController else {
       return print("Could not get the Content Tab View Controller")
     }
+
 
     addChildViewController(tabViewController)
     tabViewController.view.frame = contentView.bounds
@@ -54,6 +56,13 @@ class CPPodfileViewController: NSViewController {
     // The userProject is DI'd in after viewDidLoad
 
     installAction = CPInstallAction(userProject: userProject)
+
+    // The view needs to be added to a window before we can
+    guard let window = view.window as? CPModifiedDecorationsWindow, let documentIcon = window.documentIconButton else {
+      return print("Window type is not CPModifiedDecorationsWindow")
+    }
+    documentIcon.frame = documentIcon.bounds
+    documentIconContainer.addSubview(documentIcon)
   }
 
   @IBAction func install(obj: AnyObject) {

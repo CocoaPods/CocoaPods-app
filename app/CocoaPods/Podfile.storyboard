@@ -681,7 +681,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="78" height="800"/>
                                 <subviews>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-af-RfI">
-                                        <rect key="frame" x="15" y="631" width="48" height="48"/>
+                                        <rect key="frame" x="15" y="632" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_console" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" inset="2" id="Xxt-bb-qej">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -762,6 +762,10 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2C-cQ-r2M" userLabel="Container for the Document Icon">
+                                <rect key="frame" x="104" y="769" width="16" height="16"/>
+                                <animations/>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="12" id="1zy-aS-oFa"/>
@@ -785,6 +789,7 @@
                     <connections>
                         <outlet property="actionTitleLabel" destination="hwg-nj-RtL" id="doO-U4-vRA"/>
                         <outlet property="contentView" destination="qbz-Ij-gAY" id="mYf-u5-UMM"/>
+                        <outlet property="documentIconContainer" destination="A2C-cQ-r2M" id="XjI-Gp-RjM"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
