@@ -31,11 +31,11 @@ SyntaxErrorFromException(NSException * _Nonnull exception)
   // syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
   // {source 'https://github.com/artsy/Specs.git'
   //          ^
-  NSArray *descriptionLines = [result.lastObject componentsSeparatedByString:@"\n"];
+  NSArray *lines = [result.lastObject componentsSeparatedByString:@"\n"];
   NSString *description = nil;
   if (descriptionLines.count > 1) {
     // Skip first line.
-    description = [[descriptionLines subarrayWithRange:NSMakeRange(1, descriptionLines.count-1)] componentsJoinedByString:@"\n"];
+    description = [[lines subarrayWithRange:NSMakeRange(1, lines.count-1)] componentsJoinedByString:@"\n"];
   } else {
     description = result.lastObject;
   }
@@ -206,7 +206,11 @@ typedef NSInteger NSModalResponse;
 
 - (NSString *)progressButtonTitle;
 {
-  return self.task.progress.fractionCompleted == 1.0f ? NSLocalizedString(@"POD_INSTALL_SHEET_COMPLETED_BUTTON_TITLE", nil) : NSLocalizedString(@"POD_INSTALL_SHEET_IN_PROGRESS_BUTTON_TITLE", nil);
+  if (self.task.progress.fractionCompleted == 1.0f) {
+    return NSLocalizedString(@"POD_INSTALL_SHEET_COMPLETED_BUTTON_TITLE", nil);
+  } else {
+    return NSLocalizedString(@"POD_INSTALL_SHEET_IN_PROGRESS_BUTTON_TITLE", nil);
+  }
 }
 
 - (void)presentProgressSheet;
