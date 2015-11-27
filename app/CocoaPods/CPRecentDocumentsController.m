@@ -24,6 +24,11 @@
 {
   [super awakeFromNib];
   [self setupRecentDocuments];
+
+  if (self.documentsTableView.numberOfRows > 0) {
+    NSIndexSet *indexes = [NSIndexSet indexSetWithIndex:0];
+    [self.documentsTableView selectRowIndexes:indexes byExtendingSelection:NO];
+  }
 }
 
 - (void)setupRecentDocuments

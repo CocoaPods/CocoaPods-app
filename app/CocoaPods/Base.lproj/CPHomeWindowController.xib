@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CPHomeWindowController">
@@ -18,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="376"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -29,7 +29,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="233" height="376"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="233" height="376"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
@@ -220,6 +220,9 @@
                     <constraint firstAttribute="bottom" secondItem="EzD-1M-8dC" secondAttribute="bottom" id="xRG-cZ-Yan"/>
                 </constraints>
                 <animations/>
+                <connections>
+                    <outlet property="nextKeyView" destination="xXw-3l-NGv" id="WyM-Nx-6b4"/>
+                </connections>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
@@ -227,7 +230,11 @@
             </connections>
             <point key="canvasLocation" x="528.5" y="415"/>
         </window>
-        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController"/>
+        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController">
+            <connections>
+                <outlet property="documentsTableView" destination="xXw-3l-NGv" id="Xdo-Al-1qd"/>
+            </connections>
+        </customObject>
         <customObject id="TsL-KI-RcJ" customClass="CPExternalLinksHelper"/>
     </objects>
     <resources>

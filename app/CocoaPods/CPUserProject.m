@@ -1,8 +1,5 @@
 #import "CPUserProject.h"
 
-#import <Fragaria/Fragaria.h>
-#import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
-
 #import <objc/runtime.h>
 
 #import "CPANSIEscapeHelper.h" 
@@ -10,24 +7,7 @@
 
 #import "CocoaPods-Swift.h"
 
-#if __MAC_OS_X_VERSION_MAX_ALLOWED < 1090
-enum {
-   NSModalResponseStop                 = (-1000),
-   NSModalResponseAbort                = (-1001),
-   NSModalResponseContinue             = (-1002),
-};
-typedef NSInteger NSModalResponse;
-#endif
-
-@interface CPUserProject () <CPCLITaskDelegate, NSTextViewDelegate>
-
-// Such sin.
-// TODO: Add real custom window controllers.
-@property (strong) IBOutlet NSWindow *progressWindow;
-@property (assign) IBOutlet NSTextView *progressOutputView;
-
-@property (strong) IBOutlet MGSFragariaView *editor;
-
+@interface CPUserProject ()
 @property (strong) NSStoryboard *storyboard;
 @property (strong) CPCLITask *task;
 @end
@@ -35,7 +15,10 @@ typedef NSInteger NSModalResponse;
 @implementation CPUserProject
 
 - (void)makeWindowControllers {
-  if (self.fileURL == nil) { return; }
+  if (self.fileURL == nil) {
+    NSLog(@"HRM?");
+    return;
+  }
 
   self.storyboard = [NSStoryboard storyboardWithName:@"Podfile" bundle:nil];
 
@@ -43,13 +26,6 @@ typedef NSInteger NSModalResponse;
 
   CPPodfileViewController *podfileVC = (id)windowController.contentViewController;
   podfileVC.userProject = self;
-
-  /// This could move into a CPPodfileWindowController?
-  NSWindow *window = windowController.window;
-  window.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
-  window.titleVisibility = NSWindowTitleHidden;
-  window.titlebarAppearsTransparent = YES;
-  window.movableByWindowBackground = YES;
 
   [self addWindowController:windowController];
 }
@@ -81,76 +57,5 @@ typedef NSInteger NSModalResponse;
                              error:outError];
 }
 
-#pragma mark - Progress sheet
-
-+ (NSSet *)keyPathsForValuesAffectingProgressButtonTitle;
-{
-  return [NSSet setWithObject:@"task.progress.fractionCompleted"];
-}
-
-- (NSString *)progressButtonTitle;
-{
-  return self.task.progress.fractionCompleted == 1.0f ? @"Done" : @"Cancel";
-}
-
-- (void)presentProgressSheet;
-{
-  NSWindowController *controller = self.windowControllers[0];
-  [controller.window beginSheet:self.progressWindow completionHandler:nil];
-}
-
-- (IBAction)dismissProgressSheet:(id)sender;
-{
-  if (self.task.running) {
-    [self.task cancel];
-  }
-  
-  [NSApp endSheet:self.progressWindow returnCode:NSModalResponseStop];
-
-  [self.progressWindow orderOut:self];
-  // Reset the sheet /after/ it has been removed from screen.
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [self resetSheet];
-  });
-
-}
-
-- (void)resetSheet;
-{
-  self.task = nil;
-  self.progressOutputView.string = @"";
-}
-
-#pragma mark - Command execution
-
-- (IBAction)updatePods:(id)sender;
-{
-  [self executeTaskWithCommand:@"update"];
-}
-
-- (IBAction)installPods:(id)sender;
-{
-  [self executeTaskWithCommand:@"install"];
-}
-
-- (void)executeTaskWithCommand:(NSString *)command
-{
-  self.task = [[CPCLITask alloc] initWithUserProject:self
-                                             command:command
-                                            delegate:self
-                                    qualityOfService:NSQualityOfServiceUtility];
-  [self.task run];
-  
-  [self presentProgressSheet];
-}
-
-#pragma mark - CPCLITaskDelegate
-
-- (void)task:(CPCLITask *)task didUpdateOutputContents:(NSAttributedString *)updatedOutput
-{
-
-  [self.progressOutputView.textStorage setAttributedString:updatedOutput];
-
-}
 
 @end

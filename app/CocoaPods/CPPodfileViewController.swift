@@ -27,6 +27,8 @@ class CPPodfileViewController: NSViewController {
   dynamic var installAction: CPInstallAction!
   var tabController: NSTabViewController!
 
+  @IBOutlet weak var actionTitleLabel: NSTextField!
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -49,8 +51,8 @@ class CPPodfileViewController: NSViewController {
   }
 
   override func viewWillAppear() {
-    super.viewWillAppear()
-    // This is DI'd in after viewDidLoad
+    // The userProject is DI'd in after viewDidLoad
+
     installAction = CPInstallAction(userProject: userProject)
   }
 
@@ -64,11 +66,11 @@ class CPPodfileViewController: NSViewController {
   }
 
   @IBAction func showConsoleTab(sender: AnyObject) {
-    tabController.selectedTabViewItemIndex = 1
+    tabController.selectedTabViewItemIndex = 2
   }
 
   @IBAction func showInformationTab(sender: AnyObject) {
-    tabController.selectedTabViewItemIndex = 2
+    tabController.selectedTabViewItemIndex = 1
   }
 }
 

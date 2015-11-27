@@ -11,6 +11,10 @@
 /// Used in NSTableView via IB bindings
 @property (nonatomic, readwrite, copy) NSArray *recentDocuments;
 
+/// Used to set the first responder once data has been loadded in
+@property (nonatomic, readwrite, weak) IBOutlet NSTableView *documentsTableView;
+
+
 @end
 
 /// Object representing a document

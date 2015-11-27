@@ -583,13 +583,7 @@
                             </menuItem>
                             <menuItem title="View" id="H8h-7b-M4v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="View" id="HyV-fh-RgO">
-                                    <items>
-                                        <menuItem title="Show Console" id="TQU-5q-Tfm">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                    </items>
-                                </menu>
+                                <menu key="submenu" title="View" id="HyV-fh-RgO"/>
                             </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -607,9 +601,21 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="qA4-h0-eti"/>
-                                        <menuItem title="Show Podfile Editor" keyEquivalent="1" id="h4Y-OH-C1U"/>
-                                        <menuItem title="Show Podfile Console" keyEquivalent="2" id="hhZ-lI-0Di"/>
-                                        <menuItem title="Show Podfile Info" keyEquivalent="3" id="CFk-GF-n18"/>
+                                        <menuItem title="Show Podfile Editor" keyEquivalent="1" id="h4Y-OH-C1U">
+                                            <connections>
+                                                <action selector="showEditorTab:" target="Ady-hI-5gd" id="VCI-3T-qWo"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show Podfile Console" keyEquivalent="2" id="hhZ-lI-0Di">
+                                            <connections>
+                                                <action selector="showConsoleTab:" target="Ady-hI-5gd" id="ZvA-6s-2Tf"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show Podfile Info" keyEquivalent="3" id="CFk-GF-n18">
+                                            <connections>
+                                                <action selector="showInformationTab:" target="Ady-hI-5gd" id="CvR-wp-yhg"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -639,7 +645,7 @@
                     </connections>
                 </application>
             </objects>
-            <point key="canvasLocation" x="-384" y="-724"/>
+            <point key="canvasLocation" x="-666" y="-519"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -650,7 +656,7 @@
                         <rect key="contentRect" x="550" y="405" width="586" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="586" height="700"/>
-                        <toolbar key="toolbar" implicitIdentifier="BC29192A-C84E-4096-9C9F-CA53E7B26D82" autosavesConfiguration="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="EP4-CE-9QT">
+                        <toolbar key="toolbar" implicitIdentifier="BC29192A-C84E-4096-9C9F-CA53E7B26D82" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="EP4-CE-9QT">
                             <allowedToolbarItems/>
                             <defaultToolbarItems/>
                         </toolbar>
@@ -661,7 +667,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-580" y="-268"/>
+            <point key="canvasLocation" x="-596" y="-269"/>
         </scene>
         <!--Podfile View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -674,37 +680,43 @@
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU">
                                 <rect key="frame" x="0.0" y="0.0" width="78" height="800"/>
                                 <subviews>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-Q7-aZp">
-                                        <rect key="frame" x="15" y="679" width="48" height="48"/>
-                                        <animations/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_editor" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="jIp-ly-K6T">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="showEditorTab:" target="5gI-5U-AMq" id="WLs-ih-h2d"/>
-                                        </connections>
-                                    </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-af-RfI">
-                                        <rect key="frame" x="15" y="605" width="48" height="48"/>
+                                        <rect key="frame" x="15" y="631" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_console" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" inset="2" id="Xxt-bb-qej">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">2</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="showConsoleTab:" target="5gI-5U-AMq" id="aSl-EN-ciF"/>
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jx-vo-Lx4">
-                                        <rect key="frame" x="15" y="535" width="48" height="48"/>
+                                        <rect key="frame" x="15" y="567" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_information" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="mww-XL-8Ss">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">3</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="showInformationTab:" target="5gI-5U-AMq" id="AoC-RV-gge"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-Q7-aZp">
+                                        <rect key="frame" x="15" y="695" width="48" height="48"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_editor" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="jIp-ly-K6T">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">1</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showEditorTab:" target="5gI-5U-AMq" id="WLs-ih-h2d"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -725,8 +737,8 @@
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="actionbar_background" id="Inw-FC-Y25"/>
                             </imageView>
-                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2o8-QD-aZz">
-                                <rect key="frame" x="536" y="766" width="50" height="19"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2o8-QD-aZz">
+                                <rect key="frame" x="535" y="766" width="43" height="19"/>
                                 <animations/>
                                 <buttonCell key="cell" type="roundTextured" title="install" bezelStyle="texturedRounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QsN-ks-HtL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -771,12 +783,13 @@
                         <animations/>
                     </view>
                     <connections>
+                        <outlet property="actionTitleLabel" destination="hwg-nj-RtL" id="doO-U4-vRA"/>
                         <outlet property="contentView" destination="qbz-Ij-gAY" id="mYf-u5-UMM"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-579.5" y="423"/>
+            <point key="canvasLocation" x="-595.5" y="544"/>
         </scene>
         <!--Hidden Tab View Controller-->
         <scene sceneID="qoe-kJ-9tu">
@@ -890,7 +903,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView editable="NO" importsGraphics="NO" selectionGranularity="word" findStyle="panel" incrementalSearchingEnabled="YES" allowsUndo="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="GuO-Ek-akK">
+                                        <textView editable="NO" importsGraphics="NO" selectionGranularity="word" findStyle="bar" incrementalSearchingEnabled="YES" allowsUndo="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="GuO-Ek-akK">
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <animations/>

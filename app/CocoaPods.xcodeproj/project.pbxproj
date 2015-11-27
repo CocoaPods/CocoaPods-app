@@ -32,6 +32,7 @@
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
 		604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */; };
 		6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */; };
+		605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */; };
 		606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */; };
 		606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */; };
@@ -115,6 +116,7 @@
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
 		604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleViewController.swift; sourceTree = "<group>"; };
 		6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPModifiedDecorationsWindow.swift; sourceTree = "<group>"; };
+		6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPReturnTriggeringTableView.swift; sourceTree = "<group>"; };
 		606D1ED11BF90705000B7148 /* Podfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Podfile.storyboard; sourceTree = "<group>"; };
 		606D1ED31BF91040000B7148 /* CocoaPods-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaPods-Bridging-Header.h"; sourceTree = "<group>"; };
 		606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileEditorViewController.swift; sourceTree = "<group>"; };
@@ -253,6 +255,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		6051191E1C08C4AC0037B95E /* Custom Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */,
+			);
+			name = "Custom Subviews";
+			sourceTree = "<group>";
+		};
 		606D1ED61BF91062000B7148 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +305,7 @@
 		60FE01621B9B76400027EEE3 /* Home Window */ = {
 			isa = PBXGroup;
 			children = (
+				6051191E1C08C4AC0037B95E /* Custom Subviews */,
 				601F910E1BE6405B00AD22B1 /* Resources */,
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
 				1F9177561BA27592006698C9 /* CPHomeWindowController.m */,
@@ -517,6 +528,7 @@
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
 				606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */,
+				605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */,
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,

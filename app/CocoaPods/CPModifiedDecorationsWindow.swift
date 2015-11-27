@@ -15,13 +15,27 @@ class CPModifiedDecorationsWindow: NSWindow {
 
   override func makeKeyAndOrderFront(sender: AnyObject?) {
 
-    let verticalOffset = 6
+    appearance = NSAppearance(named:NSAppearanceNameVibrantLight)
+    titlebarAppearsTransparent = true
+    movableByWindowBackground = true
+    titleVisibility = .Hidden
 
+    let verticalOffset = 6
     [NSWindowButton.CloseButton, NSWindowButton.MiniaturizeButton, NSWindowButton.ZoomButton].forEach { type in
       guard let button = standardWindowButton(type) else { return }
       button.setFrameOrigin(NSMakePoint(button.frame.origin.x, button.frame.origin.y - CGFloat(verticalOffset)))
     }
 
+    guard let button = standardWindowButton(.DocumentIconButton) else { return }
+    button.setFrameOrigin(NSMakePoint(button.frame.origin.x, button.frame.origin.y - CGFloat(verticalOffset)))
+
+    setFrame(NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height - 1), display: true, animate: true)
+    setFrame(NSMakeRect(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height + 1), display: true, animate: true)
+
     super.makeKeyAndOrderFront(sender)
+  }
+
+  override func setFrame(frameRect: NSRect, display flag: Bool) {
+    super.setFrame(frameRect, display: flag)
   }
 }

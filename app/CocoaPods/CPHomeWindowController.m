@@ -31,7 +31,8 @@
 }
 
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender {
-  NSInteger row = [sender clickedRow];
+  NSInteger row = [sender selectedRow];
+
   CPHomeWindowDocumentEntry *item = self.recentDocumentsController.recentDocuments[row];
 
   NSDocumentController *controller = [NSDocumentController sharedDocumentController];
