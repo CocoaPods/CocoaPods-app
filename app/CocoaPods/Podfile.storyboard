@@ -645,11 +645,15 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="Podfile Editor" id="jGA-0Y-lOj" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv" customClass="CPModifiedDecorationsWindow" customModule="CocoaPods" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="550" y="405" width="586" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="586" height="700"/>
+                        <toolbar key="toolbar" implicitIdentifier="BC29192A-C84E-4096-9C9F-CA53E7B26D82" autosavesConfiguration="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="EP4-CE-9QT">
+                            <allowedToolbarItems/>
+                            <defaultToolbarItems/>
+                        </toolbar>
                     </window>
                     <connections>
                         <segue destination="5gI-5U-AMq" kind="relationship" relationship="window.shadowedContentViewController" id="nsd-lR-9xd"/>
@@ -710,7 +714,7 @@
                                 <animations/>
                             </visualEffectView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="qbz-Ij-gAY">
-                                <rect key="frame" x="78" y="0.0" width="541" height="746"/>
+                                <rect key="frame" x="78" y="0.0" width="541" height="752"/>
                                 <animations/>
                             </customView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="heY-ac-ofy">
@@ -753,7 +757,7 @@
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-72" id="4oX-cC-xIH"/>
                             <constraint firstItem="qbz-Ij-gAY" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="Lak-RT-MSI"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="Nfy-M9-N65"/>
-                            <constraint firstItem="qbz-Ij-gAY" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="54" id="Rvp-hq-YgU"/>
+                            <constraint firstItem="qbz-Ij-gAY" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="48" id="Rvp-hq-YgU"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Teg-8i-KM9"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" constant="12" id="Vy5-h8-UQn"/>
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="trailing" constant="8" id="Zhg-MU-fmQ"/>
