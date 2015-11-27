@@ -677,7 +677,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="619" height="800"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU" customClass="CPBrownVisualEffectsView" customModule="CocoaPods" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="78" height="800"/>
                                 <subviews>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-af-RfI">
