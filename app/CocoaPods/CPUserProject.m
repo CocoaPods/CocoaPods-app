@@ -135,29 +135,36 @@ typedef NSInteger NSModalResponse;
 {
   [RBObject performBlock:^{
     RBPathname *pathname = [RBObjectFromString(@"Pathname") new:self.fileURL.path];
-    RBPodfile *podfile = nil;
 
     @try {
-      podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :self.contents];
-    }
-    @catch (NSException *exception) {
-      if ([exception.reason isEqualToString:@"Pod::DSLError"]) {
-        SMLSyntaxError *syntaxError = SyntaxErrorFromException(exception);
-        if (syntaxError) {
-          dispatch_async(dispatch_get_main_queue(), ^{
-            self.editor.syntaxErrors = @[syntaxError];
-          });
-        }
-      }
-      return;
+      RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :self.contents];
+      NSArray *plugins = podfile.plugins.allKeys;
+      dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"Podfile Plugins: %@", plugins);
+        self.podfilePlugins = plugins;
+        // Clear any previous syntax errors.
+        self.editor.syntaxErrors = nil;
+      });
     }
 
-    NSArray *plugins = podfile.plugins.allKeys;
-    NSLog(@"Plugins: %@", plugins);
+    @catch (NSException *exception) {
+      // In case of a Pod::DSLError, try to create a UI syntax error out of it.
+      if (![exception.reason isEqualToString:@"Pod::DSLError"]) {
+        @throw;
+      }
+      SMLSyntaxError *syntaxError = SyntaxErrorFromException(exception);
+      if (syntaxError) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          self.editor.syntaxErrors = @[syntaxError];
+        });
+      }
+    }
+
+  } error:^(NSError * _Nonnull error) {
     dispatch_async(dispatch_get_main_queue(), ^{
-      self.podfilePlugins = plugins;
-      // Clear any previous syntax errors.
-      self.editor.syntaxErrors = nil;
+      NSWindowController *controller = self.windowControllers[0];
+      [[NSAlert alertWithError:error] beginSheetModalForWindow:controller.window
+                                             completionHandler:nil];
     });
   }];
 }
