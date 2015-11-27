@@ -20,7 +20,8 @@ class CPReturnTriggeringTableView: NSTableView {
       sendAction(doubleAction, to: target)
       return
     }
-    super.keyUp(event)
+
+    super.keyDown(event)
   }
 
 }

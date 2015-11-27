@@ -38,7 +38,7 @@ class CPModifiedDecorationsWindow: NSWindow {
 
   func moveWindowButtons(){
     let verticalOffset = 6
-    
+
     [NSWindowButton.CloseButton, NSWindowButton.MiniaturizeButton, NSWindowButton.ZoomButton].forEach { type in
         guard let button = standardWindowButton(type) else { return }
         button.setFrameOrigin(NSMakePoint(button.frame.origin.x, CGFloat(verticalOffset)))
