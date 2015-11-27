@@ -23,7 +23,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ANSIEscapeHelper: 1d57a8d7af5b9f9d3d48dcf9bf1726f42ab9b99d
-  Fragaria: 1c6e242d591aaca2fd2a2d64b9d980c8c0b12a2f
+  Fragaria: c2827df37476ae2d627db69ce1403049686f8e0e
   Sparkle: 75bbbc5ab2d666f7f77c241afe7fd28364a8f9f7
 
 COCOAPODS: 0.39.0

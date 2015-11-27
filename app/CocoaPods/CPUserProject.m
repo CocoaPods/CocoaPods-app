@@ -1,15 +1,20 @@
 #import "CPUserProject.h"
 
+#import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
+
 #import <objc/runtime.h>
 
-#import "CPANSIEscapeHelper.h" 
-#import "CPCLITask.h"
+#import "CPANSIEscapeHelper.h"
 
 #import "CocoaPods-Swift.h"
+#import "RBObject+CocoaPods.h"
 
 @interface CPUserProject ()
 @property (strong) NSStoryboard *storyboard;
-@property (strong) CPCLITask *task;
+@end
+
+
+@interface CPUserProject ()
 @end
 
 @implementation CPUserProject
@@ -27,7 +32,10 @@
   podfileVC.userProject = self;
 
   [self addWindowController:windowController];
+
 }
+
+
 
 #pragma mark - Persistance
 

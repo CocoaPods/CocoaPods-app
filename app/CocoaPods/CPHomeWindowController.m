@@ -9,6 +9,9 @@
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTextField *cocoapodsVersionTextField;
+@property (weak) IBOutlet NSButton *openGuidesButton;
+@property (weak) IBOutlet NSButton *openSearchButton;
+@property (weak) IBOutlet NSButton *openChangelogButton;
 
 @end
 
@@ -21,6 +24,10 @@
 
 - (void)windowDidLoad;
 {
+  self.window.title = NSLocalizedString(@"MAIN_WINDOW_TITLE", nil);
+  self.openGuidesButton.title = NSLocalizedString(@"MAIN_WINDOW_OPEN_GUIDES_BUTTON_TITLE", nil);
+  self.openSearchButton.title = NSLocalizedString(@"MAIN_WINDOW_OPEN_SEARCH_BUTTON_TITLE", nil);
+  self.openChangelogButton.title = NSLocalizedString(@"MAIN_WINDOW_CHANGELOG_BUTTON_TITLE", nil);
   self.window.excludedFromWindowsMenu = YES;
 
   [self.tableView setTarget:self];

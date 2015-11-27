@@ -1,0 +1,3 @@
+[submodule "app/RubyCocoa"]
+	path = app/RubyCocoa
+	url = https://github.com/alloy/rubycocoa.git
