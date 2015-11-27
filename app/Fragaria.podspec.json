@@ -19,6 +19,7 @@
     "Fragaria.h"
   ],
   "resources": [
+    "Images.xcassets",
     "SML*.xib",
     "Syntax Definitions",
     "SyntaxDefinitions.plist"

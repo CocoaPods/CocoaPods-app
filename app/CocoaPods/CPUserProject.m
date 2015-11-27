@@ -1,6 +1,7 @@
 #import "CPUserProject.h"
 
 #import <Fragaria/Fragaria.h>
+#import <Fragaria/SMLSyntaxError.h>
 #import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
 
 #import <objc/runtime.h>
@@ -8,10 +9,43 @@
 #import "CPANSIEscapeHelper.h" 
 #import "CPCLITask.h"
 
+#import "RBObject+CocoaPods.h"
+
+static SMLSyntaxError * _Nullable
+SyntaxErrorFromException(NSException * _Nonnull exception)
+{
+  RBObject *rubyException = exception.userInfo[@"$!"];
+
+  // TODO Pod::DSLError#parse_line_number_from_description is a private method. Make it public?
+  NSArray *result = [rubyException send:@"parse_line_number_from_description"];
+  NSString *location = result.firstObject;
+  if ([location isEqual:[NSNull null]]) {
+    NSLog(@"DSL error has no location info.");
+    return nil;
+  }
+  NSInteger lineNumber = [location componentsSeparatedByString:@":"].lastObject.integerValue;
+
+  // Example:
+  //
+  // Invalid `Podfile` file: Pod::DSLError
+  // syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
+  // {source 'https://github.com/artsy/Specs.git'
+  //          ^
+  NSArray *lines = [result.lastObject componentsSeparatedByString:@"\n"];
+  NSString *description = nil;
+  if (descriptionLines.count > 1) {
+    // Skip first line.
+    description = [[lines subarrayWithRange:NSMakeRange(1, lines.count-1)] componentsJoinedByString:@"\n"];
+  } else {
+    description = result.lastObject;
+  }
+
+  return [SMLSyntaxError errorWithDescription:description ofLevel:kMGSErrorCategoryError atLine:lineNumber];
+}
+
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the
 // symbols that we support.
 //
-
 @implementation SMLTextView (CPIncludeLeadingColonsInCompletions)
 
 + (void)load;
@@ -42,7 +76,7 @@ enum {
 typedef NSInteger NSModalResponse;
 #endif
 
-@interface CPUserProject () <CPCLITaskDelegate, NSTextViewDelegate>
+@interface CPUserProject () <CPCLITaskDelegate, MGSFragariaTextViewDelegate>
 
 // Such sin.
 // TODO: Add real custom window controllers.
@@ -56,6 +90,8 @@ typedef NSInteger NSModalResponse;
 @property (strong) IBOutlet MGSFragariaView *editor;
 @property (strong) NSString *contents;
 @property (strong) CPCLITask *task;
+
+@property (strong) NSArray *podfilePlugins;
 @end
 
 @implementation CPUserProject
@@ -69,8 +105,13 @@ typedef NSInteger NSModalResponse;
 {
   [super windowControllerDidLoadNib:controller];
 
+  // Seeing as this class doesn’t actually implement any drag operation actions, I don’t feel like marking the class
+  // as such. It seems like a bit of bug to me that it would be required for a textViewDelegate.
+  self.editor.textViewDelegate = (id<MGSFragariaTextViewDelegate, MGSDragOperationDelegate>)self;
+
   self.editor.syntaxColoured = YES;
   self.editor.syntaxDefinitionName = @"Podfile";
+  self.editor.showsSyntaxErrors = YES;
   self.editor.string = self.contents;
   
   self.verboseModeButton.title = NSLocalizedString(@"PODFILE_WINDOW_VERBOSE_SWITCH_TITLE", nil);
@@ -85,6 +126,47 @@ typedef NSInteger NSModalResponse;
   NSTextView *textView = notification.object;
   NSString *contents = textView.string;
   self.contents = contents;
+
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(parsePodfile) object:nil];
+  [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:1];
+}
+
+- (void)parsePodfile;
+{
+  [RBObject performBlock:^{
+    RBPathname *pathname = [RBObjectFromString(@"Pathname") new:self.fileURL.path];
+
+    @try {
+      RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :self.contents];
+      NSArray *plugins = podfile.plugins.allKeys;
+      dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"Podfile Plugins: %@", plugins);
+        self.podfilePlugins = plugins;
+        // Clear any previous syntax errors.
+        self.editor.syntaxErrors = nil;
+      });
+    }
+
+    @catch (NSException *exception) {
+      // In case of a Pod::DSLError, try to create a UI syntax error out of it.
+      if (![exception.reason isEqualToString:@"Pod::DSLError"]) {
+        @throw;
+      }
+      SMLSyntaxError *syntaxError = SyntaxErrorFromException(exception);
+      if (syntaxError) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          self.editor.syntaxErrors = @[syntaxError];
+        });
+      }
+    }
+
+  } error:^(NSError * _Nonnull error) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      NSWindowController *controller = self.windowControllers[0];
+      [[NSAlert alertWithError:error] beginSheetModalForWindow:controller.window
+                                             completionHandler:nil];
+    });
+  }];
 }
 
 #pragma mark - Persistance
@@ -98,6 +180,7 @@ typedef NSInteger NSModalResponse;
                                              encoding:NSUTF8StringEncoding
                                                 error:outError];
     if (self.contents != nil) {
+      [self parsePodfile];
       return YES;
     }
   }
@@ -123,7 +206,11 @@ typedef NSInteger NSModalResponse;
 
 - (NSString *)progressButtonTitle;
 {
-  return self.task.progress.fractionCompleted == 1.0f ? NSLocalizedString(@"POD_INSTALL_SHEET_COMPLETED_BUTTON_TITLE", nil) : NSLocalizedString(@"POD_INSTALL_SHEET_IN_PROGRESS_BUTTON_TITLE", nil);
+  if (self.task.progress.fractionCompleted == 1.0f) {
+    return NSLocalizedString(@"POD_INSTALL_SHEET_COMPLETED_BUTTON_TITLE", nil);
+  } else {
+    return NSLocalizedString(@"POD_INSTALL_SHEET_IN_PROGRESS_BUTTON_TITLE", nil);
+  }
 }
 
 - (void)presentProgressSheet;

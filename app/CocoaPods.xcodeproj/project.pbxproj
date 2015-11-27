@@ -23,10 +23,15 @@
 		5127C3291A23E6CA0093143B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C3281A23E6CA0093143B /* CoreFoundation.framework */; };
 		5127C32B1A23E6DD0093143B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C32A1A23E6DD0093143B /* CoreServices.framework */; };
 		5180FE941AD2A51300314D61 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5180FE931AD2A51300314D61 /* LICENSE */; };
+		519C328F1C029E3C003BDC49 /* libruby+exts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 519C328E1C029E3C003BDC49 /* libruby+exts.a */; };
 		51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7831A2DF88700F9ABCB /* Security.framework */; };
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
+		51EA178C1C00D279000DC69A /* RBObject+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */; };
+		51EA178E1C0147BD000DC69A /* RBObject+CocoaPods.rb in Resources */ = {isa = PBXBuildFile; fileRef = 51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */; };
+		51EA17901C0155E9000DC69A /* RubyCocoa.framework in Copy RubyCocoa.framework */ = {isa = PBXBuildFile; fileRef = 51EA178F1C0155E9000DC69A /* RubyCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		51EA17911C0155FD000DC69A /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EA178F1C0155E9000DC69A /* RubyCocoa.framework */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
 		601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
@@ -70,6 +75,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		51EA17871BFFF241000DC69A /* Copy RubyCocoa.framework */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				51EA17901C0155E9000DC69A /* RubyCocoa.framework in Copy RubyCocoa.framework */,
+			);
+			name = "Copy RubyCocoa.framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +97,7 @@
 		331188581BEBCB4200272793 /* CPCLITask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLITask.h; sourceTree = "<group>"; };
 		331188591BEBCB4200272793 /* CPCLITask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLITask.m; sourceTree = "<group>"; };
 		48BFECFC4C849B1ABEB40B43 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51052FD61BFB8983004151FC /* libruby-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libruby-static.a"; path = "../destroot/bundle/lib/libruby-static.a"; sourceTree = "<group>"; };
 		51165E1F1A17AFF500DCFC94 /* CocoaPods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E231A17AFF500DCFC94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51165E241A17AFF500DCFC94 /* CPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPAppDelegate.h; sourceTree = "<group>"; };
@@ -97,10 +114,15 @@
 		5127C3281A23E6CA0093143B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5127C32A1A23E6DD0093143B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		5180FE931AD2A51300314D61 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../../LICENSE; sourceTree = "<group>"; };
+		519C328E1C029E3C003BDC49 /* libruby+exts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libruby+exts.a"; sourceTree = "<group>"; };
 		51CFC7831A2DF88700F9ABCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		51D2E5AF1A212A0800C0B153 /* Syntax Definitions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Syntax Definitions"; sourceTree = "<group>"; };
 		51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SyntaxDefinitions.plist; sourceTree = "<group>"; };
+		51EA178A1C00D279000DC69A /* RBObject+CocoaPods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RBObject+CocoaPods.h"; sourceTree = "<group>"; };
+		51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RBObject+CocoaPods.m"; sourceTree = "<group>"; };
+		51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "RBObject+CocoaPods.rb"; sourceTree = "<group>"; };
+		51EA178F1C0155E9000DC69A /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = RubyCocoa/framework/build/Default/RubyCocoa.framework; sourceTree = "<group>"; };
 		601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExternalLinksHelper.h; sourceTree = "<group>"; };
 		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
 		601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podfile-icon@2x.png"; sourceTree = "<group>"; };
@@ -123,6 +145,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				519C328F1C029E3C003BDC49 /* libruby+exts.a in Frameworks */,
+				51EA17911C0155FD000DC69A /* RubyCocoa.framework in Frameworks */,
 				51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */,
 				51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */,
 				51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */,
@@ -156,6 +180,8 @@
 		46126B404240E403B2193EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51052FD61BFB8983004151FC /* libruby-static.a */,
+				51EA178F1C0155E9000DC69A /* RubyCocoa.framework */,
 				51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */,
 				51CFC7831A2DF88700F9ABCB /* Security.framework */,
 				5127C32A1A23E6DD0093143B /* CoreServices.framework */,
@@ -200,6 +226,7 @@
 				7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */,
 				51165E561A1B925300DCFC94 /* CPUserProject.xib */,
 				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
+				51EA17891C00D20B000DC69A /* Ruby Integration */,
 				331188541BEBCB0F00272793 /* CLI Integrations */,
 				60FE01641B9B76520027EEE3 /* Project */,
 				60FE01631B9B76470027EEE3 /* Project Document */,
@@ -232,6 +259,17 @@
 				51165E4A1A17B2D200DCFC94 /* main.c */,
 			);
 			path = pod;
+			sourceTree = "<group>";
+		};
+		51EA17891C00D20B000DC69A /* Ruby Integration */ = {
+			isa = PBXGroup;
+			children = (
+				519C328E1C029E3C003BDC49 /* libruby+exts.a */,
+				51EA178A1C00D279000DC69A /* RBObject+CocoaPods.h */,
+				51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */,
+				51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */,
+			);
+			path = "Ruby Integration";
 			sourceTree = "<group>";
 		};
 		601F910E1BE6405B00AD22B1 /* Resources */ = {
@@ -304,6 +342,7 @@
 				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 				7BA6F304307FC11D21E8194E /* Embed Pods Frameworks */,
 				D59CE4AF1077B989CD7145BD /* Copy Pods Resources */,
+				51EA17871BFFF241000DC69A /* Copy RubyCocoa.framework */,
 			);
 			buildRules = (
 			);
@@ -381,6 +420,7 @@
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
 				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
+				51EA178E1C0147BD000DC69A /* RBObject+CocoaPods.rb in Resources */,
 				1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */,
 				601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
@@ -457,6 +497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51EA178C1C00D279000DC69A /* RBObject+CocoaPods.m in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
@@ -591,9 +632,20 @@
 			baseConfigurationReference = CBE7AF19067EFC56753C3D79 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RubyCocoa/framework/build/Default",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+				);
 				INFOPLIST_FILE = "CocoaPods/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/CocoaPods/Ruby Integration\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -605,9 +657,20 @@
 			baseConfigurationReference = C511D44E7F9B7A0C0EEF51D0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RubyCocoa/framework/build/Default",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+				);
 				INFOPLIST_FILE = "CocoaPods/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/CocoaPods/Ruby Integration\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
