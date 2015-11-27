@@ -8,27 +8,13 @@
 
 import Cocoa
 
+/// The docs lie, NSTabViewControllerTabStyle doesn't work
+/// with .Unspecified
+
 class CPHiddenTabViewController: NSTabViewController {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    for subview in view.subviews where subview as? NSSegmentedControl != nil {
-      subview.hidden = true
-    }
+  override func viewWillAppear() {
+    super.viewWillAppear()
+    tabView.tabViewType = .NoTabsNoBorder
   }
-
-  override func viewWillLayout() {
-    super.viewWillLayout()
-
-    let tabs = view.subviews.filter { $0.isKindOfClass(NSTabView) }
-    guard let tab = tabs.first else { return }
-    tab.frame = tab.superview!.bounds
-  }
-
-  override func tabView(tabView: NSTabView, didSelectTabViewItem tabViewItem: NSTabViewItem?) {
-    super.tabView(tabView, didSelectTabViewItem: tabViewItem)
-
-    self.viewWillLayout()
-  }
-
 }

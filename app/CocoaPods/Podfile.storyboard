@@ -849,54 +849,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="8cU-n6-ob5" customClass="MGSFragariaView">
-                                <rect key="frame" x="0.0" y="70" width="512" height="530"/>
+                                <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                 <animations/>
                                 <connections>
                                     <outlet property="textViewDelegate" destination="KSf-K2-QFT" id="46h-Fl-LQo"/>
                                 </connections>
                             </customView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Awc-Ci-ey9">
-                                <rect key="frame" x="392" y="13" width="106" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="m9e-X0-jQu"/>
-                                </constraints>
-                                <animations/>
-                                <buttonCell key="cell" type="push" title="Pod Install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qxN-Uk-UlK">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZFS-fq-Gtp">
-                                <rect key="frame" x="278" y="13" width="114" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="102" id="uDp-cz-zYL"/>
-                                </constraints>
-                                <animations/>
-                                <buttonCell key="cell" type="push" title="Pod Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OtJ-73-99y">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="qTv-LQ-6e6">
-                                <rect key="frame" x="206" y="21" width="72" height="18"/>
-                                <animations/>
-                                <buttonCell key="cell" type="check" title="Verbose" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Qab-Lm-jek">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Awc-Ci-ey9" firstAttribute="leading" secondItem="ZFS-fq-Gtp" secondAttribute="trailing" constant="12" id="9e7-ar-uu6"/>
-                            <constraint firstItem="ZFS-fq-Gtp" firstAttribute="top" secondItem="8cU-n6-ob5" secondAttribute="bottom" constant="29" id="K2T-mG-Sdu"/>
-                            <constraint firstAttribute="bottom" secondItem="qTv-LQ-6e6" secondAttribute="bottom" constant="23" id="Luz-vz-DYo"/>
+                            <constraint firstAttribute="bottom" secondItem="8cU-n6-ob5" secondAttribute="bottom" id="Cd9-8D-A1l"/>
                             <constraint firstItem="8cU-n6-ob5" firstAttribute="top" secondItem="Vag-St-aKl" secondAttribute="top" id="TEu-mb-IfM"/>
                             <constraint firstItem="8cU-n6-ob5" firstAttribute="leading" secondItem="Vag-St-aKl" secondAttribute="leading" id="W8O-Zl-u0f"/>
-                            <constraint firstItem="Awc-Ci-ey9" firstAttribute="leading" secondItem="ZFS-fq-Gtp" secondAttribute="trailing" constant="12" id="ay1-oP-cql"/>
-                            <constraint firstItem="ZFS-fq-Gtp" firstAttribute="leading" secondItem="qTv-LQ-6e6" secondAttribute="trailing" constant="8" id="cUP-YQ-0GN"/>
-                            <constraint firstAttribute="bottom" secondItem="ZFS-fq-Gtp" secondAttribute="bottom" constant="20" id="hEt-gc-QYL"/>
-                            <constraint firstAttribute="trailing" secondItem="Awc-Ci-ey9" secondAttribute="trailing" constant="20" id="oVO-f8-ptU"/>
-                            <constraint firstAttribute="bottom" secondItem="Awc-Ci-ey9" secondAttribute="bottom" constant="20" id="sLs-Dr-iTZ"/>
                             <constraint firstAttribute="trailing" secondItem="8cU-n6-ob5" secondAttribute="trailing" id="yLR-hI-yHh"/>
                         </constraints>
                         <animations/>
