@@ -29,11 +29,7 @@
       VALUE descriptionValue = rb_funcall(rubyException.__rbobj__, rb_intern("description"), 0);
       // Example:
       //     Invalid `Podfile` file: undefined local variable or method `s' for #<Pod::Podfile:0x0000010331f390>
-      NSString *description = @(StringValuePtr(descriptionValue));
-      NSArray *descriptionArray = [description componentsSeparatedByString:@"` file: "];
-      
-      if (descriptionArray.count < 2) { description = descriptionArray[1]; }
-      
+      NSString *description = [@(StringValuePtr(descriptionValue)) substringFromIndex:24];
       NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
       description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
       
