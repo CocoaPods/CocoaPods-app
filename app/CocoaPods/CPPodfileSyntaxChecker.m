@@ -95,9 +95,9 @@ SyntaxErrorFromException(NSException * _Nonnull exception)
   // Example:
   //     Invalid `Podfile` file: undefined local variable or method `s' for #<Pod::Podfile:0x0000010331f390>
   NSString *description = @(StringValuePtr(descriptionValue));
-  if ([description componentsSeparatedByString:@"` file: "].count < 2) { return nil; }
+  NSArray *descriptionArray = [description componentsSeparatedByString:@"` file: "];
 
-  description = [description componentsSeparatedByString:@"` file: "][1];
+  if (descriptionArray.count < 2) { description = descriptionArray[1]; }
 
   NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
   description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
