@@ -79,37 +79,28 @@
   }];
 }
 
+// TODO: have CocoaPods-Core keep the error message around
+//       https://cocoapods.slack.com/archives/cocoapods-app/p1448669896000284
 
 static SMLSyntaxError * _Nullable
 SyntaxErrorFromException(NSException * _Nonnull exception)
 {
   NSString *location = [exception.userInfo[@"backtrace"] firstObject];
-
   if ([location componentsSeparatedByString:@":"].count < 2) { return nil; }
   NSInteger lineNumber = [location componentsSeparatedByString:@":"][1].integerValue;
 
-  // Example:
-  //
-  // Invalid `Podfile` file: Pod::DSLError
-  // syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
-  // {source 'https://github.com/artsy/Specs.git'
-  //          ^
-
   RBObject *rubyException = exception.userInfo[@"$!"];
-  NSArray *result = [rubyException send:@"parse_line_number_from_description"];
-  NSArray *lines = [result.lastObject componentsSeparatedByString:@"\n"];
-
-  // TODO Pod::DSLError#parse_line_number_from_description is a private method. Make it public?
-
+  // TODO -[RBObject description] returns the description of the proxy.
   VALUE descriptionValue = rb_funcall(rubyException.__rbobj__, rb_intern("description"), 0);
+  // Example:
+  //     Invalid `Podfile` file: undefined local variable or method `s' for #<Pod::Podfile:0x0000010331f390>
   NSString *description = @(StringValuePtr(descriptionValue));
+  if ([description componentsSeparatedByString:@"` file: "].count < 2) { return nil; }
 
-  if (lines.count > 1) {
-    // Skip first line.
-    description = [[lines subarrayWithRange:NSMakeRange(1, lines.count-1)] componentsJoinedByString:@"\n"];
-  } else {
-    description = result.lastObject;
-  }
+  description = [description componentsSeparatedByString:@"` file: "][1];
+
+  NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
+  description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
 
   return [SMLSyntaxError errorWithDescription:description ofLevel:kMGSErrorCategoryError atLine:lineNumber];
 }
