@@ -7,7 +7,6 @@
 #import "CPANSIEscapeHelper.h"
 
 #import "CocoaPods-Swift.h"
-#import "RBObject+CocoaPods.h"
 
 @interface CPUserProject ()
 @property (strong) NSStoryboard *storyboard;

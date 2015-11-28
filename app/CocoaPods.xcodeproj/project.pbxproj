@@ -13,6 +13,16 @@
 		331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */; };
 		3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */ = {isa = PBXBuildFile; fileRef = 331188591BEBCB4200272793 /* CPCLITask.m */; };
 		36E0727ACA8A0F02B69350B0 /* Pods_CocoaPods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217877836B7D3B2373163464 /* Pods_CocoaPods.framework */; };
+		510254281C0A60680045FCD8 /* CPReflectionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 510254271C0A60680045FCD8 /* CPReflectionService.m */; };
+		5102542A1C0A60680045FCD8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 510254291C0A60680045FCD8 /* main.m */; };
+		5102542F1C0A60680045FCD8 /* ReflectionService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 510254231C0A60670045FCD8 /* ReflectionService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		510254331C0A68040045FCD8 /* libruby+exts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 519C328E1C029E3C003BDC49 /* libruby+exts.a */; };
+		510254341C0A68100045FCD8 /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EA178F1C0155E9000DC69A /* RubyCocoa.framework */; };
+		510F096E1C0A702200F40F2B /* RBObject+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */; };
+		510F09701C0A70EF00F40F2B /* RubyCocoa.framework in Copy RubyCocoa.framework */ = {isa = PBXBuildFile; fileRef = 51EA178F1C0155E9000DC69A /* RubyCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		510F09711C0A711700F40F2B /* RBObject+CocoaPods.rb in Resources */ = {isa = PBXBuildFile; fileRef = 51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */; };
+		510F09731C0A734800F40F2B /* CPRubyErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 510F09721C0A734800F40F2B /* CPRubyErrors.m */; };
+		510F09751C0A73B800F40F2B /* CPRubyErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 510F09721C0A734800F40F2B /* CPRubyErrors.m */; };
 		51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E251A17AFF500DCFC94 /* CPAppDelegate.m */; };
 		51165E281A17AFF500DCFC94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E271A17AFF500DCFC94 /* main.m */; };
 		51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51165E2B1A17AFF500DCFC94 /* MainMenu.xib */; };
@@ -23,15 +33,10 @@
 		5127C3291A23E6CA0093143B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C3281A23E6CA0093143B /* CoreFoundation.framework */; };
 		5127C32B1A23E6DD0093143B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C32A1A23E6DD0093143B /* CoreServices.framework */; };
 		5180FE941AD2A51300314D61 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5180FE931AD2A51300314D61 /* LICENSE */; };
-		519C328F1C029E3C003BDC49 /* libruby+exts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 519C328E1C029E3C003BDC49 /* libruby+exts.a */; };
 		51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7831A2DF88700F9ABCB /* Security.framework */; };
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
-		51EA178C1C00D279000DC69A /* RBObject+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */; };
-		51EA178E1C0147BD000DC69A /* RBObject+CocoaPods.rb in Resources */ = {isa = PBXBuildFile; fileRef = 51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */; };
-		51EA17901C0155E9000DC69A /* RubyCocoa.framework in Copy RubyCocoa.framework */ = {isa = PBXBuildFile; fileRef = 51EA178F1C0155E9000DC69A /* RubyCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		51EA17911C0155FD000DC69A /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EA178F1C0155E9000DC69A /* RubyCocoa.framework */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
 		601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
@@ -60,6 +65,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5102542C1C0A60680045FCD8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51165E171A17AFF500DCFC94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 510254221C0A60670045FCD8;
+			remoteInfo = ReflectionService;
+		};
 		51165E4F1A190F8D00DCFC94 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 51165E171A17AFF500DCFC94 /* Project object */;
@@ -88,6 +100,28 @@
 			name = "Copy Helper Executables";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5102542E1C0A60680045FCD8 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				5102542F1C0A60680045FCD8 /* ReflectionService.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		510F096F1C0A70DD00F40F2B /* Copy RubyCocoa.framework */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				510F09701C0A70EF00F40F2B /* RubyCocoa.framework in Copy RubyCocoa.framework */,
+			);
+			name = "Copy RubyCocoa.framework";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51165E461A17B2D200DCFC94 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,17 +130,6 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		51EA17871BFFF241000DC69A /* Copy RubyCocoa.framework */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				51EA17901C0155E9000DC69A /* RubyCocoa.framework in Copy RubyCocoa.framework */,
-			);
-			name = "Copy RubyCocoa.framework";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -120,7 +143,14 @@
 		331188581BEBCB4200272793 /* CPCLITask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLITask.h; sourceTree = "<group>"; };
 		331188591BEBCB4200272793 /* CPCLITask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLITask.m; sourceTree = "<group>"; };
 		48BFECFC4C849B1ABEB40B43 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		51052FD61BFB8983004151FC /* libruby-static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libruby-static.a"; path = "../destroot/bundle/lib/libruby-static.a"; sourceTree = "<group>"; };
+		510254231C0A60670045FCD8 /* ReflectionService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = ReflectionService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		510254251C0A60680045FCD8 /* CPReflectionServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPReflectionServiceProtocol.h; sourceTree = "<group>"; };
+		510254261C0A60680045FCD8 /* CPReflectionService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPReflectionService.h; sourceTree = "<group>"; };
+		510254271C0A60680045FCD8 /* CPReflectionService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPReflectionService.m; sourceTree = "<group>"; };
+		510254291C0A60680045FCD8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5102542B1C0A60680045FCD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		510F09721C0A734800F40F2B /* CPRubyErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRubyErrors.m; sourceTree = "<group>"; };
+		510F09741C0A736300F40F2B /* CPRubyErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPRubyErrors.h; sourceTree = "<group>"; };
 		51165E1F1A17AFF500DCFC94 /* CocoaPods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51165E231A17AFF500DCFC94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51165E241A17AFF500DCFC94 /* CPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPAppDelegate.h; sourceTree = "<group>"; };
@@ -183,12 +213,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		510254201C0A60670045FCD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				510254331C0A68040045FCD8 /* libruby+exts.a in Frameworks */,
+				510254341C0A68100045FCD8 /* RubyCocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51165E1C1A17AFF500DCFC94 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				519C328F1C029E3C003BDC49 /* libruby+exts.a in Frameworks */,
-				51EA17911C0155FD000DC69A /* RubyCocoa.framework in Frameworks */,
 				51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */,
 				51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */,
 				51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */,
@@ -230,7 +267,6 @@
 		46126B404240E403B2193EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				51052FD61BFB8983004151FC /* libruby-static.a */,
 				51EA178F1C0155E9000DC69A /* RubyCocoa.framework */,
 				51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */,
 				51CFC7831A2DF88700F9ABCB /* Security.framework */,
@@ -244,6 +280,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		510254241C0A60670045FCD8 /* CPReflectionService */ = {
+			isa = PBXGroup;
+			children = (
+				519C328E1C029E3C003BDC49 /* libruby+exts.a */,
+				510254251C0A60680045FCD8 /* CPReflectionServiceProtocol.h */,
+				510254261C0A60680045FCD8 /* CPReflectionService.h */,
+				510254271C0A60680045FCD8 /* CPReflectionService.m */,
+				510F09741C0A736300F40F2B /* CPRubyErrors.h */,
+				510F09721C0A734800F40F2B /* CPRubyErrors.m */,
+				51EA178A1C00D279000DC69A /* RBObject+CocoaPods.h */,
+				51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */,
+				51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */,
+				510254291C0A60680045FCD8 /* main.m */,
+				5102542B1C0A60680045FCD8 /* Info.plist */,
+			);
+			path = CPReflectionService;
+			sourceTree = "<group>";
+		};
 		51165E161A17AFF500DCFC94 = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +305,7 @@
 				51165E211A17AFF500DCFC94 /* CocoaPods */,
 				51165E491A17B2D200DCFC94 /* pod */,
 				60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */,
+				510254241C0A60670045FCD8 /* CPReflectionService */,
 				51165E201A17AFF500DCFC94 /* Products */,
 				46126B404240E403B2193EE7 /* Frameworks */,
 				E21FBC2CEDF1DF4BFA47A227 /* Pods */,
@@ -265,6 +320,7 @@
 				51165E1F1A17AFF500DCFC94 /* CocoaPods.app */,
 				51165E481A17B2D200DCFC94 /* pod */,
 				60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */,
+				510254231C0A60670045FCD8 /* ReflectionService.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,7 +332,6 @@
 				51165E241A17AFF500DCFC94 /* CPAppDelegate.h */,
 				51165E251A17AFF500DCFC94 /* CPAppDelegate.m */,
 				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
-				51EA17891C00D20B000DC69A /* Ruby Integration */,
 				331188541BEBCB0F00272793 /* CLI Integrations */,
 				60FE01641B9B76520027EEE3 /* Project */,
 				60FE01631B9B76470027EEE3 /* Podfile Window */,
@@ -307,17 +362,6 @@
 				51165E4A1A17B2D200DCFC94 /* main.c */,
 			);
 			path = pod;
-			sourceTree = "<group>";
-		};
-		51EA17891C00D20B000DC69A /* Ruby Integration */ = {
-			isa = PBXGroup;
-			children = (
-				519C328E1C029E3C003BDC49 /* libruby+exts.a */,
-				51EA178A1C00D279000DC69A /* RBObject+CocoaPods.h */,
-				51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */,
-				51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */,
-			);
-			path = "Ruby Integration";
 			sourceTree = "<group>";
 		};
 		601F910E1BE6405B00AD22B1 /* Resources */ = {
@@ -456,6 +500,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		510254221C0A60670045FCD8 /* ReflectionService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 510254321C0A60680045FCD8 /* Build configuration list for PBXNativeTarget "ReflectionService" */;
+			buildPhases = (
+				5102541F1C0A60670045FCD8 /* Sources */,
+				510254201C0A60670045FCD8 /* Frameworks */,
+				510254211C0A60670045FCD8 /* Resources */,
+				510F096F1C0A70DD00F40F2B /* Copy RubyCocoa.framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReflectionService;
+			productName = ReflectionService;
+			productReference = 510254231C0A60670045FCD8 /* ReflectionService.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		51165E1E1A17AFF500DCFC94 /* CocoaPods */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51165E3C1A17AFF500DCFC94 /* Build configuration list for PBXNativeTarget "CocoaPods" */;
@@ -468,12 +530,13 @@
 				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 				7BA6F304307FC11D21E8194E /* Embed Pods Frameworks */,
 				D59CE4AF1077B989CD7145BD /* Copy Pods Resources */,
-				51EA17871BFFF241000DC69A /* Copy RubyCocoa.framework */,
+				5102542E1C0A60680045FCD8 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				51165E501A190F8D00DCFC94 /* PBXTargetDependency */,
+				5102542D1C0A60680045FCD8 /* PBXTargetDependency */,
 			);
 			name = CocoaPods;
 			productName = CocoaPods;
@@ -529,6 +592,10 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
+					510254221C0A60670045FCD8 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 4R4XY9R8JR;
+					};
 					51165E1E1A17AFF500DCFC94 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 4R4XY9R8JR;
@@ -558,11 +625,20 @@
 				51165E1E1A17AFF500DCFC94 /* CocoaPods */,
 				51165E471A17B2D200DCFC94 /* pod */,
 				60F02D181C0A2A6D003600FE /* CocoaPodsTests */,
+				510254221C0A60670045FCD8 /* ReflectionService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		510254211C0A60670045FCD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				510F09711C0A711700F40F2B /* RBObject+CocoaPods.rb in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51165E1D1A17AFF500DCFC94 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,7 +653,6 @@
 				606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */,
 				6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */,
 				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
-				51EA178E1C0147BD000DC69A /* RBObject+CocoaPods.rb in Resources */,
 				1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */,
 				601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
@@ -701,11 +776,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5102541F1C0A60670045FCD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				510F096E1C0A702200F40F2B /* RBObject+CocoaPods.m in Sources */,
+				5102542A1C0A60680045FCD8 /* main.m in Sources */,
+				510254281C0A60680045FCD8 /* CPReflectionService.m in Sources */,
+				510F09731C0A734800F40F2B /* CPRubyErrors.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51165E1B1A17AFF500DCFC94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51EA178C1C00D279000DC69A /* RBObject+CocoaPods.m in Sources */,
+				510F09751C0A73B800F40F2B /* CPRubyErrors.m in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
@@ -750,6 +836,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5102542D1C0A60680045FCD8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 510254221C0A60670045FCD8 /* ReflectionService */;
+			targetProxy = 5102542C1C0A60680045FCD8 /* PBXContainerItemProxy */;
+		};
 		51165E501A190F8D00DCFC94 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 51165E471A17B2D200DCFC94 /* pod */;
@@ -783,6 +874,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		510254301C0A60680045FCD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RubyCocoa/framework/build/Default",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+				);
+				INFOPLIST_FILE = CPReflectionService/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CPReflectionService",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.ReflectionService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		510254311C0A60680045FCD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RubyCocoa/framework/build/Default",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+				);
+				INFOPLIST_FILE = CPReflectionService/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CPReflectionService",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.ReflectionService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		51165E3A1A17AFF500DCFC94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -863,7 +1012,6 @@
 			baseConfigurationReference = 60F02D231C0A2E63003600FE /* Pods-CocoaPods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -876,7 +1024,6 @@
 				);
 				INFOPLIST_FILE = "CocoaPods/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/CocoaPods/Ruby Integration\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -890,7 +1037,6 @@
 			baseConfigurationReference = 60F02D241C0A2E63003600FE /* Pods-CocoaPods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -903,7 +1049,6 @@
 				);
 				INFOPLIST_FILE = "CocoaPods/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/CocoaPods/Ruby Integration\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -971,6 +1116,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		510254321C0A60680045FCD8 /* Build configuration list for PBXNativeTarget "ReflectionService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				510254301C0A60680045FCD8 /* Debug */,
+				510254311C0A60680045FCD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		51165E1A1A17AFF500DCFC94 /* Build configuration list for PBXProject "CocoaPods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
