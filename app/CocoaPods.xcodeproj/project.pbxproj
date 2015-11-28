@@ -56,7 +56,6 @@
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
 		77356D751A2253F1002822CF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77356D741A2253F1002822CF /* Media.xcassets */; };
 		7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */; };
-		819DB6F64DA0396A92897A3C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48BFECFC4C849B1ABEB40B43 /* Pods.framework */; };
 		BCB9AE8AEBBAE1D2D1441F62 /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 995F193B1C17F93F892E6798 /* Pods_CocoaPodsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -193,7 +192,6 @@
 				51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */,
 				51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */,
 				51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */,
-				819DB6F64DA0396A92897A3C /* Pods.framework in Frameworks */,
 				36E0727ACA8A0F02B69350B0 /* Pods_CocoaPods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
