@@ -13,7 +13,7 @@ import Fragaria
 /// and ensure the changes are sent back upstream to the 
 /// CPPodfileViewController's CPUserProject
 
-class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate{
+class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
 
   @IBOutlet var editor: MGSFragariaView!
   var syntaxChecker: CPPodfileSyntaxChecker!
@@ -42,7 +42,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate{
     editor.colourForInstructions = settings.cpBrightMagenta
 
     project.undoManager = editor.textView.undoManager
+    
     syntaxChecker = CPPodfileSyntaxChecker(podfileEditorVC: self, fragariaEditor: editor)
+    syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
   }
 
   func textDidChange(notification: NSNotification) {

@@ -13,7 +13,7 @@
 #import <Fragaria/Fragaria.h>
 #import <Fragaria/SMLSyntaxError.h>
 
-@interface CPPodfileSyntaxChecker() <MGSFragariaTextViewDelegate>
+@interface CPPodfileSyntaxChecker()
 
 @property (weak) MGSFragariaView *editor;
 @property (weak) CPPodfileEditorViewController *editorViewController;
@@ -83,16 +83,10 @@
 static SMLSyntaxError * _Nullable
 SyntaxErrorFromException(NSException * _Nonnull exception)
 {
-  RBObject *rubyException = exception.userInfo[@"$!"];
+  NSString *location = [exception.userInfo[@"backtrace"] firstObject];
 
-  // TODO Pod::DSLError#parse_line_number_from_description is a private method. Make it public?
-  NSArray *result = [rubyException send:@"parse_line_number_from_description"];
-  NSString *location = result.firstObject;
-  if ([location isEqual:[NSNull null]]) {
-    NSLog(@"DSL error has no location info.");
-    return nil;
-  }
-  NSInteger lineNumber = [location componentsSeparatedByString:@":"].lastObject.integerValue;
+  if ([location componentsSeparatedByString:@":"].count < 2) { return nil; }
+  NSInteger lineNumber = [location componentsSeparatedByString:@":"][1].integerValue;
 
   // Example:
   //
@@ -101,8 +95,14 @@ SyntaxErrorFromException(NSException * _Nonnull exception)
   // {source 'https://github.com/artsy/Specs.git'
   //          ^
 
+  RBObject *rubyException = exception.userInfo[@"$!"];
+  NSArray *result = [rubyException send:@"parse_line_number_from_description"];
   NSArray *lines = [result.lastObject componentsSeparatedByString:@"\n"];
-  NSString *description = nil;
+
+  // TODO Pod::DSLError#parse_line_number_from_description is a private method. Make it public?
+
+  VALUE descriptionValue = rb_funcall(rubyException.__rbobj__, rb_intern("description"), 0);
+  NSString *description = @(StringValuePtr(descriptionValue));
 
   if (lines.count > 1) {
     // Skip first line.

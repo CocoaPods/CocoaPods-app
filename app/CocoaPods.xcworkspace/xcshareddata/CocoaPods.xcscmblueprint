@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3D845910D0AC95856864A516D2820DC70D266293",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "55217336D366DC6754F2815D00346A777E51238D" : 0,
+    "3D845910D0AC95856864A516D2820DC70D266293" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "06575097-6CE1-4BE7-8FB4-4F94297B7407",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "55217336D366DC6754F2815D00346A777E51238D" : "CocoaPods-app\/app\/RubyCocoa\/",
+    "3D845910D0AC95856864A516D2820DC70D266293" : "CocoaPods-app"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CocoaPods",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "app\/CocoaPods.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:CocoaPods\/CocoaPods-app.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3D845910D0AC95856864A516D2820DC70D266293"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/alloy\/rubycocoa.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "55217336D366DC6754F2815D00346A777E51238D"
+    }
+  ]
+}
