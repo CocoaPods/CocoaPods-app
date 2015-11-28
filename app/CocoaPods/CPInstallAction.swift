@@ -1,11 +1,3 @@
-//
-//  CPInstallAction.swift
-//  CocoaPods
-//
-//  Created by Orta Therox on 25/11/2015.
-//  Copyright © 2015 CocoaPods. All rights reserved.
-//
-
 import Cocoa
 
 enum InstallActionType {
