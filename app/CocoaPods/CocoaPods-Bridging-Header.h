@@ -4,4 +4,4 @@
 
 #import "CPUserProject.h"
 #import "CPCLITask.h"
-#import "CPPodfileSyntaxChecker.h"
+#import "CPPodfileReflection.h"
