@@ -3,11 +3,15 @@ PODS:
   - Fragaria (1.0.1):
     - Fragaria/unicode (= 1.0.1)
   - Fragaria/unicode (1.0.1)
+  - Nimble (3.0.0)
+  - Quick (0.8.0)
   - Sparkle (1.9.0)
 
 DEPENDENCIES:
   - ANSIEscapeHelper (from `ANSIEscapeHelper.podspec`)
   - Fragaria (from `Fragaria.podspec.json`)
+  - Nimble
+  - Quick
   - Sparkle
 
 EXTERNAL SOURCES:
@@ -24,6 +28,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ANSIEscapeHelper: 1d57a8d7af5b9f9d3d48dcf9bf1726f42ab9b99d
   Fragaria: c2827df37476ae2d627db69ce1403049686f8e0e
+  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   Sparkle: 75bbbc5ab2d666f7f77c241afe7fd28364a8f9f7
 
 COCOAPODS: 0.39.0

@@ -1,19 +1,28 @@
 # coding: utf-8
 platform :osx, '10.9'
+
 use_frameworks!
 
-# TODO inhibiting warnings (when they're not harmful) while working on the application.
+target "CocoaPods" do
 
-# Has 3 warnings about deprecated -[NSImage setFlipped:] API
-pod 'Fragaria', :podspec => 'Fragaria.podspec.json', :inhibit_warnings => true
-# Has 6 warnings about integer precision loss.
-pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec', :inhibit_warnings => true
+  # TODO inhibiting warnings (when they're not harmful) while working on the application.
 
-pod 'Sparkle'
+  # Has 3 warnings about deprecated -[NSImage setFlipped:] API
+  pod 'Fragaria', :podspec => 'Fragaria.podspec.json', :inhibit_warnings => true
+  # Has 6 warnings about integer precision loss.
+  pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec', :inhibit_warnings => true
+  pod 'Sparkle'
+end
+
+target "CocoaPodsTests" do
+  pod 'Quick'
+  pod 'Nimble'
+end
 
 post_install do |installer|
   # We don't need all of Fragaria's syntax definitions.
   script = installer.aggregate_targets.first.copy_resources_script_path
+  script = Pathname.new(script.to_s.gsub("Files/Pods/Pods-resources.sh", "Files/Pods-CocoaPods/Pods-CocoaPods-resources.sh"))
   content = script.read
   content = content.gsub('install_resource "Fragaria/Syntax Definitions"', '')
   content = content.gsub('install_resource "Fragaria/SyntaxDefinitions.plist"', '')
