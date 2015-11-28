@@ -1,11 +1,3 @@
-//
-//  CPANSIEscapeHelper.m
-//  CocoaPods
-//
-//  Created by Michael Vilabrera on 9/5/15.
-//  Copyright (c) 2015 CocoaPods. All rights reserved.
-//
-
 #import "CPANSIEscapeHelper.h"
 #import "CocoaPods-Swift.h"
 
