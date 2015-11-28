@@ -10,7 +10,6 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
 
     let settings = CPFontAndColourGateKeeper()
     textView.font = settings.defaultFont;
-    //textView.editable = false
   }
 
   func textView(textView: NSTextView, willChangeSelectionFromCharacterRanges oldSelectedCharRanges: [NSValue], toCharacterRanges newSelectedCharRanges: [NSValue]) -> [NSValue] {
