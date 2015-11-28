@@ -3,11 +3,14 @@ import Cocoa
 class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
   @IBOutlet var textView: NSTextView!
 
+  dynamic var editable = false
+    
   override func viewDidLoad() {
     super.viewDidLoad()
 
     let settings = CPFontAndColourGateKeeper()
     textView.font = settings.defaultFont;
+    //textView.editable = false
   }
 
   func textView(textView: NSTextView, willChangeSelectionFromCharacterRanges oldSelectedCharRanges: [NSValue], toCharacterRanges newSelectedCharRanges: [NSValue]) -> [NSValue] {
