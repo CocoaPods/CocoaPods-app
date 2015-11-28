@@ -97,7 +97,7 @@ GIT_VERSION = '2.6.2'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
 SCONS_VERSION = '2.3.4'
-SCONS_URL = "http://prdownloads.sourceforge.net/scons/scons-local-#{SCONS_VERSION}.tar.gz"
+SCONS_URL = "https://bitbucket.org/scons/scons/get/#{SCONS_VERSION}.tar.gz"
 
 SERF_VERSION = '1.3.8'
 SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-#{SERF_VERSION}.tar.bz2"
@@ -289,9 +289,8 @@ scons_build_dir = File.join(WORKBENCH_DIR, File.basename(SCONS_URL, '.tar.gz'))
 directory scons_build_dir => [scons_tarball, WORKBENCH_DIR] do
   mkdir_p scons_build_dir
   sh "tar -zxvf #{scons_tarball} -C #{scons_build_dir}"
+  File.chmod(0777, File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
 end
-
-scons_bin = File.expand_path(File.join(scons_build_dir, 'scons.py'))
 
 # ------------------------------------------------------------------------------
 # SERF
@@ -310,6 +309,7 @@ end
 serf_static_lib = File.join(serf_build_dir, 'libserf-1.a')
 file serf_static_lib => [installed_pkg_config, installed_openssl, installed_zlib, scons_build_dir, serf_build_dir] do
   xcode_sdk_root = `/usr/bin/xcrun --show-sdk-path`.chomp
+  scons_bin = File.expand_path(File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
   sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}' CPPFLAGS='-I#{xcode_sdk_root}/usr/include/apr-1'"
   # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
   # required when linking libssl, otherwise svn will fail to build with our
@@ -325,6 +325,7 @@ end
 
 installed_serf = File.join(DEPENDENCIES_DESTROOT, 'lib/libserf-1.a')
 file installed_serf => serf_static_lib do
+  scons_bin = File.expand_path(File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
   sh "cd #{serf_build_dir} && #{scons_bin} install"
   sh "rm #{File.join(DEPENDENCIES_DESTROOT, 'lib', '*.dylib')}"
 end
