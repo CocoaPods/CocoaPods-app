@@ -7,20 +7,20 @@
 //
 
 #import "RBObject+CocoaPods.h"
-#import "CPPodfileSyntaxChecker.h"
+#import "CPPodfileReflection.h"
 #import "CocoaPods-Swift.h"
 
 #import <Fragaria/Fragaria.h>
 #import <Fragaria/SMLSyntaxError.h>
 
-@interface CPPodfileSyntaxChecker()
+@interface CPPodfileReflection()
 
 @property (weak) MGSFragariaView *editor;
 @property (weak) CPPodfileEditorViewController *editorViewController;
 
 @end
 
-@implementation CPPodfileSyntaxChecker
+@implementation CPPodfileReflection
 
 - (instancetype)initWithPodfileEditorVC:(CPPodfileEditorViewController *)editor fragariaEditor:(MGSFragariaView *)fragaria
 {

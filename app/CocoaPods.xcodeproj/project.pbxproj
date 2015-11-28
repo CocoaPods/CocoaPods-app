@@ -40,7 +40,7 @@
 		605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */; };
 		605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605119221C08F02D0037B95E /* CPBrownVisualEffectsView.swift */; };
 		605119251C08F5880037B95E /* CPFontAndColourGateKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */; };
-		605119281C0909420037B95E /* CPPodfileSyntaxChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 605119271C0909420037B95E /* CPPodfileSyntaxChecker.m */; };
+		605119281C0909420037B95E /* CPPodfileReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 605119271C0909420037B95E /* CPPodfileReflection.m */; };
 		606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */; };
 		606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */; };
@@ -144,8 +144,8 @@
 		6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPReturnTriggeringTableView.swift; sourceTree = "<group>"; };
 		605119221C08F02D0037B95E /* CPBrownVisualEffectsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPBrownVisualEffectsView.swift; sourceTree = "<group>"; };
 		605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPFontAndColourGateKeeper.swift; sourceTree = "<group>"; };
-		605119261C0909420037B95E /* CPPodfileSyntaxChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPodfileSyntaxChecker.h; sourceTree = "<group>"; };
-		605119271C0909420037B95E /* CPPodfileSyntaxChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPodfileSyntaxChecker.m; sourceTree = "<group>"; };
+		605119261C0909420037B95E /* CPPodfileReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPodfileReflection.h; sourceTree = "<group>"; };
+		605119271C0909420037B95E /* CPPodfileReflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPodfileReflection.m; sourceTree = "<group>"; };
 		606D1ED11BF90705000B7148 /* Podfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Podfile.storyboard; sourceTree = "<group>"; };
 		606D1ED31BF91040000B7148 /* CocoaPods-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaPods-Bridging-Header.h"; sourceTree = "<group>"; };
 		606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileEditorViewController.swift; sourceTree = "<group>"; };
@@ -323,8 +323,8 @@
 				6075BA661C06963700A5C491 /* CPInstallAction.swift */,
 				604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */,
 				6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */,
-				605119261C0909420037B95E /* CPPodfileSyntaxChecker.h */,
-				605119271C0909420037B95E /* CPPodfileSyntaxChecker.m */,
+				605119261C0909420037B95E /* CPPodfileReflection.h */,
+				605119271C0909420037B95E /* CPPodfileReflection.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -586,7 +586,7 @@
 			files = (
 				51EA178C1C00D279000DC69A /* RBObject+CocoaPods.m in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
-				605119281C0909420037B95E /* CPPodfileSyntaxChecker.m in Sources */,
+				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
 				606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */,
 				605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */,

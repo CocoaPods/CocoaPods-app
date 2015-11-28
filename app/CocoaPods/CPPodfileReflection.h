@@ -10,11 +10,7 @@
 
 @class MGSFragariaView, CPPodfileEditorViewController;
 
-/// Handles keeping on top of the syntax for the Podfile
-/// at runtime. Note: Comes with a side-effect of setting the
-/// plugins array on the
-
-@interface CPPodfileSyntaxChecker : NSObject <NSTextViewDelegate>
+@interface CPPodfileReflection : NSObject <NSTextViewDelegate>
 
 - (instancetype)initWithPodfileEditorVC:(CPPodfileEditorViewController *)editor fragariaEditor:(MGSFragariaView *)fragaria;
 
