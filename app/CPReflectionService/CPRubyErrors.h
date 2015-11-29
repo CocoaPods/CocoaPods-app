@@ -10,3 +10,4 @@ typedef NS_ENUM(NSInteger, CPErrorDomainCode) {
   CPStandardError,    // These are runtime errors
   CPNonRubyError      // These are errors on the Objective-C side of the bridge
 };
+
