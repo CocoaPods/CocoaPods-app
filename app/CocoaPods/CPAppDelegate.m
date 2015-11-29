@@ -37,6 +37,11 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   [self.reflectionService resume];
 }
 
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
+{
+  return NO;
+}
+
 - (void)applicationWillBecomeActive:(NSNotification *)notification
 {
   // Show the home window when there's no active Podfile edits going on

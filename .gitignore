@@ -13,3 +13,4 @@ DerivedData
 *.xccheckout
 
 *.*-e
+app/CocoaPods/Ruby Integration/

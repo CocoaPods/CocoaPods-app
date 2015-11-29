@@ -18,12 +18,8 @@
 
 @implementation CPUserProject
 
-- (void)makeWindowControllers {
-  if (self.fileURL == nil) {
-    NSLog(@"HRM?");
-    return;
-  }
-
+- (void)makeWindowControllers
+{
   self.storyboard = [NSStoryboard storyboardWithName:@"Podfile" bundle:nil];
 
   NSWindowController *windowController = [self.storyboard instantiateControllerWithIdentifier:@"Podfile Editor"];
@@ -31,7 +27,6 @@
   podfileVC.userProject = self;
 
   [self addWindowController:windowController];
-
 }
 
 
