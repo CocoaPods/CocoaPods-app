@@ -7,4 +7,3 @@
                  withReply:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable plugins, NSError * _Nullable error))reply;
 
 @end
-
