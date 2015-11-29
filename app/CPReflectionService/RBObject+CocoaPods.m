@@ -80,6 +80,8 @@ CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable mess
     code = CPNonRubyError;
     exceptionName = exception.name;
     description = exception.reason;
+    rubyBacktrace = @[];
+    message = @"";
   }
 
   NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: description,
