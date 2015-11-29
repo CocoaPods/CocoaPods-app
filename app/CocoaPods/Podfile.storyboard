@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -645,7 +645,7 @@
                     </connections>
                 </application>
             </objects>
-            <point key="canvasLocation" x="-678" y="-1377"/>
+            <point key="canvasLocation" x="-118" y="-1793"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -653,9 +653,9 @@
                 <windowController storyboardIdentifier="Podfile Editor" id="jGA-0Y-lOj" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv" customClass="CPModifiedDecorationsWindow" customModule="CocoaPods" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
-                        <rect key="contentRect" x="550" y="405" width="586" height="270"/>
+                        <rect key="contentRect" x="550" y="405" width="586" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="586" height="700"/>
+                        <value key="minSize" type="size" width="586" height="600"/>
                         <toolbar key="toolbar" implicitIdentifier="BC29192A-C84E-4096-9C9F-CA53E7B26D82" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="EP4-CE-9QT">
                             <allowedToolbarItems/>
                             <defaultToolbarItems/>
@@ -667,7 +667,7 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-40" y="-1253"/>
+            <point key="canvasLocation" x="-40" y="-1361"/>
         </scene>
         <!--Podfile View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -809,7 +809,7 @@
                     </tabViewItems>
                     <viewControllerTransitionOptions key="transitionOptions" crossfade="YES"/>
                     <tabView key="tabView" id="qHT-LQ-YPj">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="313"/>
+                        <rect key="frame" x="0.0" y="-377" width="450" height="690"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <font key="font" metaFont="message"/>
@@ -823,7 +823,7 @@
                 </tabViewController>
                 <customObject id="SYV-9c-xfk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="-332"/>
+            <point key="canvasLocation" x="707" y="-527"/>
         </scene>
         <!--Project Information-->
         <scene sceneID="MYC-t2-O4B">
