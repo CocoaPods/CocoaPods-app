@@ -5,7 +5,7 @@ destroot
 tmp
 bundle.tar.gz
 cocoapods-plugins-install/*.gem
-app/CocoaPods/Ruby\ Integration/libruby+exts.a
+app/CPReflectionService/libruby+exts.a
 .github_access_token
 
 DerivedData

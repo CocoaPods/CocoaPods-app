@@ -1,4 +1,6 @@
 #import "RBObject+CocoaPods.h"
+#import "CPRubyErrors.h"
+
 #import <RubyCocoa/RBRuntime.h>
 #import <AppKit/NSAlert.h>
 
@@ -47,40 +49,45 @@ CPRubyInit(Class bundleClass)
 
 #pragma mark - Errors
 
-NSString *const CPErrorDomain = @"org.cocoapods.app.ErrorDomain";
-NSString *const CPErrorRubyBacktrace = @"backtrace";
-NSString *const CPErrorObjCBacktrace = @"objc-backtrace";
-
-static NSError *
-CPErrorFromException(NSException * _Nonnull exception)
+NSError * _Nonnull
+CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable message)
 {
-  CPErrorDomainCode code = -1;
-  NSString *description  = nil;
-  NSString *suggestion   = nil;
-  NSArray *rubyBacktrace = nil;
+  CPErrorDomainCode code  = -1;
+  NSString *exceptionName = nil;
+  NSString *description   = nil;
+  NSArray *rubyBacktrace  = nil;
 
   if ([exception.name hasPrefix:@"RBException_"]) {
+    VALUE rb_exception = [exception.userInfo[@"$!"] __rbobj__];
+
+    VALUE exceptionNameValue = rb_class_name(rb_obj_class(rb_exception));
+    exceptionName = @(StringValuePtr(exceptionNameValue));
     description = @"Uncaught Ruby exception.";
     rubyBacktrace = exception.userInfo[CPErrorRubyBacktrace];
 
-    VALUE rb_exception = [exception.userInfo[@"$!"] __rbobj__];
-    if (rb_obj_is_kind_of(rb_exception, rb_cPodInformativeError)) {
-      code = CPInformativeError;
-    } else {
-      code = CPStandardError;
+    if (message == nil) {
+      if (rb_obj_is_kind_of(rb_exception, rb_cPodInformativeError)) {
+        code = CPInformativeError;
+      } else {
+        code = CPStandardError;
+      }
+      VALUE messageValue = rb_funcall(rb_exception, rb_intern("message"), 0);
+      messageValue = rb_funcall(messageValue, rb_intern("strip"), 0);
+      message = @(StringValuePtr(messageValue));
     }
-    VALUE message = rb_funcall(rb_exception, rb_intern("message"), 0);
-    message = rb_funcall(message, rb_intern("strip"), 0);
-    suggestion = @(StringValuePtr(message));
 
   } else {
     code = CPNonRubyError;
+    exceptionName = exception.name;
     description = exception.reason;
+    rubyBacktrace = @[];
+    message = @"";
   }
 
   NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: description,
-                  NSLocalizedRecoverySuggestionErrorKey: suggestion,
+                  NSLocalizedRecoverySuggestionErrorKey: message,
                                    CPErrorRubyBacktrace: rubyBacktrace,
+                                            CPErrorName: exceptionName,
                                    CPErrorObjCBacktrace: exception.callStackSymbols };
 
   return [NSError errorWithDomain:CPErrorDomain
@@ -126,7 +133,7 @@ CPLogError(NSError * _Nonnull error)
         @catch (NSException *exception) {
           NSAssert(NO, @"Serious error, this shouldn’t be reached.");
 
-          NSError *error = CPErrorFromException(exception);
+          NSError *error = CPErrorFromException(exception, nil);
           CPLogError(error);
           // Show uncaught exceptions modal over the app.
           dispatch_async(dispatch_get_main_queue(), ^{
@@ -156,7 +163,7 @@ CPLogError(NSError * _Nonnull error)
       taskBlock();
     }
     @catch (NSException *exception) {
-      NSError *error = CPErrorFromException(exception);
+      NSError *error = CPErrorFromException(exception, nil);
       CPLogError(error);
       errorBlock(error);
     }

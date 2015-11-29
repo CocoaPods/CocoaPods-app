@@ -1,11 +1,13 @@
 #import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
 #import "CPHomeWindowController.h"
+#import "CPReflectionServiceProtocol.h"
 
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPAppDelegate ()
 @property (strong) CPHomeWindowController *homeWindowController;
+@property (strong) NSXPCConnection *reflectionService;
 @end
 
 @implementation CPAppDelegate
@@ -21,7 +23,18 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   //NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 #endif
 
+  [self startReflectionService];
+
   [[self CLIToolInstallationController] installBinstubIfNecessary];
+}
+
+- (void)startReflectionService;
+{
+  self.reflectionService = [[NSXPCConnection alloc] initWithServiceName:@"org.cocoapods.ReflectionService"];
+  self.reflectionService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(CPReflectionServiceProtocol)];
+  self.reflectionService.invalidationHandler = ^{ NSLog(@"ReflectionService invalidated."); };
+  self.reflectionService.interruptionHandler = ^{ NSLog(@"ReflectionService interrupted."); };
+  [self.reflectionService resume];
 }
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification
