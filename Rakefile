@@ -355,7 +355,7 @@ file installed_ruby => ruby_static_lib do
   sh "cd #{ruby_build_dir} && make install"
 end
 
-installed_ruby_static_lib = File.join('app', 'CocoaPods', 'CPReflectionService', 'libruby+exts.a')
+installed_ruby_static_lib = File.join('app', 'CPReflectionService', 'libruby+exts.a')
 file installed_ruby_static_lib => ruby_static_lib do
   cp ruby_static_lib, installed_ruby_static_lib
   %w{ bigdecimal date/date_core.a pathname stringio }.each do |ext|
