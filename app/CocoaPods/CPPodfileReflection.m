@@ -31,7 +31,7 @@
 - (void)textDidChange:(NSNotification *)notification;
 {
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(parsePodfile) object:nil];
-  [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:1];
+  [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.5];
 }
 
 - (void)parsePodfile;
