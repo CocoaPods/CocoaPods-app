@@ -30,9 +30,11 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 - (void)startReflectionService;
 {
-   self.reflectionService = [[NSXPCConnection alloc] initWithServiceName:@"org.cocoapods.ReflectionService"];
-   self.reflectionService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(CPReflectionServiceProtocol)];
-   [self.reflectionService resume];
+  self.reflectionService = [[NSXPCConnection alloc] initWithServiceName:@"org.cocoapods.ReflectionService"];
+  self.reflectionService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(CPReflectionServiceProtocol)];
+  self.reflectionService.invalidationHandler = ^{ NSLog(@"ReflectionService invalidated."); };
+  self.reflectionService.interruptionHandler = ^{ NSLog(@"ReflectionService interrupted."); };
+  [self.reflectionService resume];
 }
 
 - (void)applicationWillBecomeActive:(NSNotification *)notification
