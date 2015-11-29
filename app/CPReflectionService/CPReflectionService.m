@@ -32,8 +32,9 @@
       NSString *description = [@(StringValuePtr(descriptionValue)) substringFromIndex:24];
       NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
       description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
-      
-      reply(nil, CPErrorFromException(exception, description));
+
+      NSError *error = CPErrorFromException(exception, description);
+      reply(nil, error);
     }
     
   } error:^(NSError * _Nonnull error) {
