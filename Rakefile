@@ -682,6 +682,11 @@ namespace :bundle do
     sh "cd #{test_dir} && #{File.expand_path(installed_env_script)} pod install --no-integrate --verbose"
   end
 
+  desc "Ensure Submodules are downloaded"
+  task :submodules do
+    sh "git submodule update --init --recursive"
+  end
+
   desc "Build complete dist bundle"
   task :build => [:build_tools, :remove_unneeded_files] do
     puts
@@ -737,7 +742,7 @@ namespace :app do
   end
 
   desc 'Prepare all prerequisites for building the app'
-  task :prerequisites => ['bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
+  task :prerequisites => [:submodules, 'bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
 
   desc 'Build release version of application'
   task :build => :prerequisites do
