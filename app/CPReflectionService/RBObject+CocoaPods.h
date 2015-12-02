@@ -22,6 +22,11 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (id _Nullable)send:(NSString * _Nonnull)methodName;
 @end
 
+@interface RBException : RBObject
+- (RBException * _Nonnull)cause;
+- (NSString * _Nonnull)message;
+@end
+
 @interface RBPathname : RBObject
 @end
 
