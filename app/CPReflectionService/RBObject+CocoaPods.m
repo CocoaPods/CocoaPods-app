@@ -52,18 +52,27 @@ CPRubyInit(Class bundleClass)
 NSError * _Nonnull
 CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable message)
 {
-  CPErrorDomainCode code  = -1;
-  NSString *exceptionName = nil;
-  NSString *description   = nil;
-  NSArray *rubyBacktrace  = nil;
+  CPErrorDomainCode code = -1;
+
+  NSMutableDictionary *userInfo = [NSMutableDictionary new];
+  userInfo[CPErrorObjCBacktrace] = exception.callStackSymbols;
+  if (message) {
+    userInfo[NSLocalizedRecoverySuggestionErrorKey] = message;
+  }
 
   if ([exception.name hasPrefix:@"RBException_"]) {
     VALUE rb_exception = [exception.userInfo[@"$!"] __rbobj__];
 
     VALUE exceptionNameValue = rb_class_name(rb_obj_class(rb_exception));
-    exceptionName = @(StringValuePtr(exceptionNameValue));
-    description = @"Uncaught Ruby exception.";
-    rubyBacktrace = exception.userInfo[CPErrorRubyBacktrace];
+    userInfo[CPErrorName] = @(StringValuePtr(exceptionNameValue));
+    VALUE rb_cause = rb_funcall(rb_exception, rb_intern("cause"), 0);
+    if (rb_cause != Qnil) {
+      exceptionNameValue = rb_class_name(rb_obj_class(rb_cause));
+      userInfo[CPErrorCauseName] = @(StringValuePtr(exceptionNameValue));
+    }
+
+    userInfo[NSLocalizedDescriptionKey] = @"Uncaught Ruby exception.";
+    userInfo[CPErrorRubyBacktrace] = exception.userInfo[CPErrorRubyBacktrace];
 
     if (message == nil) {
       if (rb_obj_is_kind_of(rb_exception, rb_cPodInformativeError)) {
@@ -73,22 +82,14 @@ CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable mess
       }
       VALUE messageValue = rb_funcall(rb_exception, rb_intern("message"), 0);
       messageValue = rb_funcall(messageValue, rb_intern("strip"), 0);
-      message = @(StringValuePtr(messageValue));
+      userInfo[NSLocalizedRecoverySuggestionErrorKey] = @(StringValuePtr(messageValue));
     }
 
   } else {
     code = CPNonRubyError;
-    exceptionName = exception.name;
-    description = exception.reason;
-    rubyBacktrace = @[];
-    message = @"";
+    userInfo[CPErrorName] = exception.name;
+    userInfo[NSLocalizedDescriptionKey] = exception.reason;
   }
-
-  NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: description,
-                  NSLocalizedRecoverySuggestionErrorKey: message,
-                                   CPErrorRubyBacktrace: rubyBacktrace,
-                                            CPErrorName: exceptionName,
-                                   CPErrorObjCBacktrace: exception.callStackSymbols };
 
   return [NSError errorWithDomain:CPErrorDomain
                              code:code
@@ -257,6 +258,16 @@ SwizzleMethods(SEL original, SEL swizzled)
 + (void)performBlockAndWait:(RBObjectTaskBlock _Nonnull)taskBlock error:(RBObjectErrorBlock _Nonnull)errorBlock;
 {
   [RBThreadInstance performTask:@[taskBlock, errorBlock] waitUntilDone:YES];
+}
+
+#pragma mark - Debug
+
+// Currently RBObject already respond to -description and just returns that of the proxy.
+// TODO Move this upstream?
+- (NSString *)description;
+{
+  VALUE description = rb_funcall(self.__rbobj__, rb_intern("inspect"), 0);
+  return [NSString stringWithFormat:@"<RBObject (%p): %s>", self, StringValuePtr(description)];
 }
 
 @end

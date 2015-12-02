@@ -65,11 +65,34 @@
 static SMLSyntaxError * _Nullable
 SyntaxErrorFromError(NSError * _Nonnull error)
 {
-  NSString *location = [error.userInfo[CPErrorRubyBacktrace] firstObject];
-  if ([location componentsSeparatedByString:@":"].count < 2) { return nil; }
-  NSInteger lineNumber = [location componentsSeparatedByString:@":"][1].integerValue;
+  NSInteger lineNumber = -1;
+  NSString *description = error.localizedRecoverySuggestion;
 
-  return [SMLSyntaxError errorWithDescription:error.localizedRecoverySuggestion
+  NSString *causeName = error.userInfo[CPErrorCauseName];
+  if (causeName && [causeName isEqualToString:@"SyntaxError"]) {
+    // Example:
+    //
+    // Podfile:32: syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
+    //  target 'Artsy' do
+    //          ^
+    // Podfile:32: syntax error, unexpected keyword_do, expecting end-of-input
+    NSScanner *scanner = [NSScanner scannerWithString:description];
+    // For some reason, this message is sometimes preceded by "Pod::DSLError\n"
+    [scanner scanUpToString:@"Podfile" intoString:NULL];
+    [scanner scanString:@"Podfile:" intoString:NULL];
+    [scanner scanInteger:&lineNumber];
+    [scanner scanString:@": " intoString:NULL];
+    description = [description substringFromIndex:scanner.scanLocation];
+  } else {
+    NSString *location = [error.userInfo[CPErrorRubyBacktrace] firstObject];
+    if ([location componentsSeparatedByString:@":"].count < 2) { return nil; }
+    lineNumber = [location componentsSeparatedByString:@":"][1].integerValue;
+  }
+
+  NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
+  description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
+
+  return [SMLSyntaxError errorWithDescription:description
                                       ofLevel:kMGSErrorCategoryError
                                        atLine:lineNumber];
 }

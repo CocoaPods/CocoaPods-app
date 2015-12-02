@@ -21,19 +21,9 @@
       if (![exception.reason isEqualToString:@"Pod::DSLError"]) {
         @throw;
       }
-
-      // TODO: have CocoaPods-Core keep the error message around
-      //       https://cocoapods.slack.com/archives/cocoapods-app/p1448669896000284
-      RBObject *rubyException = exception.userInfo[@"$!"];
-      // TODO -[RBObject description] returns the description of the proxy.
-      VALUE descriptionValue = rb_funcall(rubyException.__rbobj__, rb_intern("description"), 0);
-      // Example:
-      //     Invalid `Podfile` file: undefined local variable or method `s' for #<Pod::Podfile:0x0000010331f390>
-      NSString *description = [@(StringValuePtr(descriptionValue)) substringFromIndex:24];
-      NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
-      description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
-
-      NSError *error = CPErrorFromException(exception, description);
+      RBException *rubyException = exception.userInfo[@"$!"];
+      RBException *cause = rubyException.cause;
+      NSError *error = CPErrorFromException(exception, cause.message);
       reply(nil, error);
     }
     
