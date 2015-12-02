@@ -24,7 +24,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 #endif
 
   [self startReflectionService];
-
+  [self detectInstalledPlugins];
   [[self CLIToolInstallationController] installBinstubIfNecessary];
 }
 
@@ -35,6 +35,13 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   self.reflectionService.invalidationHandler = ^{ NSLog(@"ReflectionService invalidated."); };
   self.reflectionService.interruptionHandler = ^{ NSLog(@"ReflectionService interrupted."); };
   [self.reflectionService resume];
+}
+
+- (void)detectInstalledPlugins
+{
+  [self.reflectionService.remoteObjectProxy installedPlugins:^(NSArray<NSString *> * _Nonnull plugins, NSError * _Nullable error) {
+
+  }];
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender

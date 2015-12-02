@@ -29,3 +29,7 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 + (instancetype _Nonnull)from_ruby:(RBPathname * _Nonnull)path :(NSString * _Nullable)contents;
 - (NSDictionary<NSString *, NSDictionary *> * _Nonnull)plugins;
 @end
+
+@interface RBArray : RBObject
+@end
+

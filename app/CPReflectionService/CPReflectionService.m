@@ -42,4 +42,19 @@
   }];
 }
 
+- (void)installedPlugins:(void (^ _Nonnull)(NSArray<NSString *> * _Nonnull plugins, NSError * _Nullable error))reply;
+{
+  [RBObject performBlock:^{
+    /// Get:
+    /// Command::PluginManager.specifications
+    /// + Map to string names
+
+    RBArray *array = RBObjectFromString(@"[]");
+    reply(array, nil);
+
+  } error:^(NSError * _Nonnull error) {
+    reply(@[], error);
+  }];
+}
+
 @end
