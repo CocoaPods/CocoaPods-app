@@ -11,16 +11,18 @@ module Pod
           Install a CocoaPods plugin into the current CocoaPods.app bundle.
         DESC
 
-        self.arguments = [CLAide::Argument.new('NAME', true)]
+        self.arguments = [
+          CLAide::Argument.new('NAME', true, true),
+        ]
 
         def initialize(argv)
-          @name = argv.shift_argument.strip
+          @names = argv.remainder!.map(&:strip)
           super
         end
 
         def validate!
           super
-          help! "A CocoaPods plugin name is required." unless @name
+          help! "A CocoaPods plugin name is required." if @names.empty?
 
           require 'rubygems/defaults'
           unless File.writable?(Gem.default_dir)
@@ -34,7 +36,8 @@ module Pod
         executable :gem
 
         def run
-          UI.section "Installing plugin: #{@name}" do
+          require 'active_support/core_ext/array'
+          UI.section "Installing plugins: #{@names.to_sentence}" do
             gem! "install", "--no-document", "--env-shebang", "--file", temp_gemfile
             record_plugin_installation
           end
@@ -46,7 +49,7 @@ module Pod
           unless @temp_gemfile
             require 'cocoapods/gem_version'
             require 'tempfile'
-            Tempfile.open("cocoapods-plugins-install-#{@name}") do |gemfile|
+            Tempfile.open("cocoapods-plugins-install-#{@names.join('-')}") do |gemfile|
               gemfile.puts "source 'https://rubygems.org'"
               gemfile.puts "gem 'cocoapods', '#{Pod::VERSION}'"
               unless dev_tools_installed?
@@ -54,7 +57,9 @@ module Pod
                   gemfile.puts "gem '#{gem.name}', '#{gem.version}'"
                 end
               end
-              gemfile.puts "gem '#{@name}'"
+              @names.each do |name|
+                gemfile.puts "gem '#{name}'"
+              end
               @temp_gemfile = gemfile.path
             end
           end
@@ -67,7 +72,7 @@ module Pod
           share_dir = RbConfig::CONFIG['datadir']
           path = File.join(share_dir, 'cocoapods-plugins.yml')
           manifest = File.exist?(path) ? YAML.load_file(path) : []
-          manifest << @name
+          manifest.unshift(*@names)
           manifest.uniq!
           manifest.sort!
           File.write(path, manifest.to_yaml)
