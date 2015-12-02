@@ -688,7 +688,7 @@ namespace :bundle do
   end
 
   desc "Build complete dist bundle"
-  task :build => [:submodules, :build_tools, :remove_unneeded_files] do
+  task :build => [:build_tools, :remove_unneeded_files] do
     puts
     puts "Finished building bundle in #{Time.now - $build_started_at} seconds"
     puts
@@ -742,7 +742,7 @@ namespace :app do
   end
 
   desc 'Prepare all prerequisites for building the app'
-  task :prerequisites => ['bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
+  task :prerequisites => [:submodules, 'bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
 
   desc 'Build release version of application'
   task :build => :prerequisites do
