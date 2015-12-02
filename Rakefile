@@ -682,8 +682,13 @@ namespace :bundle do
     sh "cd #{test_dir} && #{File.expand_path(installed_env_script)} pod install --no-integrate --verbose"
   end
 
+  desc "Ensure Submodules are downloaded"
+  task :submodules do
+    sh "git submodule update --init --recursive"
+  end
+
   desc "Build complete dist bundle"
-  task :build => [:build_tools, :remove_unneeded_files] do
+  task :build => [:submodules, :build_tools, :remove_unneeded_files] do
     puts
     puts "Finished building bundle in #{Time.now - $build_started_at} seconds"
     puts
