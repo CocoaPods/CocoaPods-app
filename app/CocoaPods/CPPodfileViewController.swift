@@ -14,7 +14,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
-  let pluginCoordinator:CPPodfilePluginCoordinator = CPPodfilePluginCoordinator()
+  var pluginCoordinator:CPPodfilePluginCoordinator!
 
   override func viewWillAppear() {
 
@@ -31,6 +31,8 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     documentIcon.frame = documentIcon.bounds
     documentIconContainer.addSubview(documentIcon)
     hideWarningLabel(false)
+
+    pluginCoordinator = CPPodfilePluginCoordinator(controller: self)
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
   }
 

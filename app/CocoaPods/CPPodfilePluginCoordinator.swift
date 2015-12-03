@@ -2,6 +2,12 @@ import Cocoa
 
 class CPPodfilePluginCoordinator: NSObject {
 
+  init(controller:CPPodfileViewController) {
+    self.controller = controller
+  }
+
+  var controller: CPPodfileViewController
+
   func comparePluginsWithinUserProject(project: CPUserProject) {
     guard let reflection = NSApp.delegate as? CPAppDelegate else {
       return NSLog("App delegate not CPAppDelegate")
@@ -34,6 +40,11 @@ class CPPodfilePluginCoordinator: NSObject {
 
       // install
       NSLog("Install!")
+      dispatch_async(dispatch_get_main_queue()) {
+        self.controller.showWarningLabelWithSender("You need to install some plugins", target: self, action: "install", animated:true)
+
+      }
+
     }
 
   }
