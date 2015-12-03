@@ -15,7 +15,14 @@ static RBThread *RBThreadInstance = nil;
 static ID ID_to_ruby = 0;
 static VALUE rb_cPodInformativeError = Qnil;
 
-static BOOL
+
+// Defined in RBObject+CocoaPods.rb
+@interface RBApp : RBObject
+- (id)require_gems;
+@end
+
+
+static void
 CPRubyInit(Class bundleClass)
 {
   NSCAssert([NSThread currentThread] == (NSThread *)RBThreadInstance, @"Should only be called from the Ruby thread.");
@@ -36,14 +43,12 @@ CPRubyInit(Class bundleClass)
   PROVIDE_EXT(stringio);
 
   // Now we can load RubyGems and the gems we need.
-  int error = 0;
-  rb_eval_string_protect("require 'rubygems'; require 'cocoapods-core'", &error);
-  NSCAssert(!error, @"Failed to load gems");
+  RBApp *app = RBObjectFromString(@"Pod::App");
+  NSCParameterAssert(app);
+  [app require_gems];
 
   ID_to_ruby = rb_intern("to_ruby");
   rb_cPodInformativeError = rb_const_get(rb_const_get(rb_cObject, rb_intern("Pod")), rb_intern("Informative"));
-
-  return error == 0;
 }
 
 
@@ -122,25 +127,24 @@ CPLogError(NSError * _Nonnull error)
 
 - (void)main;
 {
-  if (CPRubyInit(self.class)) {
-    while (1) {
-      // There is really no reason for this to be reached, but let’s just be safe.
-      //
-      // Ensure that the pool gets drained, if an uncaught exception occurs.
-      @autoreleasepool {
-        @try {
-          [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
-        }
-        @catch (NSException *exception) {
-          NSAssert(NO, @"Serious error, this shouldn’t be reached.");
+  CPRubyInit(self.class);
+  while (1) {
+    // There is really no reason for this to be reached, but let’s just be safe.
+    //
+    // Ensure that the pool gets drained, if an uncaught exception occurs.
+    @autoreleasepool {
+      @try {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
+      }
+      @catch (NSException *exception) {
+        NSAssert(NO, @"Serious error, this shouldn’t be reached.");
 
-          NSError *error = CPErrorFromException(exception, nil);
-          CPLogError(error);
-          // Show uncaught exceptions modal over the app.
-          dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSAlert alertWithError:error] runModal];
-          });
-        }
+        NSError *error = CPErrorFromException(exception, nil);
+        CPLogError(error);
+        // Show uncaught exceptions modal over the app.
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSAlert alertWithError:error] runModal];
+        });
       }
     }
   }
