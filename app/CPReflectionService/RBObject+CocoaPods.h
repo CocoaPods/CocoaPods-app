@@ -34,3 +34,14 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 + (instancetype _Nonnull)from_ruby:(RBPathname * _Nonnull)path :(NSString * _Nullable)contents;
 - (NSDictionary<NSString *, NSDictionary *> * _Nonnull)plugins;
 @end
+
+@interface RBGemSpecification : RBObject
+- (NSString * _Nonnull)name;
+@end
+
+@interface RBPluginManager : RBObject
+// TODO This has been changed in CLAide master and should be updated on the next release!
+// https://github.com/CocoaPods/CLAide/pull/54
+- (NSArray<NSString *> * _Nonnull)plugin_load_paths:(NSString * _Nonnull)prefix;
+- (RBGemSpecification * _Nonnull)specification:(NSString * _Nonnull)pluginPath;
+@end

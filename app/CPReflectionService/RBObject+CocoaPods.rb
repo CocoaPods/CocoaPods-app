@@ -16,6 +16,10 @@ module Pod
     def self.require_gems
       require 'rubygems'
       require 'cocoapods-core'
+
+      require 'claide/command/plugin_manager'
+      require 'claide/ansi'
+      CLAide::ANSI.disabled = true
     end
   end
 end
