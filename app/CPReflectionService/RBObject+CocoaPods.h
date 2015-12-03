@@ -30,6 +30,8 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (NSDictionary<NSString *, NSDictionary *> * _Nonnull)plugins;
 @end
 
-@interface RBArray : RBObject
+@interface RBPluginManager : RBObject
+- (NSArray *)load_plugins:(NSString * _Nonnull)prefix;
+- (NSArray<NSDictionary *> * _Nonnull)specifications;
 @end
 

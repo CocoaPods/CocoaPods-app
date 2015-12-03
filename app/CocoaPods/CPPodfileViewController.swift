@@ -6,12 +6,6 @@ import Cocoa
 /// access place for mutable state within the Podfile
 /// section of CocoaPods.app
 
-/// TODO:
-///  setting tabs via the images
-///  cmd + 1,2,3
-///  add commands for `pod install` / `update`
-
-
 class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   var userProject:CPUserProject!
@@ -20,6 +14,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
+  let pluginCoordinator:CPPodfilePluginCoordinator = CPPodfilePluginCoordinator()
 
   override func viewWillAppear() {
 
@@ -35,6 +30,8 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
     documentIcon.frame = documentIcon.bounds
     documentIconContainer.addSubview(documentIcon)
+    hideWarningLabel(false)
+    pluginCoordinator.comparePluginsWithinUserProject(userProject)
   }
 
   var tabController: NSTabViewController {
@@ -57,6 +54,30 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   @IBAction func showInformationTab(sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 1
   }
+
+  @IBOutlet weak var warningDoneButton: NSButton!
+  @IBOutlet weak var warningLabel: NSTextField!
+  @IBOutlet weak var warningLabelHeight: NSLayoutConstraint!
+
+  func showWarningLabelWithSender(message: String, target: AnyObject?, action: Selector, animated:Bool) {
+    view.layoutSubtreeIfNeeded()
+
+    let label = animated ? warningLabelHeight.animator() : warningLabelHeight
+    label.constant = 72
+
+    warningLabel.stringValue = message
+    warningDoneButton.target = target
+    warningDoneButton.action = action
+    warningDoneButton.enabled = true
+  }
+
+  func hideWarningLabel(animated:Bool = true) {
+    view.layoutSubtreeIfNeeded()
+    let label = animated ? warningLabelHeight.animator() : warningLabelHeight
+    label.constant = 0
+    warningDoneButton.enabled = false
+  }
+
 }
 
 extension NSViewController {

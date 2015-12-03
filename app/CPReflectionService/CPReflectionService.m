@@ -45,12 +45,14 @@
 - (void)installedPlugins:(void (^ _Nonnull)(NSArray<NSString *> * _Nonnull plugins, NSError * _Nullable error))reply;
 {
   [RBObject performBlock:^{
-    /// Get:
-    /// Command::PluginManager.specifications
-    /// + Map to string names
 
-    RBArray *array = RBObjectFromString(@"[]");
-    reply(array, nil);
+    reply(@[@"cocoapods-try", @"cocoapods-trunk"], nil);
+
+//    RBObjectFromString(@"require 'claide'");
+//    RBPluginManager *pluginManager = RBObjectFromString(@"CLAide::Command::PluginManager");
+//    [pluginManager load_plugins:@"cocoapods"];
+//    NSArray *specs = [pluginManager specifications];
+//    reply([specs valueForKeyPath:@"name"], nil);
 
   } error:^(NSError * _Nonnull error) {
     reply(@[], error);

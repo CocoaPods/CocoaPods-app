@@ -763,18 +763,46 @@
                                 <animations/>
                             </customView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="5f5-Xa-ani">
-                                <rect key="frame" x="78" y="0.0" width="541" height="753"/>
+                                <rect key="frame" x="78" y="73" width="541" height="680"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="KFF-tZ-pTU" kind="embed" id="1uM-66-lzo"/>
                                 </connections>
                             </containerView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="32a-ce-wrv" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
+                                <rect key="frame" x="78" y="0.0" width="541" height="73"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
+                                        <rect key="frame" x="18" y="20" width="376" height="33"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label with some text doing something ok?" id="mW1-wj-yJA">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WOE-Xd-d6I">
+                                        <rect key="frame" x="401" y="19" width="126" height="32"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="push" title="Do Something" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d9W-1Z-qn9">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="73" id="wFn-vf-vRd"/>
+                                </constraints>
+                                <animations/>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="12" id="1zy-aS-oFa"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="leading" constant="-34" id="2nk-XB-P8M"/>
+                            <constraint firstItem="32a-ce-wrv" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="444-fM-DRo"/>
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-57" id="4oX-cC-xIH"/>
                             <constraint firstAttribute="trailing" secondItem="5f5-Xa-ani" secondAttribute="trailing" id="8ms-0x-CSc"/>
+                            <constraint firstItem="32a-ce-wrv" firstAttribute="top" secondItem="5f5-Xa-ani" secondAttribute="bottom" id="CQd-Ec-ThO"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="Nfy-M9-N65"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Teg-8i-KM9"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" constant="12" id="Vy5-h8-UQn"/>
@@ -782,9 +810,10 @@
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="heY-ac-ofy" secondAttribute="bottom" constant="12" id="aRL-46-n83"/>
                             <constraint firstItem="hwg-nj-RtL" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" constant="-1" id="aYA-pe-JOj"/>
                             <constraint firstItem="2o8-QD-aZz" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="b6m-gk-R5U"/>
-                            <constraint firstAttribute="bottom" secondItem="5f5-Xa-ani" secondAttribute="bottom" id="bLf-bF-NnC"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="12" id="cXO-av-sNX"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="ct4-aP-2qI"/>
+                            <constraint firstAttribute="trailing" secondItem="32a-ce-wrv" secondAttribute="trailing" id="ibO-o2-veP"/>
+                            <constraint firstAttribute="bottom" secondItem="32a-ce-wrv" secondAttribute="bottom" id="thh-k4-iLn"/>
                             <constraint firstAttribute="bottom" secondItem="Md7-X2-GxU" secondAttribute="bottom" id="yY9-Qk-qJq"/>
                         </constraints>
                         <animations/>
@@ -792,6 +821,9 @@
                     <connections>
                         <outlet property="actionTitleLabel" destination="hwg-nj-RtL" id="doO-U4-vRA"/>
                         <outlet property="documentIconContainer" destination="A2C-cQ-r2M" id="XjI-Gp-RjM"/>
+                        <outlet property="warningDoneButton" destination="WOE-Xd-d6I" id="bRh-5I-r8a"/>
+                        <outlet property="warningLabel" destination="yge-Ir-okX" id="5rG-4b-9Hy"/>
+                        <outlet property="warningLabelHeight" destination="wFn-vf-vRd" id="aMT-qV-1Cr"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
