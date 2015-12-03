@@ -43,7 +43,6 @@
                                                 withReply:^(NSArray<NSString *> * _Nullable plugins, NSError * _Nullable error) {
     dispatch_async(dispatch_get_main_queue(), ^{
       if (plugins) {
-        NSLog(@"Podfile Plugins: %@", plugins);
         project.podfilePlugins = plugins;
         // Clear any previous syntax errors.
         self.editor.syntaxErrors = nil;
