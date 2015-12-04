@@ -52,53 +52,77 @@ CPRubyInit(Class bundleClass)
 }
 
 
+#pragma mark - Conversions
+// Alas, RubyCocoa does not export the ocdata_conv.h header.
+// TODO If we need more polymorphic transforms in the future, see about making that header public.
+
+static NSString * _Nullable
+RBString(VALUE rb_string)
+{
+  return rb_string == Qnil ? nil : @(StringValuePtr(rb_string));
+}
+
+static NSArray<NSString *> * _Nonnull
+RBStringArray(VALUE rb_array)
+{
+  long size = RARRAY_LEN(rb_array);
+  NSMutableArray *array = [NSMutableArray arrayWithCapacity:size];
+  for (long i = 0; i < size; i++) {
+    [array addObject:RBString(rb_ary_entry(rb_array, i))];
+  }
+  return array;
+}
+
+
 #pragma mark - Errors
 
 NSError * _Nonnull
-CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable message)
+CPErrorFromRubyException(VALUE rb_exception, NSArray * _Nullable objcBacktrace)
 {
-  CPErrorDomainCode code = -1;
-
-  NSMutableDictionary *userInfo = [NSMutableDictionary new];
-  userInfo[CPErrorObjCBacktrace] = exception.callStackSymbols;
-  if (message) {
-    userInfo[NSLocalizedRecoverySuggestionErrorKey] = message;
+  CPErrorDomainCode code;
+  if (rb_obj_is_kind_of(rb_exception, rb_cPodInformativeError)) {
+    code = CPInformativeError;
+  } else {
+    code = CPStandardError;
   }
 
-  if ([exception.name hasPrefix:@"RBException_"]) {
-    VALUE rb_exception = [exception.userInfo[@"$!"] __rbobj__];
+  NSMutableDictionary *userInfo = [NSMutableDictionary new];
+  userInfo[NSLocalizedDescriptionKey] = @"Uncaught Ruby exception.";
+  userInfo[CPErrorName] = RBString(rb_class_name(rb_obj_class(rb_exception)));
+  userInfo[CPErrorRubyBacktrace] = RBStringArray(rb_funcall(rb_exception, rb_intern("backtrace"), 0));
 
-    VALUE exceptionNameValue = rb_class_name(rb_obj_class(rb_exception));
-    userInfo[CPErrorName] = @(StringValuePtr(exceptionNameValue));
-    VALUE rb_cause = rb_funcall(rb_exception, rb_intern("cause"), 0);
-    if (rb_cause != Qnil) {
-      exceptionNameValue = rb_class_name(rb_obj_class(rb_cause));
-      userInfo[CPErrorCauseName] = @(StringValuePtr(exceptionNameValue));
-    }
+  NSString *message = RBString(rb_funcall(rb_exception, rb_intern("message"), 0));
+  message = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+  userInfo[NSLocalizedRecoverySuggestionErrorKey] = message;
 
-    userInfo[NSLocalizedDescriptionKey] = @"Uncaught Ruby exception.";
-    userInfo[CPErrorRubyBacktrace] = exception.userInfo[CPErrorRubyBacktrace];
+  if (objcBacktrace) {
+    userInfo[CPErrorObjCBacktrace] = objcBacktrace;
+  }
 
-    if (message == nil) {
-      if (rb_obj_is_kind_of(rb_exception, rb_cPodInformativeError)) {
-        code = CPInformativeError;
-      } else {
-        code = CPStandardError;
-      }
-      VALUE messageValue = rb_funcall(rb_exception, rb_intern("message"), 0);
-      messageValue = rb_funcall(messageValue, rb_intern("strip"), 0);
-      userInfo[NSLocalizedRecoverySuggestionErrorKey] = @(StringValuePtr(messageValue));
-    }
-
-  } else {
-    code = CPNonRubyError;
-    userInfo[CPErrorName] = exception.name;
-    userInfo[NSLocalizedDescriptionKey] = exception.reason;
+  VALUE rb_cause = rb_funcall(rb_exception, rb_intern("cause"), 0);
+  if (rb_cause != Qnil) {
+    userInfo[NSUnderlyingErrorKey] = CPErrorFromRubyException(rb_cause, nil);
   }
 
   return [NSError errorWithDomain:CPErrorDomain
                              code:code
                          userInfo:userInfo];
+}
+
+NSError * _Nonnull
+CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable message)
+{
+  if ([exception.name hasPrefix:@"RBException_"]) {
+    VALUE rb_exception = [exception.userInfo[@"$!"] __rbobj__];
+    return CPErrorFromRubyException(rb_exception, exception.callStackSymbols);
+  } else {
+    NSDictionary *userInfo = @{
+      NSLocalizedDescriptionKey: exception.reason,
+      CPErrorName: exception.name,
+      CPErrorObjCBacktrace: exception.callStackSymbols
+    };
+    return [NSError errorWithDomain:CPErrorDomain code:CPNonRubyError userInfo:userInfo];
+  }
 }
 
 static void

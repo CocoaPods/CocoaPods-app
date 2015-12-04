@@ -64,11 +64,20 @@
 static SMLSyntaxError * _Nullable
 SyntaxErrorFromError(NSError * _Nonnull error)
 {
-  NSInteger lineNumber = -1;
-  NSString *description = error.localizedRecoverySuggestion;
+  // A Pod::DSLError only wraps the real exception and provides nicer output in the CLI.
+  // We want to retrieve information from the real exception.
+  if ([error.userInfo[CPErrorName] isEqualToString:@"Pod::DSLError"]) {
+    NSError *cause = error.userInfo[NSUnderlyingErrorKey];
+    if (cause) {
+      error = cause;
+    }
+  }
 
-  NSString *causeName = error.userInfo[CPErrorCauseName];
-  if (causeName && [causeName isEqualToString:@"SyntaxError"]) {
+  NSString *description = error.localizedRecoverySuggestion;
+  NSInteger lineNumber = -1;
+
+  // A SyntaxError shows the line at which the error occurs in its message, not in its backtrace.
+  if ([error.userInfo[CPErrorName] isEqualToString:@"SyntaxError"]) {
     // Example:
     //
     // Podfile:32: syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
@@ -82,12 +91,17 @@ SyntaxErrorFromError(NSError * _Nonnull error)
     [scanner scanInteger:&lineNumber];
     [scanner scanString:@": " intoString:NULL];
     description = [description substringFromIndex:scanner.scanLocation];
+
   } else {
     NSString *location = [error.userInfo[CPErrorRubyBacktrace] firstObject];
-    if ([location componentsSeparatedByString:@":"].count < 2) { return nil; }
+    if ([location componentsSeparatedByString:@":"].count < 2) {
+      // Without a from from which to parse a line number, there is no point in showing an error in the UI.
+      return nil;
+    }
     lineNumber = [location componentsSeparatedByString:@":"][1].integerValue;
   }
 
+  // Capitalise the message.
   NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
   description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
 

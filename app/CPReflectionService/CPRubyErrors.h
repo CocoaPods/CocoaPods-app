@@ -2,7 +2,6 @@
 
 extern NSString * _Nonnull const CPErrorDomain;
 extern NSString * _Nonnull const CPErrorName;
-extern NSString * _Nonnull const CPErrorCauseName;
 extern NSString * _Nonnull const CPErrorRubyBacktrace;
 extern NSString * _Nonnull const CPErrorObjCBacktrace;
 
