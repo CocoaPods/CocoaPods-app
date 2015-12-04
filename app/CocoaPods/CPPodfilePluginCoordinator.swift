@@ -7,6 +7,7 @@ class CPPodfilePluginCoordinator: NSObject {
   }
 
   var controller: CPPodfileViewController
+  var pluginsToInstall = [String]()
 
   func comparePluginsWithinUserProject(project: CPUserProject) {
     guard let reflection = NSApp.delegate as? CPAppDelegate else {
@@ -38,15 +39,24 @@ class CPPodfilePluginCoordinator: NSObject {
         return;
       }
 
-      // install
-      NSLog("Install!")
+      self.pluginsToInstall = podfilePlugins.filter { !installedPlugins.contains($0) }
+
       dispatch_async(dispatch_get_main_queue()) {
-        self.controller.showWarningLabelWithSender("You need to install some plugins", target: self, action: "install", animated:true)
-
+        self.controller.showWarningLabelWithSender("You need to install some plugins", target: self, action: "showInstaller", animated:true)
       }
-
     }
+  }
 
+  func showInstaller() {
+    guard let storyboard = controller.storyboard else { return }
+    guard let windowController = storyboard.instantiateControllerWithIdentifier("InstallPlugins") as? NSWindowController else { return }
+    guard let missingPluginInstaller = windowController.contentViewController as? CPInstallPluginsViewController else { return }
+
+    missingPluginInstaller.pluginsToInstall = self.pluginsToInstall
+    missingPluginInstaller.userProject = controller.userProject
+
+    guard let sheet = windowController.window else { return }
+    controller.view.window?.beginSheet(sheet, completionHandler: nil)
   }
 
 }
