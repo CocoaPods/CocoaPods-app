@@ -7,25 +7,13 @@
                  withReply:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable plugins, NSError * _Nullable error))reply;
 {
   [RBObject performBlock:^{
-    // It doesn’t really matter what we specify as path, as we’re not using the DSLError informative message.
+    // Use just `Podfile` as the path so that we can make assumptions about error messages
+    // and easily remove the path being mentioned.
     RBPathname *pathname = [RBObjectFromString(@"Pathname") new:@"Podfile"];
 
-    @try {
-      RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
-      NSArray *plugins = podfile.plugins.allKeys;
-      reply(plugins, nil);
-    }
-
-    @catch (NSException *exception) {
-      // In case of a Pod::DSLError, try to create a UI syntax error out of it.
-      if (![exception.reason isEqualToString:@"Pod::DSLError"]) {
-        @throw;
-      }
-      RBException *rubyException = exception.userInfo[@"$!"];
-      RBException *cause = rubyException.cause;
-      NSError *error = CPErrorFromException(exception, cause.message);
-      reply(nil, error);
-    }
+    RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
+    NSArray *plugins = podfile.plugins.allKeys;
+    reply(plugins, nil);
 
   } error:^(NSError * _Nonnull error) {
     reply(nil, error);

@@ -763,35 +763,35 @@
                                 <animations/>
                             </customView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="5f5-Xa-ani">
-                                <rect key="frame" x="78" y="73" width="541" height="680"/>
+                                <rect key="frame" x="78" y="50" width="541" height="703"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="KFF-tZ-pTU" kind="embed" id="1uM-66-lzo"/>
                                 </connections>
                             </containerView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="32a-ce-wrv" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
-                                <rect key="frame" x="78" y="0.0" width="541" height="73"/>
+                                <rect key="frame" x="78" y="0.0" width="541" height="50"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
-                                        <rect key="frame" x="18" y="20" width="376" height="33"/>
-                                        <animations/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label with some text doing something ok?" id="mW1-wj-yJA">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WOE-Xd-d6I">
-                                        <rect key="frame" x="401" y="19" width="126" height="32"/>
+                                        <rect key="frame" x="401" y="7" width="126" height="32"/>
                                         <animations/>
                                         <buttonCell key="cell" type="push" title="Do Something" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d9W-1Z-qn9">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
+                                        <rect key="frame" x="18" y="15" width="376" height="20"/>
+                                        <animations/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label with some text doing something" id="mW1-wj-yJA">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="73" id="wFn-vf-vRd"/>
+                                    <constraint firstAttribute="height" constant="50" id="wFn-vf-vRd"/>
                                 </constraints>
                                 <animations/>
                             </customView>
@@ -945,7 +945,7 @@
                                 </clipView>
                                 <animations/>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.3260253906255457" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
+                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </scroller>

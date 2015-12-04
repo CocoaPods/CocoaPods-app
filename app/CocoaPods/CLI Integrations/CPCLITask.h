@@ -39,6 +39,9 @@
  */
 - (void)cancel;
 
+/// Is the command currently running, KVO compliant
 @property (nonatomic, readonly) BOOL running;
+
+@property (nonatomic, assign) BOOL colouriseOutput;
 
 @end

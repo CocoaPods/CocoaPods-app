@@ -60,7 +60,11 @@
                                                               ofType:nil
                                                          inDirectory:@"bundle/bin"];
 
-  NSArray *arguments = @[envBundleScript, @"pod", self.command, @"--ansi"];
+  NSArray *arguments = @[envBundleScript, @"pod", self.command];
+  if (self.colouriseOutput) {
+    arguments = [arguments arrayByAddingObject:@"--ansi"];
+  }
+
   if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
     arguments = [arguments arrayByAddingObject:@"--verbose"];
   }

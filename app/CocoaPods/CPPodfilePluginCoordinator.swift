@@ -42,7 +42,7 @@ class CPPodfilePluginCoordinator: NSObject {
       self.pluginsToInstall = podfilePlugins.filter { !installedPlugins.contains($0) }
 
       dispatch_async(dispatch_get_main_queue()) {
-        self.controller.showWarningLabelWithSender("You need to install some plugins", target: self, action: "showInstaller", animated:true)
+        self.controller.showWarningLabelWithSender("You need to install \(self.pluginsToInstall.count) plugins for this Podfile", actionTitle: "Install", target: self, action: "showInstaller", animated:true)
       }
     }
   }

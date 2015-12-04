@@ -25,6 +25,7 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
 
   private func executeTaskWithCommand(command: String) {
     task = CPCLITask(userProject: userProject, command: command, delegate: self, qualityOfService: .UserInitiated)
+    task?.colouriseOutput = true
     task?.run()
   }
 

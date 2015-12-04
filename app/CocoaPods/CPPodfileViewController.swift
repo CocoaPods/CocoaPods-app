@@ -61,13 +61,14 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   @IBOutlet weak var warningLabel: NSTextField!
   @IBOutlet weak var warningLabelHeight: NSLayoutConstraint!
 
-  func showWarningLabelWithSender(message: String, target: AnyObject?, action: Selector, animated:Bool) {
+  func showWarningLabelWithSender(message: String, actionTitle:String, target: AnyObject?, action: Selector, animated:Bool) {
     view.layoutSubtreeIfNeeded()
 
     let label = animated ? warningLabelHeight.animator() : warningLabelHeight
-    label.constant = 72
+    label.constant = 50
 
     warningLabel.stringValue = message
+    warningDoneButton.title = actionTitle
     warningDoneButton.target = target
     warningDoneButton.action = action
     warningDoneButton.enabled = true

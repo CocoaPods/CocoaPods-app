@@ -56,7 +56,7 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  sh "PATH=#{ORIGINAL_PATH} pod repo update master"
+  sh "cd ~/.cocoapods/repos/master && git pull"
   version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
   require 'yaml'
   @install_cocoapods_version = YAML.load(File.read(version_file))['last']
@@ -75,8 +75,9 @@ LIBYAML_URL = "http://pyyaml.org/download/libyaml/yaml-#{LIBYAML_VERSION}.tar.gz
 ZLIB_VERSION = '1.2.8'
 ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
 
-OPENSSL_VERSION = '1.0.2d'
-OPENSSL_URL = "https://www.openssl.org/source/openssl-#{OPENSSL_VERSION}.tar.gz"
+OPENSSL_VERSION = '1.0.2'
+OPENSSL_PATCH = 'd'
+OPENSSL_URL = "https://www.openssl.org/source/old/#{OPENSSL_VERSION}/openssl-#{OPENSSL_VERSION}#{OPENSSL_PATCH}.tar.gz"
 
 NCURSES_VERSION = '5.9'
 NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.gz"
@@ -742,7 +743,7 @@ namespace :app do
   end
 
   desc 'Prepare all prerequisites for building the app'
-  task :prerequisites => [:submodules, 'bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
+  task :prerequisites => ['bundle:submodules', 'bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
 
   desc 'Build release version of application'
   task :build => :prerequisites do
