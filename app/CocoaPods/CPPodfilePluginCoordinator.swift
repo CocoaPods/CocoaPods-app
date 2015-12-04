@@ -22,7 +22,7 @@ class CPPodfilePluginCoordinator: NSObject {
 
     dispatch_group_enter(group)
     reflector.installedPlugins { plugins, error in
-      installedPlugins = plugins
+      installedPlugins = plugins ?? []
       dispatch_group_leave(group)
     }
 

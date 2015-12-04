@@ -9,53 +9,45 @@
   [RBObject performBlock:^{
     // It doesn’t really matter what we specify as path, as we’re not using the DSLError informative message.
     RBPathname *pathname = [RBObjectFromString(@"Pathname") new:@"Podfile"];
-    
+
     @try {
       RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
       NSArray *plugins = podfile.plugins.allKeys;
       reply(plugins, nil);
     }
-    
+
     @catch (NSException *exception) {
       // In case of a Pod::DSLError, try to create a UI syntax error out of it.
       if (![exception.reason isEqualToString:@"Pod::DSLError"]) {
         @throw;
       }
-
-      // TODO: have CocoaPods-Core keep the error message around
-      //       https://cocoapods.slack.com/archives/cocoapods-app/p1448669896000284
-      RBObject *rubyException = exception.userInfo[@"$!"];
-      // TODO -[RBObject description] returns the description of the proxy.
-      VALUE descriptionValue = rb_funcall(rubyException.__rbobj__, rb_intern("description"), 0);
-      // Example:
-      //     Invalid `Podfile` file: undefined local variable or method `s' for #<Pod::Podfile:0x0000010331f390>
-      NSString *description = [@(StringValuePtr(descriptionValue)) substringFromIndex:24];
-      NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
-      description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
-
-      NSError *error = CPErrorFromException(exception, description);
+      RBException *rubyException = exception.userInfo[@"$!"];
+      RBException *cause = rubyException.cause;
+      NSError *error = CPErrorFromException(exception, cause.message);
       reply(nil, error);
     }
-    
+
   } error:^(NSError * _Nonnull error) {
     reply(nil, error);
   }];
 }
 
-- (void)installedPlugins:(void (^ _Nonnull)(NSArray<NSString *> * _Nonnull plugins, NSError * _Nullable error))reply;
+- (void)installedPlugins:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable plugins, NSError * _Nullable error))reply;
 {
   [RBObject performBlock:^{
+    RBPluginManager *pluginManager = RBObjectFromString(@"CLAide::Command::PluginManager");
+    NSArray *pluginPaths = [pluginManager plugin_load_paths:@"cocoapods"];
 
-    reply(@[@"cocoapods-try", @"cocoapods-trunk"], nil);
-
-//    RBObjectFromString(@"require 'claide'");
-//    RBPluginManager *pluginManager = RBObjectFromString(@"CLAide::Command::PluginManager");
-//    [pluginManager load_plugins:@"cocoapods"];
-//    NSArray *specs = [pluginManager specifications];
-//    reply([specs valueForKeyPath:@"name"], nil);
+    NSMutableArray *pluginNames = [NSMutableArray arrayWithCapacity:pluginPaths.count];
+    for (NSString *pluginPath in pluginPaths) {
+      NSString *pluginRootPath = [[pluginPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+      RBGemSpecification *spec = [pluginManager specification:pluginRootPath];
+      [pluginNames addObject:spec.name];
+    }
+    reply(pluginNames, nil);
 
   } error:^(NSError * _Nonnull error) {
-    reply(@[], error);
+    reply(nil, error);
   }];
 }
 

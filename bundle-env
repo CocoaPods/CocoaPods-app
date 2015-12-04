@@ -2,6 +2,7 @@
 
 # Clear known env variables that can influence the standalone installation in a bad way.
 unset RUBYOPT
+unset RUBYLIB
 unset GEM_HOME
 unset GEM_PATH
 unset GEM_CACHE
@@ -27,4 +28,3 @@ if [ -z "$TERM" ]; then
 fi
 
 exec $*
-

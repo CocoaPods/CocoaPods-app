@@ -22,6 +22,11 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (id _Nullable)send:(NSString * _Nonnull)methodName;
 @end
 
+@interface RBException : RBObject
+- (RBException * _Nonnull)cause;
+- (NSString * _Nonnull)message;
+@end
+
 @interface RBPathname : RBObject
 @end
 
@@ -30,8 +35,13 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (NSDictionary<NSString *, NSDictionary *> * _Nonnull)plugins;
 @end
 
-@interface RBPluginManager : RBObject
-- (NSArray *)load_plugins:(NSString * _Nonnull)prefix;
-- (NSArray<NSDictionary *> * _Nonnull)specifications;
+@interface RBGemSpecification : RBObject
+- (NSString * _Nonnull)name;
 @end
 
+@interface RBPluginManager : RBObject
+// TODO This has been changed in CLAide master and should be updated on the next release!
+// https://github.com/CocoaPods/CLAide/pull/54
+- (NSArray<NSString *> * _Nonnull)plugin_load_paths:(NSString * _Nonnull)prefix;
+- (RBGemSpecification * _Nonnull)specification:(NSString * _Nonnull)pluginPath;
+@end

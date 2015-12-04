@@ -9,3 +9,17 @@ incorrect_root = File.join(service_bundle.bundlePath, 'Contents/MacOS')
 $LOAD_PATH.map! do |path|
   path.sub(incorrect_root, bundle_path)
 end
+
+module Pod
+  module App
+    # Doing this here so that you get nicer errors when a require fails.
+    def self.require_gems
+      require 'rubygems'
+      require 'cocoapods-core'
+
+      require 'claide/command/plugin_manager'
+      require 'claide/ansi'
+      CLAide::ANSI.disabled = true
+    end
+  end
+end

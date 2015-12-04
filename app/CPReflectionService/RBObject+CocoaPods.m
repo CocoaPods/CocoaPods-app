@@ -15,7 +15,14 @@ static RBThread *RBThreadInstance = nil;
 static ID ID_to_ruby = 0;
 static VALUE rb_cPodInformativeError = Qnil;
 
-static BOOL
+
+// Defined in RBObject+CocoaPods.rb
+@interface RBApp : RBObject
+- (id)require_gems;
+@end
+
+
+static void
 CPRubyInit(Class bundleClass)
 {
   NSCAssert([NSThread currentThread] == (NSThread *)RBThreadInstance, @"Should only be called from the Ruby thread.");
@@ -36,14 +43,12 @@ CPRubyInit(Class bundleClass)
   PROVIDE_EXT(stringio);
 
   // Now we can load RubyGems and the gems we need.
-  int error = 0;
-  rb_eval_string_protect("require 'rubygems'; require 'cocoapods-core'", &error);
-  NSCAssert(!error, @"Failed to load gems");
+  RBApp *app = RBObjectFromString(@"Pod::App");
+  NSCParameterAssert(app);
+  [app require_gems];
 
   ID_to_ruby = rb_intern("to_ruby");
   rb_cPodInformativeError = rb_const_get(rb_const_get(rb_cObject, rb_intern("Pod")), rb_intern("Informative"));
-
-  return error == 0;
 }
 
 
@@ -52,18 +57,27 @@ CPRubyInit(Class bundleClass)
 NSError * _Nonnull
 CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable message)
 {
-  CPErrorDomainCode code  = -1;
-  NSString *exceptionName = nil;
-  NSString *description   = nil;
-  NSArray *rubyBacktrace  = nil;
+  CPErrorDomainCode code = -1;
+
+  NSMutableDictionary *userInfo = [NSMutableDictionary new];
+  userInfo[CPErrorObjCBacktrace] = exception.callStackSymbols;
+  if (message) {
+    userInfo[NSLocalizedRecoverySuggestionErrorKey] = message;
+  }
 
   if ([exception.name hasPrefix:@"RBException_"]) {
     VALUE rb_exception = [exception.userInfo[@"$!"] __rbobj__];
 
     VALUE exceptionNameValue = rb_class_name(rb_obj_class(rb_exception));
-    exceptionName = @(StringValuePtr(exceptionNameValue));
-    description = @"Uncaught Ruby exception.";
-    rubyBacktrace = exception.userInfo[CPErrorRubyBacktrace];
+    userInfo[CPErrorName] = @(StringValuePtr(exceptionNameValue));
+    VALUE rb_cause = rb_funcall(rb_exception, rb_intern("cause"), 0);
+    if (rb_cause != Qnil) {
+      exceptionNameValue = rb_class_name(rb_obj_class(rb_cause));
+      userInfo[CPErrorCauseName] = @(StringValuePtr(exceptionNameValue));
+    }
+
+    userInfo[NSLocalizedDescriptionKey] = @"Uncaught Ruby exception.";
+    userInfo[CPErrorRubyBacktrace] = exception.userInfo[CPErrorRubyBacktrace];
 
     if (message == nil) {
       if (rb_obj_is_kind_of(rb_exception, rb_cPodInformativeError)) {
@@ -73,22 +87,14 @@ CPErrorFromException(NSException * _Nonnull exception, NSString * _Nullable mess
       }
       VALUE messageValue = rb_funcall(rb_exception, rb_intern("message"), 0);
       messageValue = rb_funcall(messageValue, rb_intern("strip"), 0);
-      message = @(StringValuePtr(messageValue));
+      userInfo[NSLocalizedRecoverySuggestionErrorKey] = @(StringValuePtr(messageValue));
     }
 
   } else {
     code = CPNonRubyError;
-    exceptionName = exception.name;
-    description = exception.reason;
-    rubyBacktrace = @[];
-    message = @"";
+    userInfo[CPErrorName] = exception.name;
+    userInfo[NSLocalizedDescriptionKey] = exception.reason;
   }
-
-  NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: description,
-                  NSLocalizedRecoverySuggestionErrorKey: message,
-                                   CPErrorRubyBacktrace: rubyBacktrace,
-                                            CPErrorName: exceptionName,
-                                   CPErrorObjCBacktrace: exception.callStackSymbols };
 
   return [NSError errorWithDomain:CPErrorDomain
                              code:code
@@ -121,25 +127,24 @@ CPLogError(NSError * _Nonnull error)
 
 - (void)main;
 {
-  if (CPRubyInit(self.class)) {
-    while (1) {
-      // There is really no reason for this to be reached, but let’s just be safe.
-      //
-      // Ensure that the pool gets drained, if an uncaught exception occurs.
-      @autoreleasepool {
-        @try {
-          [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
-        }
-        @catch (NSException *exception) {
-          NSAssert(NO, @"Serious error, this shouldn’t be reached.");
+  CPRubyInit(self.class);
+  while (1) {
+    // There is really no reason for this to be reached, but let’s just be safe.
+    //
+    // Ensure that the pool gets drained, if an uncaught exception occurs.
+    @autoreleasepool {
+      @try {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantFuture]];
+      }
+      @catch (NSException *exception) {
+        NSAssert(NO, @"Serious error, this shouldn’t be reached.");
 
-          NSError *error = CPErrorFromException(exception, nil);
-          CPLogError(error);
-          // Show uncaught exceptions modal over the app.
-          dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSAlert alertWithError:error] runModal];
-          });
-        }
+        NSError *error = CPErrorFromException(exception, nil);
+        CPLogError(error);
+        // Show uncaught exceptions modal over the app.
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSAlert alertWithError:error] runModal];
+        });
       }
     }
   }
@@ -257,6 +262,16 @@ SwizzleMethods(SEL original, SEL swizzled)
 + (void)performBlockAndWait:(RBObjectTaskBlock _Nonnull)taskBlock error:(RBObjectErrorBlock _Nonnull)errorBlock;
 {
   [RBThreadInstance performTask:@[taskBlock, errorBlock] waitUntilDone:YES];
+}
+
+#pragma mark - Debug
+
+// Currently RBObject already respond to -description and just returns that of the proxy.
+// TODO Move this upstream?
+- (NSString *)description;
+{
+  VALUE description = rb_funcall(self.__rbobj__, rb_intern("inspect"), 0);
+  return [NSString stringWithFormat:@"<RBObject (%p): %s>", self, StringValuePtr(description)];
 }
 
 @end
