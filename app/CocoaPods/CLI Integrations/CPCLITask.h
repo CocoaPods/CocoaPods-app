@@ -50,6 +50,10 @@
 /// Is the command currently running, KVO compliant
 @property (nonatomic, readonly) BOOL running;
 
+/// Appends `--ansi` to the end of the command, defaults to NO
 @property (nonatomic, assign) BOOL colouriseOutput;
+
+/// Appends `--verbose` to the end of the command, defaults to NO
+@property (nonatomic, assign) BOOL verboseOutput;
 
 @end

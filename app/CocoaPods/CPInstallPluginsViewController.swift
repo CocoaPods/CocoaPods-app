@@ -21,7 +21,7 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
   @IBOutlet weak var titleLabel: NSTextField!
   @IBOutlet weak var exitButton: NSButton!
   func taskCompleted(task: CPCLITask!) {
-    exitButton.stringValue = NSLocalizedString("Close", comment: "Close sheet button title")
+    exitButton.title = NSLocalizedString("Close", comment: "Close sheet button title")
     titleLabel.stringValue = NSLocalizedString("Installed Plugins", comment: "Install plugin title when completed")
   }
 

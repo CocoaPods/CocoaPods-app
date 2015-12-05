@@ -65,7 +65,7 @@
     arguments = [arguments arrayByAddingObject:@"--ansi"];
   }
 
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
+  if (self.verboseOutput) {
     arguments = [arguments arrayByAddingObject:@"--verbose"];
   }
 

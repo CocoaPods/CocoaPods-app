@@ -25,8 +25,11 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
 
   private func executeTaskWithCommand(command: String) {
     task = CPCLITask(userProject: userProject, command: command, delegate: self, qualityOfService: .UserInitiated)
-    task?.colouriseOutput = true
-    task?.run()
+    guard let task = task else { return }
+
+    task.colouriseOutput = true
+    task.verboseOutput = NSUserDefaults.standardUserDefaults().boolForKey("CPShowVerboseCommandOutput")
+    task.run()
   }
 
   func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
