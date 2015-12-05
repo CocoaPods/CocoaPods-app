@@ -18,6 +18,10 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
     installTask?.run()
   }
 
+  func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
+    NSLog("Task: \(updatedOutput.string)")
+  }
+
   @IBOutlet weak var titleLabel: NSTextField!
   @IBOutlet weak var exitButton: NSButton!
   func taskCompleted(task: CPCLITask!) {
