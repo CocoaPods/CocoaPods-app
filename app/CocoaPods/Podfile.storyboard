@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -653,9 +653,9 @@
                 <windowController storyboardIdentifier="Podfile Editor" id="jGA-0Y-lOj" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv" customClass="CPModifiedDecorationsWindow" customModule="CocoaPods" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
-                        <rect key="contentRect" x="550" y="405" width="586" height="600"/>
+                        <rect key="contentRect" x="550" y="405" width="586" height="660"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="586" height="600"/>
+                        <value key="minSize" type="size" width="586" height="250"/>
                         <toolbar key="toolbar" implicitIdentifier="BC29192A-C84E-4096-9C9F-CA53E7B26D82" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="EP4-CE-9QT">
                             <allowedToolbarItems/>
                             <defaultToolbarItems/>
@@ -674,14 +674,14 @@
             <objects>
                 <viewController id="5gI-5U-AMq" customClass="CPPodfileViewController" customModule="CocoaPods" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ERx-hH-rdd">
-                        <rect key="frame" x="0.0" y="0.0" width="619" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="619" height="660"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU" customClass="CPBrownVisualEffectsView" customModule="CocoaPods" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="78" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="78" height="660"/>
                                 <subviews>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-af-RfI">
-                                        <rect key="frame" x="15" y="632" width="48" height="48"/>
+                                        <rect key="frame" x="15" y="492" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_console" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" inset="2" id="Xxt-bb-qej">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -694,7 +694,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jx-vo-Lx4">
-                                        <rect key="frame" x="15" y="567" width="48" height="48"/>
+                                        <rect key="frame" x="15" y="427" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_information" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="mww-XL-8Ss">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -707,7 +707,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-Q7-aZp">
-                                        <rect key="frame" x="15" y="695" width="48" height="48"/>
+                                        <rect key="frame" x="15" y="555" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_editor" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="jIp-ly-K6T">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -726,7 +726,7 @@
                                 <animations/>
                             </visualEffectView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="heY-ac-ofy">
-                                <rect key="frame" x="90" y="765" width="517" height="23"/>
+                                <rect key="frame" x="90" y="625" width="517" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="lCl-Dg-ikk"/>
                                 </constraints>
@@ -734,7 +734,7 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="actionbar_background" id="Inw-FC-Y25"/>
                             </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2o8-QD-aZz">
-                                <rect key="frame" x="550" y="766" width="43" height="19"/>
+                                <rect key="frame" x="550" y="626" width="43" height="19"/>
                                 <animations/>
                                 <buttonCell key="cell" type="roundTextured" title="install" bezelStyle="texturedRounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QsN-ks-HtL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -750,7 +750,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
-                                <rect key="frame" x="122" y="769" width="401" height="17"/>
+                                <rect key="frame" x="122" y="629" width="401" height="17"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Podfile" id="UOR-9c-QMh">
                                     <font key="font" metaFont="system"/>
@@ -759,11 +759,11 @@
                                 </textFieldCell>
                             </textField>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2C-cQ-r2M" userLabel="Container for the Document Icon">
-                                <rect key="frame" x="104" y="769" width="16" height="16"/>
+                                <rect key="frame" x="104" y="629" width="16" height="16"/>
                                 <animations/>
                             </customView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="5f5-Xa-ani">
-                                <rect key="frame" x="78" y="0.0" width="541" height="753"/>
+                                <rect key="frame" x="78" y="0.0" width="541" height="613"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="KFF-tZ-pTU" kind="embed" id="1uM-66-lzo"/>
