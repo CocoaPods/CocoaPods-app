@@ -655,7 +655,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="550" y="405" width="586" height="660"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="586" height="660"/>
+                        <value key="minSize" type="size" width="586" height="250"/>
                         <toolbar key="toolbar" implicitIdentifier="BC29192A-C84E-4096-9C9F-CA53E7B26D82" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="EP4-CE-9QT">
                             <allowedToolbarItems/>
                             <defaultToolbarItems/>
