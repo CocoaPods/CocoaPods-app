@@ -1,6 +1,6 @@
 import Cocoa
 
-class CPInstallPluginsViewController: NSViewController {
+class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
 
   dynamic var pluginsToInstall = [String]()
   // must be DI'd before viewWillAppear
@@ -14,8 +14,15 @@ class CPInstallPluginsViewController: NSViewController {
     let gems = pluginsToInstall.joinWithSeparator(" ")
     let command = "plugins install \(gems)"
 
-    installTask = CPCLITask(userProject: userProject, command: command, delegate: nil, qualityOfService:.UserInitiated)
+    installTask = CPCLITask(userProject: userProject, command: command, delegate: self, qualityOfService:.UserInitiated)
     installTask?.run()
+  }
+
+  @IBOutlet weak var titleLabel: NSTextField!
+  @IBOutlet weak var exitButton: NSButton!
+  func taskCompleted(task: CPCLITask!) {
+    exitButton.stringValue = NSLocalizedString("Close", comment: "Close sheet button title")
+    titleLabel.stringValue = NSLocalizedString("Installed Plugins", comment: "Install plugin title when completed")
   }
 
   @IBAction func exitTapped(sender: AnyObject) {

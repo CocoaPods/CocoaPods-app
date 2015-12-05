@@ -873,7 +873,7 @@
                 </windowController>
                 <customObject id="RdQ-uc-db1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="724" y="-1446"/>
+            <point key="canvasLocation" x="686" y="-1440"/>
         </scene>
         <!--Install Plugins View Controller-->
         <scene sceneID="gzM-al-Ll5">
@@ -956,7 +956,7 @@
                                 </scroller>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IjP-QB-Fdo">
-                                <rect key="frame" x="18" y="250" width="259" height="19"/>
+                                <rect key="frame" x="18" y="248" width="259" height="19"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Installing Plugins" id="jbK-Fh-Xab">
                                     <font key="font" metaFont="system" size="15"/>
@@ -995,8 +995,9 @@ Gw
                     </view>
                     <connections>
                         <outlet property="activitySpinner" destination="dHD-2d-9Po" id="h8X-uD-bbC"/>
-                        <outlet property="exitButton" destination="Fxz-cm-V3i" id="GXa-yp-Dl1"/>
+                        <outlet property="exitButton" destination="Fxz-cm-V3i" id="Zgq-QM-XIs"/>
                         <outlet property="tableView" destination="Gr5-aW-mSk" id="ped-cT-VNU"/>
+                        <outlet property="titleLabel" destination="IjP-QB-Fdo" id="NGe-2D-E1e"/>
                     </connections>
                 </viewController>
                 <customObject id="SDr-of-o0U" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

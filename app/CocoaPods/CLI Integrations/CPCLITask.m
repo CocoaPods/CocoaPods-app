@@ -113,7 +113,7 @@
   NSFileHandle *fileHandle = notification.object;
   NSData *data = fileHandle.availableData;
 
-  if (data.length > 0) {
+  if (data.length > 0 && [self.delegate respondsToSelector:@selector(task:didUpdateOutputContents:)]) {
     NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [self appendTaskOutput:output];
   }
@@ -157,6 +157,9 @@
   self.progress.totalUnitCount = 1;
   self.progress.completedUnitCount = 1;
   self.running = false;
+  if ([self.delegate respondsToSelector:@selector(taskCompleted:)]) {
+    [self.delegate taskCompleted:self];
+  }
 }
 
 #pragma mark - Utilities
