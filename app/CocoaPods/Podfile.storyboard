@@ -763,7 +763,7 @@
                                     <action selector="showInstallOptions:" target="5gI-5U-AMq" id="p7O-ix-UFp"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
                                 <rect key="frame" x="122" y="628" width="365" height="17"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Podfile" id="UOR-9c-QMh">
@@ -781,36 +781,48 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="install:" target="5gI-5U-AMq" id="gdu-yZ-kBg"/>
+                                    <binding destination="5gI-5U-AMq" name="hidden" keyPath="self.installAction.task.running" id="sTR-L3-nUU"/>
                                 </connections>
                             </button>
-                            <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmI-O9-7Ce">
+                            <imageView translatesAutoresizingMaskIntoConstraints="NO" id="mmI-O9-7Ce" userLabel="Seperator">
                                 <rect key="frame" x="580" y="629" width="1" height="16"/>
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="install_separator" id="L11-Gs-HU5"/>
                             </imageView>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="4gD-5q-fqq">
+                                <rect key="frame" x="550" y="628" width="16" height="16"/>
+                                <animations/>
+                                <connections>
+                                    <binding destination="5gI-5U-AMq" name="animate" keyPath="self.installAction.task.running" id="dpf-8Q-6Y9"/>
+                                </connections>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Ywo-mw-4xh" firstAttribute="leading" secondItem="JCB-dL-BeV" secondAttribute="trailing" constant="-25" id="1QW-y4-gRa"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="leading" constant="-34" id="2nk-XB-P8M"/>
-                            <constraint firstItem="hwg-nj-RtL" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-388" id="7yu-zi-jiQ"/>
                             <constraint firstAttribute="trailing" secondItem="5f5-Xa-ani" secondAttribute="trailing" id="8ms-0x-CSc"/>
+                            <constraint firstAttribute="trailing" secondItem="hwg-nj-RtL" secondAttribute="trailing" constant="130" id="G5D-vC-8Kn"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="Nfy-M9-N65"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="JCB-dL-BeV" secondAttribute="bottom" constant="12" id="OoB-If-2Rw"/>
+                            <constraint firstItem="mmI-O9-7Ce" firstAttribute="centerY" secondItem="JCB-dL-BeV" secondAttribute="centerY" id="R1d-cM-P5F"/>
                             <constraint firstItem="Ywo-mw-4xh" firstAttribute="centerY" secondItem="JCB-dL-BeV" secondAttribute="centerY" id="TRw-HO-h4C"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Teg-8i-KM9"/>
                             <constraint firstItem="JCB-dL-BeV" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="12" id="UYy-Mz-Gn0"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" constant="12" id="Vy5-h8-UQn"/>
                             <constraint firstItem="Ywo-mw-4xh" firstAttribute="leading" secondItem="KFc-we-EUb" secondAttribute="trailing" constant="2" id="XOG-vj-gc9"/>
+                            <constraint firstAttribute="trailing" secondItem="mmI-O9-7Ce" secondAttribute="trailing" constant="34" id="YSR-Dc-Lds"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="heY-ac-ofy" secondAttribute="bottom" constant="12" id="aRL-46-n83"/>
                             <constraint firstItem="hwg-nj-RtL" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="aYA-pe-JOj"/>
                             <constraint firstAttribute="bottom" secondItem="5f5-Xa-ani" secondAttribute="bottom" id="bLf-bF-NnC"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="12" id="cXO-av-sNX"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="ct4-aP-2qI"/>
                             <constraint firstItem="JCB-dL-BeV" firstAttribute="leading" secondItem="KFc-we-EUb" secondAttribute="trailing" constant="-49" id="eJx-rC-MeT"/>
+                            <constraint firstAttribute="trailing" secondItem="4gD-5q-fqq" secondAttribute="trailing" constant="49" id="lCC-IL-OL8"/>
                             <constraint firstAttribute="trailing" secondItem="JCB-dL-BeV" secondAttribute="trailing" constant="12" id="uW0-o5-d86"/>
                             <constraint firstAttribute="trailing" secondItem="Ywo-mw-4xh" secondAttribute="trailing" constant="12" id="xoO-JU-Yoe"/>
                             <constraint firstItem="JCB-dL-BeV" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="15" id="y1d-Lt-uHK"/>
                             <constraint firstAttribute="bottom" secondItem="Md7-X2-GxU" secondAttribute="bottom" id="yY9-Qk-qJq"/>
+                            <constraint firstItem="4gD-5q-fqq" firstAttribute="centerY" secondItem="JCB-dL-BeV" secondAttribute="centerY" id="zTn-FC-OPf"/>
                             <constraint firstItem="KFc-we-EUb" firstAttribute="centerY" secondItem="JCB-dL-BeV" secondAttribute="centerY" id="zm7-vC-RHL"/>
                         </constraints>
                         <animations/>
