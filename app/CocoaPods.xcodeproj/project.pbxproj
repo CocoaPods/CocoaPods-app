@@ -62,6 +62,7 @@
 		77356D751A2253F1002822CF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77356D741A2253F1002822CF /* Media.xcassets */; };
 		7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */; };
 		BCB9AE8AEBBAE1D2D1441F62 /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 995F193B1C17F93F892E6798 /* Pods_CocoaPodsTests.framework */; };
+		FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FAD11C144BF300DC3791 /* URLHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +211,7 @@
 		7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPANSIEscapeHelper.m; sourceTree = "<group>"; };
 		995F193B1C17F93F892E6798 /* Pods_CocoaPodsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C53A61848EA686BA6CCC6591 /* Pods-CocoaPodsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.release.xcconfig"; sourceTree = "<group>"; };
+		FA16FAD11C144BF300DC3791 /* URLHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +339,7 @@
 				60FE01631B9B76470027EEE3 /* Podfile Window */,
 				60FE016D1B9B7F000027EEE3 /* Categories */,
 				60FE01621B9B76400027EEE3 /* Home Window */,
+				FA16FACB1C14475200DC3791 /* URL Handling */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
 			);
 			path = CocoaPods;
@@ -495,6 +498,14 @@
 				C53A61848EA686BA6CCC6591 /* Pods-CocoaPodsTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FA16FACB1C14475200DC3791 /* URL Handling */ = {
+			isa = PBXGroup;
+			children = (
+				FA16FAD11C144BF300DC3791 /* URLHandler.swift */,
+			);
+			path = "URL Handling";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -808,6 +819,7 @@
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
+				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */,
 				606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */,
