@@ -46,7 +46,25 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     showConsoleTab(self)
   }
 
-  @IBAction func showInstallOptions(obj: AnyObject) {
+  @IBAction func installVerbose(obj: AnyObject) {
+    installAction.performAction(.Install(verbose: true))
+    showConsoleTab(self)
+  }
+
+  @IBAction func installUpdate(obj: AnyObject) {
+    installAction.performAction(.Update(verbose: false))
+    showConsoleTab(self)
+  }
+
+  @IBAction func installUpdateVerbose(obj: AnyObject) {
+    installAction.performAction(.Update(verbose: true))
+    showConsoleTab(self)
+  }
+
+  @IBOutlet var installMenu: NSMenu!
+  @IBAction func showInstallOptions(button: NSButton) {
+    guard let event = NSApp.currentEvent else { return }
+    NSMenu.popUpContextMenu(installMenu, withEvent: event, forView: button)
   }
 
 

@@ -818,9 +818,32 @@
                     <connections>
                         <outlet property="actionTitleLabel" destination="hwg-nj-RtL" id="doO-U4-vRA"/>
                         <outlet property="documentIconContainer" destination="A2C-cQ-r2M" id="XjI-Gp-RjM"/>
+                        <outlet property="installMenu" destination="ipM-rO-V7M" id="TUi-D1-qEX"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="ipM-rO-V7M">
+                    <items>
+                        <menuItem title="Update" id="PuO-f6-8qI">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="installUpdate:" target="5gI-5U-AMq" id="OpL-ZF-oye"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Install (verbose)" id="Lfp-wt-hnt">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="installVerbose:" target="5gI-5U-AMq" id="9CR-ET-Gnl"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Update (verbose)" id="XcH-g0-JId">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="installUpdateVerbose:" target="5gI-5U-AMq" id="dCA-77-Jc3"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="-39.5" y="-508"/>
         </scene>
