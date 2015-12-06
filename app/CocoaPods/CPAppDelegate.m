@@ -16,6 +16,11 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 #pragma mark - NSApplicationDelegate
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification;
+{
+  [self startURLService];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
 #ifdef DEBUG
@@ -26,7 +31,6 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 #endif
   
   [self startReflectionService];
-  [self startURLService];
 
   [[self CLIToolInstallationController] installBinstubIfNecessary];
 }
