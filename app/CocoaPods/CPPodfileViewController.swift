@@ -46,6 +46,10 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     showConsoleTab(self)
   }
 
+  @IBAction func showInstallOptions(obj: AnyObject) {
+  }
+
+
   @IBAction func showEditorTab(sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 0
   }

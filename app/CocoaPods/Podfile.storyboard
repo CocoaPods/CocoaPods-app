@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -674,7 +674,7 @@
             <objects>
                 <viewController id="5gI-5U-AMq" customClass="CPPodfileViewController" customModule="CocoaPods" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ERx-hH-rdd">
-                        <rect key="frame" x="0.0" y="0.0" width="619" height="660"/>
+                        <rect key="frame" x="0.0" y="0.0" width="615" height="660"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU" customClass="CPBrownVisualEffectsView" customModule="CocoaPods" customModuleProvider="target">
@@ -725,32 +725,46 @@
                                 </constraints>
                                 <animations/>
                             </visualEffectView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="heY-ac-ofy">
-                                <rect key="frame" x="90" y="625" width="517" height="23"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="heY-ac-ofy" userLabel="Podfile Title BG">
+                                <rect key="frame" x="90" y="625" width="422" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="lCl-Dg-ikk"/>
                                 </constraints>
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="actionbar_background" id="Inw-FC-Y25"/>
                             </imageView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2o8-QD-aZz">
-                                <rect key="frame" x="550" y="626" width="43" height="19"/>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2C-cQ-r2M" userLabel="Container for the Document Icon">
+                                <rect key="frame" x="104" y="629" width="16" height="16"/>
                                 <animations/>
-                                <buttonCell key="cell" type="roundTextured" title="install" bezelStyle="texturedRounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QsN-ks-HtL">
+                            </customView>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="5f5-Xa-ani">
+                                <rect key="frame" x="78" y="0.0" width="537" height="613"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="KFF-tZ-pTU" kind="embed" id="1uM-66-lzo"/>
+                                </connections>
+                            </containerView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCB-dL-BeV" userLabel="Install Button BG">
+                                <rect key="frame" x="527" y="625" width="76" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="19Z-xR-cnQ"/>
+                                </constraints>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="actionbar_background" id="ngI-l4-MuS"/>
+                            </imageView>
+                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ywo-mw-4xh">
+                                <rect key="frame" x="578" y="623" width="25" height="26"/>
+                                <animations/>
+                                <buttonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" image="drop_down" imagePosition="only" alignment="center" refusesFirstResponder="YES" state="on" imageScaling="proportionallyDown" inset="2" id="g16-mA-HMr">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="install:" target="5gI-5U-AMq" id="H2t-I2-J0N"/>
-                                    <binding destination="5gI-5U-AMq" name="enabled" keyPath="self.installAction.task.running" id="iwK-cb-fgz">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
+                                    <action selector="showInstallOptions:" target="5gI-5U-AMq" id="p7O-ix-UFp"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
-                                <rect key="frame" x="122" y="629" width="401" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
+                                <rect key="frame" x="122" y="628" width="365" height="17"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Podfile" id="UOR-9c-QMh">
                                     <font key="font" metaFont="system"/>
@@ -758,34 +772,46 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2C-cQ-r2M" userLabel="Container for the Document Icon">
-                                <rect key="frame" x="104" y="629" width="16" height="16"/>
+                            <button horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KFc-we-EUb">
+                                <rect key="frame" x="538" y="627" width="38" height="19"/>
                                 <animations/>
-                            </customView>
-                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="5f5-Xa-ani">
-                                <rect key="frame" x="78" y="0.0" width="541" height="613"/>
-                                <animations/>
+                                <buttonCell key="cell" type="roundRect" title="install" bezelStyle="roundedRect" alignment="center" refusesFirstResponder="YES" state="on" imageScaling="proportionallyDown" inset="2" id="hie-8U-02e">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="cellTitle"/>
+                                </buttonCell>
                                 <connections>
-                                    <segue destination="KFF-tZ-pTU" kind="embed" id="1uM-66-lzo"/>
+                                    <action selector="install:" target="5gI-5U-AMq" id="gdu-yZ-kBg"/>
                                 </connections>
-                            </containerView>
+                            </button>
+                            <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmI-O9-7Ce">
+                                <rect key="frame" x="580" y="629" width="1" height="16"/>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="install_separator" id="L11-Gs-HU5"/>
+                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="12" id="1zy-aS-oFa"/>
+                            <constraint firstItem="Ywo-mw-4xh" firstAttribute="leading" secondItem="JCB-dL-BeV" secondAttribute="trailing" constant="-25" id="1QW-y4-gRa"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="leading" constant="-34" id="2nk-XB-P8M"/>
-                            <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-57" id="4oX-cC-xIH"/>
+                            <constraint firstItem="hwg-nj-RtL" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-388" id="7yu-zi-jiQ"/>
                             <constraint firstAttribute="trailing" secondItem="5f5-Xa-ani" secondAttribute="trailing" id="8ms-0x-CSc"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="Nfy-M9-N65"/>
+                            <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="JCB-dL-BeV" secondAttribute="bottom" constant="12" id="OoB-If-2Rw"/>
+                            <constraint firstItem="Ywo-mw-4xh" firstAttribute="centerY" secondItem="JCB-dL-BeV" secondAttribute="centerY" id="TRw-HO-h4C"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Teg-8i-KM9"/>
+                            <constraint firstItem="JCB-dL-BeV" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="12" id="UYy-Mz-Gn0"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" constant="12" id="Vy5-h8-UQn"/>
-                            <constraint firstItem="2o8-QD-aZz" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="trailing" constant="29" id="Zhg-MU-fmQ"/>
+                            <constraint firstItem="Ywo-mw-4xh" firstAttribute="leading" secondItem="KFc-we-EUb" secondAttribute="trailing" constant="2" id="XOG-vj-gc9"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="heY-ac-ofy" secondAttribute="bottom" constant="12" id="aRL-46-n83"/>
-                            <constraint firstItem="hwg-nj-RtL" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" constant="-1" id="aYA-pe-JOj"/>
-                            <constraint firstItem="2o8-QD-aZz" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="b6m-gk-R5U"/>
+                            <constraint firstItem="hwg-nj-RtL" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" id="aYA-pe-JOj"/>
                             <constraint firstAttribute="bottom" secondItem="5f5-Xa-ani" secondAttribute="bottom" id="bLf-bF-NnC"/>
                             <constraint firstItem="heY-ac-ofy" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" constant="12" id="cXO-av-sNX"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="ct4-aP-2qI"/>
+                            <constraint firstItem="JCB-dL-BeV" firstAttribute="leading" secondItem="KFc-we-EUb" secondAttribute="trailing" constant="-49" id="eJx-rC-MeT"/>
+                            <constraint firstAttribute="trailing" secondItem="JCB-dL-BeV" secondAttribute="trailing" constant="12" id="uW0-o5-d86"/>
+                            <constraint firstAttribute="trailing" secondItem="Ywo-mw-4xh" secondAttribute="trailing" constant="12" id="xoO-JU-Yoe"/>
+                            <constraint firstItem="JCB-dL-BeV" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="15" id="y1d-Lt-uHK"/>
                             <constraint firstAttribute="bottom" secondItem="Md7-X2-GxU" secondAttribute="bottom" id="yY9-Qk-qJq"/>
+                            <constraint firstItem="KFc-we-EUb" firstAttribute="centerY" secondItem="JCB-dL-BeV" secondAttribute="centerY" id="zm7-vC-RHL"/>
                         </constraints>
                         <animations/>
                     </view>
@@ -963,8 +989,10 @@
     <resources>
         <image name="NSApplicationIcon" width="128" height="128"/>
         <image name="actionbar_background" width="250.5" height="23"/>
+        <image name="drop_down" width="7" height="5"/>
         <image name="icon_console" width="44" height="35"/>
         <image name="icon_editor" width="16" height="34"/>
         <image name="icon_information" width="40" height="40"/>
+        <image name="install_separator" width="1" height="16"/>
     </resources>
 </document>
