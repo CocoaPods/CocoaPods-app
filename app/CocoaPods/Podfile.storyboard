@@ -761,6 +761,11 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="showInstallOptions:" target="5gI-5U-AMq" id="p7O-ix-UFp"/>
+                                    <binding destination="5gI-5U-AMq" name="enabled" keyPath="self.installAction.task.running" id="9rd-yc-J3O">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
@@ -775,7 +780,7 @@
                             <button horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KFc-we-EUb">
                                 <rect key="frame" x="538" y="627" width="38" height="19"/>
                                 <animations/>
-                                <buttonCell key="cell" type="roundRect" title="install" bezelStyle="roundedRect" alignment="center" refusesFirstResponder="YES" state="on" imageScaling="proportionallyDown" inset="2" id="hie-8U-02e">
+                                <buttonCell key="cell" type="roundRect" title="Install" bezelStyle="roundedRect" alignment="center" refusesFirstResponder="YES" state="on" imageScaling="proportionallyDown" inset="2" id="hie-8U-02e">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
                                 </buttonCell>
