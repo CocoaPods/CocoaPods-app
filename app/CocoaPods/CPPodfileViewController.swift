@@ -6,12 +6,6 @@ import Cocoa
 /// access place for mutable state within the Podfile
 /// section of CocoaPods.app
 
-/// TODO:
-///  setting tabs via the images
-///  cmd + 1,2,3
-///  add commands for `pod install` / `update`
-
-
 class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   var userProject:CPUserProject!
@@ -29,8 +23,10 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     // The view needs to be added to a window before we can use
     // the window to pull out to the document icon from the window
 
-    guard let window = view.window as? CPModifiedDecorationsWindow, let documentIcon = window.documentIconButton else {
-      return print("Window type is not CPModifiedDecorationsWindow")
+    guard
+      let window = view.window as? CPModifiedDecorationsWindow,
+      let documentIcon = window.documentIconButton else {
+        return print("Window type is not CPModifiedDecorationsWindow")
     }
 
     documentIcon.frame = documentIcon.bounds
