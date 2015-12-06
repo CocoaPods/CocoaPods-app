@@ -31,7 +31,18 @@
 - (void)textDidChange:(NSNotification *)notification;
 {
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(parsePodfile) object:nil];
-  [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.5];
+  if ([self shouldParseImmediately]) {
+    [self parsePodfile];
+  } else {
+    [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.5];
+  }
+}
+
+/// YES when the parsing should be updated immediatly.
+/// See https://github.com/CocoaPods/CocoaPods-app/issues/130
+- (BOOL)shouldParseImmediately
+{
+  return self.editor.syntaxErrors.count > 0;
 }
 
 - (void)parsePodfile;
