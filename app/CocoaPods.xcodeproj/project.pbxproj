@@ -37,6 +37,9 @@
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
+		600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
+		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
+		600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
 		601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
@@ -176,6 +179,7 @@
 		51EA178B1C00D279000DC69A /* RBObject+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RBObject+CocoaPods.m"; sourceTree = "<group>"; };
 		51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "RBObject+CocoaPods.rb"; sourceTree = "<group>"; };
 		51EA178F1C0155E9000DC69A /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = RubyCocoa/framework/build/Default/RubyCocoa.framework; sourceTree = "<group>"; };
+		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
 		601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExternalLinksHelper.h; sourceTree = "<group>"; };
 		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
 		601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podfile-icon@2x.png"; sourceTree = "<group>"; };
@@ -438,6 +442,7 @@
 			children = (
 				60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */,
 				60F02D1D1C0A2A6D003600FE /* Info.plist */,
+				600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */,
 			);
 			path = CocoaPodsTests;
 			sourceTree = "<group>";
@@ -674,6 +679,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */,
+				600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -842,6 +849,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60F02D1C1C0A2A6D003600FE /* CocoaPodsTests.swift in Sources */,
+				600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

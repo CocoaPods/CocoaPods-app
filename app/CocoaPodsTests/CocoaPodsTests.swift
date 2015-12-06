@@ -1,14 +1,13 @@
 import XCTest
 import Quick
 import Nimble
+import Cocoa
 
-class CocoaPodsTests: QuickSpec {
+class CocoaPodsTests: NSObject {}
 
-  override func spec() {
-    describe("the 'Documentation' directory") {
-      it("has everything you need to get started") {
-        expect("hi").to(equal("hi"))
-      }
-    }
+extension NSStoryboard {
+
+  class func podfile() -> NSStoryboard {
+    return NSStoryboard(name: "Podfile", bundle: NSBundle(forClass: CocoaPodsTests.self))
   }
 }

@@ -1310,7 +1310,7 @@ Pod Target 3</string>
                 </viewController>
                 <customObject id="AKF-wE-sIK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="462"/>
+            <point key="canvasLocation" x="715" y="462"/>
         </scene>
     </scenes>
     <resources>
