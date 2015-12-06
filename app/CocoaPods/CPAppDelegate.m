@@ -2,17 +2,24 @@
 #import "CPCLIToolInstallationController.h"
 #import "CPHomeWindowController.h"
 #import "CPReflectionServiceProtocol.h"
+#import "CocoaPods-Swift.h"
 
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPAppDelegate ()
 @property (strong) CPHomeWindowController *homeWindowController;
 @property (strong) NSXPCConnection *reflectionService;
+@property (strong) URLHandler *urlHandler;
 @end
 
 @implementation CPAppDelegate
 
 #pragma mark - NSApplicationDelegate
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification;
+{
+  [self startURLService];
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
@@ -22,7 +29,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPShowVerboseCommandOutput"];
   //NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 #endif
-
+  
   [self startReflectionService];
 
   [[self CLIToolInstallationController] installBinstubIfNecessary];
@@ -35,6 +42,12 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   self.reflectionService.invalidationHandler = ^{ NSLog(@"ReflectionService invalidated."); };
   self.reflectionService.interruptionHandler = ^{ NSLog(@"ReflectionService interrupted."); };
   [self.reflectionService resume];
+}
+
+- (void)startURLService;
+{
+  self.urlHandler = [URLHandler new];
+  [self.urlHandler registerHandler];
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
