@@ -21,6 +21,8 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
 
+  @IBOutlet var tabViewDelegate: CPTabViewDelegate!
+
   override func viewWillAppear() {
 
     // The userProject is DI'd in after viewDidLoad
@@ -35,10 +37,12 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
     documentIcon.frame = documentIcon.bounds
     documentIconContainer.addSubview(documentIcon)
+
+    tabController.hiddenTabDelegate = tabViewDelegate
   }
 
-  var tabController: NSTabViewController {
-    return childViewControllers.filter { $0.isKindOfClass(NSTabViewController) }.first! as! NSTabViewController
+  var tabController: CPHiddenTabViewController {
+    return childViewControllers.filter { $0.isKindOfClass(CPHiddenTabViewController) }.first! as! CPHiddenTabViewController
   }
 
   @IBAction func install(obj: AnyObject) {
