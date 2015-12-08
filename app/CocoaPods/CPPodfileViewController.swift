@@ -39,6 +39,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     documentIconContainer.addSubview(documentIcon)
 
     tabController.hiddenTabDelegate = tabViewDelegate
+    tabViewDelegate.editorIsSelected = true
   }
 
   var tabController: CPHiddenTabViewController {
