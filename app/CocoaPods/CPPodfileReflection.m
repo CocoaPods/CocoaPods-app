@@ -105,6 +105,15 @@ SyntaxErrorFromError(NSError * _Nonnull error)
   NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
   description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
 
+  // Remove any raw instance description of a Podfile object
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"#<Pod::Podfile:\\w+>"
+                                                                         options:NSRegularExpressionCaseInsensitive
+                                                                           error:nil];
+  description = [regex stringByReplacingMatchesInString:description
+                                                options:0
+                                                  range:NSMakeRange(0, [description length])
+                                           withTemplate:NSLocalizedString(@"PODFILE_WINDOW_PODFILE_SYNTAX_ERROR_REPLACE", nil)];
+
   return [SMLSyntaxError errorWithDescription:description
                                       ofLevel:kMGSErrorCategoryError
                                        atLine:lineNumber];
