@@ -106,7 +106,7 @@ SyntaxErrorFromError(NSError * _Nonnull error)
   description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
 
   // Remove any raw instance description of a Podfile object
-  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"#<Pod::Podfile:\\w+>"
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"#<Pod::Podfile:0[xX][0-9a-fA-F]+>"
                                                                          options:NSRegularExpressionCaseInsensitive
                                                                            error:nil];
   description = [regex stringByReplacingMatchesInString:description
