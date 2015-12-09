@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -680,7 +680,7 @@
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Md7-X2-GxU" customClass="CPBrownVisualEffectsView" customModule="CocoaPods" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="78" height="660"/>
                                 <subviews>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-af-RfI">
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXb-af-RfI" customClass="CPSideButton" customModule="CocoaPods" customModuleProvider="target">
                                         <rect key="frame" x="15" y="492" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_console" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" inset="2" id="Xxt-bb-qej">
@@ -691,22 +691,14 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showConsoleTab:" target="5gI-5U-AMq" id="aSl-EN-ciF"/>
+                                            <binding destination="TcC-X8-fEE" name="enabled" keyPath="consoleIsSelected" id="xMU-CI-Yhk">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jx-vo-Lx4">
-                                        <rect key="frame" x="15" y="427" width="48" height="48"/>
-                                        <animations/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_information" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="mww-XL-8Ss">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent">3</string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="showInformationTab:" target="5gI-5U-AMq" id="AoC-RV-gge"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-Q7-aZp">
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-Q7-aZp" customClass="CPSideButton" customModule="CocoaPods" customModuleProvider="target">
                                         <rect key="frame" x="15" y="555" width="48" height="48"/>
                                         <animations/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_editor" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="jIp-ly-K6T">
@@ -717,6 +709,29 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showEditorTab:" target="5gI-5U-AMq" id="WLs-ih-h2d"/>
+                                            <binding destination="TcC-X8-fEE" name="enabled" keyPath="editorIsSelected" id="Ipf-br-m3k">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jx-vo-Lx4" customClass="CPSideButton" customModule="CocoaPods" customModuleProvider="target">
+                                        <rect key="frame" x="15" y="427" width="48" height="48"/>
+                                        <animations/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_information" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="mww-XL-8Ss">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">3</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showInformationTab:" target="5gI-5U-AMq" id="AoC-RV-gge"/>
+                                            <binding destination="TcC-X8-fEE" name="enabled" keyPath="infoIsSelected" id="JtH-61-LQt">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -836,9 +851,11 @@
                         <outlet property="actionTitleLabel" destination="hwg-nj-RtL" id="doO-U4-vRA"/>
                         <outlet property="documentIconContainer" destination="A2C-cQ-r2M" id="XjI-Gp-RjM"/>
                         <outlet property="installMenu" destination="ipM-rO-V7M" id="TUi-D1-qEX"/>
+                        <outlet property="tabViewDelegate" destination="TcC-X8-fEE" id="rpc-oY-Jgh"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="TcC-X8-fEE" customClass="CPTabViewDelegate" customModule="CocoaPods" customModuleProvider="target"/>
                 <menu id="ipM-rO-V7M">
                     <items>
                         <menuItem title="Update" id="PuO-f6-8qI">
@@ -861,6 +878,7 @@
                         </menuItem>
                     </items>
                 </menu>
+                <userDefaultsController representsSharedInstance="YES" id="LcC-8e-1XM"/>
             </objects>
             <point key="canvasLocation" x="-39.5" y="-508"/>
         </scene>
@@ -869,9 +887,9 @@
             <objects>
                 <tabViewController storyboardIdentifier="Podfile Content Tab Controller" selectedTabViewItemIndex="0" tabStyle="unspecified" id="KFF-tZ-pTU" customClass="CPHiddenTabViewController" customModule="CocoaPods" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
-                        <tabViewItem identifier="" id="LD4-sS-rWv"/>
-                        <tabViewItem id="gLn-Ae-pxb"/>
-                        <tabViewItem identifier="" id="R0S-ss-GjB"/>
+                        <tabViewItem identifier="editor" id="LD4-sS-rWv"/>
+                        <tabViewItem identifier="info" id="gLn-Ae-pxb"/>
+                        <tabViewItem identifier="console" id="R0S-ss-GjB"/>
                     </tabViewItems>
                     <viewControllerTransitionOptions key="transitionOptions" crossfade="YES"/>
                     <tabView key="tabView" id="qHT-LQ-YPj">
@@ -880,6 +898,9 @@
                         <animations/>
                         <font key="font" metaFont="message"/>
                         <tabViewItems/>
+                        <connections>
+                            <outlet property="delegate" destination="KFF-tZ-pTU" id="AcI-BM-SUr"/>
+                        </connections>
                     </tabView>
                     <connections>
                         <segue destination="KSf-K2-QFT" kind="relationship" relationship="tabItems" id="Oey-mK-Xjh"/>
