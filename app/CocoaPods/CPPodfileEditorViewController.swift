@@ -48,4 +48,101 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     // Passing the message on to the syntax checker
     syntaxChecker.textDidChange(notification)
   }
+
+  @IBAction func commentSelection(sender: NSMenuItem) {
+    guard let text = editor.textView.string else { return }
+    let selection = selectedLines(editor.textView)
+    let processed = commentsInSelection(selection) ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
+    // New line required
+    let newText = "\(processed.joinWithSeparator("\n"))\n"
+
+    editor.textView.string = (text as NSString).stringByReplacingCharactersInRange(selectedLinesRange(editor.textView), withString: newText)
+  }
+
+}
+
+/// Implements methods to toggle comments in the Podfile
+
+typealias Commenting = CPPodfileEditorViewController
+extension Commenting {
+
+  /// Checks wether the selection consists of solely comments
+  /// - parameter selection: an array of strings representing the user's selection
+  /// - returns: Bool
+
+  func commentsInSelection(selection: [String]) -> Bool {
+    let regex = try! NSRegularExpression(pattern: "\\s*#\\s*", options: .CaseInsensitive)
+
+    return selection.reduce(true) { (all, line) -> Bool in
+      return regex.matchesInString(line, options: .Anchored, range: NSMakeRange(0, line.characters.count)).count > 0 && all
+    }
+  }
+
+  /// Removes the comment syntax from the selection. 
+  ///
+  /// Removes '# ' and '#' occurences from the start of the lines
+  /// - parameter lines: an array of strings representing the user's selection
+  /// - returns: [String]
+
+  func removeCommentsFromLines(lines: [String]) -> [String] {
+    let comment = try! NSRegularExpression(pattern: "#\\s?", options: .CaseInsensitive)
+    return lines.map { line in
+      let firstMatch = comment.rangeOfFirstMatchInString(line, options: .Anchored, range: NSMakeRange(0, line.characters.count))
+      return (line as NSString).stringByReplacingCharactersInRange(firstMatch, withString: "")
+    }
+  }
+
+  /// Adds the comment syntax to the selected text
+  ///
+  /// Adds '# ' at the start of each line
+  /// - parameter lines: an array of strings representing the user's selection
+  /// - returns: [String]
+
+  func addCommentsInLines(lines: [String]) -> [String] {
+    return lines.map { line in
+      return line.stringByReplacingCharactersInRange(Range(start: line.startIndex, end: line.startIndex), withString: "# ")
+    }
+  }
+
+}
+
+/// Implements methods to retrieve the selected text from a NSTextView
+
+typealias EditorSelection = CPPodfileEditorViewController
+extension EditorSelection {
+
+  /// Returns the selected lines of text as an array of strings
+  ///
+  /// - parameter textView: the `NSTextView` containing the selection
+  /// - returns: [String]
+
+  func selectedLines(textView: NSTextView) -> [String] {
+    guard let selection = selectedText(textView) where selection.characters.count > 0 else { return [] }
+
+    // The substring is required to filter out the empty last line returned otherwise
+    return selection.substringToIndex(selection.endIndex.predecessor()).componentsSeparatedByString("\n")
+  }
+
+  /// Returns the selected text
+  ///
+  /// - parameter textView: the `NSTextView` containing the selection
+  /// - returns: String?
+
+  func selectedText(textView: NSTextView) -> String? {
+    guard let text = textView.string else { return .None }
+
+    return (text as NSString).substringWithRange(selectedLinesRange(textView))
+  }
+
+  /// Returns the selected text's range
+  ///
+  /// - parameter textView: the `NSTextView` containing the selection
+  /// - returns: NSRange
+
+  func selectedLinesRange(textView: NSTextView) -> NSRange {
+    guard let text = textView.string else { return NSMakeRange(0, 0) }
+
+    return (text as NSString).lineRangeForRange(editor.textView.selectedRange())
+  }
+
 }
