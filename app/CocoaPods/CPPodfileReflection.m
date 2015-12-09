@@ -32,7 +32,7 @@
 {
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(parsePodfile) object:nil];
   if ([self shouldParseImmediately]) {
-    [self parsePodfile];
+    [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.01];
   } else {
     [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.5];
   }
