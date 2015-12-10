@@ -52,10 +52,11 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   @IBAction func commentSelection(sender: NSMenuItem) {
     let selection = selectedLines(editor.textView)
     let processed = commentsInSelection(selection) ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
-    // New line required
-    let newText = "\(processed.joinWithSeparator("\n"))\n"
 
-    editor.textView.textStorage?.replaceCharactersInRange(selectedLinesRange(editor.textView), withString: newText)
+    // Insert the new text by selecting the lines involved in the substitution
+    // A new line is required
+    editor.textView.setSelectedRange(selectedLinesRange(editor.textView))
+    editor.textView.insertText("\(processed.joinWithSeparator("\n"))\n")
   }
 
 }
