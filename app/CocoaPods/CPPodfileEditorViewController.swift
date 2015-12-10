@@ -50,13 +50,12 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   }
 
   @IBAction func commentSelection(sender: NSMenuItem) {
-    guard let text = editor.textView.string else { return }
     let selection = selectedLines(editor.textView)
     let processed = commentsInSelection(selection) ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
     // New line required
     let newText = "\(processed.joinWithSeparator("\n"))\n"
 
-    editor.textView.string = (text as NSString).stringByReplacingCharactersInRange(selectedLinesRange(editor.textView), withString: newText)
+    editor.textView.textStorage?.replaceCharactersInRange(selectedLinesRange(editor.textView), withString: newText)
   }
 
 }
