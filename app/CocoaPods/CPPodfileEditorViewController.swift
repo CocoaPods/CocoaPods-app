@@ -51,21 +51,19 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   }
 
   @IBAction func commentSelection(sender: NSMenuItem) {
-    let selection = selectedLines(editor.textView)
-    let shouldUncomment = commentsInSelection(selection)
-    let processed = shouldUncomment ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
+    // Keep the cursor position to restore it later
     let cursorPosition = editor.textView.selectedRange().location + editor.textView.selectedRange().length
-      + (shouldUncomment ? -commentSyntax.characters.count : commentSyntax.characters.count)
+    let selection = selectedLines(editor.textView)
+    let processed = commentsInSelection(selection) ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
+    let newText = "\(processed.joinWithSeparator("\n"))\n"
 
     // Insert the new text by selecting the lines involved in the substitution
-    // A new line is required
     editor.textView.setSelectedRange(selectedLinesRange(editor.textView))
-    editor.textView.insertText("\(processed.joinWithSeparator("\n"))\n")
+    let charDifference = (selectedLinesText(editor.textView)?.characters.count ?? 0) - newText.characters.count
+    editor.textView.insertText(newText)
 
-    // If a single line is commented, restore the cursor position in the same place
-    if processed.count == 1 {
-      editor.textView.setSelectedRange(NSMakeRange(cursorPosition, 0))
-    }
+    // Restore the cursor position in the same place
+    editor.textView.setSelectedRange(NSMakeRange(cursorPosition - charDifference, 0))
   }
 
 }
