@@ -9,6 +9,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
 
   @IBOutlet var editor: MGSFragariaView!
   var syntaxChecker: CPPodfileReflection!
+  let commentSyntax = "# "
 
   // As the userProject is DI'd into the PodfileVC
   // it occurs after the view is set up.
@@ -51,12 +52,20 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
 
   @IBAction func commentSelection(sender: NSMenuItem) {
     let selection = selectedLines(editor.textView)
-    let processed = commentsInSelection(selection) ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
+    let shouldUncomment = commentsInSelection(selection)
+    let processed = shouldUncomment ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
+    let cursorPosition = editor.textView.selectedRange().location + editor.textView.selectedRange().length
+      + (shouldUncomment ? -commentSyntax.characters.count : commentSyntax.characters.count)
 
     // Insert the new text by selecting the lines involved in the substitution
     // A new line is required
     editor.textView.setSelectedRange(selectedLinesRange(editor.textView))
     editor.textView.insertText("\(processed.joinWithSeparator("\n"))\n")
+
+    // If a single line is commented, restore the cursor position in the same place
+    if processed.count == 1 {
+      editor.textView.setSelectedRange(NSMakeRange(cursorPosition, 0))
+    }
   }
 
 }
@@ -100,16 +109,16 @@ extension Commenting {
 
   func addCommentsInLines(lines: [String]) -> [String] {
     return lines.map { line in
-      return line.stringByReplacingCharactersInRange(Range(start: line.startIndex, end: line.startIndex), withString: "# ")
+      return line.stringByReplacingCharactersInRange(Range(start: line.startIndex, end: line.startIndex), withString: commentSyntax)
     }
   }
 
 }
 
-/// Implements methods to retrieve the selected text from a NSTextView
+/// Implements methods to retrieve the selected lines of text from a NSTextView
 
-typealias EditorSelection = CPPodfileEditorViewController
-extension EditorSelection {
+typealias EditorLineSelection = CPPodfileEditorViewController
+extension EditorLineSelection {
 
   /// Returns the selected lines of text as an array of strings
   ///
@@ -117,18 +126,18 @@ extension EditorSelection {
   /// - returns: [String]
 
   func selectedLines(textView: NSTextView) -> [String] {
-    guard let selection = selectedText(textView) where selection.characters.count > 0 else { return [] }
+    guard let selection = selectedLinesText(textView) where selection.characters.count > 0 else { return [] }
 
     // The substring is required to filter out the empty last line returned otherwise
     return selection.substringToIndex(selection.endIndex.predecessor()).componentsSeparatedByString("\n")
   }
 
-  /// Returns the selected text
+  /// Returns the text for the selected lines. It includes partially selected lines of text.
   ///
   /// - parameter textView: the `NSTextView` containing the selection
   /// - returns: String?
 
-  func selectedText(textView: NSTextView) -> String? {
+  func selectedLinesText(textView: NSTextView) -> String? {
     guard let text = textView.string else { return .None }
 
     return (text as NSString).substringWithRange(selectedLinesRange(textView))
