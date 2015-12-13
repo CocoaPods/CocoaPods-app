@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -15,6 +15,12 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="Byb-Tq-L28" customClass="SUUpdater"/>
         <customObject id="bzE-zY-Vxb" customClass="CPExternalLinksHelper"/>
+        <customObject id="SQz-GE-SRD" customClass="CPMenuVisiblityDirector" customModule="CocoaPods" customModuleProvider="target">
+            <connections>
+                <outlet property="buildMenu" destination="uYo-Yr-gGi" id="l30-0D-y06"/>
+                <outlet property="editorMenu" destination="H0e-IQ-Hc1" id="DaR-mw-wvH"/>
+            </connections>
+        </customObject>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="CocoaPods" id="1Xt-HY-uBw">
@@ -348,11 +354,68 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="cTy-5d-3Sg"/>
-                            <menuItem title="Comment Selection" tag="1" keyEquivalent="/" id="7dI-nM-7NE">
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Editor" id="H0e-IQ-Hc1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Editor" id="vKB-PU-XQX">
+                        <items>
+                            <menuItem title="Comment Selection" keyEquivalent="/" id="jCB-46-dI7">
                                 <connections>
-                                    <action selector="commentSelection:" target="-1" id="RPd-Au-yfT"/>
+                                    <action selector="commentSelection:" target="-1" id="JLH-y1-1Rg"/>
                                 </connections>
                             </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="View" id="zmc-J6-DtQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" id="5gb-ap-wV7">
+                        <items>
+                            <menuItem title="Podfile Editor" keyEquivalent="1" id="Vad-pU-joO">
+                                <connections>
+                                    <action selector="showEditorTab:" target="-1" id="s5O-hb-kgc"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Console" keyEquivalent="2" id="N6r-GM-4n1">
+                                <connections>
+                                    <action selector="showConsoleTab:" target="-1" id="34F-FY-efO"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Information" keyEquivalent="3" id="2aY-CM-dhd">
+                                <connections>
+                                    <action selector="showInformationTab:" target="-1" id="Ds2-5n-OQs"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="cEG-Nk-FNM"/>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Build" id="uYo-Yr-gGi">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Build" id="jb8-1H-tfs">
+                        <items>
+                            <menuItem title="Install" keyEquivalent="b" id="2QS-4L-qhV">
+                                <connections>
+                                    <action selector="install:" target="-1" id="V5Z-cM-DCd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Install (Verbose)" alternate="YES" keyEquivalent="b" id="k0r-Kk-Xqp">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="installVerbose:" target="-1" id="75H-69-ywR"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Update" keyEquivalent="u" id="Zgj-eh-Ahx">
+                                <connections>
+                                    <action selector="installUpdate:" target="-1" id="XFV-5V-PRU"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Update (Verbose)" alternate="YES" keyEquivalent="u" id="Sev-55-ntk">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Lmb-6g-oqt"/>
                         </items>
                     </menu>
                 </menuItem>
