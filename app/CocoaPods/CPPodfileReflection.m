@@ -31,7 +31,18 @@
 - (void)textDidChange:(NSNotification *)notification;
 {
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(parsePodfile) object:nil];
-  [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.5];
+  if ([self shouldParseImmediately]) {
+    [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.01];
+  } else {
+    [self performSelector:@selector(parsePodfile) withObject:nil afterDelay:0.5];
+  }
+}
+
+/// YES when the parsing should be updated immediatly.
+/// See https://github.com/CocoaPods/CocoaPods-app/issues/130
+- (BOOL)shouldParseImmediately
+{
+  return self.editor.syntaxErrors.count > 0;
 }
 
 - (void)parsePodfile;
@@ -104,6 +115,15 @@ SyntaxErrorFromError(NSError * _Nonnull error)
   // Capitalise the message.
   NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
   description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
+
+  // Remove any raw instance description of a Podfile object
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"#<Pod::Podfile:0[xX][0-9a-fA-F]+>"
+                                                                         options:NSRegularExpressionCaseInsensitive
+                                                                           error:nil];
+  description = [regex stringByReplacingMatchesInString:description
+                                                options:0
+                                                  range:NSMakeRange(0, [description length])
+                                           withTemplate:NSLocalizedString(@"PODFILE_WINDOW_PODFILE_SYNTAX_ERROR_REPLACE", nil)];
 
   return [SMLSyntaxError errorWithDescription:description
                                       ofLevel:kMGSErrorCategoryError

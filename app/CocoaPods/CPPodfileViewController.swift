@@ -9,11 +9,12 @@ import Cocoa
 class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   var userProject:CPUserProject!
-  @IBOutlet var contentView:NSView!
   dynamic var installAction: CPInstallAction!
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
+
+  @IBOutlet var tabViewDelegate: CPTabViewDelegate!
 
   override func viewWillAppear() {
 
@@ -31,10 +32,13 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
     documentIcon.frame = documentIcon.bounds
     documentIconContainer.addSubview(documentIcon)
+
+    tabController.hiddenTabDelegate = tabViewDelegate
+    tabViewDelegate.editorIsSelected = true
   }
 
-  var tabController: NSTabViewController {
-    return childViewControllers.filter { $0.isKindOfClass(NSTabViewController) }.first! as! NSTabViewController
+  var tabController: CPHiddenTabViewController {
+    return childViewControllers.filter { $0.isKindOfClass(CPHiddenTabViewController) }.first! as! CPHiddenTabViewController
   }
 
   @IBAction func install(obj: AnyObject) {
