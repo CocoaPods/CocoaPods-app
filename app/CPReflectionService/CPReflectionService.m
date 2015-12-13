@@ -39,4 +39,19 @@
   }];
 }
 
+- (void)getXcodeIntegrationInformation:(void (^ _Nonnull)(NSDictionary * _Nullable information, NSError * _Nullable error))reply
+{
+  [RBObject performBlock:^{
+    RBPathname *pathname = [RBObjectFromString(@"Pathname") new:@"Podfile"];
+
+    RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
+
+    reply(@{}, nil);
+
+  } error:^(NSError * _Nonnull error) {
+    reply(nil, error);
+  }];
+
+}
+
 @end

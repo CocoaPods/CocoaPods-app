@@ -38,8 +38,9 @@
   }
 }
 
-/// YES when the parsing should be updated immediatly.
+/// YES when the parsing should be updated immediately.
 /// See https://github.com/CocoaPods/CocoaPods-app/issues/130
+
 - (BOOL)shouldParseImmediately
 {
   return self.editor.syntaxErrors.count > 0;

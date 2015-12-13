@@ -259,7 +259,7 @@
                             <userLayoutGuide location="125" affinity="minX"/>
                             <userLayoutGuide location="30" affinity="minX"/>
                             <userLayoutGuide location="156" affinity="minX"/>
-                            <userLayoutGuide location="301" affinity="minX"/>
+                            <userLayoutGuide location="300" affinity="minX"/>
                         </userGuides>
                         <subviews>
                             <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="150" horizontalPageScroll="10" verticalLineScroll="150" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZX-Bo-Gby">
@@ -517,7 +517,7 @@ Pod Target 3</string>
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="yj6-Wm-Wtx">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="yj6-Wm-Wtx">
                                     <rect key="frame" x="1" y="585" width="510" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>

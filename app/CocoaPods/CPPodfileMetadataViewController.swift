@@ -16,7 +16,12 @@ struct CPPod  {
 }
 
 class CPPodfileMetadataViewController: NSViewController {
+  var syntaxChecker: CPPodfileReflection!
+
+  override func viewWillAppear() {
+    super.viewWillAppear()
 
 
+  }
 
 }

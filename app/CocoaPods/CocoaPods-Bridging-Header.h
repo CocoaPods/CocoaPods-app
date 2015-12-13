@@ -5,3 +5,5 @@
 #import "CPUserProject.h"
 #import "CPCLITask.h"
 #import "CPPodfileReflection.h"
+#import "CPAppDelegate.h"
+#import "CPReflectionServiceProtocol.h"
