@@ -15,6 +15,12 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="Byb-Tq-L28" customClass="SUUpdater"/>
         <customObject id="bzE-zY-Vxb" customClass="CPExternalLinksHelper"/>
+        <customObject id="SQz-GE-SRD" customClass="CPMenuVisiblityDirector" customModule="CocoaPods" customModuleProvider="target">
+            <connections>
+                <outlet property="buildMenu" destination="uYo-Yr-gGi" id="l30-0D-y06"/>
+                <outlet property="editorMenu" destination="H0e-IQ-Hc1" id="DaR-mw-wvH"/>
+            </connections>
+        </customObject>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="CocoaPods" id="1Xt-HY-uBw">

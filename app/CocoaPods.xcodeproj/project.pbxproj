@@ -43,6 +43,7 @@
 		601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
+		603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */; };
 		604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */; };
 		6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */; };
 		605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */; };
@@ -186,6 +187,7 @@
 		601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TersePaths.h"; sourceTree = "<group>"; };
 		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
+		603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMenuVisiblityDirector.swift; sourceTree = "<group>"; };
 		604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleViewController.swift; sourceTree = "<group>"; };
 		6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPModifiedDecorationsWindow.swift; sourceTree = "<group>"; };
 		6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPReturnTriggeringTableView.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
 				6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */,
 				6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */,
+				603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -809,6 +812,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				510F09751C0A73B800F40F2B /* CPRubyErrors.m in Sources */,
+				603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
 				5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
