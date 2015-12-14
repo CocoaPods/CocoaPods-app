@@ -19,3 +19,10 @@ class BrownView: NSView {
     NSRectFill(dirtyRect);
   }
 }
+
+class BlueView: NSView {
+    override func drawRect(dirtyRect: NSRect) {
+      NSColor(calibratedRed:0.227, green:0.463, blue:0.733, alpha:1.00).set()
+      NSRectFill(dirtyRect);
+  }
+}

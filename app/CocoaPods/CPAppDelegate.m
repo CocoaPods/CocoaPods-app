@@ -3,11 +3,10 @@
 #import "CPHomeWindowController.h"
 #import "CPReflectionServiceProtocol.h"
 #import "CocoaPods-Swift.h"
-
-NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
+#import "CPCLIToolInstallationController.h"
 
 @interface CPAppDelegate ()
-@property (strong) CPHomeWindowController *homeWindowController;
+@property (nonatomic, strong) CPHomeWindowController *homeWindowController;
 @property (strong) NSXPCConnection *reflectionService;
 @property (strong) URLHandler *urlHandler;
 @end
@@ -24,15 +23,11 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
 #ifdef DEBUG
-  //[[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPRequestCLIToolInstallationAgainKey];
-  //[[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
-  //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CPShowVerboseCommandOutput"];
-  //NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPDoNotRequestCLIToolInstallationAgainKey];
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
 #endif
   
   [self startReflectionService];
-
-  [[self CLIToolInstallationController] installBinstubIfNecessary];
 }
 
 - (void)startReflectionService;
@@ -78,30 +73,28 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
   return YES;
 }
-
 #pragma mark - Actions
 
 - (IBAction)installBinstubIfNecessary:(id)sender;
 {
-  [[self CLIToolInstallationController] installBinstub];
+    [self.homeWindowController installBinstub:sender];
 }
 
 - (IBAction)showHomeWindow:(id)sender;
 {
-  if (self.homeWindowController == nil) {
-    self.homeWindowController = [[CPHomeWindowController alloc] init];
-  }
-
   [self.homeWindowController showWindow:sender];
   [self.homeWindowController.window center];
 }
 
 #pragma mark - Private
 
-- (CPCLIToolInstallationController *)CLIToolInstallationController;
+- (CPHomeWindowController *)homeWindowController
 {
-  NSURL *destinationURL = [NSURL fileURLWithPath:kCPCLIToolSuggestedDestination];
-  return [CPCLIToolInstallationController controllerWithSuggestedDestinationURL:destinationURL];
+  if (_homeWindowController == nil) {
+    _homeWindowController = [[CPHomeWindowController alloc] init];
+  }
+  return _homeWindowController;
 }
+
 
 @end

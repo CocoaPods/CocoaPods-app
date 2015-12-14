@@ -29,7 +29,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
   return self;
 }
 
-- (BOOL)installBinstubIfNecessary;
+- (BOOL)shouldInstallBinstubIfNecessary;
 {
   [self verifyExistingInstallDestinations];
 
@@ -43,7 +43,16 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
     return NO;
   }
 
-  return [self installBinstub];
+  return YES;
+}
+
+
+- (BOOL)installBinstubIfNecessary;
+{
+  if ([self shouldInstallBinstubIfNecessary]) {
+      return [self installBinstub];
+  }
+  return NO;
 }
 
 - (BOOL)installBinstub;
@@ -171,7 +180,7 @@ CPBookmarkDataForURL(NSURL *URL) {
 
 #pragma mark - User interaction (modal windows)
 
-// Returns wether or not the user chose to perform the installation and, in case the user chose a
+// Returns whether or not the user chose to perform the installation and, in case the user chose a
 // different installation destination, the `destinationURL` is updated.
 //
 // In case the user chose to cancel the operation, this preference is stored and the user will not

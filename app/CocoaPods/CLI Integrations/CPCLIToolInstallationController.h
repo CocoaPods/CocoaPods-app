@@ -8,6 +8,13 @@ extern NSString * const kCPCLIToolInstalledToDestinationsKey;
 
 + (instancetype)controllerWithSuggestedDestinationURL:(NSURL *)suggestedDestinationURL;
 
+// Checks if binstub is not installed yet and is not configured to not request the
+// user for installation again (`kCPRequestCLIToolInstallationAgainKey`).
+//
+// Returns whether or not installation should be performed.
+
+- (BOOL)shouldInstallBinstubIfNecessary;
+
 // Only performs the installation if it's not installed yet and is not configured to not request the
 // user for installation again (`kCPRequestCLIToolInstallationAgainKey`).
 //

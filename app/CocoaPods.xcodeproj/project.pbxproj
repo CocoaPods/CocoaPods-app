@@ -142,8 +142,8 @@
 		1F9177561BA27592006698C9 /* CPHomeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowController.m; sourceTree = "<group>"; };
 		1F91775B1BA27598006698C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPHomeWindowController.xib; sourceTree = "<group>"; };
 		217877836B7D3B2373163464 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLIToolInstallationController.h; sourceTree = "<group>"; };
-		331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLIToolInstallationController.m; sourceTree = "<group>"; };
+		331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPCLIToolInstallationController.h; path = "CLI Integrations/CPCLIToolInstallationController.h"; sourceTree = "<group>"; };
+		331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPCLIToolInstallationController.m; path = "CLI Integrations/CPCLIToolInstallationController.m"; sourceTree = "<group>"; };
 		331188581BEBCB4200272793 /* CPCLITask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLITask.h; sourceTree = "<group>"; };
 		331188591BEBCB4200272793 /* CPCLITask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLITask.m; sourceTree = "<group>"; };
 		48BFECFC4C849B1ABEB40B43 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,8 +266,6 @@
 			children = (
 				331188581BEBCB4200272793 /* CPCLITask.h */,
 				331188591BEBCB4200272793 /* CPCLITask.m */,
-				331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */,
-				331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */,
 			);
 			path = "CLI Integrations";
 			sourceTree = "<group>";
@@ -381,6 +379,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
+			isa = PBXGroup;
+			children = (
+				331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */,
+				331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */,
+			);
+			name = "Command Line Tools";
+			sourceTree = "<group>";
+		};
 		6051191E1C08C4AC0037B95E /* Custom Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,13 +441,6 @@
 			name = "Presenting Text";
 			sourceTree = "<group>";
 		};
-		606D1EDB1BF93079000B7148 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +453,7 @@
 		60FE01621B9B76400027EEE3 /* Home Window */ = {
 			isa = PBXGroup;
 			children = (
+				6033ECB01C1E588300C2EDAD /* Command Line Tools */,
 				6051191E1C08C4AC0037B95E /* Custom Subviews */,
 				601F910E1BE6405B00AD22B1 /* Resources */,
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
@@ -460,7 +461,6 @@
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
 				6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */,
 				6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */,
-				603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -481,9 +481,9 @@
 		60FE01641B9B76520027EEE3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */,
 				601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */,
 				601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */,
-				606D1EDB1BF93079000B7148 /* Views */,
 			);
 			name = Project;
 			sourceTree = "<group>";
