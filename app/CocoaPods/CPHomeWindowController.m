@@ -58,9 +58,9 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   }];
 }
 
-// Takes the installCommandLineToolsView and pulls it out of the nib
-// adding it into the contentview of the window, then animates it down
-// to peak into the message.
+/// Takes the installCommandLineToolsView and pulls it out of the nib
+/// adding it into the contentview of the window, then animates it down
+/// to peak into the message.
 
 - (void)addCLIInstallerMessageAnimated:(BOOL)animate;
 {
@@ -75,11 +75,15 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   [constraint setConstant:68];
 }
 
+/// Expands the message to the full height of the home screen window
+
 - (IBAction)showFullCLIInstallerMessageAnimated:(id)sender;
 {
   NSView *content = self.window.contentView;
   [self.commandLineToolsHeightConstraint.animator setConstant:CGRectGetHeight(content.bounds)];
 }
+
+/// Installs the bind stub
 
 - (IBAction)installBinstub:(id)sender;
 {
@@ -91,6 +95,5 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   NSURL *destinationURL = [NSURL fileURLWithPath:kCPCLIToolSuggestedDestination];
   return [CPCLIToolInstallationController controllerWithSuggestedDestinationURL:destinationURL];
 }
-
 
 @end

@@ -40,8 +40,9 @@
 		5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */; };
 		5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5B7861C17990400F8C39E /* CPSideButton.swift */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
-		601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
+		6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */; };
+		6033ECB41C1E6D7000C2EDAD /* CPBorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033ECB31C1E6D7000C2EDAD /* CPBorderedButton.swift */; };
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
 		603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */; };
 		604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */; };
@@ -183,9 +184,10 @@
 		5EF5B7861C17990400F8C39E /* CPSideButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSideButton.swift; sourceTree = "<group>"; };
 		601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExternalLinksHelper.h; sourceTree = "<group>"; };
 		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
-		601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podfile-icon@2x.png"; sourceTree = "<group>"; };
 		601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TersePaths.h"; sourceTree = "<group>"; };
 		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
+		6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Home Screen.xcassets"; sourceTree = "<group>"; };
+		6033ECB31C1E6D7000C2EDAD /* CPBorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPBorderedButton.swift; sourceTree = "<group>"; };
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
 		603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMenuVisiblityDirector.swift; sourceTree = "<group>"; };
 		604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleViewController.swift; sourceTree = "<group>"; };
@@ -371,14 +373,6 @@
 			path = pod;
 			sourceTree = "<group>";
 		};
-		601F910E1BE6405B00AD22B1 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */,
+				6033ECB31C1E6D7000C2EDAD /* CPBorderedButton.swift */,
 			);
 			name = "Custom Subviews";
 			sourceTree = "<group>";
@@ -455,12 +450,12 @@
 			children = (
 				6033ECB01C1E588300C2EDAD /* Command Line Tools */,
 				6051191E1C08C4AC0037B95E /* Custom Subviews */,
-				601F910E1BE6405B00AD22B1 /* Resources */,
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
 				1F9177561BA27592006698C9 /* CPHomeWindowController.m */,
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
 				6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */,
 				6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */,
+				6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -672,9 +667,9 @@
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
 				606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */,
 				6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */,
+				6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */,
 				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
 				1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */,
-				601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -834,6 +829,7 @@
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */,
+				6033ECB41C1E6D7000C2EDAD /* CPBorderedButton.swift in Sources */,
 				606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */,
 				51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */,
 				60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */,
