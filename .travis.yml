@@ -5,5 +5,5 @@ env:
   global:
     - LANG=en_US.UTF-8
 
-install: rake app:build --quiet
+install: rake app:prerequisites --quiet
 script: rake bundle:test --quiet
