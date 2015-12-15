@@ -70,7 +70,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
 
   /// Apply a text transformation to a selection
   ///
-  /// The trasnformation is provided as a closure. Returns an NSRange with the new selection, maintaining selected
+  /// The transformation is provided as a closure. Returns an NSRange with the new selection, maintaining selected
   /// the string selected by the user.
   /// - parameter change: the closure that accepts `[String]` and returns `[String]`
   /// - parameter selection: an array of Strings representing the lines of the selection
