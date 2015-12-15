@@ -3,10 +3,10 @@
 
 #import <RubyCocoa/RBRuntime.h>
 #import <AppKit/NSAlert.h>
+#import <objc/runtime.h>
 
 #ifndef NS_BLOCK_ASSERTIONS
 #define CP_ENABLE_THREAD_ASSERTIONS
-#import <objc/runtime.h>
 #endif
 
 @class RBThread;

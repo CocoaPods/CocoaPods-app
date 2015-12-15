@@ -547,10 +547,10 @@
 				51165E1C1A17AFF500DCFC94 /* Frameworks */,
 				51165E1D1A17AFF500DCFC94 /* Resources */,
 				1FFFBB091BA25469004A8D1E /* Copy Helper Executables */,
-				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 				7BA6F304307FC11D21E8194E /* Embed Pods Frameworks */,
 				D59CE4AF1077B989CD7145BD /* Copy Pods Resources */,
 				5102542E1C0A60680045FCD8 /* Embed XPC Services */,
+				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 			);
 			buildRules = (
 			);
