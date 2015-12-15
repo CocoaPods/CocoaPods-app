@@ -884,7 +884,7 @@ namespace :bundle do
     test_dir = 'tmp'
     rm_rf test_dir
     mkdir_p test_dir
-    cp 'Podfile', test_dir
+    cp 'test/Podfile', test_dir
     Dir.chdir(test_dir) do
       execute 'Test', [BUNDLE_ENV, 'pod', 'install', '--no-integrate', '--verbose']
     end
