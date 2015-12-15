@@ -227,16 +227,17 @@
                     <rect key="frame" x="24" y="297" width="375" height="82"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="9iw-zL-1Cp">
                         <font key="font" metaFont="system" size="14"/>
-                        <string key="title">By installing the CocoaPods Command Line Tools you can run the pod command from your favorite terminal, and it will actually run the sandboxed command provided inside CocoaPods.app bundle.</string>
+                        <string key="title">By installing the CocoaPods Command Line Tools you can run the pod command from your favourite terminal. This means you get instant access to the whole 
+command-line API.</string>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-tZ-TcD">
-                    <rect key="frame" x="18" y="128" width="201" height="85"/>
+                    <rect key="frame" x="18" y="123" width="201" height="90"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="LS2-at-0ZW">
                         <font key="font" metaFont="system" size="14"/>
-                        <string key="title">This is done my making a symbolic link for the App's sandboxed pod command in 
+                        <string key="title">This is done by making a symbolic link to the bundled pod command in: 
 /usr/local/bin/pod
 </string>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
@@ -303,7 +304,7 @@ Command-Line Tools?</string>
                     <rect key="frame" x="258" y="-38" width="410" height="234"/>
                     <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="Zpq-J5-F7o">
                         <font key="font" size="13" name="Menlo-Regular"/>
-                        <mutableString key="title">-&gt; Moya (5.1.0)
+                        <string key="title">-&gt; Moya (5.1.0)
    Network abstraction layer written in Swift
    pod 'Moya', '~&gt; 5.1.0'
    - Homepage: https://github.com/Moya/Moya
@@ -312,7 +313,7 @@ Command-Line Tools?</string>
    - Subspecs:
      - Moya/Core (5.1.0)
      - Moya/ReactiveCocoa (5.1.0)
-     - Moya/RxSwift (5.1.0)</mutableString>
+     - Moya/RxSwift (5.1.0)</string>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
