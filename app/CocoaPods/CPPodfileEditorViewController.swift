@@ -10,6 +10,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   @IBOutlet var editor: MGSFragariaView!
   var syntaxChecker: CPPodfileReflection!
   let commentSyntax = "# "
+  let indentationSyntax = "  "
 
   // As the userProject is DI'd into the PodfileVC
   // it occurs after the view is set up.
@@ -51,19 +52,51 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   }
 
   @IBAction func commentSelection(sender: NSMenuItem) {
+    let selection = selectedLines(editor.textView)
+    let change = commentsInSelection(selection) ? removeCommentsFromLines : addCommentsInLines
+    applyTextChange(change, toSelection: selection)
+  }
+
+  @IBAction func indentSelection(sender: NSMenuItem) {
+    applyTextChange(indentedSelection, toSelection: selectedLines(editor.textView))
+  }
+
+  @IBAction func outdentSelection(sender: NSMenuItem) {
+    applyTextChange(outdentedSelection, toSelection: selectedLines(editor.textView))
+  }
+
+  private func applyTextChange(change: ([String] -> [String]), toSelection selection: [String]) {
     // Keep the cursor position to restore it later
     let cursorPosition = editor.textView.selectedRange().location + editor.textView.selectedRange().length
-    let selection = selectedLines(editor.textView)
-    let processed = commentsInSelection(selection) ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
-    let newText = "\(processed.joinWithSeparator("\n"))\n"
+    let newText = "\(change(selection).joinWithSeparator("\n"))\n"
 
-    // Insert the new text by selecting the lines involved in the substitution
     editor.textView.setSelectedRange(selectedLinesRange(editor.textView))
     let charDifference = (selectedLinesText(editor.textView)?.characters.count ?? 0) - newText.characters.count
     editor.textView.insertText(newText)
 
     // Restore the cursor position in the same place
     editor.textView.setSelectedRange(NSMakeRange(cursorPosition - charDifference, 0))
+  }
+
+}
+
+/// Implements methods to indent the Podfile
+
+typealias Indentation = CPPodfileEditorViewController
+extension Indentation {
+
+  func indentedSelection(selection: [String]) -> [String] {
+    return selection.map { line in
+      return line.stringByReplacingCharactersInRange(Range(start: line.startIndex, end: line.startIndex), withString: indentationSyntax)
+    }
+  }
+
+  func outdentedSelection(selection: [String]) -> [String] {
+    let indent = try! NSRegularExpression(pattern: "\t|^\\s{1,2}", options: .CaseInsensitive)
+    return selection.map { line in
+      let firstMatch = indent.rangeOfFirstMatchInString(line, options: .Anchored, range: NSMakeRange(0, line.characters.count))
+      return (line as NSString).stringByReplacingCharactersInRange(firstMatch, withString: "")
+    }
   }
 
 }
