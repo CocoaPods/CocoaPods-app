@@ -1,14 +1,24 @@
+VERBOSE = !!RakeFileUtils.verbose_flag
+
 RELEASE_PLATFORM = '10.11'
 
 DEPLOYMENT_TARGET = '10.10'
 DEPLOYMENT_TARGET_SDK = "MacOSX#{DEPLOYMENT_TARGET}.sdk"
 
 $build_started_at = Time.now
+at_exit do
+  min, sec = (Time.now - $build_started_at).divmod(60)
+  sec = sec.round
+  puts
+  puts "Finished in #{min} minutes and #{sec} seconds"
+  puts
+end
 
 # OpenSSL fails if we set this make configuration through MAKEFLAGS, so we pass
 # it to each make invocation seperately.
 MAKE_CONCURRENCY = `sysctl hw.physicalcpu`.strip.match(/\d+$/)[0].to_i + 1
 
+ROOT = File.dirname(__FILE__)
 PKG_DIR = 'pkg'
 DOWNLOAD_DIR = 'downloads'
 WORKBENCH_DIR = 'workbench'
@@ -56,7 +66,10 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  sh "cd ~/.cocoapods/repos/master && git pull"
+  Dir.chdir(File.expand_path('~/.cocoapods/repos/master')) do
+    execute 'CocoaPods', ['/usr/bin/git', 'pull']
+  end
+
   version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
   require 'yaml'
   @install_cocoapods_version = YAML.load(File.read(version_file))['last']
@@ -113,257 +126,374 @@ MERCURIAL_VERSION = '3.3.3'
 MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-#{MERCURIAL_VERSION}.tar.gz"
 
 # ------------------------------------------------------------------------------
+# Bundle Build Tools
+# ------------------------------------------------------------------------------
+
+def log(group, message)
+  $stderr.puts "[#{Time.now.strftime('%T')}] [#{group}] #{message}"
+end
+
+def relative_path(path)
+  path.start_with?(ROOT) ? path[ROOT.size+1..-1] : path
+end
+
+# These changes are so that copy-pasting the logged commands should work.
+def log_command(group, command, output_file)
+  command_for_presentation = command.map do |component|
+    if component.include?('=')
+      key, value = component.split('=', 2)
+      # Add extra quotes around values of key=value pairs
+      %{#{key}="#{value}"}
+    else
+      component
+    end
+  end
+  wd = Dir.pwd
+  if wd == ROOT
+    # Make command path relative, if inside `ROOT`
+    command_for_presentation[0] = relative_path(command_for_presentation[0])
+  else
+    # Change working-dir to `wd`
+    command_for_presentation.unshift("cd #{relative_path(wd)} &&")
+  end
+  if output_file
+    # Redirect output to `output_file`
+    command_for_presentation << '>'
+    command_for_presentation << output_file
+  end
+
+  log(group, command_for_presentation.join(' '))
+end
+
+def execute(group, command, output_file = nil)
+  command.map!(&:to_s)
+  log_command(group, command, output_file)
+
+  if output_file
+    out = File.open(output_file, 'a')
+  end
+  if VERBOSE
+    out ||= $stdout
+    err = $stderr
+  else
+    err = File.open("/tmp/cocoapods-app-bundle-build-#{Process.pid}", 'w+')
+    out ||= err
+  end
+  command << { :out => out, :err => err }
+
+  Process.wait(Process.spawn(*command))
+  unless $?.success?
+    unless VERBOSE
+      out.rewind
+      $stderr.puts(out.read)
+    end
+    exit $?.exitstatus
+  end
+ensure
+  out.close if out && output_file
+  err.close if err && !VERBOSE
+end
+
+class BundleDependencyTasks
+  include Rake::DSL
+
+  def self.define(&block)
+    new(&block).tap(&:define_tasks)
+  end
+
+  # The URL from where to download the package.
+  attr_accessor :url
+
+  # An array of options that should be passed to the `configure` script. The `prefix` is already set.
+  attr_accessor :configure
+
+  # A relative path to a file that should exist (in the `WORKBENCH_DIR`) after building the package.
+  attr_accessor :artefact_file
+
+  # A relative path to a file that should exist (in the `prefix`) after installing the package.
+  attr_accessor :installed_file
+
+  # The installed paths (e.g. `BundleDependencyTasks#installed_path`) that this package depends on.
+  attr_accessor :dependencies
+
+  # The `--prefix` value passed to the `configure` script.
+  attr_accessor :prefix
+
+  def initialize
+    @dependencies = []
+    @configure = []
+    yield self
+  end
+
+  def define_tasks
+    define_download_task
+    define_unpack_task
+    define_build_task
+    define_install_task
+  end
+
+  def package_name
+    File.basename(@url).split('.tar.').first
+  end
+
+  def execute(*command)
+    super(package_name, command)
+  end
+
+  def downloaded_file
+    File.join(DOWNLOAD_DIR, File.basename(@url))
+  end
+
+  def download_task
+    execute '/usr/bin/curl', '-sSL', @url, '-o', downloaded_file
+  end
+
+  def define_download_task
+    file(downloaded_file => DOWNLOAD_DIR) { download_task }
+  end
+
+  def build_dir
+    File.join(WORKBENCH_DIR, package_name)
+  end
+
+  def unpack_command
+    ['/usr/bin/tar', '-zxvf', downloaded_file, '-C', WORKBENCH_DIR]
+  end
+
+  def unpack_task
+    execute *unpack_command
+  end
+
+  def define_unpack_task
+    directory(build_dir => [downloaded_file, WORKBENCH_DIR]) { unpack_task }
+  end
+
+  def artefact_path
+    File.join(build_dir, @artefact_file)
+  end
+
+  def build_command
+    ['/usr/bin/make', '-j', MAKE_CONCURRENCY]
+  end
+
+  def build_task
+    Dir.chdir(build_dir) do
+      execute '/bin/sh', 'configure', '--prefix', @prefix, *@configure
+      execute *build_command
+    end
+  end
+
+  def define_build_task
+    dependencies = @dependencies + [build_dir]
+    file(artefact_path => dependencies) { build_task }
+  end
+
+  def installed_path
+    File.join(relative_path(@prefix), @installed_file)
+  end
+
+  def install_task
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/make', 'install'
+    end
+  end
+
+  def define_install_task
+    file(installed_path => artefact_path) { install_task }
+  end
+end
+
+class PythonSetupTasks < BundleDependencyTasks
+  def self.python_version
+    @python_version ||= `/usr/bin/python --version 2>&1`.match(/\d\.\d/)[0]
+  end
+
+  def artefact_script=(script_name)
+    self.artefact_file = File.join('build', "scripts-#{self.class.python_version}", script_name)
+  end
+
+  def build_task
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/python', 'setup.py', 'build'
+    end
+  end
+
+  def install_task
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/python', 'setup.py', 'install', '--prefix', BUNDLE_PREFIX
+    end
+  end
+end
+
+GEM_HOME = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'))
+
+def install_gem(name, version = nil, group = 'Gems')
+  execute group, [BUNDLE_ENV, 'gem', 'install', name, ("--version=#{version}" if version), '--no-document', '--env-shebang'].compact
+end
+
+# ------------------------------------------------------------------------------
 # pkg-config
 # ------------------------------------------------------------------------------
 
-pkg_config_tarball = File.join(DOWNLOAD_DIR, File.basename(PKG_CONFIG_URL))
-file pkg_config_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{PKG_CONFIG_URL} -o #{pkg_config_tarball}"
+class PkgConfigTasks < BundleDependencyTasks
+  def install_task
+    super
+    mkdir_p PKG_CONFIG_LIBDIR
+  end
 end
 
-pkg_config_build_dir = File.join(WORKBENCH_DIR, File.basename(PKG_CONFIG_URL, '.tar.gz'))
-directory pkg_config_build_dir => [pkg_config_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{pkg_config_tarball} -C #{WORKBENCH_DIR}"
+pkg_config_tasks = PkgConfigTasks.define do |t|
+  t.url            = PKG_CONFIG_URL
+  t.artefact_file  = 'pkg-config'
+  t.installed_file = 'bin/pkg-config'
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.configure      = %w{ --enable-static --with-internal-glib }
 end
 
-pkg_config_bin = File.join(pkg_config_build_dir, 'pkg-config')
-file pkg_config_bin => pkg_config_build_dir do
-  sh "cd #{pkg_config_build_dir} && ./configure --enable-static --with-internal-glib --prefix '#{DEPENDENCIES_PREFIX}'"
-  sh "cd #{pkg_config_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_pkg_config = File.join(DEPENDENCIES_DESTROOT, 'bin/pkg-config')
-file installed_pkg_config => pkg_config_bin do
-  sh "cd #{pkg_config_build_dir} && make install"
-  mkdir_p PKG_CONFIG_LIBDIR
-end
+installed_pkg_config = pkg_config_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # YAML
 # ------------------------------------------------------------------------------
 
-yaml_tarball = File.join(DOWNLOAD_DIR, File.basename(LIBYAML_URL))
-file yaml_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{LIBYAML_URL} -o #{yaml_tarball}"
+yaml_tasks = BundleDependencyTasks.define do |t|
+  t.url            = LIBYAML_URL
+  t.artefact_file  = 'src/.libs/libyaml.a'
+  t.installed_file = 'lib/libyaml.a'
+  t.configure      = %w{ --disable-shared }
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.dependencies   = [installed_pkg_config]
 end
 
-yaml_build_dir = File.join(WORKBENCH_DIR, File.basename(LIBYAML_URL, '.tar.gz'))
-directory yaml_build_dir => [yaml_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{yaml_tarball} -C #{WORKBENCH_DIR}"
-end
-
-yaml_static_lib = File.join(yaml_build_dir, 'src/.libs/libyaml.a')
-file yaml_static_lib => [installed_pkg_config, yaml_build_dir] do
-  sh "cd #{yaml_build_dir} && ./configure --disable-shared --prefix '#{DEPENDENCIES_PREFIX}'"
-  sh "cd #{yaml_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_yaml = File.join(DEPENDENCIES_DESTROOT, 'lib/libyaml.a')
-file installed_yaml => yaml_static_lib do
-  sh "cd #{yaml_build_dir} && make install"
-end
+installed_yaml = yaml_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # ZLIB
 # ------------------------------------------------------------------------------
 
-zlib_tarball = File.join(DOWNLOAD_DIR, File.basename(ZLIB_URL))
-file zlib_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{ZLIB_URL} -o #{zlib_tarball}"
+zlib_tasks = BundleDependencyTasks.define do |t|
+  t.url            = ZLIB_URL
+  t.artefact_file  = 'libz.a'
+  t.installed_file = 'lib/libz.a'
+  t.configure      = %w{ --static }
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.dependencies   = [installed_pkg_config]
 end
 
-zlib_build_dir = File.join(WORKBENCH_DIR, File.basename(ZLIB_URL, '.tar.gz'))
-directory zlib_build_dir => [zlib_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{zlib_tarball} -C #{WORKBENCH_DIR}"
-end
-
-zlib_static_lib = File.join(zlib_build_dir, 'libz.a')
-file zlib_static_lib => [installed_pkg_config, zlib_build_dir] do
-  sh "cd #{zlib_build_dir} && ./configure --static --prefix '#{DEPENDENCIES_PREFIX}'"
-  sh "cd #{zlib_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_zlib = File.join(DEPENDENCIES_DESTROOT, 'lib/libz.a')
-file installed_zlib => zlib_static_lib do
-  sh "cd #{zlib_build_dir} && make install"
-end
+installed_zlib = zlib_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # OpenSSL
 # ------------------------------------------------------------------------------
 
-openssl_tarball = File.join(DOWNLOAD_DIR, File.basename(OPENSSL_URL))
-file openssl_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{OPENSSL_URL} -o #{openssl_tarball}"
-end
-
-openssl_build_dir = File.join(WORKBENCH_DIR, File.basename(OPENSSL_URL, '.tar.gz'))
-directory openssl_build_dir => [openssl_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{openssl_tarball} -C #{WORKBENCH_DIR}"
-end
-
-openssl_static_lib = File.join(openssl_build_dir, 'libssl.a')
-file openssl_static_lib => [installed_pkg_config, installed_zlib, openssl_build_dir] do
-  sh "cd #{openssl_build_dir} && ./Configure no-shared zlib --prefix='#{DEPENDENCIES_PREFIX}' darwin64-x86_64-cc"
-  # OpenSSL needs to be build with at max 1 process
-  sh "cd #{openssl_build_dir} && make -j 1"
-  # Seems to be a OpenSSL bug in the pkg-config, as libz is required when
-  # linking libssl, otherwise Ruby's openssl ext will fail to configure.
-  # So add it ourselves.
-  %w( libcrypto.pc libssl.pc ).each do |pc_filename|
-    pc_file = File.join(openssl_build_dir, pc_filename)
-    original_content = File.read(pc_file)
-    content = original_content.sub(/Libs:/, 'Libs: -lz')
-    if original_content == content
-      raise "[!] Did not patch anything in: #{pc_file}"
+class OpenSSLTasks < BundleDependencyTasks
+  def build_task
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/perl', 'Configure', "--prefix=#{DEPENDENCIES_PREFIX}", 'no-shared', 'zlib', 'darwin64-x86_64-cc'
+      # OpenSSL needs to be build with at max 1 process
+      execute '/usr/bin/make', '-j', '1'
     end
-    File.open(pc_file, 'w') { |f| f.write(content) }
+    # Seems to be a OpenSSL bug in the pkg-config, as libz is required when
+    # linking libssl, otherwise Ruby's openssl ext will fail to configure.
+    # So add it ourselves.
+    %w( libcrypto.pc libssl.pc ).each do |pc_filename|
+      pc_file = File.join(build_dir, pc_filename)
+      log(package_name, "Patching: #{pc_file}")
+      original_content = File.read(pc_file)
+      content = original_content.sub(/Libs:/, 'Libs: -lz')
+      if original_content == content
+        raise "[!] Did not patch anything in: #{pc_file}"
+      end
+      File.open(pc_file, 'w') { |f| f.write(content) }
+    end
   end
 end
 
-installed_openssl = File.join(DEPENDENCIES_DESTROOT, 'lib/libssl.a')
-file installed_openssl => openssl_static_lib do
-  sh "cd #{openssl_build_dir} && make install"
+openssl_tasks = OpenSSLTasks.define do |t|
+  t.url            = OPENSSL_URL
+  t.artefact_file  = 'libssl.a'
+  t.installed_file = 'lib/libssl.a'
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.dependencies   = [installed_pkg_config, installed_zlib]
 end
+
+installed_openssl = openssl_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # ncurses
 # ------------------------------------------------------------------------------
 
-ncurses_tarball = File.join(DOWNLOAD_DIR, File.basename(NCURSES_URL))
-file ncurses_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{NCURSES_URL} -o #{ncurses_tarball}"
+class NCursesTasks < BundleDependencyTasks
+  def unpack_task
+    super
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/patch', '-p', '1', '-i', File.join(PATCHES_DIR, 'ncurses.diff')
+    end
+  end
 end
 
-ncurses_build_dir = File.join(WORKBENCH_DIR, File.basename(NCURSES_URL, '.tar.gz'))
-directory ncurses_build_dir => [ncurses_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{ncurses_tarball} -C #{WORKBENCH_DIR}"
-  sh "cd #{ncurses_build_dir} && patch -p1 < #{File.join(PATCHES_DIR, 'ncurses.diff')}"
+ncurses_tasks = NCursesTasks.define do |t|
+  t.url            = NCURSES_URL
+  t.artefact_file  = 'lib/libncurses.a'
+  t.installed_file = 'lib/libncurses.a'
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.configure      = %w{ --without-shared --enable-getcap  --with-ticlib --with-termlib --disable-leaks --without-debug --enable-pc-files --with-pkg-config }
+  t.dependencies   = [installed_pkg_config]
 end
 
-ncurses_static_lib = File.join(ncurses_build_dir, 'lib/libncurses.a')
-file ncurses_static_lib => [installed_pkg_config, ncurses_build_dir] do
-  sh "cd #{ncurses_build_dir} && ./configure --without-shared --enable-getcap  --with-ticlib --with-termlib --disable-leaks --without-debug --enable-pc-files --with-pkg-config --prefix '#{DEPENDENCIES_PREFIX}'"
-  sh "cd #{ncurses_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_ncurses = File.join(DEPENDENCIES_DESTROOT, 'lib/libncurses.a')
-file installed_ncurses => ncurses_static_lib do
-  sh "cd #{ncurses_build_dir} && make install"
-end
+installed_ncurses = ncurses_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Readline
 # ------------------------------------------------------------------------------
 
-readline_tarball = File.join(DOWNLOAD_DIR, File.basename(READLINE_URL))
-file readline_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{READLINE_URL} -o #{readline_tarball}"
+readline_tasks = BundleDependencyTasks.define do |t|
+  t.url            = READLINE_URL
+  t.artefact_file  = 'libreadline.a'
+  t.installed_file = 'lib/libreadline.a'
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.configure      = %w{ --disable-shared --with-curses }
+  t.dependencies   = [installed_pkg_config, installed_ncurses]
 end
 
-readline_build_dir = File.join(WORKBENCH_DIR, File.basename(READLINE_URL, '.tar.gz'))
-directory readline_build_dir => [readline_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{readline_tarball} -C #{WORKBENCH_DIR}"
-end
-
-readline_static_lib = File.join(readline_build_dir, 'libreadline.a')
-file readline_static_lib => [installed_pkg_config, installed_ncurses, readline_build_dir] do
-  sh "cd #{readline_build_dir} && ./configure --disable-shared --with-curses --prefix '#{DEPENDENCIES_PREFIX}'"
-  sh "cd #{readline_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_readline = File.join(DEPENDENCIES_DESTROOT, 'lib/libreadline.a')
-file installed_readline => readline_static_lib do
-  sh "cd #{readline_build_dir} && make install"
-end
-
-# ------------------------------------------------------------------------------
-# Scons
-# ------------------------------------------------------------------------------
-
-scons_tarball = File.join(DOWNLOAD_DIR, File.basename(SCONS_URL))
-file scons_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{SCONS_URL} -o #{scons_tarball}"
-end
-
-scons_build_dir = File.join(WORKBENCH_DIR, File.basename(SCONS_URL, '.tar.gz'))
-directory scons_build_dir => [scons_tarball, WORKBENCH_DIR] do
-  mkdir_p scons_build_dir
-  sh "tar -zxvf #{scons_tarball} -C #{scons_build_dir}"
-  File.chmod(0777, File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
-end
-
-# ------------------------------------------------------------------------------
-# SERF
-# ------------------------------------------------------------------------------
-
-serf_tarball = File.join(DOWNLOAD_DIR, File.basename(SERF_URL))
-file serf_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{SERF_URL} -o #{serf_tarball}"
-end
-
-serf_build_dir = File.join(WORKBENCH_DIR, File.basename(SERF_URL, '.tar.bz2'))
-directory serf_build_dir => [serf_tarball, WORKBENCH_DIR] do
-  sh "tar -jxvf #{serf_tarball} -C #{WORKBENCH_DIR}"
-end
-
-serf_static_lib = File.join(serf_build_dir, 'libserf-1.a')
-file serf_static_lib => [installed_pkg_config, installed_openssl, installed_zlib, scons_build_dir, serf_build_dir] do
-  xcode_sdk_root = `/usr/bin/xcrun --show-sdk-path`.chomp
-  scons_bin = File.expand_path(File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
-  sh "cd #{serf_build_dir} && #{scons_bin} PREFIX='#{DEPENDENCIES_PREFIX}' OPENSSL='#{DEPENDENCIES_PREFIX}' ZLIB='#{DEPENDENCIES_PREFIX}' CPPFLAGS='-I#{xcode_sdk_root}/usr/include/apr-1'"
-  # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
-  # required when linking libssl, otherwise svn will fail to build with our
-  # OpenSSl. So add it ourselves.
-  serf_pc_file = File.join(serf_build_dir, 'serf-1.pc')
-  original_content = File.read(serf_pc_file)
-  content = original_content.sub('Libs: -L${libdir}', 'Libs: -L${libdir} -lssl -lcrypto -lz')
-  if original_content == content
-    raise "[!] Did not patch anything in: #{serf_pc_file}"
-  end
-  File.open(serf_pc_file, 'w') { |f| f.write(content) }
-end
-
-installed_serf = File.join(DEPENDENCIES_DESTROOT, 'lib/libserf-1.a')
-file installed_serf => serf_static_lib do
-  scons_bin = File.expand_path(File.join(Dir[scons_build_dir + '/scons*'][0].to_s, '/src/script/scons.py'))
-  sh "cd #{serf_build_dir} && #{scons_bin} install"
-  sh "rm #{File.join(DEPENDENCIES_DESTROOT, 'lib', '*.dylib')}"
-end
+installed_readline = readline_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Ruby
 # ------------------------------------------------------------------------------
 
-ruby_tarball = File.join(DOWNLOAD_DIR, File.basename(RUBY_URL))
-file ruby_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{RUBY_URL} -o #{ruby_tarball}"
-end
+class RubyTasks < BundleDependencyTasks
+  attr_accessor :installed_libruby_path
 
-ruby_build_dir = File.join(WORKBENCH_DIR, File.basename(RUBY_URL, '.tar.gz'))
-directory ruby_build_dir => [ruby_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{ruby_tarball} -C #{WORKBENCH_DIR}"
-end
+  def define_install_libruby_task
+    file installed_libruby_path => artefact_path do
+      cp artefact_path, installed_libruby_path
+      %w{ bigdecimal date/date_core.a pathname stringio }.each do |ext|
+        ext = "#{ext}/#{ext}.a" unless File.extname(ext) == '.a'
+        execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'ext', ext)
+      end
+    end
+  end
 
-ruby_static_lib = File.join(ruby_build_dir, 'libruby-static.a')
-file ruby_static_lib => [installed_pkg_config, installed_yaml, installed_openssl, ruby_build_dir] do
-  sh "cd #{ruby_build_dir} && ./configure --enable-load-relative --disable-shared --with-static-linked-ext --disable-install-doc --with-out-ext=,dbm,gdbm,sdbm,dl/win32,fiddle/win32,tk/tkutil,tk,win32ole,-test-/win32/dln,-test-/win32/fd_setsize,-test-/win32/dln/empty --prefix '#{BUNDLE_PREFIX}'"
-  sh "cd #{ruby_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_ruby = File.join(BUNDLE_DESTROOT, 'bin/ruby')
-file installed_ruby => ruby_static_lib do
-  sh "cd #{ruby_build_dir} && make install"
-end
-
-installed_ruby_static_lib = File.join('app', 'CPReflectionService', 'libruby+exts.a')
-file installed_ruby_static_lib => ruby_static_lib do
-  cp ruby_static_lib, installed_ruby_static_lib
-  %w{ bigdecimal date/date_core.a pathname stringio }.each do |ext|
-    ext = "#{ext}/#{ext}.a" unless File.extname(ext) == '.a'
-    sh "/usr/bin/libtool -static -o '#{installed_ruby_static_lib}' '#{installed_ruby_static_lib}' #{File.join(ruby_build_dir, 'ext', ext)}"
+  def define_tasks
+    super
+    define_install_libruby_task
   end
 end
+
+ruby_tasks = RubyTasks.define do |t|
+  t.url            = RUBY_URL
+  t.artefact_file  = 'libruby-static.a'
+  t.installed_file = 'bin/ruby'
+  t.prefix         = BUNDLE_PREFIX
+  t.configure      = %w{ --enable-load-relative --disable-shared --with-static-linked-ext --disable-install-doc --with-out-ext=,dbm,gdbm,sdbm,dl/win32,fiddle/win32,tk/tkutil,tk,win32ole,-test-/win32/dln,-test-/win32/fd_setsize,-test-/win32/dln/empty }
+  t.dependencies   = [installed_pkg_config, installed_yaml, installed_openssl]
+
+  t.installed_libruby_path = File.join('app', 'CPReflectionService', 'libruby+exts.a')
+end
+
+installed_ruby = ruby_tasks.installed_path
+installed_ruby_static_lib = ruby_tasks.installed_libruby_path
 
 # ------------------------------------------------------------------------------
 # bundle-env
@@ -371,54 +501,55 @@ end
 
 installed_env_script = File.join(BUNDLE_DESTROOT, 'bin/bundle-env')
 file installed_env_script do
+  log 'bundle-env', 'Installing'
   cp 'bundle-env', installed_env_script
-  sh "chmod +x #{installed_env_script}"
+  chmod '+x', installed_env_script
 end
 
 # ------------------------------------------------------------------------------
 # Gems
 # ------------------------------------------------------------------------------
 
-gem_home = File.join(BUNDLE_DESTROOT, 'lib/ruby/gems', RUBY__VERSION.sub(/\d+$/, '0'))
-
-rubygems_gem = File.join(DOWNLOAD_DIR, File.basename(RUBYGEMS_URL))
-file rubygems_gem => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{RUBYGEMS_URL} -o #{rubygems_gem}"
+class RubyGemsTasks < BundleDependencyTasks
+  def package_name
+    File.basename(@url, '.gem')
+  end
 end
 
-rubygems_update_dir = File.join(gem_home, 'gems', File.basename(RUBYGEMS_URL, '.gem'))
+rubygems_tasks = RubyGemsTasks.new { |t| t.url = RUBYGEMS_URL }.tap(&:define_download_task)
+rubygems_gem = rubygems_tasks.downloaded_file
+
+rubygems_update_dir = File.join(GEM_HOME, 'gems', rubygems_tasks.package_name)
 directory rubygems_update_dir => [installed_ruby, installed_env_script, rubygems_gem] do
-  sh "'#{BUNDLE_ENV}' gem install #{rubygems_gem} --no-document --env-shebang"
-  sh "'#{BUNDLE_ENV}' update_rubygems"
+  install_gem(rubygems_gem, nil, rubygems_tasks.package_name)
+  execute(rubygems_tasks.package_name, [BUNDLE_ENV, 'update_rubygems'])
+  # Fix shebang of `gem` bin to use bundled Ruby.
   bin = File.join(BUNDLE_DESTROOT, 'bin/gem')
+  log(rubygems_tasks.package_name, "Patching: #{bin}")
   lines = File.read(bin).split("\n")
   lines[0] = '#!/usr/bin/env ruby'
   File.open(bin, 'w') { |f| f.write(lines.join("\n")) }
-  sh "chmod +x #{bin}"
+  chmod '+x', bin
 end
 
-def install_gem(name, version = nil)
-  sh "'#{BUNDLE_ENV}' gem install #{name} #{"--version=#{version}" if version} --no-document --env-shebang"
-end
+# ------------------------------------------------------------------------------
+# CocoaPods Gems
+# ------------------------------------------------------------------------------
 
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
 file installed_pod_bin => rubygems_update_dir do
   install_gem 'cocoapods', install_cocoapods_version
 end
 
-# ------------------------------------------------------------------------------
-# pod plugins install
-# ------------------------------------------------------------------------------
-
 plugin = 'cocoapods-plugins-install'
 $:.unshift "#{plugin}/lib"
 require "#{plugin}/gem_version"
 plugin_with_version = "#{plugin}-#{CocoapodsPluginsInstall::VERSION}"
 
-installed_cocoapods_plugins_install = File.join(gem_home, 'gems', plugin_with_version)
+installed_cocoapods_plugins_install = File.join(GEM_HOME, 'gems', plugin_with_version)
 directory installed_cocoapods_plugins_install => installed_pod_bin do
   Dir.chdir(plugin) do
-    sh "gem build #{plugin}.gemspec"
+    execute 'Gems', [BUNDLE_ENV, 'gem', 'build', "#{plugin}.gemspec"]
   end
   install_gem "#{plugin}/#{plugin_with_version}.gem"
 end
@@ -432,7 +563,7 @@ installed_osx_gems = []
 Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby/gems/*/specifications/*.gemspec').each do |gemspec|
   # We have to make some file that does not contain any version information, otherwise we'd first have to query rubygems
   # for the available versions, which is going to take a long time.
-  installed_gem = File.join(gem_home, 'specifications', "#{File.basename(gemspec, '.gemspec').split('-')[0..-2].join('-')}.CocoaPods-app.installed")
+  installed_gem = File.join(GEM_HOME, 'specifications', "#{File.basename(gemspec, '.gemspec').split('-')[0..-2].join('-')}.CocoaPods-app.installed")
   installed_osx_gems << installed_gem
   file installed_gem => rubygems_update_dir do
     suppress_upstream = false
@@ -469,128 +600,197 @@ end
 # cURL
 # ------------------------------------------------------------------------------
 
-curl_tarball = File.join(DOWNLOAD_DIR, File.basename(CURL_URL))
-file curl_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{CURL_URL} -o #{curl_tarball}"
+curl_tasks = BundleDependencyTasks.define do |t|
+  t.url            = CURL_URL
+  t.artefact_file  = 'lib/.libs/libcurl.a'
+  t.installed_file = 'lib/libcurl.a'
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.configure      = %w{ --disable-shared --enable-static }
+  t.dependencies   = [installed_pkg_config, installed_openssl, installed_zlib]
 end
 
-curl_build_dir = File.join(WORKBENCH_DIR, File.basename(CURL_URL, '.tar.gz'))
-directory curl_build_dir => [curl_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{curl_tarball} -C #{WORKBENCH_DIR}"
-end
-
-libcurl = File.join(curl_build_dir, 'lib/.libs/libcurl.a')
-file libcurl => [installed_pkg_config, installed_openssl, installed_zlib, curl_build_dir] do
-  sh "cd #{curl_build_dir} && ./configure --disable-shared --enable-static --prefix '#{DEPENDENCIES_PREFIX}'"
-  sh "cd #{curl_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_libcurl = File.join(DEPENDENCIES_DESTROOT, 'lib/libcurl.a')
-file installed_libcurl => libcurl do
-  sh "cd #{curl_build_dir} && make install"
-end
+installed_libcurl = curl_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Git
 # ------------------------------------------------------------------------------
 
-git_tarball = File.join(DOWNLOAD_DIR, File.basename(GIT_URL))
-file git_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{GIT_URL} -o #{git_tarball}"
-end
+class GitTasks < BundleDependencyTasks
+  def build_command
+    super + ['V=1']
+  end
 
-git_build_dir = File.join(WORKBENCH_DIR, File.basename(GIT_URL, '.tar.gz'))
-directory git_build_dir => [git_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{git_tarball} -C #{WORKBENCH_DIR}"
-end
-
-git_bin = File.join(git_build_dir, 'git')
-file git_bin => [installed_pkg_config, installed_libcurl, git_build_dir] do
-  sh "cd #{git_build_dir} && ./configure --without-tcltk --prefix '#{BUNDLE_PREFIX}' LDFLAGS='-L \"#{DEPENDENCIES_PREFIX}/lib\" -lssl -lcrypto -lz -lcurl -lldap' CPPFLAGS='-I\"#{DEPENDENCIES_PREFIX}/include\"'"
-  sh "cd #{git_build_dir} && make -j #{MAKE_CONCURRENCY} V=1"
-end
-
-installed_git = File.join(BUNDLE_DESTROOT, 'bin/git')
-file installed_git => git_bin do
-  sh "cd #{git_build_dir} && env NO_INSTALL_HARDLINKS=1 make install"
-  # Even after using the NO_INSTALL_HARDLINKS env var, `bin/git*` is still hardlinked to
-  # `libexec/git-core/git*`.
-  bin = File.join(BUNDLE_DESTROOT, 'bin')
-  Dir.glob(File.join(bin, 'git*')).reject { |f| File.symlink?(f) }.each do |file|
-    filename = File.basename(file)
-    sh "cd #{bin} && rm #{filename} && ln -s ../libexec/git-core/#{filename} #{filename}"
+  def install_task
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/env', 'NO_INSTALL_HARDLINKS=1', '/usr/bin/make', 'install'
+    end
+    # Even after using the NO_INSTALL_HARDLINKS env var, `bin/git*` is still hardlinked to
+    # `libexec/git-core/git*`.
+    bin = File.join(BUNDLE_DESTROOT, 'bin')
+    files = Dir.glob(File.join(bin, 'git*')).reject { |f| File.symlink?(f) }
+    Dir.chdir(bin) do
+      files.each do |file|
+        filename = File.basename(file)
+        rm filename
+        ln_s "../libexec/git-core/#{filename}", filename
+      end
+    end
   end
 end
+
+git_tasks = GitTasks.define do |t|
+  t.url            = GIT_URL
+  t.artefact_file  = 'git'
+  t.installed_file = 'bin/git'
+  t.prefix         = BUNDLE_PREFIX
+  t.configure      = ['--without-tcltk', %{LDFLAGS=-L '#{DEPENDENCIES_PREFIX}/lib' -lssl -lcrypto -lz -lcurl -lldap}, %{CPPFLAGS=-I '#{DEPENDENCIES_PREFIX}/include'}]
+  t.dependencies   = [installed_pkg_config, installed_openssl, installed_zlib]
+end
+
+installed_git = git_tasks.installed_path
+
+# ------------------------------------------------------------------------------
+# Scons
+# ------------------------------------------------------------------------------
+
+class SconsTasks < BundleDependencyTasks
+  def define_tasks
+    define_download_task
+    define_unpack_task
+  end
+
+  def package_name
+    "scons-#{SCONS_VERSION}"
+  end
+
+  def downloaded_file
+    # Don’t download archive as just VERSION.tar.gz
+    File.join(DOWNLOAD_DIR, "#{package_name}.tar.gz")
+  end
+
+  def unpack_command
+    command = super
+    command[-1] = build_dir
+    # Ignore the root dir which is scons-scons-SHA
+    command + %w{ --strip 1 }
+  end
+
+  def unpack_task
+    mkdir_p build_dir
+    super
+  end
+end
+
+scons_tasks = SconsTasks.define do |t|
+  t.url           = SCONS_URL
+  t.artefact_file = 'src/script/scons.py'
+end
+
+installed_scons = scons_tasks.build_dir
+scons_bin = scons_tasks.artefact_path
+
+# ------------------------------------------------------------------------------
+# SERF
+# ------------------------------------------------------------------------------
+
+class SerfTasks < BundleDependencyTasks
+  attr_accessor :scons_bin
+
+  def unpack_command
+    command = super
+    # bzip instead of gzip
+    command[1].tr!('z', 'j')
+    command
+  end
+
+  def build_task
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/python', scons_bin, "PREFIX=#{DEPENDENCIES_PREFIX}", "OPENSSL=#{DEPENDENCIES_PREFIX}", "ZLIB=#{DEPENDENCIES_PREFIX}", "CPPFLAGS=-I #{SDKROOT}/usr/include/apr-1"
+    end
+    # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
+    # required when linking libssl, otherwise svn will fail to build with our
+    # OpenSSl. So add it ourselves.
+    pc_file = File.join(build_dir, 'serf-1.pc')
+    log(package_name, "Patching: #{pc_file}")
+    original_content = File.read(pc_file)
+    content = original_content.sub('Libs: -L${libdir}', 'Libs: -L${libdir} -lssl -lcrypto -lz')
+    if original_content == content
+      raise "[!] Did not patch anything in: #{pc_file}"
+    end
+    File.open(pc_file, 'w') { |f| f.write(content) }
+  end
+
+  def install_task
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/python', scons_bin, 'install'
+    end
+    rm Dir.glob(File.join(DEPENDENCIES_DESTROOT, 'lib', '*.dylib'))
+  end
+end
+
+serf_task = SerfTasks.define do |t|
+  t.scons_bin      = File.expand_path(scons_bin)
+  t.url            = SERF_URL
+  t.artefact_file  = 'libserf-1.a'
+  t.installed_file = 'lib/libserf-1.a'
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.configure      = %w{ --disable-shared --with-curses }
+  t.dependencies   = [installed_pkg_config, installed_ncurses, installed_scons]
+end
+
+installed_serf = serf_task.installed_path
 
 # ------------------------------------------------------------------------------
 # Subversion
 # ------------------------------------------------------------------------------
 
-svn_tarball = File.join(DOWNLOAD_DIR, File.basename(SVN_URL))
-file svn_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{SVN_URL} -o #{svn_tarball}"
+class SVNTasks < BundleDependencyTasks
+  def unpack_task
+    super
+    Dir.chdir(build_dir) do
+      execute '/usr/bin/patch', '-p', '0', '-i', File.join(PATCHES_DIR, 'svn-configure.diff')
+    end
+  end
 end
 
-svn_build_dir = File.join(WORKBENCH_DIR, File.basename(SVN_URL, '.tar.gz'))
-directory svn_build_dir => [svn_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{svn_tarball} -C #{WORKBENCH_DIR}"
-  sh "cd #{svn_build_dir} && patch -p0 < #{File.join(PATCHES_DIR, 'svn-configure.diff')}"
+svn_tasks = SVNTasks.define do |t|
+  t.url            = SVN_URL
+  t.artefact_file  = 'subversion/svn/svn'
+  t.installed_file = 'bin/svn'
+  t.prefix         = BUNDLE_PREFIX
+  t.configure      = %w{ --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig } + ["CPPFLAGS=-I '#{SDKROOT}/usr/include/apr-1'"]
+  t.dependencies   = [installed_pkg_config, installed_serf, installed_libcurl]
 end
 
-svn_bin = File.join(svn_build_dir, 'subversion/svn/svn')
-file svn_bin => [installed_pkg_config, installed_serf, installed_libcurl, svn_build_dir] do
-  sdkroot = `/usr/bin/xcrun --show-sdk-path`.chomp
-  sh "cd #{svn_build_dir} && ./configure --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig --prefix '#{BUNDLE_PREFIX}' CPPFLAGS='-I#{sdkroot}/usr/include/apr-1'"
-  sh "cd #{svn_build_dir} && make -j #{MAKE_CONCURRENCY}"
-end
-
-installed_svn = File.join(BUNDLE_DESTROOT, 'bin/svn')
-file installed_svn => svn_bin do
-  sh "cd #{svn_build_dir} && make install"
-end
+installed_svn = svn_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Mercurial
 # ------------------------------------------------------------------------------
 
-mercurial_tarball = File.join(DOWNLOAD_DIR, File.basename(MERCURIAL_URL))
-file mercurial_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{MERCURIAL_URL} -o #{mercurial_tarball}"
+mercurial_tasks = PythonSetupTasks.define do |t|
+  t.url             = MERCURIAL_URL
+  t.artefact_script = 'hg'
+  t.installed_file  = 'bin/hg'
+  t.prefix          = BUNDLE_PREFIX
+  t.dependencies    = [installed_libcurl]
 end
 
-mercurial_build_dir = File.join(WORKBENCH_DIR, File.basename(MERCURIAL_URL, '.tar.gz'))
-directory mercurial_build_dir => [mercurial_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{mercurial_tarball} -C #{WORKBENCH_DIR}"
-end
-
-installed_mercurial = File.join(BUNDLE_DESTROOT, 'bin/hg')
-file installed_mercurial => [installed_libcurl, mercurial_build_dir] do
-  sh "cd #{mercurial_build_dir} && make PREFIX='#{BUNDLE_PREFIX}' install-bin"
-end
+installed_mercurial = mercurial_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Bazaar
 # ------------------------------------------------------------------------------
 
-bzr_tarball = File.join(DOWNLOAD_DIR, File.basename(BZR_URL))
-file bzr_tarball => DOWNLOAD_DIR do
-  sh "/usr/bin/curl -sSL #{BZR_URL} -o #{bzr_tarball}"
+bzr_tasks = PythonSetupTasks.define do |t|
+  t.url             = BZR_URL
+  t.artefact_script = 'bzr'
+  t.installed_file  = 'bin/bzr'
+  t.prefix          = BUNDLE_PREFIX
+  t.dependencies    = [installed_pkg_config, installed_libcurl]
 end
 
-bzr_build_dir = File.join(WORKBENCH_DIR, File.basename(BZR_URL, '.tar.gz'))
-directory bzr_build_dir => [bzr_tarball, WORKBENCH_DIR] do
-  sh "tar -zxvf #{bzr_tarball} -C #{WORKBENCH_DIR}"
-end
-
-built_bzr_dir = File.join(bzr_build_dir, 'build')
-directory built_bzr_dir => [installed_pkg_config, installed_libcurl, bzr_build_dir] do
-  sh "cd #{bzr_build_dir} && python setup.py build"
-end
-
-installed_bzr = File.join(BUNDLE_DESTROOT, 'bin/bzr')
-file installed_bzr => built_bzr_dir do
-  sh "cd #{bzr_build_dir} && python setup.py install --prefix='#{BUNDLE_PREFIX}'"
-end
+installed_bzr = bzr_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Root Certificates
@@ -598,8 +798,9 @@ end
 
 installed_cacert = File.join(BUNDLE_DESTROOT, 'share/cacert.pem')
 file installed_cacert do
-  sh "security find-certificate -a -p /Library/Keychains/System.keychain > '#{installed_cacert}'"
-  sh "security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > '#{installed_cacert}'"
+  %w{ /Library/Keychains/System.keychain /System/Library/Keychains/SystemRootCertificates.keychain }.each do |keychain|
+    execute 'Certificates', ['/usr/bin/security', 'find-certificate', '-a', '-p', keychain], installed_cacert
+  end
 end
 
 # ------------------------------------------------------------------------------
@@ -625,9 +826,11 @@ namespace :bundle do
         rm_rf(path) if File.exist?(path)
       end
     end
-    puts
-    puts "Before clean:"
-    sh "du -hs #{BUNDLE_DESTROOT}"
+    if VERBOSE
+      puts
+      puts "Before clean:"
+      sh "du -hs #{BUNDLE_DESTROOT}"
+    end
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'bin/svn[a-z]*'))
     remove_if_existant.call *FileList[File.join(BUNDLE_DESTROOT, 'lib/**/*.{,l}a')]
     remove_if_existant.call *Dir.glob(File.join(BUNDLE_DESTROOT, 'lib/ruby/gems/**/*.o'))
@@ -644,8 +847,10 @@ namespace :bundle do
       remove_if_existant.call pyc[0..-2]
     end
     # TODO clean Ruby stdlib
-    puts "After clean:"
-    sh "du -hs #{BUNDLE_DESTROOT}"
+    if VERBOSE
+      puts "After clean:"
+      sh "du -hs #{BUNDLE_DESTROOT}"
+    end
   end
 
   desc "Verifies that no binaries in the bundle link to incorrect dylibs"
@@ -680,20 +885,18 @@ namespace :bundle do
     rm_rf test_dir
     mkdir_p test_dir
     cp 'Podfile', test_dir
-    sh "cd #{test_dir} && #{File.expand_path(installed_env_script)} pod install --no-integrate --verbose"
+    Dir.chdir(test_dir) do
+      execute 'Test', [BUNDLE_ENV, 'pod', 'install', '--no-integrate', '--verbose']
+    end
   end
 
   desc "Ensure Submodules are downloaded"
   task :submodules do
-    sh "git submodule update --init --recursive"
+    execute 'Submodules', ['/usr/bin/git', 'submodule', 'update', '--init', '--recursive']
   end
 
   desc "Build complete dist bundle"
-  task :build => [:build_tools, :remove_unneeded_files] do
-    puts
-    puts "Finished building bundle in #{Time.now - $build_started_at} seconds"
-    puts
-  end
+  task :build => [:build_tools, :remove_unneeded_files]
 
   namespace :clean do
     task :build do
@@ -723,8 +926,8 @@ end
 built_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
 file built_rubycocoa => [installed_ruby, installed_env_script] do
   Dir.chdir('app/RubyCocoa') do
-    sh "'#{BUNDLE_ENV}' ruby install.rb config --target-archs=x86_64 --build-as-embeddable=yes"
-    sh "'#{BUNDLE_ENV}' ruby install.rb setup"
+    execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'config', '--target-archs=x86_64', '--build-as-embeddable=yes']
+    execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'setup']
   end
 end
 
@@ -732,14 +935,14 @@ end
 # CocoaPods.app
 # ------------------------------------------------------------------------------
 
-XCODEBUILD_COMMAND = "cd app && xcodebuild -workspace CocoaPods.xcworkspace -scheme CocoaPods -configuration Release"
+XCODEBUILD_COMMAND = %w{ /usr/bin/xcodebuild -workspace CocoaPods.xcworkspace -scheme CocoaPods -configuration Release }
 
 namespace :app do
   desc 'Updates the Info.plist of the application to reflect the CocoaPods version'
   task :update_version do
     info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
-    sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleShortVersionString #{install_cocoapods_version}' '#{info_plist}'"
-    sh "/usr/libexec/PlistBuddy -c 'Set :CFBundleVersion #{install_cocoapods_version}' '#{info_plist}'"
+    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
+    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{install_cocoapods_version}", info_plist]
   end
 
   desc 'Prepare all prerequisites for building the app'
@@ -747,12 +950,16 @@ namespace :app do
 
   desc 'Build release version of application'
   task :build => :prerequisites do
-    sh "#{XCODEBUILD_COMMAND} MACOSX_DEPLOYMENT_TARGET=#{DEPLOYMENT_TARGET} SDKROOT='#{SDKROOT}' CODE_SIGN_IDENTITY='Developer ID Application' build"
+    Dir.chdir('app') do
+      execute 'App', XCODEBUILD_COMMAND + ["MACOSX_DEPLOYMENT_TARGET=#{DEPLOYMENT_TARGET}", "SDKROOT=#{SDKROOT}", "CODE_SIGN_IDENTITY=Developer ID Application", 'build']
+    end
   end
 
   desc 'Clean'
   task :clean do
-    sh "#{XCODEBUILD_COMMAND} clean"
+    Dir.chdir('app') do
+      execute 'App', XCODEBUILD_COMMAND + ['clean']
+    end
   end
 end
 
@@ -771,14 +978,13 @@ namespace :release do
   task :build => ['bundle:build', 'bundle:verify_linkage', 'bundle:test', 'app:build', PKG_DIR] do
     output = `#{XCODEBUILD_COMMAND} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
     build_dir = output.split('= ').last
+    # TODO use this once OS X supports xz out of the box.
     #tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
     #sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"
     tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
-    sh "cd '#{build_dir}' && tar cfj '#{tarball}' CocoaPods.app"
-
-    puts
-    puts "Finished building release in #{Time.now - $build_started_at} seconds"
-    puts
+    Dir.chdir(build_dir) do
+      execute 'App', ['/usr/bin/tar', 'cfj', tarball, 'CocoaPods.app']
+    end
   end
 
   desc "Create a clean build"
