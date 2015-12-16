@@ -366,6 +366,16 @@
                                     <action selector="commentSelection:" target="-1" id="JLH-y1-1Rg"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Indent Selection" keyEquivalent="]" id="0eU-Ev-qUo">
+                                <connections>
+                                    <action selector="indentSelection:" target="-1" id="VxH-cP-QwC"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Outdent Selection" keyEquivalent="[" id="cz4-yQ-iS8">
+                                <connections>
+                                    <action selector="outdentSelection:" target="-1" id="Cdl-5c-U2X"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
