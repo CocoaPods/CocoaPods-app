@@ -38,7 +38,7 @@
   }
 }
 
-/// YES when the parsing should be updated immediatly.
+/// YES when the parsing should be updated immediately.
 /// See https://github.com/CocoaPods/CocoaPods-app/issues/130
 - (BOOL)shouldParseImmediately
 {
@@ -106,13 +106,13 @@ SyntaxErrorFromError(NSError * _Nonnull error)
   } else {
     NSString *location = [error.userInfo[CPErrorRubyBacktrace] firstObject];
     if ([location componentsSeparatedByString:@":"].count < 2) {
-      // Without a from from which to parse a line number, there is no point in showing an error in the UI.
+      // Without a colon from which to parse a line number, there is no point in showing an error in the UI.
       return nil;
     }
     lineNumber = [location componentsSeparatedByString:@":"][1].integerValue;
   }
 
-  // Capitalise the message.
+  // Capitalize the message.
   NSString *firstCharacter = [[description substringToIndex:1] uppercaseString];
   description = [firstCharacter stringByAppendingString:[description substringFromIndex:1]];
 
