@@ -3,3 +3,7 @@
 @interface CPBorderedButton : NSButton
 
 @end
+
+@interface CPBorderedButtonCell : NSButtonCell
+
+@end

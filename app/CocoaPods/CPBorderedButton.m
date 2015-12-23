@@ -24,3 +24,19 @@
 }
 
 @end
+
+@implementation CPBorderedButtonCell
+
+/// Based on this gist: https://gist.github.com/marteinn/fa9301ad349b755da2e6
+
+- (NSRect)titleRectForBounds:(NSRect)rect
+{
+  NSRect titleFrame = [super titleRectForBounds:rect];
+  NSSize titleSize = [[self attributedStringValue] size];
+
+  titleFrame.origin.y = roundf(rect.origin.y-(rect.size.height-titleSize.height)* 0.5) + 1;
+
+  return titleFrame;
+}
+
+@end
