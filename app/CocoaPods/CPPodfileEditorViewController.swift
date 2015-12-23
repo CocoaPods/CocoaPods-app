@@ -10,6 +10,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   @IBOutlet var editor: MGSFragariaView!
   var syntaxChecker: CPPodfileReflection!
   let commentSyntax = "# "
+  let indentationSyntax = "  "
 
   // As the userProject is DI'd into the PodfileVC
   // it occurs after the view is set up.
@@ -51,19 +52,82 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   }
 
   @IBAction func commentSelection(sender: NSMenuItem) {
-    // Keep the cursor position to restore it later
-    let cursorPosition = editor.textView.selectedRange().location + editor.textView.selectedRange().length
     let selection = selectedLines(editor.textView)
-    let processed = commentsInSelection(selection) ? removeCommentsFromLines(selection) : addCommentsInLines(selection)
+    let change = commentsInSelection(selection) ? removeCommentsFromLines : addCommentsInLines
+    let range = applyTextChange(change, toSelection: selection)
+    editor.textView.setSelectedRange(NSMakeRange(range.location + range.length, 0))
+  }
+
+  @IBAction func indentSelection(sender: NSMenuItem) {
+    let range = applyTextChange(indentedSelection, toSelection: selectedLines(editor.textView))
+    editor.textView.setSelectedRange(range)
+  }
+
+  @IBAction func outdentSelection(sender: NSMenuItem) {
+    let range = applyTextChange(outdentedSelection, toSelection: selectedLines(editor.textView))
+    editor.textView.setSelectedRange(range)
+  }
+
+  /// Apply a text transformation to a selection
+  ///
+  /// The transformation is provided as a closure. Returns an NSRange with the new selection, maintaining selected
+  /// the string selected by the user.
+  /// - parameter change: the closure that accepts `[String]` and returns `[String]`
+  /// - parameter selection: an array of Strings representing the lines of the selection
+  /// - returns: NSRange
+
+  func applyTextChange(change: ([String] -> [String]), toSelection selection: [String]) -> NSRange {
+    let startingSelection = editor.textView.selectedRange()
+    let linesSelection = selectedLinesRange(editor.textView)
+    let processed = change(selection)
     let newText = "\(processed.joinWithSeparator("\n"))\n"
 
-    // Insert the new text by selecting the lines involved in the substitution
-    editor.textView.setSelectedRange(selectedLinesRange(editor.textView))
-    let charDifference = (selectedLinesText(editor.textView)?.characters.count ?? 0) - newText.characters.count
+    editor.textView.setSelectedRange(linesSelection)
     editor.textView.insertText(newText)
 
-    // Restore the cursor position in the same place
-    editor.textView.setSelectedRange(NSMakeRange(cursorPosition - charDifference, 0))
+    // Restore the user's selection by calculating how the text moved
+    let charDifference = linesSelection.length - newText.characters.count
+
+    // Figure out how the first line (the starting location of the selection) moved
+    let firstLineChange = ((processed.first?.characters.count ?? 0) - (selection.first?.characters.count ?? 0))
+
+    // Return the new selection. Comparing the starting point with the absolute location of the first line 
+    // prevents the cursor from skipping back to the line above
+    return NSMakeRange(max(linesSelection.location, startingSelection.location + firstLineChange),
+      startingSelection.length - charDifference - firstLineChange)
+  }
+
+}
+
+/// Implements methods to indent the Podfile
+
+typealias Indentation = CPPodfileEditorViewController
+extension Indentation {
+
+  /// Indents the selected text
+  ///
+  /// Adds two white spaces at the start of each line
+  /// - parameter lines: an array of strings representing the user's selection
+  /// - returns: [String]
+
+  func indentedSelection(selection: [String]) -> [String] {
+    return selection.map { line in
+      return line.stringByReplacingCharactersInRange(Range(start: line.startIndex, end: line.startIndex), withString: indentationSyntax)
+    }
+  }
+
+  /// Outdents the current selection
+  ///
+  /// Removes either a single tab or a single string formed by one or two white spaces from the start of the lines
+  /// - parameter lines: an array of strings representing the user's selection
+  /// - returns: [String]
+
+  func outdentedSelection(selection: [String]) -> [String] {
+    let indent = try! NSRegularExpression(pattern: "^\t|^\\s{1,2}", options: .CaseInsensitive)
+    return selection.map { line in
+      let firstMatch = indent.rangeOfFirstMatchInString(line, options: .Anchored, range: NSMakeRange(0, line.characters.count))
+      return firstMatch.location != NSNotFound ? (line as NSString).stringByReplacingCharactersInRange(firstMatch, withString: "") : line
+    }
   }
 
 }
