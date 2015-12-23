@@ -23,7 +23,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -234,18 +234,15 @@ command-line API.</string>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-tZ-TcD">
-                    <rect key="frame" x="18" y="123" width="201" height="90"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="LS2-at-0ZW">
+                    <rect key="frame" x="18" y="152" width="201" height="61"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="This is done by making a symbolic link to the bundled pod command in: " id="LS2-at-0ZW">
                         <font key="font" metaFont="system" size="14"/>
-                        <string key="title">This is done by making a symbolic link to the bundled pod command in: 
-/usr/local/bin/pod
-</string>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUM-hf-i6h">
-                    <rect key="frame" x="25" y="413" width="200" height="40"/>
+                    <rect key="frame" x="25" y="416" width="200" height="40"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="eXV-TB-vrj">
                         <font key="font" metaFont="system" size="14"/>
                         <string key="title">Do you want to Install the
@@ -264,18 +261,18 @@ Command-Line Tools?</string>
                         <action selector="installBinstub:" target="-2" id="KcO-J5-rPd"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXn-88-qE2" customClass="CPBorderedButton" customModule="CocoaPods" customModuleProvider="target">
-                    <rect key="frame" x="20" y="95" width="104" height="25"/>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXn-88-qE2" customClass="CPBorderedButton">
+                    <rect key="frame" x="20" y="95" width="104" height="21"/>
                     <buttonCell key="cell" type="bevel" title="change path" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBG" imageScaling="axesIndependently" inset="2" id="IH3-Se-YWG">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="openSearch:" target="TsL-KI-RcJ" id="Mfb-Ls-Q0t"/>
+                        <action selector="changeInstallationPath:" target="-2" id="rsx-bS-ONW"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-73-Olf" customClass="CPBorderedButton" customModule="CocoaPods" customModuleProvider="target">
-                    <rect key="frame" x="337" y="424" width="60" height="25"/>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-73-Olf" customClass="CPBorderedButton">
+                    <rect key="frame" x="337" y="426" width="60" height="21"/>
                     <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBG" imageScaling="axesIndependently" inset="2" id="a5U-pN-aXb">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -326,6 +323,17 @@ Command-Line Tools?</string>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-ZX-EaL">
+                    <rect key="frame" x="18" y="124" width="201" height="25"/>
+                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="/usr/local/bin/pod" id="WUl-JY-Cqv">
+                        <font key="font" size="14" name="Menlo-Regular"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.cliToolController.destinationURL.relativePath" id="HQp-tr-UQM"/>
+                    </connections>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstAttribute="height" constant="474" id="0dU-Fs-zRp"/>
@@ -339,6 +347,6 @@ Command-Line Tools?</string>
         <image name="CocoaPodsAppOval" width="256" height="256"/>
         <image name="ConsoleWindow" width="376" height="488"/>
         <image name="Podfile-icon" width="34" height="48"/>
-        <image name="TransparentButtonBG" width="16" height="25"/>
+        <image name="TransparentButtonBG" width="23" height="20"/>
     </resources>
 </document>

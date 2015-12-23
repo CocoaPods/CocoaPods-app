@@ -58,15 +58,14 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 - (BOOL)installBinstub;
 {
   BOOL installed = NO;
-  if ([self runModalInstallationRequestAlert]) {
-    [self verifyExistingInstallDestinations];
-    NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
-    installed = [self installBinstubAccordingToPrivileges];
-    if (installed) {
-      NSLog(@"Successfully wrote binstub to destination.");
-      [self saveInstallationDestination];
-    }
+  [self verifyExistingInstallDestinations];
+  NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
+  installed = [self installBinstubAccordingToPrivileges];
+  if (installed) {
+    NSLog(@"Successfully wrote binstub to destination.");
+    [self saveInstallationDestination];
   }
+
   return installed;
 }
 
@@ -178,66 +177,12 @@ CPBookmarkDataForURL(NSURL *URL) {
   return [NSURL fileURLWithPathComponents:@[ bundlePath, @"Contents", @"Helpers", @"pod" ]];
 }
 
-#pragma mark - User interaction (modal windows)
-
-// Returns whether or not the user chose to perform the installation and, in case the user chose a
-// different installation destination, the `destinationURL` is updated.
-//
-// In case the user chose to cancel the operation, this preference is stored and the user will not
-// be automatically asked to install again on the next launch.
-//
-- (BOOL)runModalInstallationRequestAlert;
+- (BOOL)savedBinStub;
 {
-  NSString *destinationFilename = self.destinationURL.lastPathComponent;
-
-  NSAlert *alert = [NSAlert new];
-  alert.alertStyle = NSInformationalAlertStyle;
-  alert.messageText = NSLocalizedString(@"INSTALL_CLI_MESSAGE_TEXT", nil);
-  NSString *formatString = NSLocalizedString(@"INSTALL_CLI_INFORMATIVE_TEXT", nil);
-  alert.informativeText = [NSString stringWithFormat:formatString, destinationFilename];
-  formatString = NSLocalizedString(@"INSTALL_CLI", nil);
-  [alert addButtonWithTitle:[NSString stringWithFormat:formatString, self.destinationURL.path]];
-  [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_ALTERNATE_DESTINATION", nil)];
-  [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
-
-  switch ([alert runModal]) {
-    case NSAlertSecondButtonReturn:
-      if (![self runModalDestinationSavePanel]) {
-        // The user cancelled.
-        [self setDoNotRequestInstallationAgain];
-        return NO;
-      }
-      break;
-    case NSAlertThirdButtonReturn:
-      // The user cancelled.
-      [self setDoNotRequestInstallationAgain];
-      return NO;
-  }
-
-  if (access([self.destinationURL.path UTF8String], F_OK) == 0) {
-    alert = [NSAlert new];
-    alert.alertStyle = NSCriticalAlertStyle;
-    formatString = NSLocalizedString(@"INSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
-    alert.messageText = [NSString stringWithFormat:formatString, self.destinationURL.path];
-    alert.informativeText = NSLocalizedString(@"INSTALL_CLI_WARNING_INFORMATIVE_TEXT", nil);
-    [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_WARNING_OVERWRITE", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
-    if ([alert runModal] == NSAlertSecondButtonReturn) {
-      // Call recursive until user either saves or cancels from above alert.
-      return [self runModalInstallationRequestAlert];
-    }
-  }
-
-  return YES;
+  return access([self.destinationURL.path UTF8String], F_OK);
 }
 
-// Allows the user to choose a different destination than the suggested destination.
-//
-// Updates the `destinationURL` if the user chooses a new one.
-//
-// Returns whether or not a destination was chosen or if the user cancelled.
-//
-- (BOOL)runModalDestinationSavePanel;
+- (BOOL)runModalDestinationChangeSavePanel;
 {
   NSSavePanel *savePanel = [NSSavePanel savePanel];
   savePanel.canCreateDirectories = YES;

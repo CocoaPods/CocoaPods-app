@@ -15,9 +15,10 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 @property (weak) IBOutlet NSButton *openSearchButton;
 @property (weak) IBOutlet NSButton *openChangelogButton;
 
-@property (strong) IBOutlet BlueView *installCommandLineToolsView;
+@property (strong) IBOutlet NSView *installCommandLineToolsView;
 @property (weak) IBOutlet NSLayoutConstraint *commandLineToolsHeightConstraint;
 
+@property (strong) CPCLIToolInstallationController *cliToolController;
 @end
 
 @implementation CPHomeWindowController
@@ -41,7 +42,8 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   NSString *versionNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
   self.cocoapodsVersionTextField.stringValue = versionNumber;
 
-  if ([[self CLIToolInstallationController] shouldInstallBinstubIfNecessary]) {
+  self.cliToolController = [self createCLIToolInstallationController];
+  if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
     [self addCLIInstallerMessageAnimated:YES];
   }
 }
@@ -62,6 +64,8 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 /// adding it into the contentview of the window, then animates it down
 /// to peak into the message.
 
+static CGFloat CPCommandLineAlertHeight = 68;
+
 - (void)addCLIInstallerMessageAnimated:(BOOL)animate;
 {
   NSView *content = self.window.contentView;
@@ -72,25 +76,43 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   [content addConstraint:topConstraint];
 
   id constraint = animate ? self.commandLineToolsHeightConstraint.animator : self.commandLineToolsHeightConstraint;
-  [constraint setConstant:68];
+  [constraint setConstant:CPCommandLineAlertHeight];
 }
 
 /// Expands the message to the full height of the home screen window
 
-- (IBAction)showFullCLIInstallerMessageAnimated:(id)sender;
+- (IBAction)showFullCLIInstallerMessageAnimated:(NSButton *)sender;
 {
-  NSView *content = self.window.contentView;
-  [self.commandLineToolsHeightConstraint.animator setConstant:CGRectGetHeight(content.bounds)];
+
+  if ([sender.title isEqualToString:@"Close"]) {
+    [self.commandLineToolsHeightConstraint.animator setConstant:CPCommandLineAlertHeight];
+    [sender setTitle:@"Help"];
+
+  } else {
+    NSView *content = self.window.contentView;
+    [self.commandLineToolsHeightConstraint.animator setConstant:CGRectGetHeight(content.bounds)];
+    [sender setTitle:@"Close"];
+
+  }
 }
 
-/// Installs the bind stub
+/// Installs the bin stub
 
 - (IBAction)installBinstub:(id)sender;
 {
-  [[self CLIToolInstallationController] installBinstub];
+  [self.cliToolController installBinstub];
 }
 
-- (CPCLIToolInstallationController *)CLIToolInstallationController;
+/// Lets a user change the directory, the UI
+/// showing the path uses bindings which are changed
+/// when a new path is set.
+
+- (IBAction)changeInstallationPath:(id)sender;
+{
+  [self.cliToolController runModalDestinationChangeSavePanel];
+}
+
+- (CPCLIToolInstallationController *)createCLIToolInstallationController;
 {
   NSURL *destinationURL = [NSURL fileURLWithPath:kCPCLIToolSuggestedDestination];
   return [CPCLIToolInstallationController controllerWithSuggestedDestinationURL:destinationURL];
