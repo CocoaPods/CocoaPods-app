@@ -43,7 +43,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
     return NO;
   }
 
-  return YES;
+  return [self savedBinStub];
 }
 
 

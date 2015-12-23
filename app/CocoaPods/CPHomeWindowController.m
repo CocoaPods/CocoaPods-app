@@ -51,7 +51,6 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
 {
   NSInteger row = [sender selectedRow];
-
   CPHomeWindowDocumentEntry *item = self.recentDocumentsController.recentDocuments[row];
 
   NSDocumentController *controller = [NSDocumentController sharedDocumentController];
@@ -100,7 +99,12 @@ static CGFloat CPCommandLineAlertHeight = 68;
 
 - (IBAction)installBinstub:(id)sender;
 {
-  [self.cliToolController installBinstub];
+  if ([self.cliToolController installBinstub]) {
+    // Hide the alert
+    [self.commandLineToolsHeightConstraint.animator setConstant:0];
+  } else {
+
+  }
 }
 
 /// Lets a user change the directory, the UI
