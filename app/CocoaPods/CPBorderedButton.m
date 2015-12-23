@@ -11,17 +11,10 @@
   [self setTitle:self.title];
 }
 
-- (void)setTitle:(NSString *)title
-{
-  NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-  style.alignment = NSTextAlignmentCenter;
+@end
 
-  self.attributedTitle = [[NSAttributedString alloc] initWithString:title attributes: @{
-     NSForegroundColorAttributeName: [NSColor colorWithCalibratedWhite:1 alpha:1],
-     NSFontAttributeName: self.font ?: [NSFont labelFontOfSize:12],
-     NSParagraphStyleAttributeName: style
-   }];
-}
+@interface CPBorderedButtonCell()
+@property (strong) NSColor *textColor;
 
 @end
 
@@ -38,5 +31,28 @@
 
   return titleFrame;
 }
+
+- (void)highlight:(BOOL)flag withFrame:(NSRect)cellFrame inView:(NSView*)controlView
+{
+  [super highlight:flag withFrame:cellFrame inView:controlView];
+  self.textColor = flag ? [NSColor colorWithCalibratedRed:0.227 green:0.463 blue:0.733 alpha:1]
+                        : [NSColor colorWithCalibratedWhite:1 alpha:1];
+  // Re-renders the text via the function below
+  self.title = self.title;
+}
+
+- (void)setTitle:(NSString *)title
+{
+  NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+  style.alignment = NSTextAlignmentCenter;
+
+  self.attributedTitle = [[NSAttributedString alloc] initWithString:title attributes: @{
+    NSForegroundColorAttributeName: self.textColor ?: [NSColor colorWithCalibratedWhite:1 alpha:1],
+    NSFontAttributeName: self.font ?: [NSFont labelFontOfSize:12],
+    NSParagraphStyleAttributeName: style
+  }];
+}
+
+
 
 @end

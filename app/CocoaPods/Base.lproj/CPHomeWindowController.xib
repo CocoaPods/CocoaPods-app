@@ -224,7 +224,7 @@
             <rect key="frame" x="0.0" y="0.0" width="432" height="474"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSn-xw-MDo">
-                    <rect key="frame" x="24" y="297" width="375" height="82"/>
+                    <rect key="frame" x="26" y="305" width="375" height="82"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="9iw-zL-1Cp">
                         <font key="font" metaFont="system" size="14"/>
                         <string key="title">By installing the CocoaPods Command Line Tools you can run the pod command from your favourite terminal. This means you get instant access to the whole 
@@ -234,7 +234,7 @@ command-line API.</string>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-tZ-TcD">
-                    <rect key="frame" x="18" y="152" width="201" height="61"/>
+                    <rect key="frame" x="25" y="152" width="201" height="61"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="This is done by making a symbolic link to the bundled pod command in: " id="LS2-at-0ZW">
                         <font key="font" metaFont="system" size="14"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
@@ -242,7 +242,7 @@ command-line API.</string>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUM-hf-i6h">
-                    <rect key="frame" x="25" y="416" width="200" height="40"/>
+                    <rect key="frame" x="26" y="418" width="200" height="40"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="eXV-TB-vrj">
                         <font key="font" metaFont="system" size="14"/>
                         <string key="title">Do you want to Install the
@@ -251,19 +251,9 @@ Command-Line Tools?</string>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="en4-wv-beg">
-                    <rect key="frame" x="249" y="419" width="76" height="32"/>
-                    <buttonCell key="cell" type="push" title="install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lxI-qK-Fzy">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="installBinstub:" target="-2" id="KcO-J5-rPd"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXn-88-qE2" customClass="CPBorderedButton">
-                    <rect key="frame" x="20" y="95" width="104" height="21"/>
-                    <buttonCell key="cell" type="bevel" title="change path" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBG" imageScaling="axesIndependently" inset="2" id="IH3-Se-YWG" customClass="CPBorderedButtonCell">
+                    <rect key="frame" x="28" y="95" width="104" height="21"/>
+                    <buttonCell key="cell" type="bevel" title="change path" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="IH3-Se-YWG" customClass="CPBorderedButtonCell">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -272,8 +262,8 @@ Command-Line Tools?</string>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-73-Olf" customClass="CPBorderedButton">
-                    <rect key="frame" x="337" y="426" width="60" height="21"/>
-                    <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBG" imageScaling="axesIndependently" inset="2" id="a5U-pN-aXb" customClass="CPBorderedButtonCell">
+                    <rect key="frame" x="344" y="428" width="60" height="21"/>
+                    <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="a5U-pN-aXb" customClass="CPBorderedButtonCell">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -282,7 +272,7 @@ Command-Line Tools?</string>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vl6-Ie-sGe">
-                    <rect key="frame" x="18" y="221" width="223" height="56"/>
+                    <rect key="frame" x="26" y="221" width="223" height="56"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="No worries about your ruby environment in the terminal." id="owR-45-1lb">
                         <font key="font" metaFont="system" size="14"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
@@ -324,7 +314,7 @@ Command-Line Tools?</string>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-ZX-EaL">
-                    <rect key="frame" x="18" y="124" width="201" height="25"/>
+                    <rect key="frame" x="26" y="124" width="201" height="25"/>
                     <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="/usr/local/bin/pod" id="WUl-JY-Cqv">
                         <font key="font" size="14" name="Menlo-Regular"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
@@ -334,6 +324,16 @@ Command-Line Tools?</string>
                         <binding destination="-2" name="value" keyPath="self.cliToolController.destinationURL.relativePath" id="HQp-tr-UQM"/>
                     </connections>
                 </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="en4-wv-beg">
+                    <rect key="frame" x="254" y="421" width="76" height="32"/>
+                    <buttonCell key="cell" type="push" title="install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lxI-qK-Fzy">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="installBinstub:" target="-2" id="KcO-J5-rPd"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="height" constant="474" id="0dU-Fs-zRp"/>
@@ -348,5 +348,6 @@ Command-Line Tools?</string>
         <image name="ConsoleWindow" width="376" height="488"/>
         <image name="Podfile-icon" width="34" height="48"/>
         <image name="TransparentButtonBG" width="23" height="20"/>
+        <image name="TransparentButtonBGFilled" width="49" height="20"/>
     </resources>
 </document>

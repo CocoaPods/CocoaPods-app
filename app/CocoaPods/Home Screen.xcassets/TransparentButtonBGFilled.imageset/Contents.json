@@ -5,31 +5,31 @@
         "mode" : "3-part-horizontal",
         "center" : {
           "mode" : "tile",
-          "width" : 7
+          "width" : 33
         },
         "cap-insets" : {
-          "right" : 7,
-          "left" : 9
+          "right" : 10,
+          "left" : 6
         }
       },
       "idiom" : "universal",
-      "filename" : "TransparentButtonBG.png",
+      "filename" : "TransparentButtonBGFilled.png",
       "scale" : "1x"
     },
     {
       "resizing" : {
         "mode" : "3-part-horizontal",
         "center" : {
-          "mode" : "stretch",
-          "width" : 40
+          "mode" : "tile",
+          "width" : 12
         },
         "cap-insets" : {
-          "right" : 9,
-          "left" : 9
+          "right" : 12,
+          "left" : 8
         }
       },
       "idiom" : "universal",
-      "filename" : "TransparentButtonBG@2x.png",
+      "filename" : "TransparentButtonBGFilled@2x.png",
       "scale" : "2x"
     },
     {
