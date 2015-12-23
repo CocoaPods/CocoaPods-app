@@ -14,8 +14,7 @@ class CPXcodeprojParser: NSObject {
     guard let proxy = reflector.reflectionService.remoteObjectProxy as? CPReflectionServiceProtocol else {
       return print("Proxy doesn't conform to CPReflectionServiceProtocol")
     }
-    
-    proxy.
+
   }
 
 }

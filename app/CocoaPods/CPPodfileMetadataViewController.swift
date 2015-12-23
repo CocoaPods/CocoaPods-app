@@ -16,11 +16,11 @@ struct CPPod  {
 }
 
 class CPPodfileMetadataViewController: NSViewController {
-  var syntaxChecker: CPPodfileReflection!
+  var podfileChecker: CPPodfileReflection!
+  var xcodeprojects: [CPXcodeProject] = []
 
   override func viewWillAppear() {
     super.viewWillAppear()
-
 
   }
 

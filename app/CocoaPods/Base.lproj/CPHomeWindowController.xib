@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CPHomeWindowController">
@@ -21,7 +21,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="376"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -35,7 +35,6 @@
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="233" height="376"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -63,7 +62,6 @@
                                                                 <constraint firstAttribute="height" constant="36" id="JFu-Zc-zFt"/>
                                                                 <constraint firstAttribute="width" constant="31" id="fuY-ag-Ade"/>
                                                             </constraints>
-                                                            <animations/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Podfile-icon" id="c5l-Tz-JBl"/>
                                                             <connections>
                                                                 <binding destination="j6S-IB-7LR" name="value" keyPath="objectValue.image" id="NLM-Z1-NsS"/>
@@ -74,7 +72,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="177" id="aHz-fZ-0Bf"/>
                                                             </constraints>
-                                                            <animations/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="CocoaPods-app" id="le6-xS-Goo">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -86,7 +83,6 @@
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qtv-S5-ALo">
                                                             <rect key="frame" x="48" y="6" width="181" height="14"/>
-                                                            <animations/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" title="Podfile" id="oFM-xY-CYd">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -110,7 +106,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="Qtv-S5-ALo" secondAttribute="trailing" constant="3" id="uHz-qY-z4z"/>
                                                         <constraint firstItem="fzU-ug-Jul" firstAttribute="leading" secondItem="M1X-QT-63U" secondAttribute="trailing" constant="11" id="ury-ik-pzh"/>
                                                     </constraints>
-                                                    <animations/>
                                                     <connections>
                                                         <outlet property="textField" destination="fzU-ug-Jul" id="ky6-fp-HZM"/>
                                                     </connections>
@@ -123,34 +118,28 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <constraints>
                             <constraint firstAttribute="width" constant="233" id="6tS-NZ-2Mw"/>
                         </constraints>
-                        <animations/>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="k6D-HC-Zp5">
                             <rect key="frame" x="1" y="119" width="223" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <animations/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="RHS-pb-6Kk">
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <animations/>
                         </scroller>
                     </scrollView>
                     <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EzD-1M-8dC">
                         <rect key="frame" x="429" y="0.0" width="5" height="376"/>
-                        <animations/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltc-2S-rGH">
                         <rect key="frame" x="14" y="13" width="119" height="32"/>
-                        <animations/>
                         <buttonCell key="cell" type="push" title="Open Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HCL-S8-9ry">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -161,7 +150,6 @@
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c72-1G-DgX">
                         <rect key="frame" x="133" y="13" width="119" height="32"/>
-                        <animations/>
                         <buttonCell key="cell" type="push" title="What's New?" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wGN-hy-3On">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -172,7 +160,6 @@
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jOz-TV-Fbo">
                         <rect key="frame" x="14" y="46" width="119" height="32"/>
-                        <animations/>
                         <buttonCell key="cell" type="push" title="Open Guides" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vPo-Ho-SFh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -190,7 +177,6 @@
                                     <constraint firstAttribute="height" constant="154" id="LTT-Oa-AmD"/>
                                     <constraint firstAttribute="width" constant="154" id="osN-kt-h7I"/>
                                 </constraints>
-                                <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="CocoaPodsAppOval" id="iTn-Ke-V7P"/>
                             </imageView>
                         </subviews>
@@ -199,11 +185,9 @@
                             <constraint firstItem="YAO-eB-e3O" firstAttribute="centerX" secondItem="09I-WM-Nv4" secondAttribute="centerX" id="mPg-yC-B4e"/>
                             <constraint firstItem="YAO-eB-e3O" firstAttribute="centerY" secondItem="09I-WM-Nv4" secondAttribute="centerY" id="xuX-lv-28J"/>
                         </constraints>
-                        <animations/>
                     </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mn-Z8-QE9">
                         <rect key="frame" x="363" y="21" width="50" height="19"/>
-                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0.38.2" id="J6B-uz-TYN">
                             <font key="font" size="16" name=".HelveticaNeueDeskInterface-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -222,7 +206,6 @@
                     <constraint firstItem="3Jq-7y-btG" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="xCt-6i-kaX"/>
                     <constraint firstAttribute="bottom" secondItem="EzD-1M-8dC" secondAttribute="bottom" id="xRG-cZ-Yan"/>
                 </constraints>
-                <animations/>
                 <connections>
                     <outlet property="nextKeyView" destination="xXw-3l-NGv" id="WyM-Nx-6b4"/>
                 </connections>

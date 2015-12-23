@@ -44,8 +44,6 @@
   [RBObject performBlock:^{
     RBPathname *pathname = [RBObjectFromString(@"Pathname") new:@"Podfile"];
 
-    RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
-
     reply(@{}, nil);
 
   } error:^(NSError * _Nonnull error) {
