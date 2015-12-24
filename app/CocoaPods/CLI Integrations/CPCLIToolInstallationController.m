@@ -8,10 +8,12 @@ NSString * const kCPDoNotRequestCLIToolInstallationAgainKey = @"CPDoNotRequestCL
 NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDestinations";
 
 @interface CPCLIToolInstallationController ()
-// The current destination to install the binstub to.
+/// The current destination to install the binstub to.
 @property (strong) NSURL *destinationURL;
-// A list of existing URL->BookmarkData mappings.
+/// A list of existing URL->BookmarkData mappings.
 @property (strong) NSDictionary *previouslyInstalledToDestinations;
+/// An error message if something fails
+@property (strong) NSString *errorMessage;
 @end
 
 @implementation CPCLIToolInstallationController
@@ -204,6 +206,8 @@ CPBookmarkDataForURL(NSURL *URL) {
 //
 - (BOOL)installBinstubAccordingToPrivileges;
 {
+  self.errorMessage = nil;
+
   NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
   if (access([destinationDirURL.path UTF8String], W_OK) == 0) {
     return [self installBinstubToAccessibleDestination];
@@ -226,6 +230,7 @@ CPBookmarkDataForURL(NSURL *URL) {
                                                            error:&error];
   if (error) {
     NSLog(@"Failed to copy source `%@` (%@)", sourceURL.path, error);
+    self.errorMessage = @"Failed to move pod command to the new folder";
   }
   return succeeded;
 }
@@ -251,6 +256,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   SFAuthorization *authorization = [SFAuthorization authorization];
   if (![authorization obtainWithRight:name flags:flags error:&error]) {
     NSLog(@"Did not authorize.");
+    self.errorMessage = @"Did not get authorization to save pod command";
     return NO;
   }
 
@@ -260,6 +266,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   OSStatus serialized = AuthorizationMakeExternalForm(authorizationRef, &serializedRef);
   if (serialized != errAuthorizationSuccess) {
     NSLog(@"Failed to serialize AuthorizationRef (%d)", serialized);
+    self.errorMessage = @"Could not use given authorization to save pod command";
     return NO;
   }
 
@@ -284,6 +291,7 @@ CPBookmarkDataForURL(NSURL *URL) {
     FILE *source_file = fopen([sourceURL.path UTF8String], "r");
     if (source_file == NULL) {
       NSLog(@"Failed to open source `%@` (%d - %s)", sourceURL.path, errno, strerror(errno));
+      self.errorMessage = @"Could open a file to save pod command";
     } else {
       int c;
       while ((c = fgetc(source_file)) != EOF) {

@@ -5,6 +5,7 @@ extern NSString * const kCPCLIToolInstalledToDestinationsKey;
 
 @interface CPCLIToolInstallationController : NSObject
 @property (readonly) NSURL *destinationURL;
+@property (readonly) NSString *errorMessage;
 
 + (instancetype)controllerWithSuggestedDestinationURL:(NSURL *)suggestedDestinationURL;
 

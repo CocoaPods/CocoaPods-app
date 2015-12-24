@@ -103,7 +103,9 @@ static CGFloat CPCommandLineAlertHeight = 68;
     // Hide the alert
     [self.commandLineToolsHeightConstraint.animator setConstant:0];
   } else {
-
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = self.cliToolController.errorMessage;
+    [alert runModal];
   }
 }
 
@@ -115,6 +117,9 @@ static CGFloat CPCommandLineAlertHeight = 68;
 {
   [self.cliToolController runModalDestinationChangeSavePanel];
 }
+
+/// This _does_ work, if you're in a dev build though, it's set
+/// to delete this key on launch in CPAppDelegate
 
 - (IBAction)setDontShowTheCLIWarningAgain:(NSButton *)sender;
 {
