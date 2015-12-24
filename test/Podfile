@@ -1,0 +1,16 @@
+platform :ios, '8'
+
+pods = [
+  'AFNetworking',        # Git
+  'VeriJSON',            # Mercurial
+  'GTMHTTPFetcher',      # Subversion
+  'Google-Maps-iOS-SDK', # HTTPS
+  # TODO no public bazaar repos? :/
+]
+
+cache_dir = File.expand_path('~/Library/Caches/CocoaPods/Pods/Release')
+pods.each do |name|
+  # Ensure the downloaders are actually tested.
+  FileUtils.rm_rf(File.join(cache_dir, name))
+  pod(name)
+end

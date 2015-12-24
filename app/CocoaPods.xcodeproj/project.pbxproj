@@ -43,8 +43,8 @@
 		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
 		600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
-		601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
+		6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */; };
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
 		6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */; };
 		603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */; };
@@ -62,6 +62,8 @@
 		6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
 		6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075BA661C06963700A5C491 /* CPInstallAction.swift */; };
 		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
+		60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A841C2B100F00D6663E /* CPBorderedButton.m */; };
+		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
 		60F02D1C1C0A2A6D003600FE /* CocoaPodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */; };
 		60F02D251C0A2E63003600FE /* Pods-CocoaPods.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 60F02D231C0A2E63003600FE /* Pods-CocoaPods.debug.xcconfig */; };
@@ -149,8 +151,8 @@
 		1F9177561BA27592006698C9 /* CPHomeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowController.m; sourceTree = "<group>"; };
 		1F91775B1BA27598006698C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CPHomeWindowController.xib; sourceTree = "<group>"; };
 		217877836B7D3B2373163464 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLIToolInstallationController.h; sourceTree = "<group>"; };
-		331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLIToolInstallationController.m; sourceTree = "<group>"; };
+		331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPCLIToolInstallationController.h; path = "CLI Integrations/CPCLIToolInstallationController.h"; sourceTree = "<group>"; };
+		331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPCLIToolInstallationController.m; path = "CLI Integrations/CPCLIToolInstallationController.m"; sourceTree = "<group>"; };
 		331188581BEBCB4200272793 /* CPCLITask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCLITask.h; sourceTree = "<group>"; };
 		331188591BEBCB4200272793 /* CPCLITask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCLITask.m; sourceTree = "<group>"; };
 		48BFECFC4C849B1ABEB40B43 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,9 +193,9 @@
 		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
 		601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExternalLinksHelper.h; sourceTree = "<group>"; };
 		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
-		601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podfile-icon@2x.png"; sourceTree = "<group>"; };
 		601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TersePaths.h"; sourceTree = "<group>"; };
 		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
+		6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Home Screen.xcassets"; sourceTree = "<group>"; };
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
 		6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMetadataTableViewDataSource.swift; sourceTree = "<group>"; };
 		603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMenuVisiblityDirector.swift; sourceTree = "<group>"; };
@@ -213,6 +215,10 @@
 		6075BA641C068B5F00A5C491 /* Podfile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Podfile.xcassets; sourceTree = "<group>"; };
 		6075BA661C06963700A5C491 /* CPInstallAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInstallAction.swift; sourceTree = "<group>"; };
 		60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInterfaceBuilderOnlyLabels.swift; sourceTree = "<group>"; };
+		60814A831C2B100F00D6663E /* CPBorderedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBorderedButton.h; sourceTree = "<group>"; };
+		60814A841C2B100F00D6663E /* CPBorderedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBorderedButton.m; sourceTree = "<group>"; };
+		60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPWhiteCheckedButton.h; sourceTree = "<group>"; };
+		60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPWhiteCheckedButton.m; sourceTree = "<group>"; };
 		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
 		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -278,8 +284,6 @@
 			children = (
 				331188581BEBCB4200272793 /* CPCLITask.h */,
 				331188591BEBCB4200272793 /* CPCLITask.m */,
-				331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */,
-				331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */,
 			);
 			path = "CLI Integrations";
 			sourceTree = "<group>";
@@ -385,12 +389,13 @@
 			path = pod;
 			sourceTree = "<group>";
 		};
-		601F910E1BE6405B00AD22B1 /* Resources */ = {
+		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
 			isa = PBXGroup;
 			children = (
-				601F910F1BE6406600AD22B1 /* Podfile-icon@2x.png */,
+				331188551BEBCB0F00272793 /* CPCLIToolInstallationController.h */,
+				331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */,
 			);
-			name = Resources;
+			name = "Command Line Tools";
 			sourceTree = "<group>";
 		};
 		603F7F1F1C1E1F64006C2571 /* Utilities */ = {
@@ -408,6 +413,10 @@
 			isa = PBXGroup;
 			children = (
 				6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */,
+				60814A831C2B100F00D6663E /* CPBorderedButton.h */,
+				60814A841C2B100F00D6663E /* CPBorderedButton.m */,
+				60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */,
+				60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */,
 			);
 			name = "Custom Subviews";
 			sourceTree = "<group>";
@@ -457,13 +466,6 @@
 			name = "Presenting Text";
 			sourceTree = "<group>";
 		};
-		606D1EDB1BF93079000B7148 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,14 +479,14 @@
 		60FE01621B9B76400027EEE3 /* Home Window */ = {
 			isa = PBXGroup;
 			children = (
+				6033ECB01C1E588300C2EDAD /* Command Line Tools */,
 				6051191E1C08C4AC0037B95E /* Custom Subviews */,
-				601F910E1BE6405B00AD22B1 /* Resources */,
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
 				1F9177561BA27592006698C9 /* CPHomeWindowController.m */,
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
 				6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */,
 				6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */,
-				603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */,
+				6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -506,9 +508,9 @@
 		60FE01641B9B76520027EEE3 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */,
 				601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */,
 				601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */,
-				606D1EDB1BF93079000B7148 /* Views */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -572,10 +574,10 @@
 				51165E1C1A17AFF500DCFC94 /* Frameworks */,
 				51165E1D1A17AFF500DCFC94 /* Resources */,
 				1FFFBB091BA25469004A8D1E /* Copy Helper Executables */,
-				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 				7BA6F304307FC11D21E8194E /* Embed Pods Frameworks */,
 				D59CE4AF1077B989CD7145BD /* Copy Pods Resources */,
 				5102542E1C0A60680045FCD8 /* Embed XPC Services */,
+				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 			);
 			buildRules = (
 			);
@@ -697,9 +699,9 @@
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
 				606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */,
 				6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */,
+				6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */,
 				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
 				1F91775A1BA27598006698C9 /* CPHomeWindowController.xib in Resources */,
-				601F91101BE6406600AD22B1 /* Podfile-icon@2x.png in Resources */,
 				77356D751A2253F1002822CF /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -842,6 +844,7 @@
 				510F09751C0A73B800F40F2B /* CPRubyErrors.m in Sources */,
 				603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
+				60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */,
 				5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
@@ -859,6 +862,7 @@
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
+				60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */,
 				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
 				606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */,
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,

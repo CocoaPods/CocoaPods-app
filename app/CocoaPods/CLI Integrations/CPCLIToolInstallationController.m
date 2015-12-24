@@ -8,10 +8,12 @@ NSString * const kCPDoNotRequestCLIToolInstallationAgainKey = @"CPDoNotRequestCL
 NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDestinations";
 
 @interface CPCLIToolInstallationController ()
-// The current destination to install the binstub to.
+/// The current destination to install the binstub to.
 @property (strong) NSURL *destinationURL;
-// A list of existing URL->BookmarkData mappings.
+/// A list of existing URL->BookmarkData mappings.
 @property (strong) NSDictionary *previouslyInstalledToDestinations;
+/// An error message if something fails
+@property (strong) NSString *errorMessage;
 @end
 
 @implementation CPCLIToolInstallationController
@@ -29,7 +31,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
   return self;
 }
 
-- (BOOL)installBinstubIfNecessary;
+- (BOOL)shouldInstallBinstubIfNecessary;
 {
   [self verifyExistingInstallDestinations];
 
@@ -43,21 +45,33 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
     return NO;
   }
 
-  return [self installBinstub];
+  return [self binstubAlreadyExists];
+}
+
+
+- (BOOL)installBinstubIfNecessary;
+{
+  if ([self shouldInstallBinstubIfNecessary]) {
+      return [self installBinstub];
+  }
+  return NO;
 }
 
 - (BOOL)installBinstub;
 {
   BOOL installed = NO;
-  if ([self runModalInstallationRequestAlert]) {
-    [self verifyExistingInstallDestinations];
+  [self verifyExistingInstallDestinations];
+
+  if ([self promptIfOverwriting]) {
     NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
+
     installed = [self installBinstubAccordingToPrivileges];
     if (installed) {
       NSLog(@"Successfully wrote binstub to destination.");
       [self saveInstallationDestination];
     }
   }
+
   return installed;
 }
 
@@ -152,16 +166,27 @@ CPBookmarkDataForURL(NSURL *URL) {
   }
 }
 
-#pragma mark - Utility
+// Prompts to warn someone that they're going to have a binstub replaced
+// returns whether the install action should continue
 
-// Never ask the user to automatically install again.
-//
-- (void)setDoNotRequestInstallationAgain;
+- (BOOL)promptIfOverwriting
 {
-  NSLog(@"Not going to automatically request binstub installation anymore.");
-  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCPDoNotRequestCLIToolInstallationAgainKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+  if ([self binstubAlreadyExists] == NO) {
+    return YES;
+  }
+
+  NSAlert *alert = [NSAlert new];
+  alert.alertStyle = NSCriticalAlertStyle;
+  NSString *formatString = NSLocalizedString(@"INSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
+  alert.messageText = [NSString stringWithFormat:formatString, self.destinationURL.path];
+  alert.informativeText = NSLocalizedString(@"INSTALL_CLI_WARNING_INFORMATIVE_TEXT", nil);
+  [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_WARNING_OVERWRITE", nil)];
+  [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
+
+  return [alert runModal] == NSAlertFirstButtonReturn;
 }
+
+#pragma mark - Utility
 
 - (NSURL *)binstubSourceURL;
 {
@@ -169,66 +194,18 @@ CPBookmarkDataForURL(NSURL *URL) {
   return [NSURL fileURLWithPathComponents:@[ bundlePath, @"Contents", @"Helpers", @"pod" ]];
 }
 
-#pragma mark - User interaction (modal windows)
-
-// Returns wether or not the user chose to perform the installation and, in case the user chose a
-// different installation destination, the `destinationURL` is updated.
-//
-// In case the user chose to cancel the operation, this preference is stored and the user will not
-// be automatically asked to install again on the next launch.
-//
-- (BOOL)runModalInstallationRequestAlert;
+- (BOOL)binstubAlreadyExists;
 {
-  NSString *destinationFilename = self.destinationURL.lastPathComponent;
-
-  NSAlert *alert = [NSAlert new];
-  alert.alertStyle = NSInformationalAlertStyle;
-  alert.messageText = NSLocalizedString(@"INSTALL_CLI_MESSAGE_TEXT", nil);
-  NSString *formatString = NSLocalizedString(@"INSTALL_CLI_INFORMATIVE_TEXT", nil);
-  alert.informativeText = [NSString stringWithFormat:formatString, destinationFilename];
-  formatString = NSLocalizedString(@"INSTALL_CLI", nil);
-  [alert addButtonWithTitle:[NSString stringWithFormat:formatString, self.destinationURL.path]];
-  [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_ALTERNATE_DESTINATION", nil)];
-  [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
-
-  switch ([alert runModal]) {
-    case NSAlertSecondButtonReturn:
-      if (![self runModalDestinationSavePanel]) {
-        // The user cancelled.
-        [self setDoNotRequestInstallationAgain];
-        return NO;
-      }
-      break;
-    case NSAlertThirdButtonReturn:
-      // The user cancelled.
-      [self setDoNotRequestInstallationAgain];
-      return NO;
-  }
-
-  if (access([self.destinationURL.path UTF8String], F_OK) == 0) {
-    alert = [NSAlert new];
-    alert.alertStyle = NSCriticalAlertStyle;
-    formatString = NSLocalizedString(@"INSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
-    alert.messageText = [NSString stringWithFormat:formatString, self.destinationURL.path];
-    alert.informativeText = NSLocalizedString(@"INSTALL_CLI_WARNING_INFORMATIVE_TEXT", nil);
-    [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_WARNING_OVERWRITE", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
-    if ([alert runModal] == NSAlertSecondButtonReturn) {
-      // Call recursive until user either saves or cancels from above alert.
-      return [self runModalInstallationRequestAlert];
-    }
-  }
-
-  return YES;
+  return access([self.destinationURL.path UTF8String], F_OK) == 0;
 }
 
-// Allows the user to choose a different destination than the suggested destination.
-//
-// Updates the `destinationURL` if the user chooses a new one.
-//
-// Returns whether or not a destination was chosen or if the user cancelled.
-//
-- (BOOL)runModalDestinationSavePanel;
+- (BOOL)hasWriteAccessToBinstub;
+{
+  NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
+  return access([destinationDirURL.path UTF8String], W_OK) == 0;
+}
+
+- (BOOL)runModalDestinationChangeSavePanel;
 {
   NSSavePanel *savePanel = [NSSavePanel savePanel];
   savePanel.canCreateDirectories = YES;
@@ -238,6 +215,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   if ([savePanel runModal] == NSFileHandlingPanelCancelButton) {
     return NO;
   }
+
   self.destinationURL = savePanel.URL;
   return YES;
 }
@@ -250,8 +228,8 @@ CPBookmarkDataForURL(NSURL *URL) {
 //
 - (BOOL)installBinstubAccordingToPrivileges;
 {
-  NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
-  if (access([destinationDirURL.path UTF8String], W_OK) == 0) {
+  self.errorMessage = nil;
+  if ([self hasWriteAccessToBinstub]) {
     return [self installBinstubToAccessibleDestination];
   } else {
     return [self installBinstubToPrivilegedDestination];
@@ -267,11 +245,12 @@ CPBookmarkDataForURL(NSURL *URL) {
 {
   NSError *error = nil;
   NSURL *sourceURL = self.binstubSourceURL;
-  BOOL succeeded = [[NSFileManager defaultManager] copyItemAtURL:sourceURL
-                                                           toURL:self.destinationURL
-                                                           error:&error];
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  [fileManager removeItemAtURL:self.destinationURL error:&error];
+  BOOL succeeded = [fileManager copyItemAtURL:sourceURL toURL:self.destinationURL error:&error];
   if (error) {
     NSLog(@"Failed to copy source `%@` (%@)", sourceURL.path, error);
+    self.errorMessage = @"Failed to move pod command to the new folder";
   }
   return succeeded;
 }
@@ -297,6 +276,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   SFAuthorization *authorization = [SFAuthorization authorization];
   if (![authorization obtainWithRight:name flags:flags error:&error]) {
     NSLog(@"Did not authorize.");
+    self.errorMessage = @"Did not get authorization to save pod command";
     return NO;
   }
 
@@ -306,6 +286,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   OSStatus serialized = AuthorizationMakeExternalForm(authorizationRef, &serializedRef);
   if (serialized != errAuthorizationSuccess) {
     NSLog(@"Failed to serialize AuthorizationRef (%d)", serialized);
+    self.errorMessage = @"Could not use given authorization to save pod command";
     return NO;
   }
 
@@ -330,6 +311,7 @@ CPBookmarkDataForURL(NSURL *URL) {
     FILE *source_file = fopen([sourceURL.path UTF8String], "r");
     if (source_file == NULL) {
       NSLog(@"Failed to open source `%@` (%d - %s)", sourceURL.path, errno, strerror(errno));
+      self.errorMessage = @"Could open a file to save pod command";
     } else {
       int c;
       while ((c = fgetc(source_file)) != EOF) {

@@ -1,0 +1,44 @@
+{
+  "images" : [
+    {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "tile",
+          "width" : 7
+        },
+        "cap-insets" : {
+          "right" : 7,
+          "left" : 9
+        }
+      },
+      "idiom" : "universal",
+      "filename" : "TransparentButtonBG.png",
+      "scale" : "1x"
+    },
+    {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "stretch",
+          "width" : 40
+        },
+        "cap-insets" : {
+          "right" : 9,
+          "left" : 9
+        }
+      },
+      "idiom" : "universal",
+      "filename" : "TransparentButtonBG@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

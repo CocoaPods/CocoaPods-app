@@ -7,6 +7,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CPHomeWindowController">
             <connections>
                 <outlet property="cocoapodsVersionTextField" destination="8mn-Z8-QE9" id="V6N-YU-h3E"/>
+                <outlet property="commandLineToolsHeightConstraint" destination="0dU-Fs-zRp" id="TiI-Cj-7vc"/>
+                <outlet property="installCommandLineToolsView" destination="3g8-qK-y7T" id="VyY-Wu-pUz"/>
                 <outlet property="openChangelogButton" destination="c72-1G-DgX" id="WMJ-bT-qBk"/>
                 <outlet property="openGuidesButton" destination="jOz-TV-Fbo" id="W3S-M3-KIQ"/>
                 <outlet property="openSearchButton" destination="ltc-2S-rGH" id="zdh-ur-0tH"/>
@@ -20,20 +22,20 @@
         <window title="Welcome to CocoaPods" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="665" height="376"/>
+            <rect key="contentRect" x="196" y="240" width="665" height="490"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="665" height="376"/>
+                <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
-                        <rect key="frame" x="432" y="0.0" width="233" height="376"/>
+                        <rect key="frame" x="432" y="0.0" width="233" height="490"/>
                         <clipView key="contentView" id="8EY-xl-otL">
-                            <rect key="frame" x="0.0" y="0.0" width="233" height="376"/>
+                            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="233" height="376"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -132,14 +134,14 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EzD-1M-8dC">
-                        <rect key="frame" x="429" y="0.0" width="5" height="376"/>
+                    <box horizontalHuggingPriority="750" misplaced="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EzD-1M-8dC">
+                        <rect key="frame" x="429" y="114" width="5" height="376"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltc-2S-rGH">
-                        <rect key="frame" x="14" y="13" width="119" height="32"/>
+                        <rect key="frame" x="14" y="17" width="119" height="32"/>
                         <buttonCell key="cell" type="push" title="Open Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HCL-S8-9ry">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -149,7 +151,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c72-1G-DgX">
-                        <rect key="frame" x="133" y="13" width="119" height="32"/>
+                        <rect key="frame" x="133" y="17" width="119" height="32"/>
                         <buttonCell key="cell" type="push" title="What's New?" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wGN-hy-3On">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -159,7 +161,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jOz-TV-Fbo">
-                        <rect key="frame" x="14" y="46" width="119" height="32"/>
+                        <rect key="frame" x="14" y="50" width="119" height="32"/>
                         <buttonCell key="cell" type="push" title="Open Guides" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vPo-Ho-SFh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -169,7 +171,7 @@
                         </connections>
                     </button>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="09I-WM-Nv4">
-                        <rect key="frame" x="0.0" y="120" width="432" height="154"/>
+                        <rect key="frame" x="0.0" y="174" width="432" height="154"/>
                         <subviews>
                             <imageView translatesAutoresizingMaskIntoConstraints="NO" id="YAO-eB-e3O">
                                 <rect key="frame" x="139" y="0.0" width="154" height="154"/>
@@ -187,7 +189,7 @@
                         </constraints>
                     </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mn-Z8-QE9">
-                        <rect key="frame" x="363" y="21" width="50" height="19"/>
+                        <rect key="frame" x="363" y="25" width="50" height="19"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0.38.2" id="J6B-uz-TYN">
                             <font key="font" size="16" name=".HelveticaNeueDeskInterface-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -196,7 +198,7 @@
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="09I-WM-Nv4" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="102" id="HK3-tO-Eun"/>
+                    <constraint firstItem="09I-WM-Nv4" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="162" id="HK3-tO-Eun"/>
                     <constraint firstItem="09I-WM-Nv4" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="TmG-Y2-ZOc"/>
                     <constraint firstAttribute="trailing" secondItem="3Jq-7y-btG" secondAttribute="trailing" id="Y7a-a5-JXb"/>
                     <constraint firstItem="EzD-1M-8dC" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="iA7-Uv-qga"/>
@@ -218,9 +220,144 @@
         </window>
         <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController"/>
         <customObject id="TsL-KI-RcJ" customClass="CPExternalLinksHelper"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="3g8-qK-y7T" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="432" height="474"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSn-xw-MDo">
+                    <rect key="frame" x="26" y="297" width="375" height="90"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="9iw-zL-1Cp">
+                        <font key="font" metaFont="system" size="14"/>
+                        <string key="title">By installing the CocoaPods Command Line Tools you can run the pod command from your favourite terminal. 
+
+This means you get access to the whole command-line API, not just what the CocoaPods App does.</string>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-tZ-TcD">
+                    <rect key="frame" x="26" y="217" width="201" height="61"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="This is done by making a symbolic link to the bundled pod command in: " id="LS2-at-0ZW">
+                        <font key="font" metaFont="system" size="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUM-hf-i6h">
+                    <rect key="frame" x="26" y="418" width="200" height="40"/>
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="eXV-TB-vrj">
+                        <font key="font" metaFont="system" size="14"/>
+                        <string key="title">Do you want to Install the
+Command-Line Tools?</string>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXn-88-qE2" customClass="CPBorderedButton">
+                    <rect key="frame" x="28" y="137" width="104" height="21"/>
+                    <buttonCell key="cell" type="bevel" title="Change Path" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="IH3-Se-YWG" customClass="CPBorderedButtonCell">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeInstallationPath:" target="-2" id="rsx-bS-ONW"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-73-Olf" customClass="CPBorderedButton">
+                    <rect key="frame" x="344" y="428" width="60" height="21"/>
+                    <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="a5U-pN-aXb" customClass="CPBorderedButtonCell">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="showFullCLIInstallerMessageAnimated:" target="-2" id="RmJ-xV-naO"/>
+                    </connections>
+                </button>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ht-BR-zcd">
+                    <rect key="frame" x="20" y="26" width="203" height="58"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="CP-Term" id="Gjx-MI-J45"/>
+                </imageView>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5eX-PX-hmP">
+                    <rect key="frame" x="201" y="0.0" width="277" height="273"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="ConsoleWindow" id="WqU-sS-XGz"/>
+                </imageView>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmJ-CR-54e">
+                    <rect key="frame" x="258" y="-112" width="1844" height="304"/>
+                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="Zpq-J5-F7o">
+                        <font key="font" size="13" name="Menlo-Regular"/>
+                        <mutableString key="title">-&gt; Alamofire (3.1.4)
+   Elegant HTTP Networking in Swift
+   pod 'Alamofire', '~&gt; 3.1.4'
+   - Homepage: https://github.com/Alamofire/Alamofire
+   - Source:   https://github.com/Alamofire/Alamofire.git
+   - Versions: 3.1.4, 3.1.3, 3.1.2, 3.1.1, 3.1.0, 3.0.1, 3.0.0, 3.0.0-beta.3, 3.0.0-beta.2, 3.0.0-beta.1, 2.0.2, 2.0.1, 2.0.0, 2.0.0-beta.4, 2.0.0-beta.3, 2.0.0-beta.2,
+
+-&gt; RxAlamofire (0.3.3)
+   RxSwift wrapper around the elegant HTTP networking in Swift Alamofire
+   pod 'RxAlamofire', '~&gt; 0.3.3'
+   - Homepage: https://github.com/RxSwiftCommunity/RxAlamofire
+   - Source:   https://github.com/RxSwiftCommunity/RxAlamofire.git
+   - Versions: 0.3.3, 0.3.2, 0.3.1, 0.3, 0.2, 0.1 [master repo]
+   - Subspecs:
+     - RxAlamofire/Core (0.3.3)
+     - RxAlamofire/RxCocoa (0.3.3)</mutableString>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDj-JK-Z3r">
+                    <rect key="frame" x="258" y="204" width="217" height="21"/>
+                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="pod search Alamofire" id="K56-hV-25j">
+                        <font key="font" size="13" name="Menlo-Regular"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-ZX-EaL">
+                    <rect key="frame" x="26" y="164" width="186" height="48"/>
+                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" title="/usr/local/bin/pod/thing/other/okay" id="WUl-JY-Cqv">
+                        <font key="font" size="14" name="Menlo-Regular"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.cliToolController.destinationURL.relativePath" id="HQp-tr-UQM"/>
+                    </connections>
+                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="en4-wv-beg">
+                    <rect key="frame" x="254" y="421" width="76" height="32"/>
+                    <buttonCell key="cell" type="push" title="Install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lxI-qK-Fzy">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="installBinstub:" target="-2" id="KcO-J5-rPd"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BP8-Z7-PuQ" customClass="CPWhiteCheckedButton">
+                    <rect key="frame" x="26" y="112" width="169" height="18"/>
+                    <buttonCell key="cell" type="check" title="Don't Show Alert Again" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8db-up-R4a">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="setDontShowTheCLIWarningAgain:" target="-2" id="ifm-0G-umF"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="height" constant="474" id="0dU-Fs-zRp"/>
+                <constraint firstAttribute="width" constant="432" id="gHW-Fp-qPT"/>
+            </constraints>
+            <point key="canvasLocation" x="-145" y="423"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="0Ov-2i-yXv"/>
     </objects>
     <resources>
+        <image name="CP-Term" width="420" height="120"/>
         <image name="CocoaPodsAppOval" width="256" height="256"/>
+        <image name="ConsoleWindow" width="376" height="488"/>
         <image name="Podfile-icon" width="34" height="48"/>
+        <image name="TransparentButtonBG" width="23" height="20"/>
+        <image name="TransparentButtonBGFilled" width="49" height="20"/>
     </resources>
 </document>
