@@ -251,7 +251,7 @@
         <!--Project Information-->
         <scene sceneID="MYC-t2-O4B">
             <objects>
-                <viewController title="Project Information" id="mRe-Ue-0Lb" sceneMemberID="viewController">
+                <viewController title="Project Information" id="mRe-Ue-0Lb" customClass="CPPodfileMetadataViewController" customModule="CocoaPods" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="RpM-VO-LAG">
                         <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -288,7 +288,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="target_metadata" id="cn2-HP-YjP" userLabel="Xcodeproj Cell">
+                                                        <tableCellView identifier="xcodeproject_metadata" id="cn2-HP-YjP" userLabel="Xcodeproj Cell">
                                                             <rect key="frame" x="1" y="1" width="507" height="146"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -513,6 +513,10 @@ Pod Target 3</string>
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="rIf-AX-2Op" id="nra-xN-j0F"/>
+                                                <outlet property="delegate" destination="rIf-AX-2Op" id="oR5-uy-UgK"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -534,8 +538,16 @@ Pod Target 3</string>
                             <constraint firstItem="AZX-Bo-Gby" firstAttribute="leading" secondItem="RpM-VO-LAG" secondAttribute="leading" id="zR7-ZK-IyB"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="metadataDataSource" destination="rIf-AX-2Op" id="hYA-pz-oTg"/>
+                    </connections>
                 </viewController>
                 <customObject id="tnQ-Tf-Ycz" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="rIf-AX-2Op" customClass="CPMetadataTableViewDataSource" customModule="CocoaPods" customModuleProvider="target">
+                    <connections>
+                        <outlet property="tableView" destination="Lnh-3i-Tcu" id="l2w-zo-enp"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1256" y="462"/>
         </scene>
@@ -587,10 +599,10 @@ Pod Target 3</string>
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="512" height="600"/>
+                                            <size key="minSize" width="497" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="512" height="600"/>
+                                            <size key="minSize" width="497" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
@@ -606,7 +618,7 @@ Pod Target 3</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
+                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
