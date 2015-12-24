@@ -61,6 +61,7 @@
 		606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */; };
 		6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
 		6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075BA661C06963700A5C491 /* CPInstallAction.swift */; };
+		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
 		60F02D1C1C0A2A6D003600FE /* CocoaPodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */; };
 		60F02D251C0A2E63003600FE /* Pods-CocoaPods.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 60F02D231C0A2E63003600FE /* Pods-CocoaPods.debug.xcconfig */; };
@@ -211,6 +212,7 @@
 		606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileViewController.swift; sourceTree = "<group>"; };
 		6075BA641C068B5F00A5C491 /* Podfile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Podfile.xcassets; sourceTree = "<group>"; };
 		6075BA661C06963700A5C491 /* CPInstallAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInstallAction.swift; sourceTree = "<group>"; };
+		60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInterfaceBuilderOnlyLabels.swift; sourceTree = "<group>"; };
 		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
 		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -417,6 +419,7 @@
 				605119221C08F02D0037B95E /* CPBrownVisualEffectsView.swift */,
 				5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */,
 				5EF5B7861C17990400F8C39E /* CPSideButton.swift */,
+				60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */,
 				3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */,
 				604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */,
+				60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,

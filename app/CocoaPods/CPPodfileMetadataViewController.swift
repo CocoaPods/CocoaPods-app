@@ -4,10 +4,16 @@ import Cocoa
 
 class CPXcodeProject: NSObject {
   var targets = [CPTarget]()
+  var integrationType = "Static Libraries"
+  var warnings = "Show all"
+  var fileName = "CocoaPods.xcodeproj"
 }
 
 class CPTarget: NSObject {
   var pods = [CPPod]()
+  var bundleID = "org.cocoapods.app"
+  var platform = "OS X, 10.9"
+  var type = "Mac OS X App"
 }
 
 class CPPod: NSObject {

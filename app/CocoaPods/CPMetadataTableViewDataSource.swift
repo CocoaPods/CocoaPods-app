@@ -35,6 +35,10 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
     return flattenedXcodeProject.count
   }
 
+  func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+    return flattenedXcodeProject[row]
+  }
+
   func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
     let data = flattenedXcodeProject[row]
     if let xcodeproj = data as? CPXcodeProject {
