@@ -116,6 +116,13 @@ static CGFloat CPCommandLineAlertHeight = 68;
   [self.cliToolController runModalDestinationChangeSavePanel];
 }
 
+- (IBAction)setDontShowTheCLIWarningAgain:(NSButton *)sender;
+{
+  [[NSUserDefaults standardUserDefaults] setBool:sender.state == NSOnState forKey:kCPDoNotRequestCLIToolInstallationAgainKey];
+   [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 - (CPCLIToolInstallationController *)createCLIToolInstallationController;
 {
   NSURL *destinationURL = [NSURL fileURLWithPath:kCPCLIToolSuggestedDestination];
