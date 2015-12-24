@@ -102,7 +102,8 @@ static CGFloat CPCommandLineAlertHeight = 68;
   if ([self.cliToolController installBinstub]) {
     // Hide the alert
     [self.commandLineToolsHeightConstraint.animator setConstant:0];
-  } else {
+
+  } else if(self.cliToolController.errorMessage) {
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = self.cliToolController.errorMessage;
     [alert runModal];

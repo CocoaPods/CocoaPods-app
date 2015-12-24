@@ -45,7 +45,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
     return NO;
   }
 
-  return [self savedBinStub];
+  return [self binstubAlreadyExists];
 }
 
 
@@ -61,11 +61,15 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 {
   BOOL installed = NO;
   [self verifyExistingInstallDestinations];
-  NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
-  installed = [self installBinstubAccordingToPrivileges];
-  if (installed) {
-    NSLog(@"Successfully wrote binstub to destination.");
-    [self saveInstallationDestination];
+
+  if ([self promptIfOverwriting]) {
+    NSLog(@"Try to install binstub to `%@`.", self.destinationURL.path);
+
+    installed = [self installBinstubAccordingToPrivileges];
+    if (installed) {
+      NSLog(@"Successfully wrote binstub to destination.");
+      [self saveInstallationDestination];
+    }
   }
 
   return installed;
@@ -162,16 +166,27 @@ CPBookmarkDataForURL(NSURL *URL) {
   }
 }
 
-#pragma mark - Utility
+// Prompts to warn someone that they're going to have a binstub replaced
+// returns whether the install action should continue
 
-// Never ask the user to automatically install again.
-//
-- (void)setDoNotRequestInstallationAgain;
+- (BOOL)promptIfOverwriting
 {
-  NSLog(@"Not going to automatically request binstub installation anymore.");
-  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCPDoNotRequestCLIToolInstallationAgainKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+  if ([self binstubAlreadyExists] == NO) {
+    return YES;
+  }
+
+  NSAlert *alert = [NSAlert new];
+  alert.alertStyle = NSCriticalAlertStyle;
+  NSString *formatString = NSLocalizedString(@"INSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
+  alert.messageText = [NSString stringWithFormat:formatString, self.destinationURL.path];
+  alert.informativeText = NSLocalizedString(@"INSTALL_CLI_WARNING_INFORMATIVE_TEXT", nil);
+  [alert addButtonWithTitle:NSLocalizedString(@"INSTALL_CLI_WARNING_OVERWRITE", nil)];
+  [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
+
+  return [alert runModal] == NSAlertFirstButtonReturn;
 }
+
+#pragma mark - Utility
 
 - (NSURL *)binstubSourceURL;
 {
@@ -179,9 +194,15 @@ CPBookmarkDataForURL(NSURL *URL) {
   return [NSURL fileURLWithPathComponents:@[ bundlePath, @"Contents", @"Helpers", @"pod" ]];
 }
 
-- (BOOL)savedBinStub;
+- (BOOL)binstubAlreadyExists;
 {
-  return access([self.destinationURL.path UTF8String], F_OK);
+  return access([self.destinationURL.path UTF8String], F_OK) == 0;
+}
+
+- (BOOL)hasWriteAccessToBinstub;
+{
+  NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
+  return access([destinationDirURL.path UTF8String], W_OK) == 0;
 }
 
 - (BOOL)runModalDestinationChangeSavePanel;
@@ -194,6 +215,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   if ([savePanel runModal] == NSFileHandlingPanelCancelButton) {
     return NO;
   }
+
   self.destinationURL = savePanel.URL;
   return YES;
 }
@@ -207,9 +229,7 @@ CPBookmarkDataForURL(NSURL *URL) {
 - (BOOL)installBinstubAccordingToPrivileges;
 {
   self.errorMessage = nil;
-
-  NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
-  if (access([destinationDirURL.path UTF8String], W_OK) == 0) {
+  if ([self hasWriteAccessToBinstub]) {
     return [self installBinstubToAccessibleDestination];
   } else {
     return [self installBinstubToPrivilegedDestination];
@@ -225,9 +245,9 @@ CPBookmarkDataForURL(NSURL *URL) {
 {
   NSError *error = nil;
   NSURL *sourceURL = self.binstubSourceURL;
-  BOOL succeeded = [[NSFileManager defaultManager] copyItemAtURL:sourceURL
-                                                           toURL:self.destinationURL
-                                                           error:&error];
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  [fileManager removeItemAtURL:self.destinationURL error:&error];
+  BOOL succeeded = [fileManager copyItemAtURL:sourceURL toURL:self.destinationURL error:&error];
   if (error) {
     NSLog(@"Failed to copy source `%@` (%@)", sourceURL.path, error);
     self.errorMessage = @"Failed to move pod command to the new folder";

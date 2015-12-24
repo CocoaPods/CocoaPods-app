@@ -23,7 +23,7 @@ extern NSString * const kCPCLIToolInstalledToDestinationsKey;
 ///
 - (BOOL)installBinstubIfNecessary;
 
-/// Always tries to perform the installation.
+/// Always tries to perform the installation, unless the user cancels an overwrite.
 ///
 /// Returns whether or not installation has been performed.
 ///
