@@ -116,10 +116,10 @@ NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.g
 READLINE_VERSION = '6.3'
 READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.tar.gz"
 
-RUBY__VERSION = '2.2.6'
-RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz"
+RUBY__VERSION = '2.5.1'
+RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/#{RUBY__VERSION[0, 3]}/ruby-#{RUBY__VERSION}.tar.gz"
 
-RUBYGEMS_VERSION = '2.6.8'
+RUBYGEMS_VERSION = '2.7.6'
 RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSION}.gem"
 
 CURL_VERSION = '7.41.0'
