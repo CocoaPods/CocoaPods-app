@@ -256,13 +256,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <userGuides>
-                            <userLayoutGuide location="125" affinity="minX"/>
                             <userLayoutGuide location="30" affinity="minX"/>
-                            <userLayoutGuide location="155" affinity="minX"/>
+                            <userLayoutGuide location="154" affinity="minX"/>
                             <userLayoutGuide location="300" affinity="minX"/>
                         </userGuides>
                         <subviews>
-                            <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="152" horizontalPageScroll="10" verticalLineScroll="152" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZX-Bo-Gby">
+                            <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="150" horizontalPageScroll="10" verticalLineScroll="150" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZX-Bo-Gby">
                                 <rect key="frame" x="0.0" y="-2" width="512" height="602"/>
                                 <clipView key="contentView" id="FRT-dS-9SW">
                                     <rect key="frame" x="1" y="1" width="510" height="600"/>
@@ -271,7 +270,6 @@
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="150" rowSizeStyle="automatic" viewBased="YES" floatsGroupRows="NO" id="Lnh-3i-Tcu">
                                             <rect key="frame" x="0.0" y="0.0" width="510" height="600"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
@@ -289,91 +287,113 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="xcodeproject_metadata" id="cn2-HP-YjP" userLabel="Xcodeproj Cell">
-                                                            <rect key="frame" x="1" y="1" width="507" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="507" height="150"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tabView fixedFrame="YES" type="noTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="QxI-7D-nPH">
-                                                                    <rect key="frame" x="-43" y="32" width="171" height="162"/>
+                                                                    <rect key="frame" x="25" y="0.0" width="502" height="165"/>
                                                                     <font key="font" metaFont="system"/>
                                                                     <tabViewItems>
                                                                         <tabViewItem label="Tab" identifier="1" id="XNh-Mm-m4j">
                                                                             <view key="view" ambiguous="YES" id="JfB-st-TUt">
-                                                                                <rect key="frame" x="10" y="7" width="0.0" height="0.0"/>
+                                                                                <rect key="frame" x="10" y="7" width="482" height="145"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
+                                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xMm-hI-rfw" customClass="CPInterfaceBuilderOnlyLabels" customModule="CocoaPods" customModuleProvider="target">
+                                                                                        <rect key="frame" x="-3" y="123" width="112" height="17"/>
+                                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Project Metadata:" id="bmD-Ie-XLQ">
+                                                                                            <font key="font" metaFont="system"/>
+                                                                                            <color key="textColor" red="0.69423076920000004" green="0.69423076920000004" blue="0.69423076920000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
+                                                                                    </textField>
+                                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXH-WO-c7V">
+                                                                                        <rect key="frame" x="116" y="84" width="150" height="17"/>
+                                                                                        <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Showing all" id="tei-zk-RPG">
+                                                                                            <font key="font" metaFont="system"/>
+                                                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
+                                                                                        <connections>
+                                                                                            <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.warnings" id="MPK-13-P2Q"/>
+                                                                                        </connections>
+                                                                                    </textField>
+                                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KEr-uK-vTH">
+                                                                                        <rect key="frame" x="117" y="50" width="90" height="17"/>
+                                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Integration Type" id="W3H-UM-mkW">
+                                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                                            <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
+                                                                                    </textField>
+                                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RqO-DS-Jyz">
+                                                                                        <rect key="frame" x="116" y="40" width="150" height="17"/>
+                                                                                        <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Frameworks" id="WDj-CV-f4s">
+                                                                                            <font key="font" metaFont="system"/>
+                                                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
+                                                                                        <connections>
+                                                                                            <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.integrationType" id="afY-X6-bwi"/>
+                                                                                        </connections>
+                                                                                    </textField>
+                                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLp-Xw-DJP">
+                                                                                        <rect key="frame" x="117" y="96" width="90" height="17"/>
+                                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Warnings" id="NTb-rq-Mlr">
+                                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                                            <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
+                                                                                    </textField>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tw8-mo-BEy">
-                                                                                        <rect key="frame" x="52" y="-141" width="87" height="35"/>
+                                                                                        <rect key="frame" x="2" y="11" width="111" height="34"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" title="XcodeProjectName" id="GZ9-1x-Ejg">
                                                                                             <font key="font" metaFont="system"/>
                                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
+                                                                                        <connections>
+                                                                                            <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.fileName" id="azp-Gr-Vlg"/>
+                                                                                        </connections>
+                                                                                    </textField>
+                                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2AE-B5-TC9">
+                                                                                        <rect key="frame" x="262" y="40" width="203" height="61"/>
+                                                                                        <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Slather, CocoaPods Keys" id="rQl-Oo-x52">
+                                                                                            <font key="font" metaFont="system"/>
+                                                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
+                                                                                        <connections>
+                                                                                            <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.warnings" id="87c-qf-IqD"/>
+                                                                                        </connections>
+                                                                                    </textField>
+                                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OaM-ZA-8dj">
+                                                                                        <rect key="frame" x="263" y="96" width="90" height="17"/>
+                                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Plugins" id="xo1-Lz-QAM">
+                                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                                            <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
                                                                                     </textField>
                                                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gAq-NI-KFt">
-                                                                                        <rect key="frame" x="71" y="-97" width="48" height="48"/>
-                                                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSFolderSmart" id="95R-lG-UMV"/>
+                                                                                        <rect key="frame" x="26" y="53" width="65" height="62"/>
+                                                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSFolderSmart" id="95R-lG-UMV"/>
+                                                                                        <connections>
+                                                                                            <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.image" id="VRx-78-7JI"/>
+                                                                                        </connections>
                                                                                     </imageView>
                                                                                 </subviews>
                                                                             </view>
                                                                         </tabViewItem>
-                                                                        <tabViewItem label="View" identifier="2" id="Vub-tE-9qA">
-                                                                            <view key="view" id="t6U-M7-1ZO">
-                                                                                <rect key="frame" x="10" y="7" width="151" height="142"/>
-                                                                                <autoresizingMask key="autoresizingMask"/>
-                                                                            </view>
-                                                                        </tabViewItem>
                                                                     </tabViewItems>
                                                                 </tabView>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xMm-hI-rfw" customClass="CPInterfaceBuilderOnlyLabels" customModule="CocoaPods" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="133" width="112" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Project Metadata:" id="bmD-Ie-XLQ">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" red="0.69423076920000004" green="0.69423076920000004" blue="0.69423076920000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KEr-uK-vTH">
-                                                                    <rect key="frame" x="151" y="113" width="90" height="17"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Integration Type" id="W3H-UM-mkW">
-                                                                        <font key="font" metaFont="smallSystem"/>
-                                                                        <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RqO-DS-Jyz">
-                                                                    <rect key="frame" x="151" y="99" width="150" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Frameworks" id="WDj-CV-f4s">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                    <connections>
-                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.integrationType" id="afY-X6-bwi"/>
-                                                                    </connections>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLp-Xw-DJP">
-                                                                    <rect key="frame" x="151" y="69" width="90" height="17"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Warnings" id="NTb-rq-Mlr">
-                                                                        <font key="font" metaFont="smallSystem"/>
-                                                                        <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXH-WO-c7V">
-                                                                    <rect key="frame" x="151" y="55" width="150" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Showing all" id="tei-zk-RPG">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
                                                             </subviews>
                                                             <connections>
                                                                 <outlet property="textField" destination="xMm-hI-rfw" id="ma5-MI-ayc"/>
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="target_metadata" id="AcW-VW-nvx" userLabel="Target Cell">
-                                                            <rect key="frame" x="1" y="153" width="507" height="150"/>
+                                                            <rect key="frame" x="0.0" y="150" width="507" height="150"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z6A-IP-Ww8" customClass="CPInterfaceBuilderOnlyLabels" customModule="CocoaPods" customModuleProvider="target">
@@ -385,17 +405,9 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W3Y-2W-qGL">
-                                                                    <rect key="frame" x="28" y="67" width="96" height="82"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="CocoaPodsAppOval" id="EbR-ka-yL4"/>
+                                                                    <rect key="frame" x="49" y="67" width="96" height="82"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="CocoaPodsAppOval" id="EbR-ka-yL4"/>
                                                                 </imageView>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-sA-vAo">
-                                                                    <rect key="frame" x="26" y="25" width="100" height="34"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" title="CocoaPods.app" id="rWc-a3-O8Z">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="phI-6C-q7U">
                                                                     <rect key="frame" x="152" y="120" width="90" height="17"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bundle ID:" id="YbQ-MB-kOl">
@@ -410,6 +422,9 @@
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        <connections>
+                                                                            <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.bundleID" id="a4s-IC-ycC"/>
+                                                                        </connections>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-et-qJD">
@@ -427,6 +442,9 @@
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.type" id="iEd-3m-Jad"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33V-Og-uE2">
                                                                     <rect key="frame" x="152" y="39" width="90" height="17"/>
@@ -443,6 +461,9 @@
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.pods.@count" id="pHo-Mo-DFt"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GL6-2h-4S6">
                                                                     <rect key="frame" x="296" y="120" width="90" height="17"/>
@@ -459,6 +480,9 @@
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.platform" id="RON-Vv-st2"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IQP-SA-0Xe">
                                                                     <rect key="frame" x="296" y="78" width="90" height="17"/>
@@ -479,17 +503,33 @@ Pod Target 3</string>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQS-Bf-PdL">
+                                                                    <rect key="frame" x="152" y="0.0" width="90" height="17"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pods" id="qh9-s6-CCK">
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-sA-vAo">
+                                                                    <rect key="frame" x="48" y="25" width="100" height="34"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" title="CocoaPods" id="rWc-a3-O8Z">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
                                                             </subviews>
                                                             <connections>
                                                                 <outlet property="textField" destination="z6A-IP-Ww8" id="Gxx-8G-8XP"/>
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="pod_metadata" id="0OS-TB-J5Y" userLabel="Library Cell">
-                                                            <rect key="frame" x="1" y="305" width="507" height="29"/>
+                                                            <rect key="frame" x="0.0" y="300" width="507" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lft-GE-S9E" customClass="CPInterfaceBuilderOnlyLabels" customModule="CocoaPods" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="17" width="89" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="20" width="89" height="17"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Pod Metadata" id="cdm-p0-SRx">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" red="0.69423076920000004" green="0.69423076920000004" blue="0.69423076920000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -497,20 +537,26 @@ Pod Target 3</string>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2OC-3S-cCt">
-                                                                    <rect key="frame" x="26" y="4" width="261" height="17"/>
+                                                                    <rect key="frame" x="151" y="8" width="255" height="18"/>
                                                                     <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="CocoaPodName" id="WqD-MS-4ZJ">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="0OS-TB-J5Y" name="value" keyPath="objectValue.name" id="pD0-RW-fuI"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0pT-8M-kGh">
-                                                                    <rect key="frame" x="300" y="2" width="68" height="19"/>
-                                                                    <buttonCell key="cell" type="roundRect" title="More Info" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="izc-8W-EKn">
+                                                                    <rect key="frame" x="417" y="9" width="68" height="17"/>
+                                                                    <buttonCell key="cell" type="roundRect" title="More Info" bezelStyle="roundedRect" alignment="center" controlSize="mini" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="izc-8W-EKn">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="cellTitle"/>
+                                                                        <font key="font" metaFont="miniSystem"/>
                                                                     </buttonCell>
                                                                 </button>
+                                                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="do5-46-hM1" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
+                                                                    <rect key="frame" x="153" y="3" width="400" height="1"/>
+                                                                </customView>
                                                             </subviews>
                                                         </tableCellView>
                                                     </prototypeCellViews>
@@ -602,10 +648,10 @@ Pod Target 3</string>
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
@@ -621,7 +667,7 @@ Pod Target 3</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
+                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>

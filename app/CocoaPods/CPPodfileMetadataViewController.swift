@@ -6,7 +6,10 @@ class CPXcodeProject: NSObject {
   var targets = [CPTarget]()
   var integrationType = "Static Libraries"
   var warnings = "Show all"
-  var fileName = "CocoaPods.xcodeproj"
+  var fileName = "CocoaPods"
+  var filePath = NSURL(fileURLWithPath: "")
+  var image = NSWorkspace.sharedWorkspace().iconForFileType("xcodeproj")
+  var plugins = ["CocoaPods-Keys"]
 }
 
 class CPTarget: NSObject {
