@@ -1,0 +1,100 @@
+GIT
+  remote: https://github.com/CocoaPods/CocoaPods.git
+  revision: 3cf3dbcde978d1666a8b007fe1eaae3c3ff42ab8
+  branch: seg-podfile-refactor
+  specs:
+    cocoapods (0.39.0)
+      activesupport (>= 4.0.2)
+      claide (~> 0.9.1)
+      cocoapods-core (= 0.39.0)
+      cocoapods-deintegrate (~> 0.2.1)
+      cocoapods-downloader (~> 0.9.3)
+      cocoapods-plugins (~> 0.4.2)
+      cocoapods-search (~> 0.1.0)
+      cocoapods-stats (~> 0.6.2)
+      cocoapods-trunk (~> 0.6.4)
+      cocoapods-try (~> 0.5.1)
+      colored (~> 1.2)
+      escape (~> 0.0.4)
+      molinillo (~> 0.4.0)
+      nap (~> 1.0)
+      xcodeproj (~> 0.28.2)
+
+GIT
+  remote: https://github.com/CocoaPods/Core.git
+  revision: 9fd6c128f989655cf48b07f7145d73ad02ab0694
+  branch: seg-podfile-refactor
+  specs:
+    cocoapods-core (0.39.0)
+      activesupport (>= 4.0.2)
+      fuzzy_match (~> 2.0.4)
+      nap (~> 1.0)
+
+GIT
+  remote: https://github.com/CocoaPods/Xcodeproj.git
+  revision: ffeadb7ca0edc5afafbac0304cf088c4e4b75ae5
+  specs:
+    xcodeproj (0.28.2)
+      activesupport (>= 3)
+      claide (~> 0.9.1)
+      colored (~> 1.2)
+
+GIT
+  remote: https://github.com/CocoaPods/cocoapods-deintegrate.git
+  revision: a0c2a243ecd2006b56d59105c8680ab0991d7c32
+  specs:
+    cocoapods-deintegrate (0.2.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    RubyInline (3.12.4)
+      ZenTest (~> 4.3)
+    ZenTest (4.11.0)
+    activesupport (4.2.5)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    claide (0.9.1)
+    cocoapods-downloader (0.9.3)
+    cocoapods-keys (1.6.0)
+      dotenv
+      osx_keychain
+    cocoapods-plugins (0.4.2)
+      nap
+    cocoapods-search (0.1.0)
+    cocoapods-stats (0.6.2)
+    cocoapods-trunk (0.6.4)
+      nap (>= 0.8, < 2.0)
+      netrc (= 0.7.8)
+    cocoapods-try (0.5.1)
+    colored (1.2)
+    dotenv (2.0.2)
+    escape (0.0.4)
+    fuzzy_match (2.0.4)
+    i18n (0.7.0)
+    json (1.8.3)
+    minitest (5.8.3)
+    molinillo (0.4.0)
+    nap (1.0.0)
+    netrc (0.7.8)
+    osx_keychain (1.0.1)
+      RubyInline (~> 3)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cocoapods!
+  cocoapods-core!
+  cocoapods-deintegrate!
+  cocoapods-keys
+  xcodeproj!
+
+BUNDLED WITH
+   1.10.6
