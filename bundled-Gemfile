@@ -5,4 +5,4 @@ gem 'cocoapods-core', :git => "https://github.com/CocoaPods/Core.git", :branch =
 gem 'xcodeproj', :git => "https://github.com/CocoaPods/Xcodeproj.git"
 
 gem 'cocoapods-keys'
-gem 'cocoapods-deintegrate', :git => "https://github.com/CocoaPods/cocoapods-deintegrate.git"
+gem 'cocoapods-deintegrate', :git => "https://github.com/CocoaPods/cocoapods-deintegrate.git", :branch => "reduced_gemspec"
