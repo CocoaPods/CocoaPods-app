@@ -539,9 +539,9 @@ end
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
 file installed_pod_bin => rubygems_update_dir do
   # Can figure this one out later
-  bundler = "/Users/orta/.rvm/gems/ruby-2.1.3/bin/bundle"
+  bundler = "/Users/orta/.rvm/gems/ruby-2.1.3/wrappers/bundle"
   # Let bundler grab all our dependencies
-  `#{bundler} install --gemfile bundled-Gemfile --path workbench/ --standalone`
+  execute  "bundling", [ bundler, "install", "--gemfile", "bundled-Gemfile", "--path", "workbench/", "--standalone"]
 
   # Downloaded Gems include the file structure for the downloads
   # we have to build the .gem file before installing
@@ -558,7 +558,7 @@ file installed_pod_bin => rubygems_update_dir do
     gemfiles_to_install << gemspec
   end
 
-install_gem gemfile
+install_gem gemfiles_to_install.join " "
 end
 
 plugin = 'cocoapods-plugins-install'

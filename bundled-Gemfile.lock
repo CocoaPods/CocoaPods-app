@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CocoaPods/CocoaPods.git
-  revision: 3cf3dbcde978d1666a8b007fe1eaae3c3ff42ab8
+  revision: db93068587f06ee2e326bbd09bc555c7ff125d77
   branch: seg-podfile-refactor
   specs:
     cocoapods (0.39.0)
@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: https://github.com/CocoaPods/Core.git
-  revision: 9fd6c128f989655cf48b07f7145d73ad02ab0694
+  revision: 76e8fa7365693da112e74c738766e92980ad3f8d
   branch: seg-podfile-refactor
   specs:
     cocoapods-core (0.39.0)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/CocoaPods/cocoapods-deintegrate.git
-  revision: a0c2a243ecd2006b56d59105c8680ab0991d7c32
+  revision: 36d6287283a98265c3c5de6ed08481572f490b1e
   specs:
     cocoapods-deintegrate (0.2.1)
 
@@ -97,4 +97,4 @@ DEPENDENCIES
   xcodeproj!
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
