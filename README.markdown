@@ -8,13 +8,15 @@ It is able to expose this standalone installation in a command-line interface en
 the `pod` command-line tool, which it will request to install on launch of the application or
 through the ‘Install the Command-Line Tool…’ menu item under the application menu.
 
-### GUI
+### Download
 
-For now it provides a very minimalistic UI that allows users to open and edit their Podfile and
-perform commands equivalent to `pod install` and `pod update`.
+<p align="center">
+<a href="https://github.com/CocoaPods/CocoaPods-app/releases/latest">
+  <img src="https://raw.githubusercontent.com/CocoaPods/CocoaPods-app/master/assets/screenshot.png" />
+  <a/>
+</p>
 
-In time it will undoubtedly evolve into a full-featured GUI application, but for now this is **not**
-the _most_ important goal.
+Scroll to after the CHANGELOG for download links.
 
 ### Building for Development
 
