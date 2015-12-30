@@ -23,6 +23,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
 #ifdef DEBUG
+  NSLog(@"Ensuring you see the install CLI-tools banner");
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPDoNotRequestCLIToolInstallationAgainKey];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
 #endif
