@@ -91,6 +91,16 @@
 		<string>true</string>
 		<string>__FILE__</string>
 		<string>__LINE__</string>
+		<!-- CocoaPods Podfile Options -->
+		<string>:clean</string>
+		<string>:deduplicate_targets</string>
+		<string>:deterministic_uuids</string>
+		<string>:integrate_targets</string>
+		<string>:lock_pod_sources</string>
+		<!-- CP 1.0.0 new attributes -->
+		<string>abstract_target</string>
+		<string>install!</string>
+		<!-- CP pre-1.0.0 attributes -->
 		<string>set_arc_compatibility_flag!</string>
 		<string>plugin</string>
 		<string>pre_install</string>
