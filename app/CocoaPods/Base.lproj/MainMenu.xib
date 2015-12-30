@@ -112,17 +112,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                            <menuItem title="Install Pods" keyEquivalent="i" id="74x-1X-Sqd">
-                                <connections>
-                                    <action selector="installPods:" target="-1" id="eNF-z0-enS"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Update Pods" keyEquivalent="u" id="QoN-NS-r0U">
-                                <connections>
-                                    <action selector="updatePods:" target="-1" id="cT2-2X-DPK"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="7OG-jj-T7Z"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
@@ -393,11 +382,6 @@
                                     <action selector="showConsoleTab:" target="-1" id="34F-FY-efO"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Information" keyEquivalent="3" id="2aY-CM-dhd">
-                                <connections>
-                                    <action selector="showInformationTab:" target="-1" id="Ds2-5n-OQs"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="cEG-Nk-FNM"/>
                         </items>
                     </menu>
@@ -424,6 +408,9 @@
                             </menuItem>
                             <menuItem title="Update (Verbose)" alternate="YES" keyEquivalent="u" id="Sev-55-ntk">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="installUpdateVerbose:" target="-1" id="zdL-aU-D8R"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Lmb-6g-oqt"/>
                         </items>
