@@ -538,6 +538,7 @@ end
 
 installed_pod_bin = File.join(BUNDLE_DESTROOT, 'bin/pod')
 file installed_pod_bin => rubygems_update_dir do
+  execute "bundling", ["rm", "-rf", WORKBENCH_DIR + "/ruby"]
   # Can figure this one out later
   bundler = "/Users/orta/.rvm/gems/ruby-2.1.3/wrappers/bundle"
   # Let bundler grab all our dependencies
