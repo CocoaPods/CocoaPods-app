@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="cocoapodsVersionTextField" destination="8mn-Z8-QE9" id="V6N-YU-h3E"/>
                 <outlet property="commandLineToolsHeightConstraint" destination="0dU-Fs-zRp" id="TiI-Cj-7vc"/>
+                <outlet property="cpIconImage" destination="YAO-eB-e3O" id="RjJ-rW-NYZ"/>
                 <outlet property="installCommandLineToolsView" destination="3g8-qK-y7T" id="VyY-Wu-pUz"/>
                 <outlet property="openChangelogButton" destination="c72-1G-DgX" id="WMJ-bT-qBk"/>
                 <outlet property="openGuidesButton" destination="jOz-TV-Fbo" id="W3S-M3-KIQ"/>
@@ -23,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask"/>
