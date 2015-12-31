@@ -151,10 +151,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
-                                        <rect key="frame" x="427" y="15" width="90" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" priority="250" constant="90" id="FNn-BO-sGt"/>
-                                        </constraints>
+                                        <rect key="frame" x="464" y="15" width="53" height="21"/>
                                         <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="elj-BT-5d3" customClass="CPBorderedButtonCell">
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -364,7 +361,7 @@
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.3260253906255457" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
+                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -407,9 +404,7 @@ Gw
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="activitySpinner" destination="dHD-2d-9Po" id="h8X-uD-bbC"/>
                         <outlet property="exitButton" destination="Fxz-cm-V3i" id="Zgq-QM-XIs"/>
-                        <outlet property="tableView" destination="Gr5-aW-mSk" id="ped-cT-VNU"/>
                         <outlet property="titleLabel" destination="IjP-QB-Fdo" id="NGe-2D-E1e"/>
                     </connections>
                 </viewController>
@@ -500,10 +495,10 @@ Gw
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
@@ -519,7 +514,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
+                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>

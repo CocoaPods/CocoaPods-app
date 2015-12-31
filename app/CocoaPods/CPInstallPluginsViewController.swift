@@ -6,6 +6,7 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
   // must be DI'd before viewWillAppear
   var userProject: CPUserProject!
   var failed: Bool = false
+  var pluginsInstalled: (() -> ())?
 
   dynamic var installTask: CPCLITask?
 
@@ -35,7 +36,7 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
     } else {
       exitButton.title = NSLocalizedString("Close", comment: "Close sheet button title")
       titleLabel.stringValue = NSLocalizedString("Installed Plugins", comment: "Install plugin title when completed")
-
+      pluginsInstalled?()
     }
   }
 

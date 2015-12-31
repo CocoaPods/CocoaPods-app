@@ -54,9 +54,11 @@ class CPPodfilePluginCoordinator: NSObject {
 
     missingPluginInstaller.pluginsToInstall = self.pluginsToInstall
     missingPluginInstaller.userProject = controller.userProject
+    missingPluginInstaller.pluginsInstalled = {
+      self.controller.hideWarningLabel()
+    }
 
     guard let sheet = windowController.window else { return }
     controller.view.window?.beginSheet(sheet, completionHandler: nil)
   }
-
 }
