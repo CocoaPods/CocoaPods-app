@@ -54,10 +54,12 @@ module Pod
               gemfile.puts "gem 'cocoapods', '#{Pod::VERSION}'"
               unless dev_tools_installed?
                 available_gems_that_require_dev_tools.each do |gem|
+                  next if gem.name == "io-console"
                   gemfile.puts "gem '#{gem.name}', '#{gem.version}'"
                 end
               end
               @names.each do |name|
+                next if name == "io-console"
                 gemfile.puts "gem '#{name}'"
               end
               @temp_gemfile = gemfile.path
