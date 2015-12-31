@@ -9,12 +9,13 @@ import Cocoa
 class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   var userProject:CPUserProject!
-  @IBOutlet var contentView:NSView!
   dynamic var installAction: CPInstallAction!
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
-  var pluginCoordinator:CPPodfilePluginCoordinator!
+  var pluginCoordinator: CPPodfilePluginCoordinator!
+
+  @IBOutlet var tabViewDelegate: CPTabViewDelegate!
 
   override func viewWillAppear() {
 
@@ -36,14 +37,36 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
   }
 
-  var tabController: NSTabViewController {
-    return childViewControllers.filter { $0.isKindOfClass(NSTabViewController) }.first! as! NSTabViewController
+  var tabController: CPHiddenTabViewController {
+    return childViewControllers.filter { $0.isKindOfClass(CPHiddenTabViewController) }.first! as! CPHiddenTabViewController
   }
 
   @IBAction func install(obj: AnyObject) {
     installAction.performAction(.Install(verbose: false))
     showConsoleTab(self)
   }
+
+  @IBAction func installVerbose(obj: AnyObject) {
+    installAction.performAction(.Install(verbose: true))
+    showConsoleTab(self)
+  }
+
+  @IBAction func installUpdate(obj: AnyObject) {
+    installAction.performAction(.Update(verbose: false))
+    showConsoleTab(self)
+  }
+
+  @IBAction func installUpdateVerbose(obj: AnyObject) {
+    installAction.performAction(.Update(verbose: true))
+    showConsoleTab(self)
+  }
+
+  @IBOutlet var installMenu: NSMenu!
+  @IBAction func showInstallOptions(button: NSButton) {
+    guard let event = NSApp.currentEvent else { return }
+    NSMenu.popUpContextMenu(installMenu, withEvent: event, forView: button)
+  }
+
 
   @IBAction func showEditorTab(sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 0
