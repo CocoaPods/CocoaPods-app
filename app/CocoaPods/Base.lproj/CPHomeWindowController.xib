@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="cocoapodsVersionTextField" destination="8mn-Z8-QE9" id="V6N-YU-h3E"/>
                 <outlet property="commandLineToolsHeightConstraint" destination="0dU-Fs-zRp" id="TiI-Cj-7vc"/>
+                <outlet property="cpIconImage" destination="YAO-eB-e3O" id="RjJ-rW-NYZ"/>
                 <outlet property="installCommandLineToolsView" destination="3g8-qK-y7T" id="VyY-Wu-pUz"/>
                 <outlet property="openChangelogButton" destination="c72-1G-DgX" id="WMJ-bT-qBk"/>
                 <outlet property="openGuidesButton" destination="jOz-TV-Fbo" id="W3S-M3-KIQ"/>
