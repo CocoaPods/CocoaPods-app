@@ -28,7 +28,6 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
     guard let task = task else { return }
 
     task.colouriseOutput = true
-    task.verboseOutput = NSUserDefaults.standardUserDefaults().boolForKey("CPShowVerboseCommandOutput")
     task.run()
   }
 
