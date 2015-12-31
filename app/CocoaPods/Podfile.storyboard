@@ -147,14 +147,7 @@
                             <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32a-ce-wrv" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
                                 <rect key="frame" x="78" y="0.0" width="541" height="50"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WOE-Xd-d6I">
-                                        <rect key="frame" x="401" y="7" width="126" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Do Something" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d9W-1Z-qn9">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
                                         <rect key="frame" x="18" y="15" width="376" height="20"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label with some text doing something" id="mW1-wj-yJA">
                                             <font key="font" metaFont="system"/>
@@ -162,8 +155,25 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
+                                        <rect key="frame" x="427" y="15" width="90" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" priority="250" constant="90" id="FNn-BO-sGt"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="elj-BT-5d3" customClass="CPBorderedButtonCell">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Nvs-Zv-XUf" secondAttribute="bottom" constant="15" id="6jh-vK-OyW"/>
+                                    <constraint firstItem="Nvs-Zv-XUf" firstAttribute="top" secondItem="32a-ce-wrv" secondAttribute="top" constant="14" id="6yr-vM-Qbe"/>
+                                    <constraint firstItem="Nvs-Zv-XUf" firstAttribute="leading" secondItem="yge-Ir-okX" secondAttribute="trailing" constant="35" id="NeT-t8-kO6"/>
+                                    <constraint firstItem="yge-Ir-okX" firstAttribute="top" secondItem="32a-ce-wrv" secondAttribute="top" constant="15" id="WGf-Gk-qMp"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nvs-Zv-XUf" secondAttribute="trailing" constant="20" id="bQ2-iF-Uc7"/>
+                                    <constraint firstItem="yge-Ir-okX" firstAttribute="leading" secondItem="32a-ce-wrv" secondAttribute="leading" constant="20" id="i0J-1Y-Ard"/>
+                                    <constraint firstAttribute="bottom" secondItem="yge-Ir-okX" secondAttribute="bottom" constant="15" id="ode-em-dMe"/>
                                     <constraint firstAttribute="height" constant="50" id="wFn-vf-vRd"/>
                                 </constraints>
                             </customView>
@@ -214,7 +224,7 @@
                         <outlet property="documentIconContainer" destination="A2C-cQ-r2M" id="XjI-Gp-RjM"/>
                         <outlet property="installMenu" destination="ipM-rO-V7M" id="TUi-D1-qEX"/>
                         <outlet property="tabViewDelegate" destination="TcC-X8-fEE" id="rpc-oY-Jgh"/>
-                        <outlet property="warningDoneButton" destination="WOE-Xd-d6I" id="bRh-5I-r8a"/>
+                        <outlet property="warningDoneButton" destination="Nvs-Zv-XUf" id="eYF-Pl-mG9"/>
                         <outlet property="warningLabel" destination="yge-Ir-okX" id="5rG-4b-9Hy"/>
                         <outlet property="warningLabelHeight" destination="wFn-vf-vRd" id="aMT-qV-1Cr"/>
                     </connections>
@@ -358,7 +368,7 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.3260253906255457" horizontal="YES" id="PHf-HC-OTM">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.3260253906255457" horizontal="YES" id="PHf-HC-OTM">
                                     <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -537,6 +547,8 @@ Gw
     </scenes>
     <resources>
         <image name="NSApplicationIcon" width="128" height="128"/>
+        <image name="TransparentButtonBG" width="23" height="20"/>
+        <image name="TransparentButtonBGFilled" width="49" height="20"/>
         <image name="actionbar_background" width="250.5" height="23"/>
         <image name="drop_down" width="7" height="5"/>
         <image name="icon_console" width="44" height="35"/>

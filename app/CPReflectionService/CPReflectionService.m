@@ -24,12 +24,12 @@
 {
   [RBObject performBlock:^{
     RBPluginManager *pluginManager = RBObjectFromString(@"CLAide::Command::PluginManager");
-    NSArray *pluginPaths = [pluginManager plugin_load_paths:@"cocoapods"];
 
-    NSMutableArray *pluginNames = [NSMutableArray arrayWithCapacity:pluginPaths.count];
-    for (NSString *pluginPath in pluginPaths) {
-      NSString *pluginRootPath = [[pluginPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-      RBGemSpecification *spec = [pluginManager specification:pluginRootPath];
+    NSArray *pluginsAndPaths = [pluginManager plugin_gems_for_prefix:@"cocoapods"];
+
+    NSMutableArray *pluginNames = [NSMutableArray arrayWithCapacity:pluginsAndPaths.count];
+    for (NSArray *pluginsAndPath in pluginsAndPaths) {
+      RBGemSpecification *spec = pluginsAndPath.firstObject;
       [pluginNames addObject:spec.name];
     }
     reply(pluginNames, nil);
