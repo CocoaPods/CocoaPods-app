@@ -189,7 +189,7 @@
                         </constraints>
                     </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mn-Z8-QE9">
-                        <rect key="frame" x="363" y="25" width="50" height="19"/>
+                        <rect key="frame" x="266" y="25" width="147" height="19"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0.38.2" id="J6B-uz-TYN">
                             <font key="font" size="16" name=".HelveticaNeueDeskInterface-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -284,7 +284,7 @@ Command-Line Tools?</string>
                     <rect key="frame" x="258" y="-112" width="1844" height="304"/>
                     <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="Zpq-J5-F7o">
                         <font key="font" size="13" name="Menlo-Regular"/>
-                        <mutableString key="title">-&gt; Alamofire (3.1.4)
+                        <string key="title">-&gt; Alamofire (3.1.4)
    Elegant HTTP Networking in Swift
    pod 'Alamofire', '~&gt; 3.1.4'
    - Homepage: https://github.com/Alamofire/Alamofire
@@ -299,7 +299,7 @@ Command-Line Tools?</string>
    - Versions: 0.3.3, 0.3.2, 0.3.1, 0.3, 0.2, 0.1 [master repo]
    - Subspecs:
      - RxAlamofire/Core (0.3.3)
-     - RxAlamofire/RxCocoa (0.3.3)</mutableString>
+     - RxAlamofire/RxCocoa (0.3.3)</string>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
