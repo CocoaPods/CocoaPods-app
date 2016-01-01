@@ -71,6 +71,12 @@
       }
     });
   }];
+  
+  [reflectionService.remoteObjectProxy XcodeIntegrationInformationFromPodfile:project.contents
+                                                             installationRoot:project.fileURL.URLByDeletingLastPathComponent.path
+                                                                    withReply:^(NSDictionary * _Nullable information, NSError * _Nullable error) {
+    NSLog(@"INFO: %@", information);
+  }];
 }
 
 static SMLSyntaxError * _Nullable
