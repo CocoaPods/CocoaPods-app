@@ -39,12 +39,15 @@
   }];
 }
 
-- (void)getXcodeIntegrationInformation:(void (^ _Nonnull)(NSDictionary * _Nullable information, NSError * _Nullable error))reply
+- (void)XcodeIntegrationInformationFromPodfile:(NSString * _Nonnull)contents
+                              installationRoot:(NSString * _Nonnull)installationRoot
+                                     withReply:(void (^ _Nonnull)(NSDictionary * _Nullable information, NSError * _Nullable error))reply;
 {
   [RBObject performBlock:^{
     RBPathname *pathname = [RBObjectFromString(@"Pathname") new:@"Podfile"];
-
-    reply(@{}, nil);
+    RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
+    NSDictionary *info = [RBObjectFromString(@"Pod::App") analyze_podfile:podfile :[RBObjectFromString(@"Pathname") new:installationRoot]];
+    reply(info, nil);
 
   } error:^(NSError * _Nonnull error) {
     reply(nil, error);

@@ -463,14 +463,23 @@ installed_readline = readline_tasks.installed_path
 # ------------------------------------------------------------------------------
 
 class RubyTasks < BundleDependencyTasks
-  attr_accessor :installed_libruby_path
+  attr_accessor :installed_libruby_path, :installed_dependencies
 
+  # TODO Look into using ext/extinit.c instead, but this will autoload the extensions,
+  #      so that makes more sense to look into when switching to a dynamic libruby.
   def define_install_libruby_task
     file installed_libruby_path => artefact_path do
       cp artefact_path, installed_libruby_path
-      %w{ bigdecimal date/date_core.a pathname stringio }.each do |ext|
+      %w{ bigdecimal date/date_core.a digest fiddle pathname psych stringio strscan }.each do |ext|
         ext = "#{ext}/#{ext}.a" unless File.extname(ext) == '.a'
         execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'ext', ext)
+      end
+
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'enc', 'libenc.a')
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'enc', 'libtrans.a')
+
+      installed_dependencies.each do |installed_dependency|
+        execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, installed_dependency
       end
     end
   end
@@ -490,6 +499,7 @@ ruby_tasks = RubyTasks.define do |t|
   t.dependencies   = [installed_pkg_config, installed_yaml, installed_openssl]
 
   t.installed_libruby_path = File.join('app', 'CPReflectionService', 'libruby+exts.a')
+  t.installed_dependencies = [installed_yaml]
 end
 
 installed_ruby = ruby_tasks.installed_path
