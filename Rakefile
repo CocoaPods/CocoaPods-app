@@ -911,6 +911,7 @@ namespace :bundle do
   namespace :clean do
     task :build do
       rm_rf WORKBENCH_DIR
+      rm "app/CPReflectionService/libruby+exts.a"
     end
 
     task :downloads do
