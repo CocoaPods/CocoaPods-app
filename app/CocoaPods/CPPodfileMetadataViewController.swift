@@ -3,21 +3,29 @@ import Cocoa
 // Temp for now ?
 
 class CPXcodeProject: NSObject {
-  var targets = [CPTarget]()
+  var targets = [CPXcodeTarget]()
   var integrationType = "Static Libraries"
-  var warnings = "Show all"
   var fileName = "CocoaPods"
   var filePath = NSURL(fileURLWithPath: "")
   var image = NSWorkspace.sharedWorkspace().iconForFileType("xcodeproj")
   var plugins = ["CocoaPods-Keys"]
 }
 
-class CPTarget: NSObject {
+class CPXcodeTarget: NSObject {
   var pods = [CPPod]()
+  var warnings = "Show all"
   var bundleID = "org.cocoapods.app"
   var platform = "OS X, 10.9"
   var type = "Mac OS X App"
+  var name = "OK"
+  var cocoapodsTargets = [String]()
 }
+
+class CPCocoaPodsTarget: NSObject {
+  var pods = [CPPod]()
+  var name = ""
+}
+
 
 class CPPod: NSObject {
   let name: String
@@ -32,21 +40,21 @@ class CPPod: NSObject {
 class CPPodfileMetadataViewController: NSViewController {
   var podfileChecker: CPPodfileReflection!
   var xcodeprojects: [CPXcodeProject] = []
+  var infoGenerator = CPXcodeInformationGenerator()
 
   @IBOutlet var metadataDataSource: CPMetadataTableViewDataSource!
 
   override func viewWillAppear() {
     super.viewWillAppear()
 
-    let pod = CPPod(name: "Pod 1", version: "1.0.0")
-    let pod2 = CPPod(name: "Pod 2", version: "1.0.0")
+    guard let podfileVC = podfileViewController, project = podfileVC.userProject else {
+      return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
+    }
 
-    let xcodeproj = CPXcodeProject()
-    let target = CPTarget()
-    target.pods = [pod, pod2]
-    xcodeproj.targets = [target]
+    infoGenerator.XcodeProjectMetadataFromUserProject(project) { (projects, targets, error)  in
+      self.metadataDataSource.setXcodeProjects(projects, targets:targets)
+    }
 
-    metadataDataSource.setXcodeProjects([xcodeproj])
   }
 
 }

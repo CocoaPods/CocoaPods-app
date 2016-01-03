@@ -43,6 +43,8 @@
 		600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
 		600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */; };
+		601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */; };
+		601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
 		6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */; };
@@ -193,6 +195,10 @@
 		5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTabViewDelegate.swift; sourceTree = "<group>"; };
 		5EF5B7861C17990400F8C39E /* CPSideButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSideButton.swift; sourceTree = "<group>"; };
 		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
+		601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXcodeInformationGenerator.h; sourceTree = "<group>"; };
+		601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXcodeInformationGenerator.m; sourceTree = "<group>"; };
+		601ACAA41C392BDD0058FA86 /* NSArray+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Helpers.h"; sourceTree = "<group>"; };
+		601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Helpers.m"; sourceTree = "<group>"; };
 		601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExternalLinksHelper.h; sourceTree = "<group>"; };
 		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
 		601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TersePaths.h"; sourceTree = "<group>"; };
@@ -393,6 +399,17 @@
 			path = pod;
 			sourceTree = "<group>";
 		};
+		601ACA9C1C37F33F0058FA86 /* Podfile Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */,
+				606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */,
+				601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */,
+				601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */,
+			);
+			name = "Podfile Metadata";
+			sourceTree = "<group>";
+		};
 		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,10 +459,7 @@
 			children = (
 				606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */,
 				606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */,
-				604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */,
 				6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */,
-				606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */,
-				6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -459,15 +473,16 @@
 			name = "NSDocument Details";
 			sourceTree = "<group>";
 		};
-		606D1ED81BF9108B000B7148 /* Presenting Text */ = {
+		606D1ED81BF9108B000B7148 /* Podfile Logging */ = {
 			isa = PBXGroup;
 			children = (
+				604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */,
 				7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */,
 				7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */,
 				60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */,
 				605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */,
 			);
-			name = "Presenting Text";
+			name = "Podfile Logging";
 			sourceTree = "<group>";
 		};
 		60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */ = {
@@ -498,10 +513,11 @@
 		60FE01631B9B76470027EEE3 /* Podfile Window */ = {
 			isa = PBXGroup;
 			children = (
+				601ACA9C1C37F33F0058FA86 /* Podfile Metadata */,
 				606D1ED11BF90705000B7148 /* Podfile.storyboard */,
 				6075BA641C068B5F00A5C491 /* Podfile.xcassets */,
 				606D1ED71BF91076000B7148 /* NSDocument Details */,
-				606D1ED81BF9108B000B7148 /* Presenting Text */,
+				606D1ED81BF9108B000B7148 /* Podfile Logging */,
 				605119211C08D7CD0037B95E /* Custom Views */,
 				606D1ED61BF91062000B7148 /* View Controllers */,
 				603F7F1F1C1E1F64006C2571 /* Utilities */,
@@ -525,6 +541,8 @@
 				60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */,
 				601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */,
 				601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */,
+				601ACAA41C392BDD0058FA86 /* NSArray+Helpers.h */,
+				601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -851,11 +869,13 @@
 				60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */,
 				5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
+				601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
 				606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */,
 				605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */,
 				605119251C08F5880037B95E /* CPFontAndColourGateKeeper.swift in Sources */,
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
+				601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */,
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
@@ -959,7 +979,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CPReflectionService",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.ReflectionService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -988,7 +1008,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CPReflectionService",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.ReflectionService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1031,7 +1051,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 			};
@@ -1066,7 +1086,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 			};
 			name = Release;

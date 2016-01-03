@@ -6,21 +6,27 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
 
   @IBOutlet weak var tableView: NSTableView!
 
-  func setXcodeProjects(projects:[CPXcodeProject]) {
-    flattenedXcodeProject = flattenXcodeProjects(projects)
+  func setXcodeProjects(projects:[CPXcodeProject], targets:[CPCocoaPodsTarget]) {
+    flattenedXcodeProject = flattenXcodeProjects(projects, targets:targets)
     tableView.reloadData()
   }
 
   // TODO: I bet someone could code-golf this pretty well
-  private func flattenXcodeProjects(projects:[CPXcodeProject]) -> [AnyObject] {
+  private func flattenXcodeProjects(projects:[CPXcodeProject], targets:[CPCocoaPodsTarget]) -> [AnyObject] {
     var flattenedObjects: [AnyObject] = []
 
     for xcodeproject in projects {
       flattenedObjects.append(xcodeproject)
+
       for target in xcodeproject.targets {
         flattenedObjects.append(target)
-        for pod in target.pods {
-          flattenedObjects.append(pod)
+
+        for targetName in target.cocoapodsTargets {
+          targets.filter { $0.name != targetName }.forEach { pod_target in
+            for pod in pod_target.pods {
+              flattenedObjects.append(pod)
+            }
+          }
         }
       }
     }
@@ -44,7 +50,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
     if let xcodeproj = data as? CPXcodeProject {
       return tableView.makeViewWithIdentifier("xcodeproject_metadata", owner: xcodeproj)
 
-    } else if let target = data as? CPTarget {
+    } else if let target = data as? CPXcodeTarget {
       return tableView.makeViewWithIdentifier("target_metadata", owner: target)
 
     } else if let pod = data as? CPPod {
@@ -60,7 +66,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
     if let _ = data as? CPXcodeProject {
       return 150
 
-    } else if let _ = data as? CPTarget {
+    } else if let _ = data as? CPXcodeTarget {
       return 150
 
     } else if let _ = data as? CPPod {

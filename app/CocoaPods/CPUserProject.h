@@ -9,5 +9,6 @@
 
 @property (strong) NSString *contents;
 @property (strong) NSArray *podfilePlugins;
+@property (strong) NSDictionary *xcodeIntegrationDictionary;
 
 @end

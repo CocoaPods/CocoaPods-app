@@ -75,7 +75,12 @@
   [reflectionService.remoteObjectProxy XcodeIntegrationInformationFromPodfile:project.contents
                                                              installationRoot:project.fileURL.URLByDeletingLastPathComponent.path
                                                                     withReply:^(NSDictionary * _Nullable information, NSError * _Nullable error) {
-    NSLog(@"INFO: %@", information);
+    if (error) {
+      NSLog(@"Error getting Xcode information: %@", error);
+      // Ruby error message = error.userDictionary[@"NSLocalizedRecovevrySuggestion"]
+      // we could use this for a GUI in the Podfile integration tab
+    }
+    project.xcodeIntegrationDictionary = information;
   }];
 }
 
