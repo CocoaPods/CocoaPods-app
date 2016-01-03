@@ -256,8 +256,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <userGuides>
-                            <userLayoutGuide location="30" affinity="minX"/>
-                            <userLayoutGuide location="154" affinity="minX"/>
+                            <userLayoutGuide location="29" affinity="minX"/>
+                            <userLayoutGuide location="155" affinity="minX"/>
                             <userLayoutGuide location="300" affinity="minX"/>
                         </userGuides>
                         <subviews>
@@ -290,75 +290,70 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="507" height="150"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Vd-68-f5H">
-                                                                    <rect key="frame" x="29" y="3" width="490" height="144"/>
-                                                                    <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xWF-I5-D5i" customClass="CPInterfaceBuilderOnlyLabels" customModule="CocoaPods" customModuleProvider="target">
-                                                                            <rect key="frame" x="-2" y="127" width="112" height="17"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Project Metadata:" id="fDw-eQ-R8O">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" red="0.69423076920000004" green="0.69423076920000004" blue="0.69423076920000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEh-Rs-i34">
-                                                                            <rect key="frame" x="123" y="97" width="90" height="17"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Integration Type" id="UG6-W3-yh9">
-                                                                                <font key="font" metaFont="smallSystem"/>
-                                                                                <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SIj-zF-hvO">
-                                                                            <rect key="frame" x="122" y="87" width="150" height="17"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Frameworks" id="q4A-9w-gsP">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                            <connections>
-                                                                                <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.integrationType" id="oOB-1h-23W"/>
-                                                                            </connections>
-                                                                        </textField>
-                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SEw-pB-l4m">
-                                                                            <rect key="frame" x="3" y="15" width="111" height="34"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" title="XcodeProjectName" id="GAf-1V-6CU">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                            <connections>
-                                                                                <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.fileName" id="vZ9-cP-mkh"/>
-                                                                            </connections>
-                                                                        </textField>
-                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qIY-Qd-LOp">
-                                                                            <rect key="frame" x="263" y="44" width="203" height="61"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Slather, CocoaPods Keys" id="HbD-nA-YzZ">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                            <connections>
-                                                                                <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.plugins" id="Jtn-19-yFO"/>
-                                                                            </connections>
-                                                                        </textField>
-                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YNm-5Z-xnP">
-                                                                            <rect key="frame" x="264" y="100" width="90" height="17"/>
-                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Plugins" id="pux-T0-bVv">
-                                                                                <font key="font" metaFont="smallSystem"/>
-                                                                                <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3eo-mo-icV">
-                                                                            <rect key="frame" x="27" y="57" width="65" height="62"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSFolderSmart" id="iBg-N4-JMK"/>
-                                                                            <connections>
-                                                                                <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.image" id="9ET-83-CvU"/>
-                                                                            </connections>
-                                                                        </imageView>
-                                                                    </subviews>
-                                                                </view>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y5j-1S-8ov">
+                                                                    <rect key="frame" x="154" y="78" width="150" height="17"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Frameworks" id="PtE-b6-FMQ">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.integrationType" id="mc7-gb-RwT"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y79-Jv-qBs">
+                                                                    <rect key="frame" x="34" y="50" width="65" height="62"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSFolderSmart" id="pTa-ru-ED3"/>
+                                                                    <connections>
+                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.image" id="i6G-UG-axx"/>
+                                                                    </connections>
+                                                                </imageView>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Acu-PZ-xuf">
+                                                                    <rect key="frame" x="2" y="8" width="134" height="34"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" title="XcodeProjectName" id="BJC-DU-Hl5">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.fileName" id="fFt-D9-wJc"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTV-B5-C21">
+                                                                    <rect key="frame" x="155" y="93" width="90" height="17"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Integration Type" id="vW1-mB-lBB">
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5sQ-qd-WgX" customClass="CPInterfaceBuilderOnlyLabels" customModule="CocoaPods" customModuleProvider="target">
+                                                                    <rect key="frame" x="20" y="120" width="112" height="17"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Project Metadata:" id="28e-sh-fDw">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" red="0.69423076920000004" green="0.69423076920000004" blue="0.69423076920000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RFW-WZ-5kZ">
+                                                                    <rect key="frame" x="296" y="93" width="90" height="17"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Plugins" id="Jpe-rO-YKR">
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d7p-rZ-YwX">
+                                                                    <rect key="frame" x="297" y="34" width="203" height="61"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Slather, CocoaPods Keys" id="tT7-2m-6ts">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.plugins" id="wPt-7K-p9s"/>
+                                                                    </connections>
+                                                                </textField>
                                                             </subviews>
                                                         </tableCellView>
                                                         <tableCellView identifier="target_metadata" id="AcW-VW-nvx" userLabel="Target Cell">
@@ -377,30 +372,8 @@
                                                                     <rect key="frame" x="49" y="67" width="96" height="82"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="CocoaPodsAppOval" id="EbR-ka-yL4"/>
                                                                 </imageView>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="phI-6C-q7U">
-                                                                    <rect key="frame" x="152" y="120" width="90" height="17"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bundle ID:" id="YbQ-MB-kOl">
-                                                                        <font key="font" metaFont="smallSystem"/>
-                                                                        <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHk-jO-7zt">
-                                                                    <rect key="frame" x="152" y="106" width="145" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="org.cocoapods.app" id="oHc-jf-iwl">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        <connections>
-                                                                            <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.bundleID" id="a4s-IC-ycC"/>
-                                                                        </connections>
-                                                                    </textFieldCell>
-                                                                    <connections>
-                                                                        <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.bundleID" id="QaI-Mp-LIs"/>
-                                                                    </connections>
-                                                                </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-et-qJD">
-                                                                    <rect key="frame" x="152" y="78" width="90" height="17"/>
+                                                                    <rect key="frame" x="152" y="120" width="90" height="17"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Type:" id="FIz-nq-Old">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                         <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
@@ -408,7 +381,7 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YNp-Vl-4dA">
-                                                                    <rect key="frame" x="152" y="64" width="145" height="17"/>
+                                                                    <rect key="frame" x="152" y="89" width="145" height="34"/>
                                                                     <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="App" id="Igh-V3-I51">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -416,25 +389,6 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.type" id="iEd-3m-Jad"/>
-                                                                    </connections>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33V-Og-uE2">
-                                                                    <rect key="frame" x="152" y="39" width="90" height="17"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pods:" id="vKs-gb-grb">
-                                                                        <font key="font" metaFont="smallSystem"/>
-                                                                        <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kMg-it-img">
-                                                                    <rect key="frame" x="152" y="25" width="145" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="5" id="4DH-XJ-r5x">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                    <connections>
-                                                                        <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.pods.@count" id="pHo-Mo-DFt"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GL6-2h-4S6">
@@ -552,6 +506,20 @@
                                                                 </customView>
                                                             </subviews>
                                                         </tableCellView>
+                                                        <tableCellView identifier="spacer" id="mws-VE-WlK">
+                                                            <rect key="frame" x="0.0" y="332" width="507" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dZ-ui-M7k" customClass="CPInterfaceBuilderOnlyLabels" customModule="CocoaPods" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="3" width="47" height="17"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Spacer" id="ts4-XP-y23">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" red="0.69423076920000004" green="0.69423076920000004" blue="0.69423076920000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                        </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
@@ -634,17 +602,17 @@
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9i-w9-w0u">
                                 <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                 <clipView key="contentView" id="EeO-Vl-j8p">
-                                    <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="497" height="600"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" importsGraphics="NO" richText="NO" selectionGranularity="word" findStyle="bar" incrementalSearchingEnabled="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="GuO-Ek-akK">
-                                            <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="497" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="512" height="600"/>
+                                            <size key="minSize" width="497" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="512" height="600"/>
+                                            <size key="minSize" width="497" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
@@ -660,7 +628,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
+                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>

@@ -1,7 +1,5 @@
 import Cocoa
 
-// Temp for now ?
-
 class CPXcodeProject: NSObject {
   var targets = [CPXcodeTarget]()
   var integrationType = "Static Libraries"
@@ -12,7 +10,6 @@ class CPXcodeProject: NSObject {
 }
 
 class CPXcodeTarget: NSObject {
-  var pods = [CPPod]()
   var warnings = "Show all"
   var bundleID = "org.cocoapods.app"
   var platform = "OS X, 10.9"
@@ -26,7 +23,6 @@ class CPCocoaPodsTarget: NSObject {
   var name = ""
 }
 
-
 class CPPod: NSObject {
   let name: String
   let version: String
@@ -36,6 +32,8 @@ class CPPod: NSObject {
     self.version = version
   }
 }
+
+private var myContext = 0
 
 class CPPodfileMetadataViewController: NSViewController {
   var podfileChecker: CPPodfileReflection!
@@ -56,5 +54,4 @@ class CPPodfileMetadataViewController: NSViewController {
     }
 
   }
-
 }

@@ -28,6 +28,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
             }
           }
         }
+        flattenedObjects.append("spacer")
       }
     }
     return flattenedObjects
@@ -55,6 +56,9 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
 
     } else if let pod = data as? CPPod {
       return tableView.makeViewWithIdentifier("pod_metadata", owner: pod)
+
+    } else if let _ = data as? NSString {
+      return tableView.makeViewWithIdentifier("spacer", owner: nil)
     }
 
     print("Should not have data unaccounted for in the flattened xcode project");
@@ -70,6 +74,10 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
       return 150
 
     } else if let _ = data as? CPPod {
+      return 30
+
+    // Spacer
+    } else if let _ = data as? NSString {
       return 30
     }
 

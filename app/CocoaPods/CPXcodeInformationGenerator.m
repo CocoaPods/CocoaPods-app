@@ -23,7 +23,9 @@
     project.fileName = [path lastPathComponent];
 
     NSDictionary *targetsDict = xcodeprojs[path][@"targets"];
-    project.targets = [targetsDict.allKeys map:^id(NSString *name) {
+    NSArray *sortedKeys = [targetsDict.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+
+    project.targets = [sortedKeys map:^id(NSString *name) {
       NSDictionary *targetData = targetsDict[name];
 
       NSURL *podfileFolder = [project.filePath URLByDeletingLastPathComponent];
@@ -32,7 +34,7 @@
 
       CPXcodeTarget *target = [[CPXcodeTarget alloc] init];
       target.platform = targetData[@"platform"];
-      target.type = targetData[@"type"];
+      target.type = prettyBundleType(targetData[@"type"]);
       target.name = name;
       target.cocoapodsTargets = targetData[@"pod_targets"];
 
@@ -60,6 +62,25 @@
   }];
 }
 
+
+NSString *prettyBundleType(NSString *string) {
+  NSDictionary *mapping = @{
+    @"com.apple.product-type.application" : @"App",
+    @"com.apple.product-type.framework" : @"Framework",
+    @"com.apple.product-type.library.dynamic" : @"Dynamic Library",
+    @"com.apple.product-type.library.static" : @"Static Library",
+    @"com.apple.product-type.bundle" : @"Bundle",
+    @"com.apple.product-type.bundle.unit-test" : @"Test Bundle",
+    @"com.apple.product-type.app-extension" : @"App Extension",
+    @"com.apple.product-type.tool" : @"Command Line Tool",
+    @"com.apple.product-type.application.watchapp" : @"Watch App",
+    @"com.apple.product-type.application.watchapp2" : @"watchOS 2 App",
+    @"com.apple.product-type.watchkit-extension" : @"Watch Extension",
+    @"com.apple.product-type.watchkit2-extension" : @"watchOS2 Extension",
+    @"com.apple.product-type.tv-app-extension" : @"TV Extension"
+  };
+  return mapping[string] ?: string;
+}
 
 @end
 

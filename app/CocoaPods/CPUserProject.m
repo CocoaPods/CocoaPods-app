@@ -29,8 +29,6 @@
   [self addWindowController:windowController];
 }
 
-
-
 #pragma mark - Persistance
 
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
@@ -48,6 +46,5 @@
 {
   return [self.contents writeToURL:absoluteURL atomically:YES encoding:NSUTF8StringEncoding error:outError];
 }
-
 
 @end
