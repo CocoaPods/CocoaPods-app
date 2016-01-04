@@ -26,10 +26,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/bitstadium/Fragaria.git
 
 SPEC CHECKSUMS:
-  ANSIEscapeHelper: 1d57a8d7af5b9f9d3d48dcf9bf1726f42ab9b99d
+  ANSIEscapeHelper: 03afe6f9cb70698b1444d723fcc43d1b7c9a1cc2
   Fragaria: c2827df37476ae2d627db69ce1403049686f8e0e
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   Sparkle: 75bbbc5ab2d666f7f77c241afe7fd28364a8f9f7
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 6e6e64489329403dcef63aa5aaca51d0157ec2f1
+
+COCOAPODS: 1.0.0.beta.1
