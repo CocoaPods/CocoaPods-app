@@ -12,5 +12,11 @@
     "commit": "2931e9e3d162ad76613231358f3d6a77eebd760f"
   },
   "source_files": "AMR_ANSIEscapeHelper.{h,m}",
-  "requires_arc": true
+  "requires_arc": true,
+  "platforms": {
+    "osx": null,
+    "ios": null,
+    "tvos": null,
+    "watchos": null
+  }
 }

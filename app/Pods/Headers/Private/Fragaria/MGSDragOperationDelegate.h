@@ -1,1 +1,0 @@
-../../../Fragaria/MGSDragOperationDelegate.h

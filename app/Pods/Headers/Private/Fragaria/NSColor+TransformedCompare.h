@@ -1,1 +1,0 @@
-../../../Fragaria/NSColor+TransformedCompare.h
