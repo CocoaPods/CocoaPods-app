@@ -1,3 +1,5 @@
+install :cocoapods, :integrate_targets => false
+
 platform :ios, '8'
 
 pods = [
