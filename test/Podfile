@@ -1,4 +1,4 @@
-install :cocoapods, :integrate_targets => false
+install! "cocoapods", :integrate_targets => false
 
 platform :ios, '8'
 
@@ -10,9 +10,11 @@ pods = [
   # TODO no public bazaar repos? :/
 ]
 
-cache_dir = File.expand_path('~/Library/Caches/CocoaPods/Pods/Release')
-pods.each do |name|
-  # Ensure the downloaders are actually tested.
-  FileUtils.rm_rf(File.join(cache_dir, name))
-  pod(name)
+target "Test" do
+  cache_dir = File.expand_path('~/Library/Caches/CocoaPods/Pods/Release')
+  pods.each do |name|
+    # Ensure the downloaders are actually tested.
+    FileUtils.rm_rf(File.join(cache_dir, name))
+    pod(name)
+  end
 end
