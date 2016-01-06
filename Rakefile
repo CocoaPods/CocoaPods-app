@@ -3,7 +3,10 @@ VERBOSE = !!RakeFileUtils.verbose_flag
 RELEASE_PLATFORM = '10.11'
 
 DEPLOYMENT_TARGET = '10.10'
-DEPLOYMENT_TARGET_SDK = "MacOSX#{DEPLOYMENT_TARGET}.sdk"
+
+# Ideally this would be deployment target, but
+# we use generics which didn't exist in 10.10.
+DEPLOYMENT_TARGET_SDK = "MacOSX#{RELEASE_PLATFORM}.sdk"
 
 $build_started_at = Time.now
 at_exit do
