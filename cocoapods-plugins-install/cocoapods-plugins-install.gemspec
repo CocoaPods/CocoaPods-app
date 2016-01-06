@@ -17,10 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
-  install_cocoapods_version = YAML.load(File.read(version_file))['last']
-
-  spec.add_runtime_dependency "cocoapods-plugins", installed_cocoapods_version
+  spec.add_runtime_dependency "cocoapods-plugins"
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.4"
