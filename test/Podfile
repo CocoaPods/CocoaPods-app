@@ -5,8 +5,8 @@ platform :ios, '8'
 pods = [
   'AFNetworking',        # Git
   'VeriJSON',            # Mercurial
-  'GTMHTTPFetcher',      # Subversion
-  'Google-Maps-iOS-SDK', # HTTPS
+  'gtm-http-fetcher',    # Subversion
+  'GoogleMaps',          # HTTPS
   # TODO no public bazaar repos? :/
 ]
 
