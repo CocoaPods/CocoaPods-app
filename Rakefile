@@ -979,8 +979,12 @@ namespace :release do
 
   desc "Perform a full build of the bundle and app"
   task :build => ['bundle:build', 'bundle:verify_linkage', 'bundle:test', 'app:build', PKG_DIR] do
-    output = `#{XCODEBUILD_COMMAND} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
-    build_dir = output.split('= ').last
+    build_dir = ""
+    Dir.chdir('app') do
+      output = `#{XCODEBUILD_COMMAND.join(" ")} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
+      build_dir = output.split('= ').last
+    end
+
     # TODO use this once OS X supports xz out of the box.
     #tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
     #sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"
