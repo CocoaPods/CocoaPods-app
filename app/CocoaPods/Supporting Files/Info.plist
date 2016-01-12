@@ -84,10 +84,5 @@
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>https://app.cocoapods.org/sparkle.xml</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 </dict>
 </plist>

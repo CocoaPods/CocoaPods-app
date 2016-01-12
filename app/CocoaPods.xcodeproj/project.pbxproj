@@ -550,7 +550,6 @@
 				5102542E1C0A60680045FCD8 /* Embed XPC Services */,
 				B553C8F443325D68D3F0ECBC /* Embed Pods Frameworks */,
 				DDCA8595EBBF1866824DF78F /* Copy Pods Resources */,
-				5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */,
 			);
 			buildRules = (
 			);
@@ -614,11 +613,11 @@
 				TargetAttributes = {
 					510254221C0A60670045FCD8 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = GN257VN844;
+						DevelopmentTeam = AX2Q2BH2XR;
 					};
 					51165E1E1A17AFF500DCFC94 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = GN257VN844;
+						DevelopmentTeam = AX2Q2BH2XR;
 					};
 					51165E471A17B2D200DCFC94 = {
 						CreatedOnToolsVersion = 6.1;
@@ -716,20 +715,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
-		};
-		5180FE921AD1CFE400314D61 /* Sign Sparkle.framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Sign Sparkle.framework";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n\n    LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n\n    codesign --verbose --force --sign \"$EXPANDED_CODE_SIGN_IDENTITY_NAME\" \"$LOCATION/Sparkle.framework/Versions/A\"\nfi";
 		};
 		A58128BAFFF8FDE9690DE404 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -901,7 +886,7 @@
 		510254301C0A60680045FCD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1034,7 +1019,7 @@
 			baseConfigurationReference = 57995E0E6B8704BE797552B2 /* Pods-CocoaPods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
