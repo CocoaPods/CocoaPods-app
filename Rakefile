@@ -979,10 +979,9 @@ namespace :release do
 
   desc "Perform a full build of the bundle and app"
   task :build => ['bundle:build', 'bundle:verify_linkage', 'bundle:test', 'app:build', PKG_DIR] do
-    build_dir = ""
-    Dir.chdir('app') do
+    build_dir = Dir.chdir('app') do
       output = `#{XCODEBUILD_COMMAND.join(" ")} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
-      build_dir = output.split('= ').last
+      output.split('= ').last
     end
 
     # TODO use this once OS X supports xz out of the box.
