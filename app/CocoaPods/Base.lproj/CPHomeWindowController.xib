@@ -24,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -139,12 +139,11 @@
                         <rect key="frame" x="432" y="0.0" width="233" height="490"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="o1v-Y5-7bX">
-                                <rect key="frame" x="61" y="185" width="110" height="120"/>
+                                <rect key="frame" x="16" y="175" width="201" height="140"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Pyn-Xc-2H8"/>
-                                    <constraint firstAttribute="width" constant="110" id="t7d-cU-7oV"/>
+                                    <constraint firstAttribute="height" constant="140" id="Pyn-Xc-2H8"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" title="Open an existing Podfile" alternateTitle="Open an existing Podfile" bezelStyle="shadowlessSquare" image="OpenDocument" imagePosition="above" alignment="center" alternateImage="OpenDocumentSelected" imageScaling="proportionallyDown" inset="2" id="40v-7y-tY1">
+                                <buttonCell key="cell" type="square" title="Open an existing Podfile" alternateTitle="Open an existing Podfile" bezelStyle="shadowlessSquare" image="OpenDocument" imagePosition="above" alignment="center" alternateImage="OpenDocumentSelected" inset="2" id="40v-7y-tY1">
                                     <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="miniSystem"/>
                                 </buttonCell>
@@ -154,7 +153,8 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="o1v-Y5-7bX" firstAttribute="centerX" secondItem="9pW-mq-gji" secondAttribute="centerX" id="6jQ-oV-0SS"/>
+                            <constraint firstItem="o1v-Y5-7bX" firstAttribute="leading" secondItem="9pW-mq-gji" secondAttribute="leading" constant="16" id="Ryc-0C-Yz3"/>
+                            <constraint firstAttribute="trailing" secondItem="o1v-Y5-7bX" secondAttribute="trailing" constant="16" id="cNe-SU-0Ug"/>
                             <constraint firstItem="o1v-Y5-7bX" firstAttribute="centerY" secondItem="9pW-mq-gji" secondAttribute="centerY" id="rWx-BF-7pm"/>
                         </constraints>
                     </customView>
