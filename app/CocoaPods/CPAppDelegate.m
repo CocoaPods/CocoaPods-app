@@ -4,6 +4,8 @@
 #import "CPReflectionServiceProtocol.h"
 #import "CocoaPods-Swift.h"
 #import "CPCLIToolInstallationController.h"
+#import <Quartz/Quartz.h>
+
 
 @interface CPAppDelegate ()
 @property (nonatomic, strong) CPHomeWindowController *homeWindowController;
@@ -18,11 +20,13 @@
 - (void)applicationWillFinishLaunching:(NSNotification *)notification;
 {
   [self startURLService];
+  [self checkForBirthday];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
 {
 #ifdef DEBUG
+  NSLog(@"Ensuring you see the install CLI-tools banner");
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPDoNotRequestCLIToolInstallationAgainKey];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
 #endif
@@ -73,6 +77,7 @@
 
   return YES;
 }
+
 #pragma mark - Actions
 
 - (IBAction)installBinstubIfNecessary:(id)sender;
@@ -100,5 +105,34 @@
   return _homeWindowController;
 }
 
+#pragma mark - Easter Eggs
+
+- (void)checkForBirthday
+{
+  NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
+  if (components.month == 8 && components.day == 13) {
+    NSApplication *app = [NSApplication sharedApplication];
+    NSImage *appIcon = [app applicationIconImage];
+    [app setApplicationIconImage:[self editionColoredImage:appIcon]];
+  }
+}
+
+- (NSImage *)editionColoredImage:(NSImage *)image
+{
+  CIImage *inputImage = [[CIImage alloc] initWithData:image.TIFFRepresentation];
+
+  CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust"];
+  [hueAdjust setValue: inputImage forKey: @"inputImage"];
+
+  NSNumber *colorValue = @(365.375);
+  [hueAdjust setValue:colorValue forKey: @"inputAngle"];
+
+  CIImage *outputImage = hueAdjust.outputImage;
+  NSImage *resultImage = [[NSImage alloc] initWithSize:outputImage.extent.size];
+  NSCIImageRep *rep = [NSCIImageRep imageRepWithCIImage:outputImage];
+  [resultImage addRepresentation:rep];
+
+  return resultImage;
+}
 
 @end

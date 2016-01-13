@@ -33,7 +33,7 @@
       [pluginNames addObject:spec.name];
     }
     reply(pluginNames, nil);
-    
+
   } error:^(NSError * _Nonnull error) {
     reply(nil, error);
   }];

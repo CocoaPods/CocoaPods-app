@@ -67,7 +67,7 @@
                                             </binding>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jx-vo-Lx4" customClass="CPSideButton" customModule="CocoaPods" customModuleProvider="target">
+                                    <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jx-vo-Lx4" customClass="CPSideButton" customModule="CocoaPods" customModuleProvider="target">
                                         <rect key="frame" x="15" y="427" width="48" height="48"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="icon_information" imagePosition="only" alignment="center" refusesFirstResponder="YES" inset="2" id="mww-XL-8Ss">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -75,11 +75,6 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showInformationTab:" target="5gI-5U-AMq" id="AoC-RV-gge"/>
-                                            <binding destination="TcC-X8-fEE" name="enabled" keyPath="infoIsSelected" id="JtH-61-LQt">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
                                         </connections>
                                     </button>
                                 </subviews>

@@ -5,5 +5,10 @@ env:
   global:
     - LANG=en_US.UTF-8
 
+branches:
+  only:
+    - master
+    - /.+-stable$/
+
 install: rake app:prerequisites --quiet
 script: rake bundle:test --quiet

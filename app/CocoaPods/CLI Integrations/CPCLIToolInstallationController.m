@@ -251,6 +251,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   if (error) {
     NSLog(@"Failed to copy source `%@` (%@)", sourceURL.path, error);
     self.errorMessage = @"Failed to move pod command to the new folder";
+    succeeded = NO;
   }
   return succeeded;
 }

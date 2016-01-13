@@ -2,6 +2,7 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cocoapods-plugins-install/gem_version.rb'
+require 'yaml'
 
 Gem::Specification.new do |spec|
   spec.name          = "cocoapods-plugins-install"
@@ -16,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "cocoapods-plugins", "~> 0"
+  spec.add_runtime_dependency "cocoapods-plugins"
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.4"
