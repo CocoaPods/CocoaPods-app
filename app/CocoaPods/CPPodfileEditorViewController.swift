@@ -67,6 +67,18 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     let range = applyTextChange(outdentedSelection, toSelection: selectedLines(editor.textView))
     editor.textView.setSelectedRange(range)
   }
+  
+  @IBAction func increaseFontSize(sender: NSMenuItem) {
+    let settings = CPFontAndColourGateKeeper()
+    settings.increaseDefaultFontSize()
+    editor.textFont = settings.defaultFont
+  }
+  
+  @IBAction func decreaseFontSize(sender: NSMenuItem) {
+    let settings = CPFontAndColourGateKeeper()
+    settings.decreaseDefaultFontSize()
+    editor.textFont = settings.defaultFont
+  }
 
   /// Apply a text transformation to a selection
   ///
