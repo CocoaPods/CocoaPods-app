@@ -48,6 +48,10 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
     [self addCLIInstallerMessageAnimated:YES];
   }
+  
+  // DragDrop
+  
+  [self.window registerForDraggedTypes:@[NSFilenamesPboardType]];
 }
 
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
@@ -135,6 +139,54 @@ static CGFloat CPCommandLineAlertHeight = 68;
 {
   NSURL *destinationURL = [NSURL fileURLWithPath:kCPCLIToolSuggestedDestination];
   return [CPCLIToolInstallationController controllerWithSuggestedDestinationURL:destinationURL];
+}
+
+
+// MARK: - Drag & Drop
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
+{
+  NSPasteboard *pboard = [sender draggingPasteboard];
+  NSDragOperation sourceMask = [sender draggingSourceOperationMask];
+
+  if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+    if (sourceMask & NSDragOperationLink) {
+      NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+      // allow to drop files if any of them is Podfile
+      for (NSString *fileName in files) {
+        if ([[fileName lastPathComponent] isEqualToString:@"Podfile"]) {
+          return NSDragOperationCopy;
+        }
+      }
+    }
+  }
+  
+  return NSDragOperationNone;
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
+{
+  NSPasteboard *pboard = [sender draggingPasteboard];
+  NSDragOperation sourceMask = [sender draggingSourceOperationMask];
+
+  if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+    if (sourceMask & NSDragOperationLink) {
+      NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+      for (NSString *fileName in files) {
+        // accept and open first Podfile available
+        if ([[fileName lastPathComponent] isEqualToString:@"Podfile"]) {
+          NSDocumentController *controller = [NSDocumentController sharedDocumentController];
+          [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
+            [self.recentDocumentsController refreshRecentDocuments];
+            [self.window orderOut:self];
+          }];
+          return YES;
+        }
+      }
+    }
+  }
+  
+  return NO;
 }
 
 @end
