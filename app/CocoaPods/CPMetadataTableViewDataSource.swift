@@ -3,6 +3,7 @@ import Cocoa
 class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
 
   var flattenedXcodeProject: [AnyObject] = []
+  var plugins: String = "No plugins"
 
   @IBOutlet weak var tableView: NSTableView!
 
@@ -22,7 +23,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
         flattenedObjects.append(target)
 
         for targetName in target.cocoapodsTargets {
-          targets.filter { $0.name != targetName }.forEach { pod_target in
+          targets.filter { $0.name == targetName }.forEach { pod_target in
             for pod in pod_target.pods {
               flattenedObjects.append(pod)
             }
@@ -68,7 +69,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
   func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
     let data = flattenedXcodeProject[row]
     if let _ = data as? CPXcodeProject {
-      return 150
+      return 120
 
     } else if let _ = data as? CPXcodeTarget {
       return 150

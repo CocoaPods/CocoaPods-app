@@ -382,6 +382,11 @@
                                     <action selector="showConsoleTab:" target="-1" id="34F-FY-efO"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Info" keyEquivalent="3" id="KZ8-h2-D82">
+                                <connections>
+                                    <action selector="showInformationTab:" target="-1" id="T9y-Sn-Jz0"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="cEG-Nk-FNM"/>
                         </items>
                     </menu>

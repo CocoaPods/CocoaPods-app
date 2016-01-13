@@ -8,7 +8,7 @@
 @interface CPUserProject : NSDocument
 
 @property (strong) NSString *contents;
-@property (strong) NSArray *podfilePlugins;
+@property (strong) NSArray <NSString *>*podfilePlugins;
 @property (strong) NSDictionary *xcodeIntegrationDictionary;
 
 @end

@@ -6,7 +6,6 @@ class CPXcodeProject: NSObject {
   var fileName = "CocoaPods"
   var filePath = NSURL(fileURLWithPath: "")
   var image = NSWorkspace.sharedWorkspace().iconForFileType("xcodeproj")
-  var plugins = ["CocoaPods-Keys"]
 }
 
 class CPXcodeTarget: NSObject {
@@ -16,6 +15,7 @@ class CPXcodeTarget: NSObject {
   var type = "Mac OS X App"
   var name = "OK"
   var cocoapodsTargets = [String]()
+  var icon: NSImage!
 }
 
 class CPCocoaPodsTarget: NSObject {
@@ -49,7 +49,12 @@ class CPPodfileMetadataViewController: NSViewController {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
 
-    infoGenerator.XcodeProjectMetadataFromUserProject(project) { (projects, targets, error)  in
+    infoGenerator.XcodeProjectMetadataFromUserProject(project) { (projects, targets, error) in
+      // By not setting, we leave it at the default of "no plugins".
+      if (project.podfilePlugins?.count > 0) {
+        self.metadataDataSource.plugins = project.podfilePlugins.joinWithSeparator(", ")
+      }
+
       self.metadataDataSource.setXcodeProjects(projects, targets:targets)
     }
 

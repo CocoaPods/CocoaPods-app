@@ -43,7 +43,7 @@ module Pod
               "info_plist" => user_target.resolved_build_setting("INFOPLIST_FILE").values.first,
               "type" => user_target.product_type,
               "platform" => target.platform.to_s,
-              "pod_targets" => []
+              "pod_targets" => [],
             }
           end
           user_target_info["pod_targets"] << target.target_definition.label
@@ -55,7 +55,8 @@ module Pod
         h
       end
 
-      { "projects" => user_projects, "pod_targets" => pod_targets }
+      uses_frameworks = config.podfile.target_definitions.first.last.to_hash["uses_frameworks"]
+      { "projects" => user_projects, "pod_targets" => pod_targets, "uses_frameworks" => uses_frameworks}
     end
   end
 end

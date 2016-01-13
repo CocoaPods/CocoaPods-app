@@ -40,6 +40,7 @@
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
 		5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */; };
 		5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5B7861C17990400F8C39E /* CPSideButton.swift */; };
+		600CACE91C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */; };
 		600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
 		600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */; };
@@ -193,6 +194,8 @@
 		5D0F8EC2FC9E25C9EF3CED3F /* Pods-CocoaPodsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTabViewDelegate.swift; sourceTree = "<group>"; };
 		5EF5B7861C17990400F8C39E /* CPSideButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSideButton.swift; sourceTree = "<group>"; };
+		600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStringArrayToSentenceValueTransformer.h; sourceTree = "<group>"; };
+		600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStringArrayToSentenceValueTransformer.m; sourceTree = "<group>"; };
 		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
 		601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXcodeInformationGenerator.h; sourceTree = "<group>"; };
 		601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXcodeInformationGenerator.m; sourceTree = "<group>"; };
@@ -424,6 +427,8 @@
 				605119261C0909420037B95E /* CPPodfileReflection.h */,
 				605119271C0909420037B95E /* CPPodfileReflection.m */,
 				603F7F201C1E1FA4006C2571 /* CPXcodeprojParser.swift */,
+				600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */,
+				600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -844,6 +849,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */,
+				600CACE91C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m in Sources */,
 				510F09751C0A73B800F40F2B /* CPRubyErrors.m in Sources */,
 				603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,

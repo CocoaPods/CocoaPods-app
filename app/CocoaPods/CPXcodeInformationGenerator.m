@@ -14,6 +14,8 @@
 - (NSArray<CPXcodeProject *> * _Nonnull)xcodeProjectsFromProject:(CPUserProject *)project
 {
   NSDictionary *xcodeprojs = project.xcodeIntegrationDictionary[@"projects"];
+  BOOL usesFrameworks = [project.xcodeIntegrationDictionary[@"uses_frameworks"] boolValue];
+
   // We promise non-null, so return empty array
   if (xcodeprojs.allKeys.count == 0) { return @[]; }
 
@@ -21,6 +23,7 @@
     CPXcodeProject *project = [[CPXcodeProject alloc] init];
     project.filePath = [NSURL fileURLWithPath:path];
     project.fileName = [path lastPathComponent];
+    project.integrationType = usesFrameworks ? @"Frameworks" : @"Static Libraries";
 
     NSDictionary *targetsDict = xcodeprojs[path][@"targets"];
     NSArray *sortedKeys = [targetsDict.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
@@ -28,16 +31,20 @@
     project.targets = [sortedKeys map:^id(NSString *name) {
       NSDictionary *targetData = targetsDict[name];
 
-      NSURL *podfileFolder = [project.filePath URLByDeletingLastPathComponent];
-      NSURL *plistURL = [podfileFolder URLByAppendingPathComponent:targetData[@"info_plist"]];
-      NSDictionary *targetPlist = [NSDictionary dictionaryWithContentsOfURL:plistURL];
+// TODO: Figure out if anything is worth the hassle of going through plists/xcodeprojects
+//       off-hand my only thought is target version number / icon. They aren't blockers
+//       though, and would be brittle.
+//
+//      NSURL *podfileFolder = [project.filePath URLByDeletingLastPathComponent];
+//      NSURL *plistURL = [podfileFolder URLByAppendingPathComponent:targetData[@"info_plist"]];
+//      NSDictionary *targetPlist = [NSDictionary dictionaryWithContentsOfURL:plistURL];
 
       CPXcodeTarget *target = [[CPXcodeTarget alloc] init];
       target.platform = targetData[@"platform"];
       target.type = prettyBundleType(targetData[@"type"]);
       target.name = name;
       target.cocoapodsTargets = targetData[@"pod_targets"];
-
+      target.icon = [NSImage imageNamed:iconName(targetData[@"platform"], targetData[@"type"])];
       return target;
     }] ?: @[];
 
@@ -81,6 +88,20 @@ NSString *prettyBundleType(NSString *string) {
   };
   return mapping[string] ?: string;
 }
+
+// These icons can be found in Podfile.xcassets
+NSString *iconName(NSString *platform, NSString *type) {
+  if ([type isEqualToString:@"com.apple.product-type.application"]) {
+    if ([platform hasPrefix:@"tvOS"]) return @"TVOS-Icon";
+    if ([platform hasPrefix:@"iOS"]) return @"iOS-Icon";
+    if ([platform hasPrefix:@"OS X"]) return @"OSX-Icon";
+    if ([platform hasPrefix:@"watchOS"]) return @"watchOS-Icon";
+    return @"unknown-Icon";
+  }
+  if ([type isEqualToString:@"com.apple.product-type.bundle.unit-test"]) return @"Bundle-Tests-Icon";
+  return @"Bundle-Icon";
+}
+
 
 @end
 
