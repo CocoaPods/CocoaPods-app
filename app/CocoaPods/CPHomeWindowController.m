@@ -49,7 +49,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
     [self addCLIInstallerMessageAnimated:YES];
   }
   
-  // DragDrop
+  // Drag & Drop registration
   
   [self.window registerForDraggedTypes:@[NSFilenamesPboardType]];
 }
