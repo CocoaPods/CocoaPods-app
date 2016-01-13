@@ -35,6 +35,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     editor.colourForVariables = settings.cpGreen
     editor.colourForInstructions = settings.cpBrightMagenta
 
+    editor.tabWidth = 2
+    editor.indentWithSpaces = true
+    
     project.undoManager = editor.textView.undoManager
     
     syntaxChecker = CPPodfileReflection(podfileEditorVC: self, fragariaEditor: editor)
