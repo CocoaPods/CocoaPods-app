@@ -74,7 +74,7 @@ private func referencePathForTests(sourceFileName: String) -> String {
   // Recombine the path components and append our own image directory.
   let currentIndex = pathComponents.indexOfObject(testDirectory) + 1
   let folderPathComponents: NSArray = pathComponents.subarrayWithRange(NSMakeRange(0, currentIndex))
-  let folderPath = folderPathComponents.componentsJoinedByString("/")
+  let folderPath = NSString.pathWithComponents(folderPathComponents)
 
   return folderPath + "/ReferenceImages"
 }

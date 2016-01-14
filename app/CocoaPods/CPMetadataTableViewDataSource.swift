@@ -35,6 +35,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
     return flattenedObjects
   }
 
+  // Nothing is selectable except the buttons
   func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
     return false
   }
@@ -43,6 +44,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
     return flattenedXcodeProject.count
   }
 
+  // Allows the UI to be set up via bindings
   func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
     return flattenedXcodeProject[row]
   }

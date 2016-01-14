@@ -6,9 +6,15 @@
 
 - (void)XcodeProjectMetadataFromUserProject:(CPUserProject *)project reply:(void (^ _Nonnull)(NSArray<CPXcodeProject *> * _Nonnull projects, NSArray<CPCocoaPodsTarget *> * _Nonnull targets, NSError * _Nullable error))reply
 {
-  NSArray *xcodeprojects = [self xcodeProjectsFromProject:project];
-  NSArray *targets = [self cocoapodsTargetsFromProject:project];
-  reply(xcodeprojects, targets, nil);
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+    NSArray *xcodeprojects = [self xcodeProjectsFromProject:project];
+    NSArray *targets = [self cocoapodsTargetsFromProject:project];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+      reply(xcodeprojects, targets, nil);
+    });
+  });
 }
 
 - (NSArray<CPXcodeProject *> * _Nonnull)xcodeProjectsFromProject:(CPUserProject *)project
