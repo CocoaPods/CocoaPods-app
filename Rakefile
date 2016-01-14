@@ -1,7 +1,12 @@
+BUNDLED_ENV_VERSION = 1
+# ^ This has to be at line 0
+# This is so that a buid on CP.app can be fast,
+# it can make assumptions that removing `BUNDLED_ENV_VERSION = `
+# from the first line will get the version.
+
 VERBOSE = !!RakeFileUtils.verbose_flag
 
 RELEASE_PLATFORM = '10.11'
-
 DEPLOYMENT_TARGET = '10.10'
 
 # Ideally this would be deployment target, but
@@ -866,6 +871,12 @@ namespace :bundle do
     end
   end
 
+  desc "Creates a VERSION file in the destroot folder"
+  task :stamp_version do
+    path = File.join(BUNDLE_DESTROOT, "VERSION")
+    File.open(path, 'w') { |file| file.write "#{BUNDLED_ENV_VERSION}\n" }
+  end
+
   desc "Verifies that no binaries in the bundle link to incorrect dylibs"
   task :verify_linkage => :remove_unneeded_files do
     skip = %w( .h .rb .py .pyc .tmpl .pem .png .ttf .css .rhtml .js .sample )
@@ -909,7 +920,7 @@ namespace :bundle do
   end
 
   desc "Build complete dist bundle"
-  task :build => [:build_tools, :remove_unneeded_files]
+  task :build => [:build_tools, :remove_unneeded_files, :stamp_version]
 
   namespace :clean do
     task :build do
@@ -937,8 +948,8 @@ end
 # RubyCocoa
 # ------------------------------------------------------------------------------
 
-built_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
-file built_rubycocoa => [installed_ruby, installed_env_script] do
+build_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
+file build_rubycocoa => [installed_ruby, installed_env_script] do
   Dir.chdir('app/RubyCocoa') do
     execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'config', '--target-archs=x86_64', '--build-as-embeddable=yes']
     execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'setup']
@@ -960,7 +971,7 @@ namespace :app do
   end
 
   desc 'Prepare all prerequisites for building the app'
-  task :prerequisites => ['bundle:submodules', 'bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
+  task :prerequisites => ['bundle:submodules', 'bundle:build', installed_ruby_static_lib, build_rubycocoa, :update_version]
 
   desc 'Build release version of application'
   task :build => :prerequisites do
