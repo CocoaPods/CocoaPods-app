@@ -35,6 +35,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     editor.colourForVariables = settings.cpGreen
     editor.colourForInstructions = settings.cpBrightMagenta
 
+    editor.tabWidth = 2
+    editor.indentWithSpaces = true
+    
     project.undoManager = editor.textView.undoManager
     
     syntaxChecker = CPPodfileReflection(podfileEditorVC: self, fragariaEditor: editor)
@@ -66,6 +69,18 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   @IBAction func outdentSelection(sender: NSMenuItem) {
     let range = applyTextChange(outdentedSelection, toSelection: selectedLines(editor.textView))
     editor.textView.setSelectedRange(range)
+  }
+  
+  @IBAction func increaseFontSize(sender: NSMenuItem) {
+    let settings = CPFontAndColourGateKeeper()
+    settings.increaseDefaultFontSize()
+    editor.textFont = settings.defaultFont
+  }
+  
+  @IBAction func decreaseFontSize(sender: NSMenuItem) {
+    let settings = CPFontAndColourGateKeeper()
+    settings.decreaseDefaultFontSize()
+    editor.textFont = settings.defaultFont
   }
 
   /// Apply a text transformation to a selection

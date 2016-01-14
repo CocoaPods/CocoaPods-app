@@ -13,7 +13,7 @@
 
 /// Used to set the first responder once data has been loadded in
 @property (nonatomic, readwrite, weak) IBOutlet NSTableView *documentsTableView;
-
+@property (weak) IBOutlet NSButton *openDocumentButton;
 
 @end
 
