@@ -40,6 +40,7 @@
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
 		5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */; };
 		5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5B7861C17990400F8C39E /* CPSideButton.swift */; };
+		60017B5E1C47B6220037658A /* CPMiniPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 60017B5D1C47B6220037658A /* CPMiniPromise.m */; };
 		600CACE91C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */; };
 		600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
@@ -52,7 +53,6 @@
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
 		6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */; };
 		603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */; };
-		603F7F211C1E1FA4006C2571 /* CPXcodeprojParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F7F201C1E1FA4006C2571 /* CPXcodeprojParser.swift */; };
 		604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */; };
 		6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */; };
 		605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */; };
@@ -194,6 +194,8 @@
 		5D0F8EC2FC9E25C9EF3CED3F /* Pods-CocoaPodsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTabViewDelegate.swift; sourceTree = "<group>"; };
 		5EF5B7861C17990400F8C39E /* CPSideButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSideButton.swift; sourceTree = "<group>"; };
+		60017B5C1C47B6220037658A /* CPMiniPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMiniPromise.h; sourceTree = "<group>"; };
+		60017B5D1C47B6220037658A /* CPMiniPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMiniPromise.m; sourceTree = "<group>"; };
 		600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStringArrayToSentenceValueTransformer.h; sourceTree = "<group>"; };
 		600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStringArrayToSentenceValueTransformer.m; sourceTree = "<group>"; };
 		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
@@ -209,7 +211,6 @@
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
 		6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMetadataTableViewDataSource.swift; sourceTree = "<group>"; };
 		603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMenuVisiblityDirector.swift; sourceTree = "<group>"; };
-		603F7F201C1E1FA4006C2571 /* CPXcodeprojParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPXcodeprojParser.swift; sourceTree = "<group>"; };
 		604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleViewController.swift; sourceTree = "<group>"; };
 		6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPModifiedDecorationsWindow.swift; sourceTree = "<group>"; };
 		6051191F1C08C4C00037B95E /* CPReturnTriggeringTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPReturnTriggeringTableView.swift; sourceTree = "<group>"; };
@@ -426,7 +427,6 @@
 				6075BA661C06963700A5C491 /* CPInstallAction.swift */,
 				605119261C0909420037B95E /* CPPodfileReflection.h */,
 				605119271C0909420037B95E /* CPPodfileReflection.m */,
-				603F7F201C1E1FA4006C2571 /* CPXcodeprojParser.swift */,
 				600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */,
 				600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */,
 			);
@@ -472,6 +472,8 @@
 			children = (
 				51165E541A1B925200DCFC94 /* CPUserProject.h */,
 				51165E551A1B925300DCFC94 /* CPUserProject.m */,
+				60017B5C1C47B6220037658A /* CPMiniPromise.h */,
+				60017B5D1C47B6220037658A /* CPMiniPromise.m */,
 			);
 			name = "NSDocument Details";
 			sourceTree = "<group>";
@@ -861,6 +863,7 @@
 				606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */,
 				605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */,
 				605119251C08F5880037B95E /* CPFontAndColourGateKeeper.swift in Sources */,
+				60017B5E1C47B6220037658A /* CPMiniPromise.m in Sources */,
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */,
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
@@ -880,7 +883,6 @@
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */,
 				606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */,
-				603F7F211C1E1FA4006C2571 /* CPXcodeprojParser.swift in Sources */,
 				51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */,
 				60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */,
 				601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */,

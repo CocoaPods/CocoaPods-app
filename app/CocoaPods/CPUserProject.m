@@ -7,16 +7,16 @@
 #import "CPANSIEscapeHelper.h"
 
 #import "CocoaPods-Swift.h"
+#import "CPMiniPromise.h"
 
-@interface CPUserProject ()
+@interface CPUserProject () <CPMiniPromiseDelegate>
 @property (strong) NSStoryboard *storyboard;
-@end
-
-
-@interface CPUserProject ()
+@property (strong) CPMiniPromise *completionPromise;
 @end
 
 @implementation CPUserProject
+
+@synthesize podfilePlugins=_podfilePlugins, xcodeIntegrationDictionary=_xcodeIntegrationDictionary;
 
 - (void)makeWindowControllers
 {
@@ -45,6 +45,31 @@
 - (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 {
   return [self.contents writeToURL:absoluteURL atomically:YES encoding:NSUTF8StringEncoding error:outError];
+}
+
+- (BOOL)shouldForfilPromise:(CPMiniPromise *)promise
+{
+  return self.xcodeIntegrationDictionary && self.podfilePlugins;
+}
+
+- (void)registerForFullMetadata:(void (^)(void))completion
+{
+  self.completionPromise = self.completionPromise ?: [CPMiniPromise promiseWithDelegate:self];
+
+  [self.completionPromise addBlock:completion];
+  [self.completionPromise checkForFulfillment];
+}
+
+- (void)setXcodeIntegrationDictionary:(NSDictionary *)xcodeIntegrationDictionary
+{
+  _xcodeIntegrationDictionary = xcodeIntegrationDictionary;
+  [self.completionPromise checkForFulfillment];
+}
+
+- (void)setPodfilePlugins:(NSArray<NSString *> *)podfilePlugins
+{
+  _podfilePlugins = podfilePlugins;
+  [self.completionPromise checkForFulfillment];
 }
 
 @end

@@ -53,15 +53,18 @@ class CPPodfileMetadataViewController: NSViewController {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
 
-    infoGenerator.XcodeProjectMetadataFromUserProject(project) { (projects, targets, error) in
-      // By not setting, we leave it at the default of "no plugins".
-      if (project.podfilePlugins?.count > 0) {
-        self.metadataDataSource.plugins = project.podfilePlugins.joinWithSeparator(", ")
+    project.registerForFullMetadata {
+
+      self.infoGenerator.XcodeProjectMetadataFromUserProject(project) { (projects, targets, error) in
+        // By not setting, we leave it at the default of "no plugins".
+        if (project.podfilePlugins.count > 0) {
+          self.metadataDataSource.plugins = project.podfilePlugins.joinWithSeparator(", ")
+        }
+
+        self.metadataDataSource.setXcodeProjects(projects, targets:targets)
       }
 
-      self.metadataDataSource.setXcodeProjects(projects, targets:targets)
     }
-
   }
 
   @IBAction func openPod(sender: NSButton) {
