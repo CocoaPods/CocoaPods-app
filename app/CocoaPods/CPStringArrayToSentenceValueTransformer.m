@@ -21,7 +21,7 @@
 
 - (id)transformedValue:(NSArray *)value
 {
-  if (!value) { return nil; }
+  if (!value || value.count == 0) { return nil; }
   if (value && value.count == 1) { return value.firstObject; }
 
   NSMutableArray *commas = [value mutableCopy];

@@ -44,6 +44,9 @@ class CPPodfileMetadataViewController: NSViewController {
   var xcodeprojects: [CPXcodeProject] = []
   var infoGenerator = CPXcodeInformationGenerator()
 
+  /// Allows us to bind a loading interface.
+  dynamic var showingMetadata = false
+
   @IBOutlet var metadataDataSource: CPMetadataTableViewDataSource!
 
   override func viewWillAppear() {
@@ -53,20 +56,27 @@ class CPPodfileMetadataViewController: NSViewController {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
 
-    project.registerForFullMetadata {
+    // When all XPC information has been recieved
+    project.registerForFullMetadataCallback {
 
+      // Take all podfile metadata dict and make it into the models above
+      // this is done async, as it can be a bit of processing time.
       self.infoGenerator.XcodeProjectMetadataFromUserProject(project) { (projects, targets, error) in
-        // By not setting, we leave it at the default of "no plugins".
-        if (project.podfilePlugins.count > 0) {
-          self.metadataDataSource.plugins = project.podfilePlugins.joinWithSeparator(", ")
+
+        dispatch_async(dispatch_get_main_queue()) {
+
+          // Stop showing loading
+          self.showingMetadata = true
+
+          // Setup the tableview
+          self.metadataDataSource.plugins = project.podfilePlugins;
+          self.metadataDataSource.setXcodeProjects(projects, targets:targets)
         }
-
-        self.metadataDataSource.setXcodeProjects(projects, targets:targets)
       }
-
     }
   }
 
+  // Opens a pod page in safari
   @IBAction func openPod(sender: NSButton) {
     let row = metadataDataSource.tableView.rowForView(sender)
     guard let pod = metadataDataSource.tableView(metadataDataSource.tableView, objectValueForTableColumn: nil, row: row) as? CPPod else {

@@ -1,11 +1,4 @@
 #import "CPUserProject.h"
-
-#import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
-
-#import <objc/runtime.h>
-
-#import "CPANSIEscapeHelper.h"
-
 #import "CocoaPods-Swift.h"
 #import "CPMiniPromise.h"
 
@@ -52,7 +45,7 @@
   return self.xcodeIntegrationDictionary && self.podfilePlugins;
 }
 
-- (void)registerForFullMetadata:(void (^)(void))completion
+- (void)registerForFullMetadataCallback:(void (^)(void))completion
 {
   self.completionPromise = self.completionPromise ?: [CPMiniPromise promiseWithDelegate:self];
 

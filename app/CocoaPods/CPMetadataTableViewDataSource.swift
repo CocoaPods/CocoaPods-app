@@ -3,7 +3,7 @@ import Cocoa
 class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
 
   var flattenedXcodeProject: [AnyObject] = []
-  var plugins: String = "No plugins"
+  var plugins = ["No plugins"]
 
   @IBOutlet weak var tableView: NSTableView!
 

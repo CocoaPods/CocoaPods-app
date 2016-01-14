@@ -340,8 +340,9 @@
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.plugins" id="A8c-Ys-hwj">
+                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.plugins" id="PXk-Y3-3Ig">
                                                                             <dictionary key="options">
+                                                                                <string key="NSNullPlaceholder">No Plugins</string>
                                                                                 <string key="NSValueTransformerName">CPStringArrayToSentenceValueTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
@@ -557,9 +558,22 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="BGa-sn-2lb">
+                                <rect key="frame" x="240" y="284" width="32" height="32"/>
+                                <connections>
+                                    <binding destination="mRe-Ue-0Lb" name="animate" keyPath="self.showingMetadata" id="Zgy-FB-RPb">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="mRe-Ue-0Lb" name="hidden" keyPath="self.showingMetadata" id="Dol-nT-1he"/>
+                                </connections>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="BGa-sn-2lb" firstAttribute="centerY" secondItem="RpM-VO-LAG" secondAttribute="centerY" id="0ed-Ky-RPs"/>
                             <constraint firstAttribute="bottom" secondItem="AZX-Bo-Gby" secondAttribute="bottom" id="Cxn-u7-52h"/>
+                            <constraint firstItem="BGa-sn-2lb" firstAttribute="centerX" secondItem="RpM-VO-LAG" secondAttribute="centerX" id="SME-DK-xfQ"/>
                             <constraint firstAttribute="trailing" secondItem="AZX-Bo-Gby" secondAttribute="trailing" id="Uft-Rb-bTC"/>
                             <constraint firstItem="AZX-Bo-Gby" firstAttribute="top" secondItem="RpM-VO-LAG" secondAttribute="top" id="Ve1-LP-tGM"/>
                             <constraint firstItem="AZX-Bo-Gby" firstAttribute="leading" secondItem="RpM-VO-LAG" secondAttribute="leading" id="zR7-ZK-IyB"/>

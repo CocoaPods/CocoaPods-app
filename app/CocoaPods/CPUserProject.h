@@ -13,11 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSString * contents;
 
 /// Registerable properties
-@property (strong) NSArray <NSString *>*podfilePlugins;
-@property (strong) NSDictionary *xcodeIntegrationDictionary;
+/// Note: These _start out_ as nil, but can only be changed to
+/// non-null objects, thus allowing us to check for existence
+/// for the registering promise.
+
+/// Plugins that are used within the Podfile
+@property (nonatomic, strong) NSArray <NSString *> *podfilePlugins;
+
+/// The Xcodeprojects and CP Targets that are represented by the Podfile
+@property (nonatomic, strong) NSDictionary *xcodeIntegrationDictionary;
 
 /// Register for when podfilePlugins and the xcodeIntegrationDictionary are filled
-- (void)registerForFullMetadata:(void (^)(void))completion;
+- (void)registerForFullMetadataCallback:(void (^)(void))completion;
 
 @end
 
