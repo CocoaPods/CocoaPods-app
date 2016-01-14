@@ -1,10 +1,16 @@
 import Cocoa
 
+/// These are simple models for the Podfile Metadata.
+/// Until there is a need to break them out into full models with methods etc, I'm OK
+/// with keeping them scoped within the MetadataViewController
+
 class CPXcodeProject: NSObject {
   var targets = [CPXcodeTarget]()
   var integrationType = "Static Libraries"
-  var fileName = "CocoaPods"
+  var fileName = "CocoaPods.xcodeproj"
   var filePath = NSURL(fileURLWithPath: "")
+  var plugins = [String]()
+
   var image = NSWorkspace.sharedWorkspace().iconForFileType("xcodeproj")
 }
 
@@ -13,7 +19,7 @@ class CPXcodeTarget: NSObject {
   var bundleID = "org.cocoapods.app"
   var platform = "OS X, 10.9"
   var type = "Mac OS X App"
-  var name = "OK"
+  var name = "CocoaPods"
   var cocoapodsTargets = [String]()
   var icon: NSImage!
 }
@@ -32,8 +38,6 @@ class CPPod: NSObject {
     self.version = version
   }
 }
-
-private var myContext = 0
 
 class CPPodfileMetadataViewController: NSViewController {
   var podfileChecker: CPPodfileReflection!
@@ -58,5 +62,14 @@ class CPPodfileMetadataViewController: NSViewController {
       self.metadataDataSource.setXcodeProjects(projects, targets:targets)
     }
 
+  }
+
+  @IBAction func openPod(sender: NSButton) {
+    let row = metadataDataSource.tableView.rowForView(sender)
+    guard let pod = metadataDataSource.tableView(metadataDataSource.tableView, objectValueForTableColumn: nil, row: row) as? CPPod else {
+      return print("Index was not a pod")
+    }
+
+    CPExternalLinksHelper().openPodWithName(pod.name)
   }
 }

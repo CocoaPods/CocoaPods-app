@@ -20,15 +20,16 @@
   if (xcodeprojs.allKeys.count == 0) { return @[]; }
 
   return [xcodeprojs.allKeys map:^ id (NSString *path) {
-    CPXcodeProject *project = [[CPXcodeProject alloc] init];
-    project.filePath = [NSURL fileURLWithPath:path];
-    project.fileName = [path lastPathComponent];
-    project.integrationType = usesFrameworks ? @"Frameworks" : @"Static Libraries";
+    CPXcodeProject *xcProject = [[CPXcodeProject alloc] init];
+    xcProject.filePath = [NSURL fileURLWithPath:path];
+    xcProject.fileName = [path lastPathComponent];
+    xcProject.integrationType = usesFrameworks ? @"Frameworks" : @"Static Libraries";
+    xcProject.plugins = project.podfilePlugins;
 
     NSDictionary *targetsDict = xcodeprojs[path][@"targets"];
     NSArray *sortedKeys = [targetsDict.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
-    project.targets = [sortedKeys map:^id(NSString *name) {
+    xcProject.targets = [sortedKeys map:^id(NSString *name) {
       NSDictionary *targetData = targetsDict[name];
 
 // TODO: Figure out if anything is worth the hassle of going through plists/xcodeprojects
@@ -48,7 +49,7 @@
       return target;
     }] ?: @[];
 
-    return project;
+    return xcProject;
   }];
 }
 

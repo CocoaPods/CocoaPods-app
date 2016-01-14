@@ -333,12 +333,19 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d7p-rZ-YwX">
-                                                                    <rect key="frame" x="297" y="10" width="203" height="61"/>
+                                                                    <rect key="frame" x="297" y="31" width="203" height="40"/>
                                                                     <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="Slather, CocoaPods Keys" id="tT7-2m-6ts">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.plugins" id="A8c-Ys-hwj">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">CPStringArrayToSentenceValueTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Acu-PZ-xuf">
                                                                     <rect key="frame" x="154" y="79" width="346" height="34"/>
@@ -465,7 +472,7 @@
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-sA-vAo">
                                                                     <rect key="frame" x="152" y="117" width="345" height="19"/>
                                                                     <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="left" title="CocoaPods" id="rWc-a3-O8Z">
-                                                                        <font key="font" metaFont="systemMedium" size="13"/>
+                                                                        <font key="font" metaFont="systemSemibold" size="13"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -507,6 +514,9 @@
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="miniSystem"/>
                                                                     </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="openPod:" target="mRe-Ue-0Lb" id="t8Q-Qn-7rh"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="do5-46-hM1" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                                                                     <rect key="frame" x="153" y="3" width="400" height="1"/>
@@ -616,10 +626,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="512" height="600"/>
+                                            <size key="minSize" width="497" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="512" height="600"/>
+                                            <size key="minSize" width="497" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
@@ -635,7 +645,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
+                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
