@@ -597,6 +597,7 @@
 			buildConfigurationList = 51165E3C1A17AFF500DCFC94 /* Build configuration list for PBXNativeTarget "CocoaPods" */;
 			buildPhases = (
 				C9B3A9B452C836DC0E134F4F /* Check Pods Manifest.lock */,
+				60FA32A31C4846D300AF5263 /* Validate App Bundle  */,
 				51165E1B1A17AFF500DCFC94 /* Sources */,
 				51165E1C1A17AFF500DCFC94 /* Frameworks */,
 				51165E1D1A17AFF500DCFC94 /* Resources */,
@@ -771,6 +772,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		60FA32A31C4846D300AF5263 /* Validate App Bundle  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Validate App Bundle ";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "VERSION_ID=`head -1 \"${SOURCE_ROOT}\"/../Rakefile`\nVERSION=`echo \"${VERSION_ID}\" | sed -e 's|BUNDLED_ENV_VERSION = ||'`\nLOCAL_VERSION=`head -1 \"${SOURCE_ROOT}/../destroot/bundle/VERSION\"`\n\nif [ \"$VERSION\" != \"$LOCAL_VERSION\" ]; then\ncat << EOM\nerror: The CP environment destroot is not in sync with generated environment from the Rakefile. Please run 'git submodule update; rake bundle:clean:artefacts; rake app:prerequisites' which should bring you back up to speed.\nEOM\nexit 1\nfi\n";
 		};
 		A58128BAFFF8FDE9690DE404 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
