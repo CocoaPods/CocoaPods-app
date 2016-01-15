@@ -6,7 +6,6 @@
 #import "CPCLIToolInstallationController.h"
 #import <Quartz/Quartz.h>
 
-
 @interface CPAppDelegate ()
 @property (nonatomic, strong) CPHomeWindowController *homeWindowController;
 @property (strong) NSXPCConnection *reflectionService;

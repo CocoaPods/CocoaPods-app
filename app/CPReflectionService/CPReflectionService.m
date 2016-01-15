@@ -55,4 +55,13 @@
 
 }
 
+- (void)allPods:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable pods, NSError * _Nullable error))reply
+{
+  [RBObject performBlock:^{
+    reply([RBObjectFromString(@"Pod::App") all_pods], nil);
+  } error:^(NSError * _Nonnull error) {
+    reply(nil, error);
+  }];
+}
+
 @end
