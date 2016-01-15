@@ -29,7 +29,7 @@
   NSUInteger len = [attrTitle length];
   NSRange range = NSMakeRange(0, len);
   [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor colorWithRed:217.0/255.0 green:217.0/255.0 blue:217.0/255.0 alpha:1.0] range:range];
-  [attrTitle addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:10.0] range:range];
+  [attrTitle addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:13.0] range:range];
   NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
   paragraphStyle.alignment = NSTextAlignmentCenter;
   [attrTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
