@@ -17,4 +17,7 @@
 /// Opens the search page
 - (IBAction)openSearch:(id)sender;
 
+/// Opens a Pod page
+- (void)openPodWithName:(NSString *)name;
+
 @end

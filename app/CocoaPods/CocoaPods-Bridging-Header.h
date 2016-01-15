@@ -5,3 +5,7 @@
 #import "CPUserProject.h"
 #import "CPCLITask.h"
 #import "CPPodfileReflection.h"
+#import "CPAppDelegate.h"
+#import "CPReflectionServiceProtocol.h"
+#import "CPXcodeInformationGenerator.h"
+#import "CPExternalLinksHelper.h"

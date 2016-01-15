@@ -32,7 +32,7 @@
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
                         <rect key="frame" x="432" y="0.0" width="233" height="490"/>
                         <clipView key="contentView" id="8EY-xl-otL">
-                            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
+                            <rect key="frame" x="0.5" y="-0.5" width="233" height="490"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
