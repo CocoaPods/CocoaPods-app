@@ -10,39 +10,39 @@
 
 @implementation NSColor (CPColors)
 
-- (NSColor *)DarkRedColor
+- (NSColor *)CPDarkRedColor
 {
-  return [NSColor colorWithRed:190.0/255.0 green:25.0/255.0 blue:0.0/255.0 alpha:1.0]
+  return [NSColor colorWithRed:190.0/255.0 green:25.0/255.0 blue:0.0/255.0 alpha:1.0];
 }
 
-- (NSColor *)BrightRedColor
+- (NSColor *)CPBrightRedColor
 {
-  return [NSColor colorWithRed:254.0/255.0 green:37.0/255.0 blue:0.0/255.0 alpha:1.0]
+  return [NSColor colorWithRed:254.0/255.0 green:37.0/255.0 blue:0.0/255.0 alpha:1.0];
 }
 
-- (NSColor *)LightGrayColor
+- (NSColor *)CPLightGrayColor
 {
-   return [NSColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0]
+  return [NSColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0];
 }
 
-- (NSColor *)GrayColor
+- (NSColor *)CPGrayColor
 {
-    return [NSColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0]
+  return [NSColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1.0];
 }
 
-- (NSColor *)DarkColor
+- (NSColor *)CPDarkColor
 {
-    return [NSColor colorWithRed:56.0/255.0 green:2.0/255.0 blue:0.0/255.0 alpha:1.0]
+  return [NSColor colorWithRed:56.0/255.0 green:2.0/255.0 blue:0.0/255.0 alpha:1.0];
 }
 
 - (NSColor *)ansiMutedWhite;
 {
-  return [NSColor colorWithRed:216.0/255.0 green:216.0/255.0 blue:216.0/255.0 alpha:1.0]
+  return [NSColor colorWithRed:216.0/255.0 green:216.0/255.0 blue:216.0/255.0 alpha:1.0];
 }
 
 - (NSColor *)ansiBrightWhite;
 {
-  return [NSColor colorWithRed:208.0/255.0 green:208.0/255.0 blue:208.0/255.0 alpha:1.0]
+  return [NSColor colorWithRed:208.0/255.0 green:208.0/255.0 blue:208.0/255.0 alpha:1.0];
 }
 
 
