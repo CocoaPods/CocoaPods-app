@@ -26,7 +26,7 @@
 
 - (void)addBlock:(void (^)(void))block
 {
-  void (^ourBlock)(void) = [block copy];
+  id ourBlock = [block copy];
   self.completionBlocks = self.completionBlocks ?: [NSMutableArray array];
 
   [self.completionBlocks addObject:ourBlock];

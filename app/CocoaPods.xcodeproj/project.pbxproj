@@ -69,7 +69,6 @@
 		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
 		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
-		60F02D1C1C0A2A6D003600FE /* CocoaPodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
@@ -233,7 +232,6 @@
 		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
 		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPodsTests.swift; sourceTree = "<group>"; };
 		60F02D1D1C0A2A6D003600FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
 		60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SUUpdater+DebugMode.m"; sourceTree = "<group>"; };
@@ -493,7 +491,6 @@
 		60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */ = {
 			isa = PBXGroup;
 			children = (
-				60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */,
 				60F02D1D1C0A2A6D003600FE /* Info.plist */,
 				600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */,
 			);
@@ -916,7 +913,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60F02D1C1C0A2A6D003600FE /* CocoaPodsTests.swift in Sources */,
 				600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

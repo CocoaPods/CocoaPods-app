@@ -77,7 +77,7 @@
 }
 
 
-NSString *prettyBundleType(NSString *string) {
+static NSString *prettyBundleType(NSString *string) {
   NSDictionary *mapping = @{
     @"com.apple.product-type.application" : @"App",
     @"com.apple.product-type.framework" : @"Framework",
@@ -97,7 +97,7 @@ NSString *prettyBundleType(NSString *string) {
 }
 
 // These icons can be found in Podfile.xcassets
-NSString *iconName(NSString *platform, NSString *type) {
+static NSString *iconName(NSString *platform, NSString *type) {
   if ([type isEqualToString:@"com.apple.product-type.application"]) {
     if ([platform hasPrefix:@"tvOS"]) return @"TVOS-Icon";
     if ([platform hasPrefix:@"iOS"]) return @"iOS-Icon";
