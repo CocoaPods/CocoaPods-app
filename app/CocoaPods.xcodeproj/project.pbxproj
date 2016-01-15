@@ -32,6 +32,7 @@
 		51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 51165E551A1B925300DCFC94 /* CPUserProject.m */; };
 		5127C3291A23E6CA0093143B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C3281A23E6CA0093143B /* CoreFoundation.framework */; };
 		5127C32B1A23E6DD0093143B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5127C32A1A23E6DD0093143B /* CoreServices.framework */; };
+		514280CA1C36C1BD00DCE23D /* libffi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 514280C91C36C1BD00DCE23D /* libffi.tbd */; };
 		5180FE941AD2A51300314D61 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5180FE931AD2A51300314D61 /* LICENSE */; };
 		51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7831A2DF88700F9ABCB /* Security.framework */; };
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
@@ -39,10 +40,18 @@
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
 		5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */; };
 		5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5B7861C17990400F8C39E /* CPSideButton.swift */; };
+		60017B5E1C47B6220037658A /* CPMiniPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 60017B5D1C47B6220037658A /* CPMiniPromise.m */; };
+		600CACE91C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */; };
+		600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
+		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
+		600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */; };
+		601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */; };
+		601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
 		6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */; };
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
+		6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */; };
 		603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */; };
 		604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */; };
 		6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */; };
@@ -50,6 +59,7 @@
 		605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605119221C08F02D0037B95E /* CPBrownVisualEffectsView.swift */; };
 		605119251C08F5880037B95E /* CPFontAndColourGateKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */; };
 		605119281C0909420037B95E /* CPPodfileReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 605119271C0909420037B95E /* CPPodfileReflection.m */; };
+		606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */; };
 		606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */; };
 		606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */; };
@@ -57,8 +67,8 @@
 		6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075BA661C06963700A5C491 /* CPInstallAction.swift */; };
 		60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A841C2B100F00D6663E /* CPBorderedButton.m */; };
 		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
+		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
-		60F02D1C1C0A2A6D003600FE /* CocoaPodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
@@ -168,6 +178,7 @@
 		51165E551A1B925300DCFC94 /* CPUserProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUserProject.m; sourceTree = "<group>"; };
 		5127C3281A23E6CA0093143B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5127C32A1A23E6DD0093143B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		514280C91C36C1BD00DCE23D /* libffi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libffi.tbd; path = usr/lib/libffi.tbd; sourceTree = SDKROOT; };
 		5180FE931AD2A51300314D61 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../../LICENSE; sourceTree = "<group>"; };
 		519C328E1C029E3C003BDC49 /* libruby+exts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libruby+exts.a"; sourceTree = "<group>"; };
 		51CFC7831A2DF88700F9ABCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -182,12 +193,22 @@
 		5D0F8EC2FC9E25C9EF3CED3F /* Pods-CocoaPodsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTabViewDelegate.swift; sourceTree = "<group>"; };
 		5EF5B7861C17990400F8C39E /* CPSideButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSideButton.swift; sourceTree = "<group>"; };
+		60017B5C1C47B6220037658A /* CPMiniPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPMiniPromise.h; sourceTree = "<group>"; };
+		60017B5D1C47B6220037658A /* CPMiniPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPMiniPromise.m; sourceTree = "<group>"; };
+		600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStringArrayToSentenceValueTransformer.h; sourceTree = "<group>"; };
+		600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStringArrayToSentenceValueTransformer.m; sourceTree = "<group>"; };
+		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
+		601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXcodeInformationGenerator.h; sourceTree = "<group>"; };
+		601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXcodeInformationGenerator.m; sourceTree = "<group>"; };
+		601ACAA41C392BDD0058FA86 /* NSArray+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Helpers.h"; sourceTree = "<group>"; };
+		601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Helpers.m"; sourceTree = "<group>"; };
 		601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPExternalLinksHelper.h; sourceTree = "<group>"; };
 		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
 		601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TersePaths.h"; sourceTree = "<group>"; };
 		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
 		6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Home Screen.xcassets"; sourceTree = "<group>"; };
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
+		6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMetadataTableViewDataSource.swift; sourceTree = "<group>"; };
 		603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMenuVisiblityDirector.swift; sourceTree = "<group>"; };
 		604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleViewController.swift; sourceTree = "<group>"; };
 		6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPModifiedDecorationsWindow.swift; sourceTree = "<group>"; };
@@ -196,6 +217,7 @@
 		605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPFontAndColourGateKeeper.swift; sourceTree = "<group>"; };
 		605119261C0909420037B95E /* CPPodfileReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPodfileReflection.h; sourceTree = "<group>"; };
 		605119271C0909420037B95E /* CPPodfileReflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPodfileReflection.m; sourceTree = "<group>"; };
+		606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileMetadataViewController.swift; sourceTree = "<group>"; };
 		606D1ED11BF90705000B7148 /* Podfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Podfile.storyboard; sourceTree = "<group>"; };
 		606D1ED31BF91040000B7148 /* CocoaPods-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaPods-Bridging-Header.h"; sourceTree = "<group>"; };
 		606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileEditorViewController.swift; sourceTree = "<group>"; };
@@ -206,10 +228,10 @@
 		60814A841C2B100F00D6663E /* CPBorderedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPBorderedButton.m; sourceTree = "<group>"; };
 		60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPWhiteCheckedButton.h; sourceTree = "<group>"; };
 		60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPWhiteCheckedButton.m; sourceTree = "<group>"; };
+		60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInterfaceBuilderOnlyLabels.swift; sourceTree = "<group>"; };
 		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
 		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPodsTests.swift; sourceTree = "<group>"; };
 		60F02D1D1C0A2A6D003600FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
 		60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SUUpdater+DebugMode.m"; sourceTree = "<group>"; };
@@ -229,6 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				514280CA1C36C1BD00DCE23D /* libffi.tbd in Frameworks */,
 				510254331C0A68040045FCD8 /* libruby+exts.a in Frameworks */,
 				510254341C0A68100045FCD8 /* RubyCocoa.framework in Frameworks */,
 			);
@@ -277,6 +300,7 @@
 		46126B404240E403B2193EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				514280C91C36C1BD00DCE23D /* libffi.tbd */,
 				51EA178F1C0155E9000DC69A /* RubyCocoa.framework */,
 				51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */,
 				51CFC7831A2DF88700F9ABCB /* Security.framework */,
@@ -375,6 +399,17 @@
 			path = pod;
 			sourceTree = "<group>";
 		};
+		601ACA9C1C37F33F0058FA86 /* Podfile Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */,
+				606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */,
+				601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */,
+				601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */,
+			);
+			name = "Podfile Metadata";
+			sourceTree = "<group>";
+		};
 		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +417,18 @@
 				331188561BEBCB0F00272793 /* CPCLIToolInstallationController.m */,
 			);
 			name = "Command Line Tools";
+			sourceTree = "<group>";
+		};
+		603F7F1F1C1E1F64006C2571 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				6075BA661C06963700A5C491 /* CPInstallAction.swift */,
+				605119261C0909420037B95E /* CPPodfileReflection.h */,
+				605119271C0909420037B95E /* CPPodfileReflection.m */,
+				600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */,
+				600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		6051191E1C08C4AC0037B95E /* Custom Subviews */ = {
@@ -403,6 +450,7 @@
 				605119221C08F02D0037B95E /* CPBrownVisualEffectsView.swift */,
 				5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */,
 				5EF5B7861C17990400F8C39E /* CPSideButton.swift */,
+				60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -412,11 +460,7 @@
 			children = (
 				606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */,
 				606D1ED91BF911EF000B7148 /* CPPodfileViewController.swift */,
-				6075BA661C06963700A5C491 /* CPInstallAction.swift */,
-				604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */,
 				6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */,
-				605119261C0909420037B95E /* CPPodfileReflection.h */,
-				605119271C0909420037B95E /* CPPodfileReflection.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -426,26 +470,29 @@
 			children = (
 				51165E541A1B925200DCFC94 /* CPUserProject.h */,
 				51165E551A1B925300DCFC94 /* CPUserProject.m */,
+				60017B5C1C47B6220037658A /* CPMiniPromise.h */,
+				60017B5D1C47B6220037658A /* CPMiniPromise.m */,
 			);
 			name = "NSDocument Details";
 			sourceTree = "<group>";
 		};
-		606D1ED81BF9108B000B7148 /* Presenting Text */ = {
+		606D1ED81BF9108B000B7148 /* Podfile Logging */ = {
 			isa = PBXGroup;
 			children = (
+				604C26CC1C07843C00E16D84 /* CPPodfileConsoleViewController.swift */,
 				7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */,
 				7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */,
 				60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */,
 				605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */,
 			);
-			name = "Presenting Text";
+			name = "Podfile Logging";
 			sourceTree = "<group>";
 		};
 		60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */ = {
 			isa = PBXGroup;
 			children = (
-				60F02D1B1C0A2A6D003600FE /* CocoaPodsTests.swift */,
 				60F02D1D1C0A2A6D003600FE /* Info.plist */,
+				600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */,
 			);
 			path = CocoaPodsTests;
 			sourceTree = "<group>";
@@ -468,12 +515,14 @@
 		60FE01631B9B76470027EEE3 /* Podfile Window */ = {
 			isa = PBXGroup;
 			children = (
+				601ACA9C1C37F33F0058FA86 /* Podfile Metadata */,
 				606D1ED11BF90705000B7148 /* Podfile.storyboard */,
 				6075BA641C068B5F00A5C491 /* Podfile.xcassets */,
 				606D1ED71BF91076000B7148 /* NSDocument Details */,
-				606D1ED81BF9108B000B7148 /* Presenting Text */,
+				606D1ED81BF9108B000B7148 /* Podfile Logging */,
 				605119211C08D7CD0037B95E /* Custom Views */,
 				606D1ED61BF91062000B7148 /* View Controllers */,
+				603F7F1F1C1E1F64006C2571 /* Utilities */,
 			);
 			name = "Podfile Window";
 			sourceTree = "<group>";
@@ -494,6 +543,8 @@
 				60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */,
 				601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */,
 				601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */,
+				601ACAA41C392BDD0058FA86 /* NSArray+Helpers.h */,
+				601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -543,6 +594,7 @@
 			buildConfigurationList = 51165E3C1A17AFF500DCFC94 /* Build configuration list for PBXNativeTarget "CocoaPods" */;
 			buildPhases = (
 				C9B3A9B452C836DC0E134F4F /* Check Pods Manifest.lock */,
+				60FA32A31C4846D300AF5263 /* Validate App Bundle  */,
 				51165E1B1A17AFF500DCFC94 /* Sources */,
 				51165E1C1A17AFF500DCFC94 /* Frameworks */,
 				51165E1D1A17AFF500DCFC94 /* Resources */,
@@ -680,6 +732,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */,
+				600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,6 +769,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		60FA32A31C4846D300AF5263 /* Validate App Bundle  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Validate App Bundle ";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "VERSION_ID=`head -1 \"${SOURCE_ROOT}\"/../Rakefile`\nVERSION=`echo \"${VERSION_ID}\" | sed -e 's|BUNDLED_ENV_VERSION = ||'`\nLOCAL_VERSION=`head -1 \"${SOURCE_ROOT}/../destroot/bundle/VERSION\"`\n\nif [ \"$VERSION\" != \"$LOCAL_VERSION\" ]; then\ncat << EOM\nerror: The CP environment destroot is not in sync with generated environment from the Rakefile. Please run 'git submodule update; rake bundle:clean:artefacts; rake app:prerequisites' which should bring you back up to speed.\nEOM\nexit 1\nfi\n";
 		};
 		A58128BAFFF8FDE9690DE404 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -794,28 +862,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */,
+				600CACE91C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m in Sources */,
 				510F09751C0A73B800F40F2B /* CPRubyErrors.m in Sources */,
 				603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
 				60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */,
 				5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
+				601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
 				606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */,
 				605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */,
 				605119251C08F5880037B95E /* CPFontAndColourGateKeeper.swift in Sources */,
+				60017B5E1C47B6220037658A /* CPMiniPromise.m in Sources */,
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
+				601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */,
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
 				6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */,
 				3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */,
 				604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */,
+				60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */,
 				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
+				606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */,
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */,
@@ -838,7 +913,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60F02D1C1C0A2A6D003600FE /* CocoaPodsTests.swift in Sources */,
+				600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -904,6 +979,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CPReflectionService",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.ReflectionService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -932,6 +1008,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CPReflectionService",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.ReflectionService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

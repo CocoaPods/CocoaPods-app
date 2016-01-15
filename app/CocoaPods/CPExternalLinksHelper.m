@@ -28,6 +28,10 @@
   [self open:@"https://cocoapods.org/"];
 }
 
+- (void)openPodWithName:(NSString *)name
+{
+  [self open:[NSString stringWithFormat:@"https://cocoapods.org/pods/%@", name]];
+}
 
 - (void)open:(NSString *)address
 {

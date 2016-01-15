@@ -48,7 +48,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     guard let textView = notification.object as? NSTextView,
       let podfileVC = podfileViewController else { return }
 
-    podfileVC.userProject.contents = textView.string
+    podfileVC.userProject.contents = textView.string ?? ""
 
     // Passing the message on to the syntax checker
     syntaxChecker.textDidChange(notification)

@@ -16,16 +16,12 @@ static ID ID_to_ruby = 0;
 static VALUE rb_cPodInformativeError = Qnil;
 
 
-// Defined in RBObject+CocoaPods.rb
-@interface RBApp : RBObject
-- (id)require_gems;
-@end
-
-
 static void
 CPRubyInit(Class bundleClass)
 {
   NSCAssert([NSThread currentThread] == (NSThread *)RBThreadInstance, @"Should only be called from the Ruby thread.");
+
+  // setenv("RUBYCOCOA_DEBUG", "1", 1);
 
   // Initialize the Ruby runtime and load our Ruby setup file.
   RBBundleInit("RBObject+CocoaPods.rb", bundleClass, nil);
@@ -33,14 +29,36 @@ CPRubyInit(Class bundleClass)
   // These are C exts that are included in libruby, but we need
   // to initialize them ourselves and tell the runtime that they
   // have been loaded (provided).
-  #define INIT_EXT(name) void Init_##name(void); Init_##name();
-  #define PROVIDE_EXT(name) INIT_EXT(name); rb_provide(#name);
   rb_provide("thread");
+
+  #define INIT_EXT(name) void Init_##name(void); Init_##name();
+
+  // Load encoding related extensions
+  INIT_EXT(encdb);
+  rb_provide("enc/trans/single_byte");
+  INIT_EXT(transdb);
+  
+  // These encodings are used by Psych (YAML extension) and are normally autoloaded by load_encoding in encoding.c,
+  // however this does not happen in static libruby or I simply have not figured out how to make it work normally.
+  INIT_EXT(utf_16le);
+  INIT_EXT(utf_16be);
+  INIT_EXT(utf_32le);
+  INIT_EXT(utf_32be);
+
   INIT_EXT(pathname);
   rb_provide("pathname.so");
-  PROVIDE_EXT(date_core);
+  INIT_EXT(digest);
+  rb_provide("digest.so");
+  INIT_EXT(fiddle);
+  rb_provide("fiddle.so");
+  INIT_EXT(psych);
+  rb_provide("psych.so");
+
+  #define PROVIDE_EXT(name) INIT_EXT(name); rb_provide(#name);
   PROVIDE_EXT(bigdecimal);
+  PROVIDE_EXT(date_core);
   PROVIDE_EXT(stringio);
+  PROVIDE_EXT(strscan);
 
   // Now we can load RubyGems and the gems we need.
   RBApp *app = RBObjectFromString(@"Pod::App");
