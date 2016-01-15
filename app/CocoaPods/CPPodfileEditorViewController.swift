@@ -11,13 +11,22 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   var syntaxChecker: CPPodfileReflection!
   let commentSyntax = "# "
   let indentationSyntax = "  "
-  var allPods: [String]?
+  var autoCompletions: [String] = {
+    if let path = NSBundle.mainBundle().pathForResource("Podfile", ofType: "plist"),
+      dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject],
+      words = dict["autocompleteWords"] as? [String] {
+        return words
+    }
+    return []
+  }()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     let appDelegate = NSApp.delegate as? CPAppDelegate
     appDelegate?.reflectionService.remoteObjectProxy.allPods { (pods, error) in
-      self.allPods = pods
+      if let pods = pods {
+        self.autoCompletions.appendContentsOf(pods)
+      }
     }
   }
 
@@ -55,10 +64,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   }
 
   func completions() -> [AnyObject]! {
-    if let pods = allPods {
-      return pods
-    }
-    return []
+      return autoCompletions
   }
 
   func textDidChange(notification: NSNotification) {
