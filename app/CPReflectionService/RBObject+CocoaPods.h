@@ -50,5 +50,5 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 @interface RBApp : RBObject
 - (void)require_gems;
 - (NSDictionary * _Nonnull)analyze_podfile:(RBPodfile * _Nonnull)contents :(NSString * _Nonnull)installationRoot;
-- (NSArray<NSString *> * _Nonnull)all_pods;
+- (NSArray<NSString *> * _Nullable)all_pods;
 @end
