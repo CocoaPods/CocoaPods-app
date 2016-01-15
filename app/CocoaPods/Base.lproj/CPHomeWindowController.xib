@@ -24,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,7 +203,7 @@
                                     <constraint firstAttribute="height" constant="154" id="LTT-Oa-AmD"/>
                                     <constraint firstAttribute="width" constant="154" id="osN-kt-h7I"/>
                                 </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="CocoaPodsAppOval" id="iTn-Ke-V7P"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSActionTemplate" id="iTn-Ke-V7P"/>
                             </imageView>
                         </subviews>
                         <constraints>
@@ -386,8 +386,8 @@ Command-Line Tools?</string>
     </objects>
     <resources>
         <image name="CP-Term" width="420" height="120"/>
-        <image name="CocoaPodsAppOval" width="256" height="256"/>
         <image name="ConsoleWindow" width="376" height="488"/>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="OpenDocument" width="57" height="41"/>
         <image name="OpenDocumentSelected" width="57" height="41"/>
         <image name="Podfile-icon" width="34" height="48"/>

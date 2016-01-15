@@ -40,7 +40,7 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 @end
 
 @interface RBPluginManager : RBObject
-- (NSArray<RBGemSpecification *> * _Nonnull)plugin_gems_for_prefix:(NSString * _Nonnull)prefix;
+- (NSArray<RBGemSpecification *> * _Nonnull)installed_specifications_for_prefix:(NSString * _Nonnull)prefix;
 - (RBGemSpecification * _Nonnull)specification:(NSString * _Nonnull)pluginPath;
 @end
 

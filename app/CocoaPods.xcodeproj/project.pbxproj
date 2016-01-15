@@ -71,6 +71,7 @@
 		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
 		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
+		60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */; };
@@ -406,15 +407,6 @@
 			path = pod;
 			sourceTree = "<group>";
 		};
-		60227EC01C351A5600A29515 /* Plugin Installation */ = {
-			isa = PBXGroup;
-			children = (
-				60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */,
-				60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */,
-			);
-			name = "Plugin Installation";
-			sourceTree = "<group>";
-		};
 		601ACA9C1C37F33F0058FA86 /* Podfile Metadata */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +416,15 @@
 				601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */,
 			);
 			name = "Podfile Metadata";
+			sourceTree = "<group>";
+		};
+		60227EC01C351A5600A29515 /* Plugin Installation */ = {
+			isa = PBXGroup;
+			children = (
+				60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */,
+				60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */,
+			);
+			name = "Plugin Installation";
 			sourceTree = "<group>";
 		};
 		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
@@ -887,6 +888,7 @@
 			files = (
 				510F096E1C0A702200F40F2B /* RBObject+CocoaPods.m in Sources */,
 				5102542A1C0A60680045FCD8 /* main.m in Sources */,
+				60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */,
 				510254281C0A60680045FCD8 /* CPReflectionService.m in Sources */,
 				510F09731C0A734800F40F2B /* CPRubyErrors.m in Sources */,
 			);

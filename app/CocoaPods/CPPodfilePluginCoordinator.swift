@@ -19,7 +19,7 @@ class CPPodfilePluginCoordinator: NSObject {
 
     var podfilePlugins = [String]()
     var installedPlugins = [String]()
-    let group = dispatch_group_create();
+    let group = dispatch_group_create()
 
     // Get the installed plugins
     dispatch_group_enter(group)
@@ -38,6 +38,7 @@ class CPPodfilePluginCoordinator: NSObject {
     // Once both asyncronous operations are completed
     // figure out if we have all the required gems
     // and if not, show the message
+
     dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
       let shouldRecommendInstall = Set(installedPlugins).isSupersetOf(podfilePlugins) == false
       if shouldRecommendInstall == false || podfilePlugins.count == 0 {
