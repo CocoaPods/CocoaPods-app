@@ -11,16 +11,16 @@
 
 // *** Default color palette ***
 
-- (NSColor *)CPDarkRedColor;
-- (NSColor *)CPBrightRedColor;
-- (NSColor *)CPLightGrayColor;
-- (NSColor *)CPGrayColor;
-- (NSColor *)CPDarkColor;
++ (NSColor *)CPDarkRedColor;
++ (NSColor *)CPBrightRedColor;
++ (NSColor *)CPLightGrayColor;
++ (NSColor *)CPGrayColor;
++ (NSColor *)CPDarkColor;
 
 // *** ANSI color palette ***
 
-- (NSColor *)ansiMutedWhite;
-- (NSColor *)ansiBrightWhite;
++ (NSColor *)ansiMutedWhite;
++ (NSColor *)ansiBrightWhite;
 
 
 @end
