@@ -43,3 +43,9 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (NSArray<RBGemSpecification *> * _Nonnull)plugin_gems_for_prefix:(NSString * _Nonnull)prefix;
 - (RBGemSpecification * _Nonnull)specification:(NSString * _Nonnull)pluginPath;
 @end
+
+// Defined in RBObject+CocoaPods.rb
+@interface RBApp : RBObject
+- (void)require_gems;
+- (NSDictionary * _Nonnull)analyze_podfile:(RBPodfile * _Nonnull)contents :(NSString * _Nonnull)installationRoot;
+@end

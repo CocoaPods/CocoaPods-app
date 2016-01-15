@@ -1,9 +1,17 @@
+BUNDLED_ENV_VERSION = 1
+# ^ This has to be at line 0
+# This is so that a buid on CP.app can be fast,
+# it can make assumptions that removing `BUNDLED_ENV_VERSION = `
+# from the first line will get the version.
+
 VERBOSE = !!RakeFileUtils.verbose_flag
 
 RELEASE_PLATFORM = '10.11'
-
 DEPLOYMENT_TARGET = '10.10'
-DEPLOYMENT_TARGET_SDK = "MacOSX#{DEPLOYMENT_TARGET}.sdk"
+
+# Ideally this would be deployment target, but
+# we use generics which didn't exist in 10.10.
+DEPLOYMENT_TARGET_SDK = "MacOSX#{RELEASE_PLATFORM}.sdk"
 
 $build_started_at = Time.now
 at_exit do
@@ -463,14 +471,23 @@ installed_readline = readline_tasks.installed_path
 # ------------------------------------------------------------------------------
 
 class RubyTasks < BundleDependencyTasks
-  attr_accessor :installed_libruby_path
+  attr_accessor :installed_libruby_path, :installed_dependencies
 
+  # TODO Look into using ext/extinit.c instead, but this will autoload the extensions,
+  #      so that makes more sense to look into when switching to a dynamic libruby.
   def define_install_libruby_task
     file installed_libruby_path => artefact_path do
       cp artefact_path, installed_libruby_path
-      %w{ bigdecimal date/date_core.a pathname stringio }.each do |ext|
+      %w{ bigdecimal date/date_core.a digest fiddle pathname psych stringio strscan }.each do |ext|
         ext = "#{ext}/#{ext}.a" unless File.extname(ext) == '.a'
         execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'ext', ext)
+      end
+
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'enc', 'libenc.a')
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'enc', 'libtrans.a')
+
+      installed_dependencies.each do |installed_dependency|
+        execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, installed_dependency
       end
     end
   end
@@ -490,6 +507,7 @@ ruby_tasks = RubyTasks.define do |t|
   t.dependencies   = [installed_pkg_config, installed_yaml, installed_openssl]
 
   t.installed_libruby_path = File.join('app', 'CPReflectionService', 'libruby+exts.a')
+  t.installed_dependencies = [installed_yaml]
 end
 
 installed_ruby = ruby_tasks.installed_path
@@ -853,6 +871,12 @@ namespace :bundle do
     end
   end
 
+  desc "Creates a VERSION file in the destroot folder"
+  task :stamp_version do
+    path = File.join(BUNDLE_DESTROOT, "VERSION")
+    File.open(path, 'w') { |file| file.write "#{BUNDLED_ENV_VERSION}\n" }
+  end
+
   desc "Verifies that no binaries in the bundle link to incorrect dylibs"
   task :verify_linkage => :remove_unneeded_files do
     skip = %w( .h .rb .py .pyc .tmpl .pem .png .ttf .css .rhtml .js .sample )
@@ -886,7 +910,7 @@ namespace :bundle do
     mkdir_p test_dir
     cp 'test/Podfile', test_dir
     Dir.chdir(test_dir) do
-      execute 'Test', [BUNDLE_ENV, 'pod', 'install', '--no-integrate', '--verbose']
+      execute 'Test', [BUNDLE_ENV, 'pod', 'install', '--verbose']
     end
   end
 
@@ -896,11 +920,12 @@ namespace :bundle do
   end
 
   desc "Build complete dist bundle"
-  task :build => [:build_tools, :remove_unneeded_files]
+  task :build => [:build_tools, :remove_unneeded_files, :stamp_version]
 
   namespace :clean do
     task :build do
       rm_rf WORKBENCH_DIR
+      rm "app/CPReflectionService/libruby+exts.a"
     end
 
     task :downloads do
@@ -923,8 +948,8 @@ end
 # RubyCocoa
 # ------------------------------------------------------------------------------
 
-built_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
-file built_rubycocoa => [installed_ruby, installed_env_script] do
+build_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
+file build_rubycocoa => [installed_ruby, installed_env_script] do
   Dir.chdir('app/RubyCocoa') do
     execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'config', '--target-archs=x86_64', '--build-as-embeddable=yes']
     execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'setup']
@@ -946,7 +971,7 @@ namespace :app do
   end
 
   desc 'Prepare all prerequisites for building the app'
-  task :prerequisites => ['bundle:submodules', 'bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
+  task :prerequisites => ['bundle:submodules', 'bundle:build', installed_ruby_static_lib, build_rubycocoa, :update_version]
 
   desc 'Build release version of application'
   task :build => :prerequisites do
@@ -976,8 +1001,11 @@ namespace :release do
 
   desc "Perform a full build of the bundle and app"
   task :build => ['bundle:build', 'bundle:verify_linkage', 'bundle:test', 'app:build', PKG_DIR] do
-    output = `#{XCODEBUILD_COMMAND} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
-    build_dir = output.split('= ').last
+    build_dir = Dir.chdir('app') do
+      output = `#{XCODEBUILD_COMMAND.join(" ")} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
+      output.split('= ').last
+    end
+
     # TODO use this once OS X supports xz out of the box.
     #tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
     #sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"

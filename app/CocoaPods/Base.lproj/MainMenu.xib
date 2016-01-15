@@ -365,6 +365,17 @@
                                     <action selector="outdentSelection:" target="-1" id="Cdl-5c-U2X"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="dpD-lu-qYJ"/>
+                            <menuItem title="Increase Font Size" keyEquivalent="+" id="kFl-4W-TiK">
+                                <connections>
+                                    <action selector="increaseFontSize:" target="-1" id="aYI-IG-T1I"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Font Size" keyEquivalent="-" id="MPg-RF-OWf">
+                                <connections>
+                                    <action selector="decreaseFontSize:" target="-1" id="s2L-it-X5V"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -380,6 +391,11 @@
                             <menuItem title="Console" keyEquivalent="2" id="N6r-GM-4n1">
                                 <connections>
                                     <action selector="showConsoleTab:" target="-1" id="34F-FY-efO"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Info" keyEquivalent="3" id="KZ8-h2-D82">
+                                <connections>
+                                    <action selector="showInformationTab:" target="-1" id="T9y-Sn-Jz0"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="cEG-Nk-FNM"/>

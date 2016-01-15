@@ -7,3 +7,5 @@
 #import "CPPodfileReflection.h"
 #import "CPAppDelegate.h"
 #import "CPReflectionServiceProtocol.h"
+#import "CPXcodeInformationGenerator.h"
+#import "CPExternalLinksHelper.h"
