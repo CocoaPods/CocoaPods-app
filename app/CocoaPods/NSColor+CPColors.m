@@ -6,9 +6,9 @@
 //  Copyright © 2016 CocoaPods. All rights reserved.
 //
 
-#import "UIColor+CPColors.h"
+#import "NSColor+CPColors.h"
 
-@implementation UIColor (CPColors)
+@implementation NSColor (CPColors)
 
 
 

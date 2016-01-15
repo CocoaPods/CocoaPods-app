@@ -8,7 +8,9 @@
 
 
 
-@interface UIColor (CPColors)
+@interface NSColor (CPColors)
+
+- (NSColor *)CPRedColor;
 
 
 
