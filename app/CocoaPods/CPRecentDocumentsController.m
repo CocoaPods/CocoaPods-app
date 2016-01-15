@@ -1,5 +1,6 @@
 #import "CPRecentDocumentsController.h"
 #import "NSURL+TersePaths.h"
+#import "NSColor+CPColors.h"
 
 @implementation CPHomeWindowDocumentEntry
 
@@ -28,14 +29,14 @@
   [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE", nil)];
   NSUInteger len = [attrTitle length];
   NSRange range = NSMakeRange(0, len);
-  [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor colorWithRed:217.0/255.0 green:217.0/255.0 blue:217.0/255.0 alpha:1.0] range:range];
+  [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor ansiMutedWhite] range:range];
   [attrTitle addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:13.0] range:range];
   NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
   paragraphStyle.alignment = NSTextAlignmentCenter;
   [attrTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
   [attrTitle fixAttributesInRange:range];
   [self.openDocumentButton setAttributedTitle:attrTitle];
-  [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1.0] range:range];
+  [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor ansiBrightWhite] range:range];
   [self.openDocumentButton setAttributedAlternateTitle:attrTitle];
   
   [self setupRecentDocuments];
