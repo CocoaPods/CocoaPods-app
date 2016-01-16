@@ -152,7 +152,7 @@ static CGFloat CPCommandLineAlertHeight = 68;
   if ([[pboard types] containsObject:NSFilenamesPboardType]) {
     if (sourceMask & NSDragOperationLink) {
       NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
-      // allow to drop files if any of them is Podfile
+      // allow to drop also multiple files if any of them is Podfile
       for (NSString *fileName in files) {
         if ([[fileName lastPathComponent] isEqualToString:@"Podfile"]) {
           return fileName;
