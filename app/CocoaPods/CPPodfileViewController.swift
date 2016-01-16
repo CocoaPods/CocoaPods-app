@@ -13,6 +13,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
+  var pluginCoordinator: CPPodfilePluginCoordinator!
 
   @IBOutlet var tabViewDelegate: CPTabViewDelegate!
 
@@ -32,9 +33,10 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
     documentIcon.frame = documentIcon.bounds
     documentIconContainer.addSubview(documentIcon)
+    hideWarningLabel(false)
 
-    tabController.hiddenTabDelegate = tabViewDelegate
-    tabViewDelegate.editorIsSelected = true
+    pluginCoordinator = CPPodfilePluginCoordinator(controller: self)
+    pluginCoordinator.comparePluginsWithinUserProject(userProject)
   }
 
   var tabController: CPHiddenTabViewController {
@@ -79,6 +81,31 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   @IBAction func showInformationTab(sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 1
   }
+
+  @IBOutlet weak var warningDoneButton: NSButton!
+  @IBOutlet weak var warningLabel: NSTextField!
+  @IBOutlet weak var warningLabelHeight: NSLayoutConstraint!
+
+  func showWarningLabelWithSender(message: String, actionTitle:String, target: AnyObject?, action: Selector, animated:Bool) {
+    view.layoutSubtreeIfNeeded()
+
+    let label = animated ? warningLabelHeight.animator() : warningLabelHeight
+    label.constant = 50
+
+    warningLabel.stringValue = message
+    warningDoneButton.title = actionTitle
+    warningDoneButton.target = target
+    warningDoneButton.action = action
+    warningDoneButton.enabled = true
+  }
+
+  func hideWarningLabel(animated:Bool = true) {
+    view.layoutSubtreeIfNeeded()
+    let label = animated ? warningLabelHeight.animator() : warningLabelHeight
+    label.constant = 0
+    warningDoneButton.enabled = false
+  }
+
 }
 
 extension NSViewController {

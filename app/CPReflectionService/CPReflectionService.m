@@ -1,5 +1,6 @@
 #import "CPReflectionService.h"
 #import "RBObject+CocoaPods.h"
+#import "NSArray+Helpers.h"
 
 @implementation CPReflectionService
 
@@ -24,15 +25,11 @@
 {
   [RBObject performBlock:^{
     RBPluginManager *pluginManager = RBObjectFromString(@"CLAide::Command::PluginManager");
-    NSArray *pluginPaths = [pluginManager plugin_load_paths:@"cocoapods"];
+    NSArray *specs = [pluginManager installed_specifications_for_prefix:@"cocoapods"];
 
-    NSMutableArray *pluginNames = [NSMutableArray arrayWithCapacity:pluginPaths.count];
-    for (NSString *pluginPath in pluginPaths) {
-      NSString *pluginRootPath = [[pluginPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-      RBGemSpecification *spec = [pluginManager specification:pluginRootPath];
-      [pluginNames addObject:spec.name];
-    }
-    reply(pluginNames, nil);
+    reply([specs map:^id(id spec) {
+      return [spec name];
+    }], nil);
 
   } error:^(NSError * _Nonnull error) {
     reply(nil, error);
