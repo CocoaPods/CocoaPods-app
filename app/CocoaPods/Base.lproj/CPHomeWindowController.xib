@@ -24,15 +24,15 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
                         <rect key="frame" x="432" y="0.0" width="233" height="490"/>
                         <clipView key="contentView" id="8EY-xl-otL">
-                            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
+                            <rect key="frame" x="0.5" y="-0.5" width="233" height="490"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
@@ -139,9 +139,9 @@
                         <rect key="frame" x="432" y="0.0" width="233" height="490"/>
                         <subviews>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="o1v-Y5-7bX">
-                                <rect key="frame" x="16" y="175" width="201" height="140"/>
+                                <rect key="frame" x="16" y="203" width="201" height="84"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="Pyn-Xc-2H8"/>
+                                    <constraint firstAttribute="height" constant="84" id="Pyn-Xc-2H8"/>
                                 </constraints>
                                 <buttonCell key="cell" type="square" title="Open an existing Podfile" alternateTitle="Open an existing Podfile" bezelStyle="shadowlessSquare" image="OpenDocument" imagePosition="above" alignment="center" alternateImage="OpenDocumentSelected" inset="2" id="40v-7y-tY1">
                                     <behavior key="behavior" lightByContents="YES"/>
@@ -388,8 +388,8 @@ Command-Line Tools?</string>
         <image name="CP-Term" width="420" height="120"/>
         <image name="CocoaPodsAppOval" width="256" height="256"/>
         <image name="ConsoleWindow" width="376" height="488"/>
-        <image name="OpenDocument" width="100" height="100"/>
-        <image name="OpenDocumentSelected" width="100" height="100"/>
+        <image name="OpenDocument" width="57" height="41"/>
+        <image name="OpenDocumentSelected" width="57" height="41"/>
         <image name="Podfile-icon" width="34" height="48"/>
         <image name="TransparentButtonBG" width="23" height="20"/>
         <image name="TransparentButtonBGFilled" width="49" height="20"/>

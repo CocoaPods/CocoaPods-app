@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "openDocumentSelected.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "openDocumentSelected@2x.png",
+      "filename" : "OSX-Icon@2x.png",
       "scale" : "2x"
     },
     {
