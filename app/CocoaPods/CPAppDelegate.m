@@ -30,7 +30,7 @@
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPDoNotRequestCLIToolInstallationAgainKey];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
 #endif
-  
+
   [self startReflectionService];
 }
 
