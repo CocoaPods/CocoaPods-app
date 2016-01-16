@@ -35,7 +35,7 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="FP0-mA-dMU" customClass="TransparentWhiteView" customModule="CocoaPods" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="460" width="233" height="36"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
                                         <rect key="frame" x="50" y="9" width="57" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="57" id="XTB-Da-zeW"/>
@@ -50,7 +50,7 @@
                                             <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
                                         <rect key="frame" x="119" y="11" width="64" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="N7l-o4-iu8"/>
@@ -70,7 +70,7 @@
                                     <constraint firstItem="UXQ-ah-FzE" firstAttribute="leading" secondItem="3dY-gu-lGh" secondAttribute="trailing" constant="12" id="3Td-kG-ZW7"/>
                                     <constraint firstItem="UXQ-ah-FzE" firstAttribute="centerY" secondItem="FP0-mA-dMU" secondAttribute="centerY" id="8Jb-fY-bMB"/>
                                     <constraint firstAttribute="height" constant="36" id="Jeq-53-Zxz"/>
-                                    <constraint firstItem="3dY-gu-lGh" firstAttribute="leading" secondItem="FP0-mA-dMU" secondAttribute="leading" constant="14" id="RVO-CC-VGG"/>
+                                    <constraint firstItem="3dY-gu-lGh" firstAttribute="leading" secondItem="FP0-mA-dMU" secondAttribute="leading" constant="50" id="RVO-CC-VGG"/>
                                     <constraint firstItem="3dY-gu-lGh" firstAttribute="centerY" secondItem="FP0-mA-dMU" secondAttribute="centerY" id="ret-TB-hmI"/>
                                     <constraint firstAttribute="width" constant="233" id="ylU-sl-dar"/>
                                 </constraints>
