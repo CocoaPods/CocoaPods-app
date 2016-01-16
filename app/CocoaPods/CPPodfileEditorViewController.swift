@@ -5,12 +5,30 @@ import Fragaria
 /// and ensure the changes are sent back upstream to the 
 /// CPPodfileViewController's CPUserProject
 
-class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
+class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAutoCompleteDelegate {
 
   @IBOutlet var editor: MGSFragariaView!
   var syntaxChecker: CPPodfileReflection!
   let commentSyntax = "# "
   let indentationSyntax = "  "
+  var autoCompletions: [String] = {
+    if let path = NSBundle.mainBundle().pathForResource("Podfile", ofType: "plist"),
+      dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject],
+      words = dict["autocompleteWords"] as? [String] {
+        return words
+    }
+    return []
+  }()
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let appDelegate = NSApp.delegate as? CPAppDelegate
+    appDelegate?.reflectionService.remoteObjectProxy.allPods { (pods, error) in
+      if let pods = pods {
+        self.autoCompletions.appendContentsOf(pods)
+      }
+    }
+  }
 
   // As the userProject is DI'd into the PodfileVC
   // it occurs after the view is set up.
@@ -34,6 +52,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     editor.colourForKeywords = settings.cpBlue
     editor.colourForVariables = settings.cpGreen
     editor.colourForInstructions = settings.cpBrightMagenta
+    editor.autoCompleteDelegate = self
 
     editor.tabWidth = 2
     editor.indentWithSpaces = true
@@ -42,6 +61,10 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     
     syntaxChecker = CPPodfileReflection(podfileEditorVC: self, fragariaEditor: editor)
     syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
+  }
+
+  func completions() -> [AnyObject]! {
+      return autoCompletions
   }
 
   func textDidChange(notification: NSNotification) {
