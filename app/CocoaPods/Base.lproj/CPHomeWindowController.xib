@@ -29,18 +29,30 @@
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
+                    <visualEffectView appearanceType="vibrantLight" fixedFrame="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="HtW-rw-ITV">
+                        <rect key="frame" x="432" y="-5" width="234" height="495"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
+                                <rect key="frame" x="83" y="468" width="64" height="14"/>
+                                <buttonCell key="cell" type="inline" title="Spotlight" bezelStyle="inline" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </visualEffectView>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
-                        <rect key="frame" x="432" y="0.0" width="233" height="490"/>
-                        <clipView key="contentView" id="8EY-xl-otL">
-                            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
+                        <rect key="frame" x="432" y="0.0" width="233" height="454"/>
+                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="8EY-xl-otL">
+                            <rect key="frame" x="0.0" y="0.0" width="233" height="454"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="233" height="454"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                    <color key="gridColor" white="0.80000000000000004" alpha="0.0" colorSpace="deviceWhite"/>
                                     <tableColumns>
                                         <tableColumn width="230" minWidth="40" maxWidth="1000" id="Sec-qc-bad">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
@@ -121,7 +133,7 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                         </clipView>
                         <constraints>
                             <constraint firstAttribute="width" constant="233" id="6tS-NZ-2Mw"/>
@@ -135,35 +147,6 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="9pW-mq-gji">
-                        <rect key="frame" x="432" y="0.0" width="233" height="490"/>
-                        <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="o1v-Y5-7bX">
-                                <rect key="frame" x="16" y="203" width="201" height="84"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="Pyn-Xc-2H8"/>
-                                </constraints>
-                                <buttonCell key="cell" type="square" title="Open an existing Podfile" alternateTitle="Open an existing Podfile" bezelStyle="shadowlessSquare" image="OpenDocument" imagePosition="above" alignment="center" alternateImage="OpenDocumentSelected" inset="2" id="40v-7y-tY1">
-                                    <behavior key="behavior" lightByContents="YES"/>
-                                    <font key="font" metaFont="miniSystem"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="openDocument:" target="-1" id="gKX-Z4-ley"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="o1v-Y5-7bX" firstAttribute="leading" secondItem="9pW-mq-gji" secondAttribute="leading" constant="16" id="Ryc-0C-Yz3"/>
-                            <constraint firstAttribute="trailing" secondItem="o1v-Y5-7bX" secondAttribute="trailing" constant="16" id="cNe-SU-0Ug"/>
-                            <constraint firstItem="o1v-Y5-7bX" firstAttribute="centerY" secondItem="9pW-mq-gji" secondAttribute="centerY" id="rWx-BF-7pm"/>
-                        </constraints>
-                    </customView>
-                    <box horizontalHuggingPriority="750" misplaced="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EzD-1M-8dC">
-                        <rect key="frame" x="429" y="114" width="5" height="376"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
-                    </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltc-2S-rGH">
                         <rect key="frame" x="14" y="17" width="119" height="32"/>
                         <buttonCell key="cell" type="push" title="Open Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HCL-S8-9ry">
@@ -209,6 +192,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="154" id="9Zl-e5-dyP"/>
                             <constraint firstItem="YAO-eB-e3O" firstAttribute="centerX" secondItem="09I-WM-Nv4" secondAttribute="centerX" id="mPg-yC-B4e"/>
+                            <constraint firstAttribute="width" constant="432" id="oHd-6w-sna"/>
                             <constraint firstItem="YAO-eB-e3O" firstAttribute="centerY" secondItem="09I-WM-Nv4" secondAttribute="centerY" id="xuX-lv-28J"/>
                         </constraints>
                     </customView>
@@ -223,21 +207,20 @@
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-f6-3vu" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="454" width="432" height="36"/>
                     </customView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
+                        <rect key="frame" x="446" y="463" width="57" height="17"/>
+                        <buttonCell key="cell" type="inline" title="Recent" bezelStyle="inline" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cK3-dR-BDB">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystemBold"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9pW-mq-gji" firstAttribute="centerY" secondItem="3Jq-7y-btG" secondAttribute="centerY" id="DLj-CW-6d6"/>
                     <constraint firstItem="09I-WM-Nv4" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="162" id="HK3-tO-Eun"/>
-                    <constraint firstItem="9pW-mq-gji" firstAttribute="height" secondItem="3Jq-7y-btG" secondAttribute="height" id="SYQ-ac-gvi"/>
                     <constraint firstItem="09I-WM-Nv4" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="TmG-Y2-ZOc"/>
                     <constraint firstAttribute="trailing" secondItem="3Jq-7y-btG" secondAttribute="trailing" id="Y7a-a5-JXb"/>
-                    <constraint firstItem="EzD-1M-8dC" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="iA7-Uv-qga"/>
-                    <constraint firstItem="9pW-mq-gji" firstAttribute="width" secondItem="3Jq-7y-btG" secondAttribute="width" id="io8-78-kBB"/>
                     <constraint firstAttribute="bottom" secondItem="3Jq-7y-btG" secondAttribute="bottom" id="jue-MZ-Be6"/>
-                    <constraint firstItem="EzD-1M-8dC" firstAttribute="leading" secondItem="09I-WM-Nv4" secondAttribute="trailing" constant="-1" id="jzI-hZ-hk6"/>
-                    <constraint firstItem="3Jq-7y-btG" firstAttribute="leading" secondItem="EzD-1M-8dC" secondAttribute="trailing" id="rti-SZ-bwt"/>
-                    <constraint firstItem="9pW-mq-gji" firstAttribute="centerX" secondItem="3Jq-7y-btG" secondAttribute="centerX" id="uDW-Wl-mqs"/>
-                    <constraint firstItem="3Jq-7y-btG" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="xCt-6i-kaX"/>
-                    <constraint firstAttribute="bottom" secondItem="EzD-1M-8dC" secondAttribute="bottom" id="xRG-cZ-Yan"/>
+                    <constraint firstItem="3Jq-7y-btG" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="36" id="xCt-6i-kaX"/>
                 </constraints>
                 <connections>
                     <outlet property="nextKeyView" destination="xXw-3l-NGv" id="WyM-Nx-6b4"/>
@@ -262,11 +245,7 @@
             <point key="canvasLocation" x="528.5" y="415"/>
         </window>
         <customObject id="4vU-Cg-0pp" customClass="CPSpotlightPodfileController" customModule="CocoaPods" customModuleProvider="target"/>
-        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController">
-            <connections>
-                <outlet property="openDocumentButton" destination="o1v-Y5-7bX" id="dwq-hg-9SY"/>
-            </connections>
-        </customObject>
+        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController"/>
         <customObject id="TsL-KI-RcJ" customClass="CPExternalLinksHelper"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="3g8-qK-y7T" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="432" height="474"/>
@@ -399,6 +378,31 @@ Command-Line Tools?</string>
             <point key="canvasLocation" x="-145" y="423"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="0Ov-2i-yXv"/>
+        <customView id="qtI-Qc-skM">
+            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IRs-Lz-3U3">
+                    <rect key="frame" x="16" y="185" width="201" height="84"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="84" id="4m3-st-vAg"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" title="Open an existing Podfile" alternateTitle="Open an existing Podfile" bezelStyle="shadowlessSquare" image="OpenDocument" imagePosition="above" alignment="center" alternateImage="OpenDocumentSelected" inset="2" id="t2E-3t-aO7">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="miniSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openDocument:" target="-1" id="qFa-TE-MSn"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="IRs-Lz-3U3" firstAttribute="centerY" secondItem="qtI-Qc-skM" secondAttribute="centerY" id="0fv-Ac-RdN"/>
+                <constraint firstAttribute="trailing" secondItem="IRs-Lz-3U3" secondAttribute="trailing" constant="16" id="aud-Kr-wSi"/>
+                <constraint firstItem="IRs-Lz-3U3" firstAttribute="leading" secondItem="qtI-Qc-skM" secondAttribute="leading" constant="16" id="mst-ef-TGJ"/>
+            </constraints>
+            <point key="canvasLocation" x="1136.5" y="415"/>
+        </customView>
     </objects>
     <resources>
         <image name="CP-Term" width="420" height="120"/>
