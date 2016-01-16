@@ -65,4 +65,19 @@
   [self.completionPromise checkForFulfillment];
 }
 
+#pragma mark - NSFilePresenter
+
+- (void)presentedItemDidChange
+{
+  NSError *error;
+  [self readFromURL:self.fileURL ofType:self.fileType error:&error];
+  
+  if (!error) {
+    if ( [self.delegate respondsToSelector: @selector(contentDidChangeinUserProject:)] ) {
+      [self.delegate contentDidChangeinUserProject:self];
+    }
+  }
+  
+}
+
 @end

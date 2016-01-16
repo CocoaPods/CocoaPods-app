@@ -5,7 +5,7 @@ import Fragaria
 /// and ensure the changes are sent back upstream to the 
 /// CPPodfileViewController's CPUserProject
 
-class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAutoCompleteDelegate {
+class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAutoCompleteDelegate, CPUserProjectDelegate {
 
   @IBOutlet var editor: MGSFragariaView!
   var syntaxChecker: CPPodfileReflection!
@@ -39,6 +39,8 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     guard let podfileVC = podfileViewController, project = podfileVC.userProject else {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
+    
+    project.delegate = self
 
     editor.syntaxColoured = true
     editor.syntaxDefinitionName = "Podfile"
@@ -75,6 +77,13 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
 
     // Passing the message on to the syntax checker
     syntaxChecker.textDidChange(notification)
+  }
+  
+  func contentDidChangeinUserProject(userProject: CPUserProject) {
+    editor.string = userProject.contents
+    
+    // Passing the message on to the syntax checker
+    syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
   }
 
   @IBAction func commentSelection(sender: NSMenuItem) {
