@@ -23,14 +23,13 @@
   [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor ansiBrightWhite] range:range];
   [self.openDocumentButton setAttributedAlternateTitle:attrTitle];
   
-  [self setupRecentDocuments];
   [self prepareData];
 }
 
-- (void)setupRecentDocuments
+- (NSArray<CPHomeWindowDocumentEntry *> *)recentDocuments
 {
   NSDocumentController *controller = [NSDocumentController sharedDocumentController];
-  self.recentDocuments = [controller.recentDocumentURLs map:^id(id url) {
+  return [controller.recentDocumentURLs map:^id(id url) {
     return [CPHomeWindowDocumentEntry documentEntryWithURL:url];
   }];
 }

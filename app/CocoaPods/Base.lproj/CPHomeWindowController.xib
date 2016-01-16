@@ -24,25 +24,63 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <visualEffectView appearanceType="vibrantLight" fixedFrame="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="HtW-rw-ITV">
+                    <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="HtW-rw-ITV">
                         <rect key="frame" x="432" y="-5" width="234" height="495"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
-                                <rect key="frame" x="83" y="470" width="64" height="14"/>
-                                <buttonCell key="cell" type="inline" title="Spotlight" bezelStyle="inline" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystemBold"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="spotlightButtonTapped:" target="Whb-bK-is0" id="wkQ-KE-rzI"/>
-                                </connections>
-                            </button>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="FP0-mA-dMU" customClass="TransparentWhiteView" customModule="CocoaPods" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="460" width="233" height="36"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
+                                        <rect key="frame" x="14" y="9" width="57" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="57" id="XTB-Da-zeW"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="inline" title="Recent" bezelStyle="inline" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cK3-dR-BDB">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystemBold"/>
+                                            <string key="keyEquivalent">1</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
+                                        <rect key="frame" x="83" y="11" width="64" height="14"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="N7l-o4-iu8"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="inline" title="Spotlight" bezelStyle="inline" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystemBold"/>
+                                            <string key="keyEquivalent">2</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="spotlightButtonTapped:" target="Whb-bK-is0" id="wkQ-KE-rzI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="UXQ-ah-FzE" firstAttribute="leading" secondItem="3dY-gu-lGh" secondAttribute="trailing" constant="12" id="3Td-kG-ZW7"/>
+                                    <constraint firstItem="UXQ-ah-FzE" firstAttribute="centerY" secondItem="FP0-mA-dMU" secondAttribute="centerY" id="8Jb-fY-bMB"/>
+                                    <constraint firstAttribute="height" constant="36" id="Jeq-53-Zxz"/>
+                                    <constraint firstItem="3dY-gu-lGh" firstAttribute="leading" secondItem="FP0-mA-dMU" secondAttribute="leading" constant="14" id="RVO-CC-VGG"/>
+                                    <constraint firstItem="3dY-gu-lGh" firstAttribute="centerY" secondItem="FP0-mA-dMU" secondAttribute="centerY" id="ret-TB-hmI"/>
+                                    <constraint firstAttribute="width" constant="233" id="ylU-sl-dar"/>
+                                </constraints>
+                            </customView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="FP0-mA-dMU" firstAttribute="top" secondItem="HtW-rw-ITV" secondAttribute="top" constant="-1" id="5nP-Hm-A4Q"/>
+                            <constraint firstAttribute="trailing" secondItem="FP0-mA-dMU" secondAttribute="trailing" constant="1" id="Rty-Uc-eZl"/>
+                            <constraint firstAttribute="width" constant="234" id="z65-13-iia"/>
+                        </constraints>
                     </visualEffectView>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
                         <rect key="frame" x="432" y="0.0" width="233" height="454"/>
@@ -210,18 +248,11 @@
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-f6-3vu" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="454" width="432" height="36"/>
                     </customView>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
-                        <rect key="frame" x="446" y="463" width="57" height="17"/>
-                        <buttonCell key="cell" type="inline" title="Recent" bezelStyle="inline" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cK3-dR-BDB">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="HtW-rw-ITV" secondAttribute="bottom" constant="-5" id="1Wu-PO-bZ6"/>
+                    <constraint firstItem="HtW-rw-ITV" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="9Ca-ZB-0n4"/>
+                    <constraint firstAttribute="trailing" secondItem="HtW-rw-ITV" secondAttribute="trailing" constant="-1" id="F9G-j7-rdt"/>
                     <constraint firstItem="09I-WM-Nv4" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="162" id="HK3-tO-Eun"/>
                     <constraint firstItem="09I-WM-Nv4" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="TmG-Y2-ZOc"/>
                     <constraint firstAttribute="trailing" secondItem="3Jq-7y-btG" secondAttribute="trailing" id="Y7a-a5-JXb"/>
@@ -250,8 +281,8 @@
             </connections>
             <point key="canvasLocation" x="528.5" y="415"/>
         </window>
-        <customObject id="4vU-Cg-0pp" customClass="CPSpotlightPodfileController" customModule="CocoaPods" customModuleProvider="target"/>
-        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController"/>
+        <customObject id="4vU-Cg-0pp" customClass="CPSpotlightDocumentSource" customModule="CocoaPods" customModuleProvider="target"/>
+        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentSource" customModule="CocoaPods" customModuleProvider="target"/>
         <customObject id="TsL-KI-RcJ" customClass="CPExternalLinksHelper"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="3g8-qK-y7T" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="432" height="474"/>

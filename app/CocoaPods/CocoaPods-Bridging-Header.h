@@ -11,3 +11,4 @@
 #import "CPExternalLinksHelper.h"
 #import "CPHomeWindowDocumentEntry.h"
 #import "CPRecentDocumentsController.h"
+#import "CPMiniPromise.h"

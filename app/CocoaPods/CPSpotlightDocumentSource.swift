@@ -1,11 +1,13 @@
 import Cocoa
 
-class CPSpotlightPodfileController: NSObject {
+class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
   let query = NSMetadataQuery()
   var documents = [CPHomeWindowDocumentEntry]()
+  var completedPromise = CPMiniPromise()
 
   override func awakeFromNib() {
     start();
+    completedPromise.delegate = self
   }
 
   func start() {
@@ -14,7 +16,7 @@ class CPSpotlightPodfileController: NSObject {
     notificationCenter.addObserver(self, selector: "queryFinished:", name: NSMetadataQueryDidUpdateNotification, object: self.query)
 
     query.predicate = NSPredicate(format: "kMDItemFSName == 'Podfile'", argumentArray: nil)
-    query.sortDescriptors = [NSSortDescriptor(key: kMDItemLastUsedDate as String, ascending: true)]
+    query.sortDescriptors = [NSSortDescriptor(key: kMDItemContentModificationDate as String, ascending: true)]
     query.searchScopes = [NSMetadataQueryIndexedLocalComputerScope]
     query.valueListAttributes = [NSMetadataItemPathKey]
 
@@ -38,5 +40,11 @@ class CPSpotlightPodfileController: NSObject {
   func queryFinished(notification: NSNotification) {
     let notificationCenter = NSNotificationCenter.defaultCenter()
     notificationCenter.removeObserver(self)
+    query.stopQuery()
+    completedPromise.checkForFulfillment()
+  }
+
+  func shouldForfilPromise(promise: CPMiniPromise!) -> Bool {
+    return query.stopped
   }
 }
