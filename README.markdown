@@ -67,4 +67,4 @@ We have heard reports of issues with installing on custom ruby installations, we
 3. Checkout the `gh-pages` branch: `git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages`.
 4. Add `gh-pages/releases/VERSION.html` and recreate the changelog you added to the GitHub release as HTML.
 5. Update `gh-pages/sparkle.xml` to include the new version ‘item’.
-6. Make a pull request to [https://github.com/caskroom/homebrew-cask/blob/master/Casks/cocoapods.rb](homebrew-cask) updating the `version` and `sha256`
+6. Make a pull request to [homebrew-cask](https://github.com/caskroom/homebrew-cask/blob/master/Casks/cocoapods.rb) updating the `version` and `sha256`
