@@ -40,7 +40,7 @@
   return [self.contents writeToURL:absoluteURL atomically:YES encoding:NSUTF8StringEncoding error:outError];
 }
 
-- (BOOL)shouldForfilPromise:(CPMiniPromise *)promise
+- (BOOL)shouldFulfillPromise:(CPMiniPromise *)promise
 {
   return self.xcodeIntegrationDictionary && self.podfilePlugins;
 }
