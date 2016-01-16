@@ -64,7 +64,6 @@
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender;
 {
-  [self showHomeWindow:sender];
   return NO;
 }
 
