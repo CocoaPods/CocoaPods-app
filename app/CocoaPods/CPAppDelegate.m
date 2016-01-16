@@ -30,7 +30,7 @@
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPDoNotRequestCLIToolInstallationAgainKey];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
 #endif
-  
+
   [self startReflectionService];
 }
 
@@ -64,7 +64,6 @@
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender;
 {
-  [self showHomeWindow:sender];
   return NO;
 }
 

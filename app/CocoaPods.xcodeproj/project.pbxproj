@@ -49,6 +49,8 @@
 		601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
+		60227EC21C351A6300A29515 /* CPPodfilePluginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */; };
+		60227EC41C351A7700A29515 /* CPInstallPluginsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */; };
 		6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */; };
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
 		6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */; };
@@ -75,12 +77,15 @@
 		60E693B51C4A71E50058DF5F /* CPSidebarDocumentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */; };
 		60E693B91C4A8DAD0058DF5F /* CPRecentDocumentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693B81C4A8DAD0058DF5F /* CPRecentDocumentSource.swift */; };
 		60E693BB1C4A8F1D0058DF5F /* ColouredViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693BA1C4A8F1D0058DF5F /* ColouredViews.swift */; };
+		60E693B01C4A3AF80058DF5F /* NSAttributedString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E693AF1C4A3AF80058DF5F /* NSAttributedString+Helpers.m */; };
+		60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
 		77356D751A2253F1002822CF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77356D741A2253F1002822CF /* Media.xcassets */; };
 		7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */; };
+		E70998471C49AB5B00229507 /* Podfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70998461C49AB5B00229507 /* Podfile.plist */; };
 		FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FAD11C144BF300DC3791 /* URLHandler.swift */; };
 		FCDCC48F0E8CE099C20D1DEB /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */; };
 /* End PBXBuildFile section */
@@ -213,6 +218,8 @@
 		601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPExternalLinksHelper.m; sourceTree = "<group>"; };
 		601F91131BE6435E00AD22B1 /* NSURL+TersePaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TersePaths.h"; sourceTree = "<group>"; };
 		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
+		60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfilePluginCoordinator.swift; sourceTree = "<group>"; };
+		60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInstallPluginsViewController.swift; sourceTree = "<group>"; };
 		6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Home Screen.xcassets"; sourceTree = "<group>"; };
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
 		6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMetadataTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -245,6 +252,8 @@
 		60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSidebarDocumentsController.swift; sourceTree = "<group>"; };
 		60E693B81C4A8DAD0058DF5F /* CPRecentDocumentSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPRecentDocumentSource.swift; sourceTree = "<group>"; };
 		60E693BA1C4A8F1D0058DF5F /* ColouredViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColouredViews.swift; sourceTree = "<group>"; };
+		60E693AE1C4A3AF80058DF5F /* NSAttributedString+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Helpers.h"; sourceTree = "<group>"; };
+		60E693AF1C4A3AF80058DF5F /* NSAttributedString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Helpers.m"; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F02D1D1C0A2A6D003600FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
@@ -257,6 +266,7 @@
 		77356D741A2253F1002822CF /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPANSIEscapeHelper.h; sourceTree = "<group>"; };
 		7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPANSIEscapeHelper.m; sourceTree = "<group>"; };
+		E70998461C49AB5B00229507 /* Podfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Podfile.plist; path = "Syntax Definitions/Podfile.plist"; sourceTree = "<group>"; };
 		EBD9373107B77CCDFCD43B67 /* Pods-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
 		EEB7DFACCFDF9B3B443AF311 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA16FAD11C144BF300DC3791 /* URLHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
@@ -394,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				5180FE931AD2A51300314D61 /* LICENSE */,
+				E70998461C49AB5B00229507 /* Podfile.plist */,
 				77356D741A2253F1002822CF /* Media.xcassets */,
 				51D2E5AF1A212A0800C0B153 /* Syntax Definitions */,
 				51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */,
@@ -421,6 +432,15 @@
 				601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */,
 			);
 			name = "Podfile Metadata";
+			sourceTree = "<group>";
+		};
+		60227EC01C351A5600A29515 /* Plugin Installation */ = {
+			isa = PBXGroup;
+			children = (
+				60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */,
+				60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */,
+			);
+			name = "Plugin Installation";
 			sourceTree = "<group>";
 		};
 		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
@@ -554,6 +574,7 @@
 		60FE01631B9B76470027EEE3 /* Podfile Window */ = {
 			isa = PBXGroup;
 			children = (
+				60227EC01C351A5600A29515 /* Plugin Installation */,
 				601ACA9C1C37F33F0058FA86 /* Podfile Metadata */,
 				606D1ED11BF90705000B7148 /* Podfile.storyboard */,
 				6075BA641C068B5F00A5C491 /* Podfile.xcassets */,
@@ -586,6 +607,8 @@
 				66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */,
 				601ACAA41C392BDD0058FA86 /* NSArray+Helpers.h */,
 				601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */,
+				60E693AE1C4A3AF80058DF5F /* NSAttributedString+Helpers.h */,
+				60E693AF1C4A3AF80058DF5F /* NSAttributedString+Helpers.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -762,6 +785,7 @@
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
 				606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */,
+				E70998471C49AB5B00229507 /* Podfile.plist in Resources */,
 				6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */,
 				6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */,
 				5180FE941AD2A51300314D61 /* LICENSE in Resources */,
@@ -909,6 +933,7 @@
 			files = (
 				510F096E1C0A702200F40F2B /* RBObject+CocoaPods.m in Sources */,
 				5102542A1C0A60680045FCD8 /* main.m in Sources */,
+				60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */,
 				510254281C0A60680045FCD8 /* CPReflectionService.m in Sources */,
 				510F09731C0A734800F40F2B /* CPRubyErrors.m in Sources */,
 			);
@@ -926,8 +951,11 @@
 				60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */,
 				5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
+				60227EC21C351A6300A29515 /* CPPodfilePluginCoordinator.swift in Sources */,
 				601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */,
+				60E693B01C4A3AF80058DF5F /* NSAttributedString+Helpers.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
+				60227EC41C351A7700A29515 /* CPInstallPluginsViewController.swift in Sources */,
 				606D1EDA1BF911EF000B7148 /* CPPodfileViewController.swift in Sources */,
 				605119201C08C4C00037B95E /* CPReturnTriggeringTableView.swift in Sources */,
 				605119251C08F5880037B95E /* CPFontAndColourGateKeeper.swift in Sources */,

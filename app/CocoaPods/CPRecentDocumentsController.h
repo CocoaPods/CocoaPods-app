@@ -16,4 +16,6 @@
 @property (nonatomic, readwrite, weak) IBOutlet NSTableView *documentsTableView;
 @property (weak) IBOutlet NSButton *openDocumentButton;
 
+- (void)refreshRecentDocuments;
+
 @end

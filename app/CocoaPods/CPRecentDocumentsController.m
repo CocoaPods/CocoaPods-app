@@ -2,25 +2,21 @@
 #import "NSColor+CPColors.h"
 #import "NSArray+Helpers.h"
 #import "CPHomeWindowDocumentEntry.h"
+#import "NSAttributedString+Helpers.h"
 
 @implementation CPRecentDocumentsController
 
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  
-  NSMutableAttributedString *attrTitle =
-  [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE", nil)];
-  NSUInteger len = [attrTitle length];
-  NSRange range = NSMakeRange(0, len);
-  [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor ansiMutedWhite] range:range];
-  [attrTitle addAttribute:NSFontAttributeName value:[NSFont systemFontOfSize:13.0] range:range];
-  NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-  paragraphStyle.alignment = NSTextAlignmentCenter;
-  [attrTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
-  [attrTitle fixAttributesInRange:range];
+
+  NSString *title = NSLocalizedString(@"MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE", nil);
+  NSAttributedString *attrTitle = [NSAttributedString string:title color:[NSColor ansiMutedWhite] font:[NSFont labelFontOfSize:13] alignment:NSTextAlignmentCenter];
+
   [self.openDocumentButton setAttributedTitle:attrTitle];
-  [attrTitle addAttribute:NSForegroundColorAttributeName value:[NSColor ansiBrightWhite] range:range];
+
+  attrTitle = [NSAttributedString string:title color:[NSColor ansiBrightWhite] font:[NSFont labelFontOfSize:13] alignment:NSTextAlignmentCenter];
+
   [self.openDocumentButton setAttributedAlternateTitle:attrTitle];
   
   [self prepareData];
@@ -47,5 +43,11 @@
   }
 }
 
+- (void)refreshRecentDocuments
+{
+//  [self setupRecentDocuments];
+  [self prepareData];
+  [self.documentsTableView reloadData];
+}
 
 @end
