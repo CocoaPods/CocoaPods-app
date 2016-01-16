@@ -4,7 +4,7 @@ class CPBrownVisualEffectsView: NSVisualEffectView {
 
   override func awakeFromNib() {
 
-    let brown = BrownView(frame: self.bounds)
+    let brown = TransparentBrownView(frame: self.bounds)
     brown.translatesAutoresizingMaskIntoConstraints = false
     addSubview(brown, positioned: .Below, relativeTo: nil)
 
@@ -13,12 +13,20 @@ class CPBrownVisualEffectsView: NSVisualEffectView {
   }
 }
 
-class BrownView: NSView {
+class TransparentBrownView: NSView {
   override func drawRect(dirtyRect: NSRect) {
     NSColor.init(colorLiteralRed: 56/256, green: 1/256, blue: 0, alpha: 0.6).set()
     NSRectFill(dirtyRect);
   }
 }
+
+class BrownView: NSView {
+  override func drawRect(dirtyRect: NSRect) {
+    NSColor.init(colorLiteralRed: 56/256, green: 1/256, blue: 0, alpha: 1).set()
+    NSRectFill(dirtyRect);
+  }
+}
+
 
 class BlueView: NSView {
     override func drawRect(dirtyRect: NSRect) {

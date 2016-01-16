@@ -71,6 +71,7 @@
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
 		60E693A91C49B5980058DF5F /* CPSpotlightPodfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693A81C49B5980058DF5F /* CPSpotlightPodfileController.swift */; };
 		60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */; };
+		60E693B31C4A561E0058DF5F /* CPThickDecorationsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693B21C4A561E0058DF5F /* CPThickDecorationsWindow.swift */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */; };
@@ -237,6 +238,7 @@
 		60E693A81C49B5980058DF5F /* CPSpotlightPodfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSpotlightPodfileController.swift; sourceTree = "<group>"; };
 		60E693AA1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeWindowDocumentEntry.h; sourceTree = "<group>"; };
 		60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowDocumentEntry.m; sourceTree = "<group>"; };
+		60E693B21C4A561E0058DF5F /* CPThickDecorationsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPThickDecorationsWindow.swift; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F02D1D1C0A2A6D003600FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
@@ -370,16 +372,13 @@
 		51165E211A17AFF500DCFC94 /* CocoaPods */ = {
 			isa = PBXGroup;
 			children = (
-				606D1ED31BF91040000B7148 /* CocoaPods-Bridging-Header.h */,
-				51165E241A17AFF500DCFC94 /* CPAppDelegate.h */,
-				51165E251A17AFF500DCFC94 /* CPAppDelegate.m */,
-				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
+				60E693B11C4A52AF0058DF5F /* App */,
 				331188541BEBCB0F00272793 /* CLI Integrations */,
 				60FE01641B9B76520027EEE3 /* Project */,
 				60FE01631B9B76470027EEE3 /* Podfile Window */,
-				60FE016D1B9B7F000027EEE3 /* Categories */,
 				60FE01621B9B76400027EEE3 /* Home Window */,
 				FA16FACB1C14475200DC3791 /* URL Handling */,
+				60FE016D1B9B7F000027EEE3 /* Categories */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
 			);
 			path = CocoaPods;
@@ -447,6 +446,7 @@
 				60814A841C2B100F00D6663E /* CPBorderedButton.m */,
 				60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */,
 				60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */,
+				60E693B21C4A561E0058DF5F /* CPThickDecorationsWindow.swift */,
 			);
 			name = "Custom Subviews";
 			sourceTree = "<group>";
@@ -454,11 +454,11 @@
 		605119211C08D7CD0037B95E /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */,
 				605119221C08F02D0037B95E /* CPBrownVisualEffectsView.swift */,
 				5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */,
 				5EF5B7861C17990400F8C39E /* CPSideButton.swift */,
 				60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */,
+				6051191C1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -503,6 +503,17 @@
 				60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		60E693B11C4A52AF0058DF5F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				606D1ED31BF91040000B7148 /* CocoaPods-Bridging-Header.h */,
+				51165E241A17AFF500DCFC94 /* CPAppDelegate.h */,
+				51165E251A17AFF500DCFC94 /* CPAppDelegate.m */,
+				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
+			);
+			name = App;
 			sourceTree = "<group>";
 		};
 		60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */ = {
@@ -924,6 +935,7 @@
 				60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */,
+				60E693B31C4A561E0058DF5F /* CPThickDecorationsWindow.swift in Sources */,
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */,

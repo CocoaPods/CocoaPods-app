@@ -20,8 +20,8 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Welcome to CocoaPods" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
+        <window title="Welcome to CocoaPods" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5" customClass="CPThickDecorationsWindow" customModule="CocoaPods" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
@@ -32,7 +32,7 @@
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
                         <rect key="frame" x="432" y="0.0" width="233" height="490"/>
                         <clipView key="contentView" id="8EY-xl-otL">
-                            <rect key="frame" x="0.5" y="-0.5" width="233" height="490"/>
+                            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
@@ -220,6 +220,9 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-f6-3vu" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="454" width="432" height="36"/>
+                    </customView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9pW-mq-gji" firstAttribute="centerY" secondItem="3Jq-7y-btG" secondAttribute="centerY" id="DLj-CW-6d6"/>
@@ -240,6 +243,18 @@
                     <outlet property="nextKeyView" destination="xXw-3l-NGv" id="WyM-Nx-6b4"/>
                 </connections>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="3E2B1240-DD6E-4C45-97C3-FD06639D8F4C" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="labelOnly" sizeMode="regular" id="KvL-CM-rWe">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="mXw-uL-8D4"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="Tyv-gI-PZr"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="WyM-L7-DLJ"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="2i7-kA-wbP"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="rar-cO-HAi"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="rar-cO-HAi"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
                 <outlet property="initialFirstResponder" destination="xXw-3l-NGv" id="sqC-3z-Zyk"/>

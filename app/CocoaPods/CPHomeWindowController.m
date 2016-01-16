@@ -47,7 +47,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
   self.cliToolController = [self createCLIToolInstallationController];
   if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
-    [self addCLIInstallerMessageAnimated:YES];
+//    [self addCLIInstallerMessageAnimated:YES];
   }
 }
 

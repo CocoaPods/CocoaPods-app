@@ -561,12 +561,12 @@
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="BGa-sn-2lb">
                                 <rect key="frame" x="240" y="284" width="32" height="32"/>
                                 <connections>
+                                    <binding destination="mRe-Ue-0Lb" name="hidden" keyPath="self.showingMetadata" id="Dol-nT-1he"/>
                                     <binding destination="mRe-Ue-0Lb" name="animate" keyPath="self.showingMetadata" id="Zgy-FB-RPb">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="mRe-Ue-0Lb" name="hidden" keyPath="self.showingMetadata" id="Dol-nT-1he"/>
                                 </connections>
                             </progressIndicator>
                         </subviews>
@@ -640,10 +640,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
@@ -659,7 +659,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
+                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
