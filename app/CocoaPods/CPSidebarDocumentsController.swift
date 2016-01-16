@@ -41,8 +41,10 @@ class CPSidebarDocumentsController: NSObject {
     // for sure
 
     if source.documents.isEmpty {
-
+      loading = true
       spotlightSource.completedPromise.addBlock {
+        self.loading = false
+
         let stillSelectedSpotlight = !sender.enabled
         if !stillSelectedSpotlight { return }
 
@@ -57,8 +59,30 @@ class CPSidebarDocumentsController: NSObject {
     }
   }
 
+  @IBOutlet weak var openPodfileView: NSView!
+  @IBOutlet weak var documentScrollView: NSScrollView!
   func showPopoverForOpenPodfile() {
 
+    // Setup the title for the button
+    let title = NSLocalizedString("MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE", comment:"")
+    let buttonTitle = NSAttributedString.init(title, color: .CPDarkColor(), font: .labelFontOfSize(13), alignment: .Center)
+    let altButtonTitle = NSAttributedString.init(title, color: .CPDarkColor(), font: .labelFontOfSize(13), alignment: .Center)
+
+    for case let button as NSButton in openPodfileView.subviews {
+      button.attributedTitle = buttonTitle
+      button.attributedAlternateTitle = altButtonTitle
+    }
+
+    // Replace the tableview with our "Open Podfile" button
+    documentScrollView.hidden = true
+    openPodfileView.frame = documentScrollView.frame
+    documentScrollView.superview?.addSubview(openPodfileView)
+
+    // Make sure that you can't tap change the doc types that will do nothing
+    buttons.forEach { (button) in
+      button.bordered = false
+      button.enabled = false
+    }
   }
 
   func deselectButton(button:NSButton) {

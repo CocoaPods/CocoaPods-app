@@ -58,8 +58,8 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
 {
   NSInteger row = [sender selectedRow];
-  CPHomeWindowDocumentEntry *item = self.recentDocumentsController.recentDocuments[row];
-
+  NSTableCellView *cell = [sender viewAtColumn:0 row:row makeIfNecessary:NO];
+  CPHomeWindowDocumentEntry *item = cell.objectValue;
   NSDocumentController *controller = [NSDocumentController sharedDocumentController];
   [controller openDocumentWithContentsOfURL:item.podfileURL display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
     [self.window orderOut:self];

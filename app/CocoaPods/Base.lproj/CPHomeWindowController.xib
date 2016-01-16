@@ -35,8 +35,8 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="FP0-mA-dMU" customClass="TransparentWhiteView" customModule="CocoaPods" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="460" width="233" height="36"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
-                                        <rect key="frame" x="14" y="9" width="57" height="17"/>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
+                                        <rect key="frame" x="50" y="9" width="57" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="57" id="XTB-Da-zeW"/>
                                         </constraints>
@@ -50,8 +50,8 @@
                                             <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
-                                        <rect key="frame" x="83" y="11" width="64" height="14"/>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
+                                        <rect key="frame" x="119" y="11" width="64" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="N7l-o4-iu8"/>
                                         </constraints>
@@ -248,6 +248,12 @@
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-f6-3vu" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="454" width="432" height="36"/>
                     </customView>
+                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="D18-np-NEy">
+                        <rect key="frame" x="541" y="219" width="16" height="16"/>
+                        <connections>
+                            <binding destination="Whb-bK-is0" name="animate" keyPath="self.loading" id="bbN-xD-byE"/>
+                        </connections>
+                    </progressIndicator>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="HtW-rw-ITV" secondAttribute="bottom" constant="-5" id="1Wu-PO-bZ6"/>
@@ -416,6 +422,8 @@ Command-Line Tools?</string>
         </customView>
         <customObject id="Whb-bK-is0" customClass="CPSidebarDocumentsController" customModule="CocoaPods" customModuleProvider="target">
             <connections>
+                <outlet property="documentScrollView" destination="3Jq-7y-btG" id="apo-m5-pVe"/>
+                <outlet property="openPodfileView" destination="qtI-Qc-skM" id="JM2-tN-Ixs"/>
                 <outlet property="recentButton" destination="3dY-gu-lGh" id="E0y-zW-8gX"/>
                 <outlet property="recentSource" destination="vg8-5r-eb7" id="vs1-rz-ljY"/>
                 <outlet property="spotlightButton" destination="UXQ-ah-FzE" id="Olm-9m-izB"/>
