@@ -16,7 +16,7 @@ module Pod
         ]
 
         def initialize(argv)
-          @names = argv.remainder!.map(&:strip)
+          @names = argv.remainder!.reject { |name| name.start_with? "--" }.map(&:strip)
           super
         end
 

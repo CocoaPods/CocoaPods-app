@@ -1,3 +1,5 @@
+Encoding.default_external = 'UTF-8'
+
 # This is required for Foundation classes to be known to this side of the bridge at all.
 require 'osx/objc/foundation'
 
@@ -57,6 +59,10 @@ module Pod
 
       uses_frameworks = config.podfile.target_definitions.first.last.to_hash["uses_frameworks"]
       { "projects" => user_projects, "pod_targets" => pod_targets, "uses_frameworks" => uses_frameworks}
+    end
+
+    def self.all_pods
+      Pod::SourcesManager.aggregate.all_pods
     end
   end
 end
