@@ -16,12 +16,3 @@
 @property (weak) IBOutlet NSButton *openDocumentButton;
 
 @end
-
-/// Object representing a document
-
-@interface CPHomeWindowDocumentEntry : NSObject <NSCopying>
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSURL *podfileURL;
-@property (nonatomic, copy) NSImage *image;
-@property (nonatomic, copy) NSString *fileDescription;
-@end

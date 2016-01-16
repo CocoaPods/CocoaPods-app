@@ -24,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -246,6 +246,7 @@
             </connections>
             <point key="canvasLocation" x="528.5" y="415"/>
         </window>
+        <customObject id="4vU-Cg-0pp" customClass="CPSpotlightPodfileController" customModule="CocoaPods" customModuleProvider="target"/>
         <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentsController">
             <connections>
                 <outlet property="openDocumentButton" destination="o1v-Y5-7bX" id="dwq-hg-9SY"/>

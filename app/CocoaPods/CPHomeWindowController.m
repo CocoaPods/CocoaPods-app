@@ -2,6 +2,7 @@
 #import "CPRecentDocumentsController.h"
 #import "CocoaPods-Swift.h"
 #import "CPCLIToolInstallationController.h"
+#import "CPHomeWindowDocumentEntry.h"
 
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 

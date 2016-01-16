@@ -9,3 +9,4 @@
 #import "CPReflectionServiceProtocol.h"
 #import "CPXcodeInformationGenerator.h"
 #import "CPExternalLinksHelper.h"
+#import "CPHomeWindowDocumentEntry.h"

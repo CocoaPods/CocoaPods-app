@@ -69,6 +69,8 @@
 		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
 		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
 		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
+		60E693A91C49B5980058DF5F /* CPSpotlightPodfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693A81C49B5980058DF5F /* CPSpotlightPodfileController.swift */; };
+		60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */; };
@@ -232,6 +234,9 @@
 		60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInterfaceBuilderOnlyLabels.swift; sourceTree = "<group>"; };
 		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
 		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
+		60E693A81C49B5980058DF5F /* CPSpotlightPodfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSpotlightPodfileController.swift; sourceTree = "<group>"; };
+		60E693AA1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeWindowDocumentEntry.h; sourceTree = "<group>"; };
+		60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowDocumentEntry.m; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F02D1D1C0A2A6D003600FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
@@ -491,6 +496,15 @@
 			name = "Podfile Logging";
 			sourceTree = "<group>";
 		};
+		60E693AD1C49C0670058DF5F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				60E693AA1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.h */,
+				60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		60F02D1A1C0A2A6D003600FE /* CocoaPodsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +517,7 @@
 		60FE01621B9B76400027EEE3 /* Home Window */ = {
 			isa = PBXGroup;
 			children = (
+				60E693AD1C49C0670058DF5F /* Models */,
 				6033ECB01C1E588300C2EDAD /* Command Line Tools */,
 				6051191E1C08C4AC0037B95E /* Custom Subviews */,
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
@@ -511,6 +526,7 @@
 				6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */,
 				6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */,
 				6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */,
+				60E693A81C49B5980058DF5F /* CPSpotlightPodfileController.swift */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -901,6 +917,7 @@
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
+				60E693A91C49B5980058DF5F /* CPSpotlightPodfileController.swift in Sources */,
 				6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */,
 				3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */,
 				604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */,
@@ -912,6 +929,7 @@
 				60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */,
 				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
 				606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */,
+				60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */,
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */,
