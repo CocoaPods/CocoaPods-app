@@ -24,7 +24,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -385,7 +385,9 @@ Command-Line Tools?</string>
         </customView>
         <customObject id="Whb-bK-is0" customClass="CPSidebarDocumentsController" customModule="CocoaPods" customModuleProvider="target">
             <connections>
+                <outlet property="recentButton" destination="3dY-gu-lGh" id="E0y-zW-8gX"/>
                 <outlet property="recentSource" destination="vg8-5r-eb7" id="vs1-rz-ljY"/>
+                <outlet property="spotlightButton" destination="UXQ-ah-FzE" id="Olm-9m-izB"/>
                 <outlet property="spotlightSource" destination="4vU-Cg-0pp" id="N1e-V7-cvn"/>
             </connections>
         </customObject>
