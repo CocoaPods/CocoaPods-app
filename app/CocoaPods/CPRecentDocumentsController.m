@@ -63,6 +63,13 @@
   }
 }
 
+- (void)refreshRecentDocuments
+{
+  [self setupRecentDocuments];
+  [self prepareData];
+  [self.documentsTableView reloadData];
+}
+
 - (CPHomeWindowDocumentEntry *)projectDetailsAtURL:(NSURL *)url
 {
   NSFileManager *fileManager = [NSFileManager defaultManager];

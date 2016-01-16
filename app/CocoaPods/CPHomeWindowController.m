@@ -48,6 +48,10 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
     [self addCLIInstallerMessageAnimated:YES];
   }
+  
+  // Drag & Drop registration
+  
+  [self.window registerForDraggedTypes:@[NSFilenamesPboardType]];
 }
 
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
@@ -135,6 +139,53 @@ static CGFloat CPCommandLineAlertHeight = 68;
 {
   NSURL *destinationURL = [NSURL fileURLWithPath:kCPCLIToolSuggestedDestination];
   return [CPCLIToolInstallationController controllerWithSuggestedDestinationURL:destinationURL];
+}
+
+
+// MARK: - Drag & Drop
+
+- (NSString*)fileNameForDraggingPasteboard:(id<NSDraggingInfo>)sender
+{
+  NSPasteboard *pboard = [sender draggingPasteboard];
+  NSDragOperation sourceMask = [sender draggingSourceOperationMask];
+  
+  if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+    if (sourceMask & NSDragOperationLink) {
+      NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+      // allow to drop also multiple files if any of them is Podfile
+      for (NSString *fileName in files) {
+        if ([[fileName lastPathComponent] isEqualToString:@"Podfile"]) {
+          return fileName;
+        }
+      }
+    }
+  }
+  
+  return nil;
+}
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
+{
+  if ([self fileNameForDraggingPasteboard:sender] != nil) {
+    return NSDragOperationCopy;
+  } else {
+    return NSDragOperationNone;
+  }
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
+{
+  NSString *fileName = [self fileNameForDraggingPasteboard:sender];
+  if (fileName != nil) {
+    NSDocumentController *controller = [NSDocumentController sharedDocumentController];
+    [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
+      [self.recentDocumentsController refreshRecentDocuments];
+      [self.window orderOut:self];
+    }];
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 @end
