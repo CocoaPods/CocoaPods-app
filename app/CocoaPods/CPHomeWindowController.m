@@ -47,7 +47,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
   self.cliToolController = [self createCLIToolInstallationController];
   if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
-//    [self addCLIInstallerMessageAnimated:YES];
+    [self addCLIInstallerMessageAnimated:YES];
   }
 }
 
@@ -74,7 +74,7 @@ static CGFloat CPCommandLineAlertHeight = 68;
   self.commandLineToolsHeightConstraint.constant = 2;
   [content addSubview:self.installCommandLineToolsView];
 
-  NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.installCommandLineToolsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:content attribute:NSLayoutAttributeTop multiplier:1 constant:20];
+  NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.installCommandLineToolsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:content attribute:NSLayoutAttributeTop multiplier:1 constant:36];
   [content addConstraint:topConstraint];
 
   id constraint = animate ? self.commandLineToolsHeightConstraint.animator : self.commandLineToolsHeightConstraint;
