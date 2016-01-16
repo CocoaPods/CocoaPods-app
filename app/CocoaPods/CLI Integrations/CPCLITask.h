@@ -3,6 +3,7 @@
 @class CPCLITask;
 @protocol CPCLITaskDelegate <NSObject>
 
+@optional
 /**
  * Called when output is received and appended to the task's log.
  *
@@ -10,6 +11,13 @@
  * @param updatedOutput The string which contains all of the output for this task, including the newest appended part.
  */
 - (void)task:(CPCLITask *)task didUpdateOutputContents:(NSAttributedString *)updatedOutput;
+
+/**
+ * Called when the task is completed.
+ *
+ * @param task The task object receiving the output
+ */
+- (void)taskCompleted:(CPCLITask *)task;
 
 @end
 
@@ -39,6 +47,13 @@
  */
 - (void)cancel;
 
+/// Is the command currently running, KVO compliant
 @property (nonatomic, readonly) BOOL running;
+
+/// Appends `--ansi` to the end of the command, defaults to NO
+@property (nonatomic, assign) BOOL colouriseOutput;
+
+/// Appends `--verbose` to the end of the command, defaults to NO
+@property (nonatomic, assign) BOOL verboseOutput;
 
 @end
