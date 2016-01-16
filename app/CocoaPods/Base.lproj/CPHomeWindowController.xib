@@ -33,7 +33,7 @@
                         <rect key="frame" x="432" y="-5" width="234" height="495"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
-                                <rect key="frame" x="83" y="468" width="64" height="14"/>
+                                <rect key="frame" x="83" y="470" width="64" height="14"/>
                                 <buttonCell key="cell" type="inline" title="Spotlight" bezelStyle="inline" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystemBold"/>

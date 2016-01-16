@@ -9,7 +9,6 @@ class CPSpotlightPodfileController: NSObject {
   }
 
   func start() {
-
     let notificationCenter = NSNotificationCenter.defaultCenter()
     notificationCenter.addObserver(self, selector: "queryUpdated:", name: NSMetadataQueryDidUpdateNotification, object: self.query)
     notificationCenter.addObserver(self, selector: "queryFinished:", name: NSMetadataQueryDidUpdateNotification, object: self.query)
@@ -17,22 +16,23 @@ class CPSpotlightPodfileController: NSObject {
     query.predicate = NSPredicate(format: "kMDItemFSName == 'Podfile'", argumentArray: nil)
     query.sortDescriptors = [NSSortDescriptor(key: kMDItemLastUsedDate as String, ascending: true)]
     query.searchScopes = [NSMetadataQueryIndexedLocalComputerScope]
+    query.valueListAttributes = [NSMetadataItemPathKey]
+
     query.startQuery()
   }
 
   func queryUpdated(notification: NSNotification) {
-    guard let podfiles = notification.userInfo?[kMDQueryUpdateAddedItems] as? [NSMetadataItem] else { return }
+    query.disableUpdates()
 
-    documents = podfiles.flatMap { (metadata) -> CPHomeWindowDocumentEntry? in
-      print(metadata.attributes)
-      guard let url = metadata.valueForAttribute(kMDItemURL as String) else {
-        return nil
-      }
-      print(url)
-      // TODO: the NSMetadataThings dont seem to have a URL?!
-      return CPHomeWindowDocumentEntry(URL: url as! NSURL)
+    guard let podfileMetadatas = notification.userInfo?[kMDQueryUpdateAddedItems] as? [NSMetadataItem] else { return }
+
+    documents = podfileMetadatas.flatMap {
+      guard let path = $0.valueForAttribute(NSMetadataItemPathKey) as? String else { return nil }
+      let url = NSURL(fileURLWithPath: path)
+      return CPHomeWindowDocumentEntry(URL: url)
     }
 
+    query.enableUpdates()
   }
 
   func queryFinished(notification: NSNotification) {
