@@ -6,7 +6,7 @@
 /// and run the blocks.
 
 @protocol CPMiniPromiseDelegate <NSObject>
-- (BOOL)shouldForfilPromise:(CPMiniPromise *)promise;
+- (BOOL)shouldFulfillPromise:(CPMiniPromise *)promise;
 @end
 
 
