@@ -38,6 +38,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystemBold"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="spotlightButtonTapped:" target="Whb-bK-is0" id="wkQ-KE-rzI"/>
+                                </connections>
                             </button>
                         </subviews>
                     </visualEffectView>
@@ -129,7 +132,7 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <binding destination="vg8-5r-eb7" name="content" keyPath="self.recentDocuments" id="qe0-wA-QJZ"/>
+                                        <binding destination="Whb-bK-is0" name="content" keyPath="self.currentSidebarItems" id="gwj-dJ-9wD"/>
                                     </connections>
                                 </tableView>
                             </subviews>
@@ -213,6 +216,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystemBold"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -377,6 +383,12 @@ Command-Line Tools?</string>
             </constraints>
             <point key="canvasLocation" x="-145" y="423"/>
         </customView>
+        <customObject id="Whb-bK-is0" customClass="CPSidebarDocumentsController" customModule="CocoaPods" customModuleProvider="target">
+            <connections>
+                <outlet property="recentSource" destination="vg8-5r-eb7" id="vs1-rz-ljY"/>
+                <outlet property="spotlightSource" destination="4vU-Cg-0pp" id="N1e-V7-cvn"/>
+            </connections>
+        </customObject>
         <userDefaultsController representsSharedInstance="YES" id="0Ov-2i-yXv"/>
         <customView id="qtI-Qc-skM">
             <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>

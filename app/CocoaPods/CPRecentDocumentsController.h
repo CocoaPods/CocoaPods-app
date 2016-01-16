@@ -6,10 +6,11 @@
 
 /// Note: Interactions are handed by CPHomeWindowController
 
+@class CPHomeWindowDocumentEntry;
 @interface CPRecentDocumentsController : NSObject
 
 /// Used in NSTableView via IB bindings
-@property (nonatomic, readwrite, copy) NSArray *recentDocuments;
+@property (nonatomic, readwrite, copy) NSArray <CPHomeWindowDocumentEntry *>*recentDocuments;
 
 /// Used to set the first responder once data has been loadded in
 @property (nonatomic, readwrite, weak) IBOutlet NSTableView *documentsTableView;
