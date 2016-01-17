@@ -1,13 +1,11 @@
 #import "CPHomeWindowController.h"
-#import "CPRecentDocumentsController.h"
 #import "CocoaPods-Swift.h"
 #import "CPCLIToolInstallationController.h"
+#import "CPHomeWindowDocumentEntry.h"
 
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPHomeWindowController ()
-
-@property (strong) IBOutlet CPRecentDocumentsController *recentDocumentsController;
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTextField *cocoapodsVersionTextField;
@@ -57,8 +55,8 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
 {
   NSInteger row = [sender selectedRow];
-  CPHomeWindowDocumentEntry *item = self.recentDocumentsController.recentDocuments[row];
-
+  NSTableCellView *cell = [sender viewAtColumn:0 row:row makeIfNecessary:NO];
+  CPHomeWindowDocumentEntry *item = cell.objectValue;
   NSDocumentController *controller = [NSDocumentController sharedDocumentController];
   [controller openDocumentWithContentsOfURL:item.podfileURL display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
     [self.window orderOut:self];
@@ -77,7 +75,7 @@ static CGFloat CPCommandLineAlertHeight = 68;
   self.commandLineToolsHeightConstraint.constant = 2;
   [content addSubview:self.installCommandLineToolsView];
 
-  NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.installCommandLineToolsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:content attribute:NSLayoutAttributeTop multiplier:1 constant:20];
+  NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.installCommandLineToolsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:content attribute:NSLayoutAttributeTop multiplier:1 constant:36];
   [content addConstraint:topConstraint];
 
   id constraint = animate ? self.commandLineToolsHeightConstraint.animator : self.commandLineToolsHeightConstraint;
@@ -88,7 +86,6 @@ static CGFloat CPCommandLineAlertHeight = 68;
 
 - (IBAction)showFullCLIInstallerMessageAnimated:(NSButton *)sender;
 {
-
   if ([sender.title isEqualToString:@"Close"]) {
     [self.commandLineToolsHeightConstraint.animator setConstant:CPCommandLineAlertHeight];
     [sender setTitle:@"Help"];
@@ -179,7 +176,6 @@ static CGFloat CPCommandLineAlertHeight = 68;
   if (fileName != nil) {
     NSDocumentController *controller = [NSDocumentController sharedDocumentController];
     [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
-      [self.recentDocumentsController refreshRecentDocuments];
       [self.window orderOut:self];
     }];
     return YES;
