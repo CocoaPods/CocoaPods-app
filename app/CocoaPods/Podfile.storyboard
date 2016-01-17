@@ -155,9 +155,10 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
-                                        <rect key="frame" x="454" y="14" width="67" height="21"/>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
+                                        <rect key="frame" x="431" y="14" width="90" height="21"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="1od-UY-AYg"/>
                                             <constraint firstAttribute="height" constant="21" id="Mqr-rp-Dnd"/>
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="elj-BT-5d3" customClass="CPBorderedButtonCell">
@@ -167,9 +168,9 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Nvs-Zv-XUf" secondAttribute="bottom" constant="15" id="6jh-vK-OyW"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nvs-Zv-XUf" secondAttribute="trailing" constant="20" id="Ev7-zP-ZN5"/>
                                     <constraint firstItem="yge-Ir-okX" firstAttribute="top" secondItem="32a-ce-wrv" secondAttribute="top" constant="15" id="WGf-Gk-qMp"/>
-                                    <constraint firstAttribute="trailing" secondItem="Nvs-Zv-XUf" secondAttribute="trailing" constant="20" id="bQ2-iF-Uc7"/>
+                                    <constraint firstItem="Nvs-Zv-XUf" firstAttribute="centerY" secondItem="32a-ce-wrv" secondAttribute="centerY" id="YL1-71-Ou1"/>
                                     <constraint firstItem="yge-Ir-okX" firstAttribute="leading" secondItem="32a-ce-wrv" secondAttribute="leading" constant="20" id="i0J-1Y-Ard"/>
                                     <constraint firstAttribute="bottom" secondItem="yge-Ir-okX" secondAttribute="bottom" constant="15" id="ode-em-dMe"/>
                                     <constraint firstAttribute="height" constant="50" id="wFn-vf-vRd"/>
@@ -366,8 +367,8 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="179" width="411" height="15"/>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
+                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -810,10 +811,10 @@ Gw
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
@@ -829,7 +830,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
+                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
