@@ -8,9 +8,9 @@ class CPSideButton: NSButton {
     super.awakeFromNib()
 
     // We do our own dimming.
-    (self.cell as? NSButtonCell)?.imageDimsWhenDisabled = false
-    self.wantsLayer = true
-    self.layer?.opacity = dimmedOpacity
+    (cell as? NSButtonCell)?.imageDimsWhenDisabled = false
+    wantsLayer = true
+    layer?.opacity = enabled ? dimmedOpacity : 1.0
   }
 
   override var enabled: Bool {
@@ -18,7 +18,7 @@ class CPSideButton: NSButton {
       // We are inferring that if we are disabled, then we are the currently selected button.
       // The current selected button is the only one that gets full opacity.
       let alpha = enabled ? dimmedOpacity : 1.0
-      self.layer?.opacity = alpha
+      layer?.opacity = alpha
     }
   }
 
