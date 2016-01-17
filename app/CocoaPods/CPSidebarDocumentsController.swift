@@ -17,6 +17,13 @@ class CPSidebarDocumentsController: NSObject {
   @IBOutlet weak var spotlightSource: CPSpotlightDocumentSource!
   @IBOutlet weak var recentSource: CPRecentDocumentSource!
 
+  // When we load up, determine if there are any recent docs
+  // as this is synchronous + fast, we can switch to spotlight
+  // if we get nothing from them.
+
+  // Triggering this will very likely cause it to go into 
+  // the `source.documents.isEmpty?` if statment
+
   override func awakeFromNib() {
     if recentSource.recentDocuments.count > 0 {
       recentButtonTapped(recentButton)
@@ -58,6 +65,10 @@ class CPSidebarDocumentsController: NSObject {
       }
     }
   }
+
+  // When there are no Podfiles in spotlight
+  // Then we should have a call to action that tells
+  // someone what we want to show.
 
   @IBOutlet weak var openPodfileView: NSView!
   @IBOutlet weak var documentScrollView: NSScrollView!

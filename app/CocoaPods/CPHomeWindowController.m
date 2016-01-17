@@ -176,7 +176,6 @@ static CGFloat CPCommandLineAlertHeight = 68;
   if (fileName != nil) {
     NSDocumentController *controller = [NSDocumentController sharedDocumentController];
     [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
-//      [self.recentDocumentsController refreshRecentDocuments];
       [self.window orderOut:self];
     }];
     return YES;

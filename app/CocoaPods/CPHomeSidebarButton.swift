@@ -1,5 +1,8 @@
 import Cocoa
 
+/// The buttons at the top of the sidebar that let
+/// you switch between spotlight and recents
+
 class CPHomeSidebarButton: NSButton {
 
   override func awakeFromNib() {

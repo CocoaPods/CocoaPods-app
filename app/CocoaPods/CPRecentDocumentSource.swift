@@ -1,5 +1,8 @@
 import Cocoa
 
+/// Not much going on, just provides recent documents
+/// note: is not memoized.
+
 class CPRecentDocumentSource: NSObject {
 
   var recentDocuments: [CPHomeWindowDocumentEntry] {

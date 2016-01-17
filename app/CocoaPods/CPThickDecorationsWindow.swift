@@ -1,5 +1,7 @@
 import Cocoa
 
+/// Thick banded window - used in then Home window
+
 class CPThickDecorationsWindow: NSWindow {
 
   /// We want to offset the window buttons to make them centered.
