@@ -87,6 +87,9 @@
 static SMLSyntaxError * _Nullable
 SyntaxErrorFromError(NSError * _Nonnull error)
 {
+  /// This could be needed later for Informative CocoaPods Errors
+  NSString *recoverySuggestion = error.userInfo[NSLocalizedRecoverySuggestionErrorKey];
+
   // A Pod::DSLError only wraps the real exception and provides nicer output in the CLI.
   // We want to retrieve information from the real exception.
   if ([error.userInfo[CPErrorName] isEqualToString:@"Pod::DSLError"]) {
@@ -114,6 +117,37 @@ SyntaxErrorFromError(NSError * _Nonnull error)
     [scanner scanInteger:&lineNumber];
     [scanner scanString:@": " intoString:NULL];
     description = [description substringFromIndex:scanner.scanLocation];
+
+  } else if ([error.userInfo[CPErrorName] isEqualToString:@"Pod::Informative"]) {
+
+    // Example of recoverySuggestion:
+    //
+    // [!] Invalid `Podfile` file: [31m[!] Unsupported options `{:exclusive=>true}` for target `Aerodramus_Example`.[0m. Updating CocoaPods might fix the issue.
+
+    // #  from Podfile:14
+    // #  -------------------------------------------
+    // #
+    // >  target 'Aerodramus_Example', :exclusive => true do
+    // #    pod "Aerodramus", :path => "../"
+    // #  -------------------------------------------
+
+    NSScanner *scanner = [NSScanner scannerWithString:recoverySuggestion];
+    // Get the line number:
+    [scanner scanUpToString:@"from Podfile" intoString:NULL];
+    [scanner scanString:@"from Podfile:" intoString:NULL];
+
+    [scanner scanInteger:&lineNumber];
+    [scanner scanString:@"#" intoString:NULL];
+
+    // Get the description from the existing error message
+    // E.g. "[31m[!] Unsupported options `{:exclusive=>true}` for target `Aerodramus_ExampleTests`.[0m"
+
+    scanner = [NSScanner scannerWithString:description];
+    [scanner scanUpToString:@"[31m[!]" intoString:NULL];
+    [scanner scanString:@"[31m[!]" intoString:NULL];
+
+    [scanner scanUpToString:@"" intoString:&description];
+    description = [description substringToIndex:NSMaxRange([description rangeOfComposedCharacterSequenceAtIndex:description.length - 4])];
 
   } else {
     NSString *location = [error.userInfo[CPErrorRubyBacktrace] firstObject];
