@@ -37,8 +37,19 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
     pluginCoordinator = CPPodfilePluginCoordinator(controller: self)
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
-  }
 
+    userProject.registerForFullMetadataCallback {
+      guard let targets = self.userProject.xcodeIntegrationDictionary["projects"] as? [String:AnyObject] else {
+        return
+      }
+      if targets.keys.count == 1 {
+        let project = targets.keys.first!
+        let url = NSURL(fileURLWithPath: project)
+        let name = url.lastPathComponent!.stringByReplacingOccurrencesOfString(".xcproj", withString: "")
+        self.actionTitleLabel.stringValue = "Podfile for \(name)"
+      }
+    }
+  }
   var tabController: CPHiddenTabViewController {
     return childViewControllers.filter { $0.isKindOfClass(CPHiddenTabViewController) }.first! as! CPHiddenTabViewController
   }
