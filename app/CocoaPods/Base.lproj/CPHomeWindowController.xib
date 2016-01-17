@@ -109,26 +109,19 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView misplaced="YES" id="j6S-IB-7LR">
-                                                    <rect key="frame" x="1" y="1" width="231" height="45"/>
+                                                <tableCellView id="j6S-IB-7LR">
+                                                    <rect key="frame" x="1" y="1" width="230" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M1X-QT-63U">
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1X-QT-63U">
                                                             <rect key="frame" x="8" y="4" width="31" height="36"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="36" id="JFu-Zc-zFt"/>
-                                                                <constraint firstAttribute="width" constant="31" id="fuY-ag-Ade"/>
-                                                            </constraints>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Podfile-icon" id="c5l-Tz-JBl"/>
                                                             <connections>
                                                                 <binding destination="j6S-IB-7LR" name="value" keyPath="objectValue.image" id="NLM-Z1-NsS"/>
                                                             </connections>
                                                         </imageView>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fzU-ug-Jul">
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fzU-ug-Jul">
                                                             <rect key="frame" x="48" y="22" width="181" height="17"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="177" id="aHz-fZ-0Bf"/>
-                                                            </constraints>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="CocoaPods-app" id="le6-xS-Goo">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -138,7 +131,7 @@
                                                                 <binding destination="j6S-IB-7LR" name="value" keyPath="objectValue.name" id="7Y2-Wt-O4j"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qtv-S5-ALo">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qtv-S5-ALo">
                                                             <rect key="frame" x="48" y="6" width="181" height="14"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" title="Podfile" id="oFM-xY-CYd">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -150,19 +143,6 @@
                                                             </connections>
                                                         </textField>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Qtv-S5-ALo" firstAttribute="top" secondItem="fzU-ug-Jul" secondAttribute="bottom" constant="2" id="3jZ-sV-NAP"/>
-                                                        <constraint firstItem="Qtv-S5-ALo" firstAttribute="leading" secondItem="M1X-QT-63U" secondAttribute="trailing" constant="11" id="4FD-c2-vwc"/>
-                                                        <constraint firstAttribute="trailing" secondItem="fzU-ug-Jul" secondAttribute="trailing" constant="3" id="EqT-LQ-mwp"/>
-                                                        <constraint firstItem="fzU-ug-Jul" firstAttribute="top" secondItem="j6S-IB-7LR" secondAttribute="top" constant="6" id="Jas-nO-MC3"/>
-                                                        <constraint firstAttribute="bottom" secondItem="M1X-QT-63U" secondAttribute="bottom" constant="4" id="T70-vd-m5K"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Qtv-S5-ALo" secondAttribute="bottom" constant="6" id="ipb-P8-QwF"/>
-                                                        <constraint firstItem="M1X-QT-63U" firstAttribute="leading" secondItem="j6S-IB-7LR" secondAttribute="leading" constant="8" id="lSN-JG-N2a"/>
-                                                        <constraint firstItem="M1X-QT-63U" firstAttribute="top" secondItem="j6S-IB-7LR" secondAttribute="top" constant="5" id="oQ2-BR-wgt"/>
-                                                        <constraint firstItem="fzU-ug-Jul" firstAttribute="width" secondItem="Qtv-S5-ALo" secondAttribute="width" id="uAy-oc-Je6"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Qtv-S5-ALo" secondAttribute="trailing" constant="3" id="uHz-qY-z4z"/>
-                                                        <constraint firstItem="fzU-ug-Jul" firstAttribute="leading" secondItem="M1X-QT-63U" secondAttribute="trailing" constant="11" id="ury-ik-pzh"/>
-                                                    </constraints>
                                                     <connections>
                                                         <outlet property="textField" destination="fzU-ug-Jul" id="ky6-fp-HZM"/>
                                                     </connections>
