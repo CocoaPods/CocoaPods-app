@@ -70,15 +70,15 @@
 		60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A841C2B100F00D6663E /* CPBorderedButton.m */; };
 		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
 		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
-		6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */; };
+		60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		60E693A91C49B5980058DF5F /* CPSpotlightDocumentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693A81C49B5980058DF5F /* CPSpotlightDocumentSource.swift */; };
 		60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */; };
+		60E693B01C4A3AF80058DF5F /* NSAttributedString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E693AF1C4A3AF80058DF5F /* NSAttributedString+Helpers.m */; };
 		60E693B31C4A561E0058DF5F /* CPThickDecorationsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693B21C4A561E0058DF5F /* CPThickDecorationsWindow.swift */; };
 		60E693B51C4A71E50058DF5F /* CPSidebarDocumentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */; };
 		60E693B91C4A8DAD0058DF5F /* CPRecentDocumentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693B81C4A8DAD0058DF5F /* CPRecentDocumentSource.swift */; };
 		60E693BB1C4A8F1D0058DF5F /* ColouredViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693BA1C4A8F1D0058DF5F /* ColouredViews.swift */; };
-		60E693B01C4A3AF80058DF5F /* NSAttributedString+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E693AF1C4A3AF80058DF5F /* NSAttributedString+Helpers.m */; };
-		60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
+		60E693BD1C4AC6390058DF5F /* CPHomeSidebarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693BC1C4AC6390058DF5F /* CPHomeSidebarButton.swift */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
 		66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */; };
@@ -243,17 +243,16 @@
 		60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPWhiteCheckedButton.h; sourceTree = "<group>"; };
 		60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPWhiteCheckedButton.m; sourceTree = "<group>"; };
 		60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInterfaceBuilderOnlyLabels.swift; sourceTree = "<group>"; };
-		6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPRecentDocumentsController.h; sourceTree = "<group>"; };
-		6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPRecentDocumentsController.m; sourceTree = "<group>"; };
 		60E693A81C49B5980058DF5F /* CPSpotlightDocumentSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSpotlightDocumentSource.swift; sourceTree = "<group>"; };
 		60E693AA1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeWindowDocumentEntry.h; sourceTree = "<group>"; };
 		60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowDocumentEntry.m; sourceTree = "<group>"; };
+		60E693AE1C4A3AF80058DF5F /* NSAttributedString+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Helpers.h"; sourceTree = "<group>"; };
+		60E693AF1C4A3AF80058DF5F /* NSAttributedString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Helpers.m"; sourceTree = "<group>"; };
 		60E693B21C4A561E0058DF5F /* CPThickDecorationsWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPThickDecorationsWindow.swift; sourceTree = "<group>"; };
 		60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSidebarDocumentsController.swift; sourceTree = "<group>"; };
 		60E693B81C4A8DAD0058DF5F /* CPRecentDocumentSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPRecentDocumentSource.swift; sourceTree = "<group>"; };
 		60E693BA1C4A8F1D0058DF5F /* ColouredViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColouredViews.swift; sourceTree = "<group>"; };
-		60E693AE1C4A3AF80058DF5F /* NSAttributedString+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Helpers.h"; sourceTree = "<group>"; };
-		60E693AF1C4A3AF80058DF5F /* NSAttributedString+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Helpers.m"; sourceTree = "<group>"; };
+		60E693BC1C4AC6390058DF5F /* CPHomeSidebarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHomeSidebarButton.swift; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F02D1D1C0A2A6D003600FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
@@ -473,6 +472,7 @@
 				60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */,
 				60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */,
 				60E693B21C4A561E0058DF5F /* CPThickDecorationsWindow.swift */,
+				60E693BC1C4AC6390058DF5F /* CPHomeSidebarButton.swift */,
 			);
 			name = "Custom Subviews";
 			sourceTree = "<group>";
@@ -562,8 +562,6 @@
 				1F9177551BA27592006698C9 /* CPHomeWindowController.h */,
 				1F9177561BA27592006698C9 /* CPHomeWindowController.m */,
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
-				6085133D1BB6A3D500595B97 /* CPRecentDocumentsController.h */,
-				6085133E1BB6A3D500595B97 /* CPRecentDocumentsController.m */,
 				60E693A81C49B5980058DF5F /* CPSpotlightDocumentSource.swift */,
 				60E693B81C4A8DAD0058DF5F /* CPRecentDocumentSource.swift */,
 				60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */,
@@ -964,7 +962,6 @@
 				601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */,
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
-				6085133F1BB6A3D500595B97 /* CPRecentDocumentsController.m in Sources */,
 				60E693A91C49B5980058DF5F /* CPSpotlightDocumentSource.swift in Sources */,
 				6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */,
 				60E693B91C4A8DAD0058DF5F /* CPRecentDocumentSource.swift in Sources */,
@@ -974,6 +971,7 @@
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */,
 				60E693B31C4A561E0058DF5F /* CPThickDecorationsWindow.swift in Sources */,
+				60E693BD1C4AC6390058DF5F /* CPHomeSidebarButton.swift in Sources */,
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				60E693BB1C4A8F1D0058DF5F /* ColouredViews.swift in Sources */,

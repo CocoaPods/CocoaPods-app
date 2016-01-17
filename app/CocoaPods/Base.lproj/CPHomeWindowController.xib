@@ -13,7 +13,6 @@
                 <outlet property="openChangelogButton" destination="c72-1G-DgX" id="WMJ-bT-qBk"/>
                 <outlet property="openGuidesButton" destination="jOz-TV-Fbo" id="W3S-M3-KIQ"/>
                 <outlet property="openSearchButton" destination="ltc-2S-rGH" id="zdh-ur-0tH"/>
-                <outlet property="recentDocumentsController" destination="vg8-5r-eb7" id="jCp-W4-WDs"/>
                 <outlet property="tableView" destination="xXw-3l-NGv" id="YHX-Bj-LmI"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -32,32 +31,18 @@
                     <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="HtW-rw-ITV">
                         <rect key="frame" x="432" y="-5" width="234" height="495"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="FP0-mA-dMU" customClass="TransparentWhiteView" customModule="CocoaPods" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="FP0-mA-dMU">
                                 <rect key="frame" x="0.0" y="460" width="233" height="36"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh">
-                                        <rect key="frame" x="50" y="9" width="57" height="17"/>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE" customClass="CPHomeSidebarButton" customModule="CocoaPods" customModuleProvider="target">
+                                        <rect key="frame" x="119" y="0.0" width="64" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="57" id="XTB-Da-zeW"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="inline" title="Recent" bezelStyle="inline" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cK3-dR-BDB">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystemBold"/>
-                                            <string key="keyEquivalent">1</string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE">
-                                        <rect key="frame" x="119" y="11" width="64" height="14"/>
-                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="0xs-Iz-sHf"/>
                                             <constraint firstAttribute="width" constant="64" id="N7l-o4-iu8"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="inline" title="Spotlight" bezelStyle="inline" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
+                                        <buttonCell key="cell" type="bevel" title="Spotlight" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="smallSystemBold"/>
+                                            <font key="font" metaFont="system"/>
                                             <string key="keyEquivalent">2</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
@@ -65,12 +50,28 @@
                                             <action selector="spotlightButtonTapped:" target="Whb-bK-is0" id="wkQ-KE-rzI"/>
                                         </connections>
                                     </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh" customClass="CPHomeSidebarButton" customModule="CocoaPods" customModuleProvider="target">
+                                        <rect key="frame" x="44" y="0.0" width="69" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="DWK-bq-Txk"/>
+                                            <constraint firstAttribute="width" constant="69" id="XTB-Da-zeW"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" title="Recent" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cK3-dR-BDB">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">1</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="UXQ-ah-FzE" firstAttribute="leading" secondItem="3dY-gu-lGh" secondAttribute="trailing" constant="12" id="3Td-kG-ZW7"/>
+                                    <constraint firstItem="UXQ-ah-FzE" firstAttribute="leading" secondItem="3dY-gu-lGh" secondAttribute="trailing" constant="6" id="3Td-kG-ZW7"/>
                                     <constraint firstItem="UXQ-ah-FzE" firstAttribute="centerY" secondItem="FP0-mA-dMU" secondAttribute="centerY" id="8Jb-fY-bMB"/>
                                     <constraint firstAttribute="height" constant="36" id="Jeq-53-Zxz"/>
-                                    <constraint firstItem="3dY-gu-lGh" firstAttribute="leading" secondItem="FP0-mA-dMU" secondAttribute="leading" constant="50" id="RVO-CC-VGG"/>
+                                    <constraint firstItem="3dY-gu-lGh" firstAttribute="leading" secondItem="FP0-mA-dMU" secondAttribute="leading" constant="44" id="RVO-CC-VGG"/>
                                     <constraint firstItem="3dY-gu-lGh" firstAttribute="centerY" secondItem="FP0-mA-dMU" secondAttribute="centerY" id="ret-TB-hmI"/>
                                     <constraint firstAttribute="width" constant="233" id="ylU-sl-dar"/>
                                 </constraints>
@@ -83,19 +84,19 @@
                         </constraints>
                     </visualEffectView>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
-                        <rect key="frame" x="432" y="0.0" width="233" height="454"/>
+                        <rect key="frame" x="431" y="0.0" width="234" height="454"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="8EY-xl-otL">
-                            <rect key="frame" x="0.0" y="0.0" width="233" height="454"/>
+                            <rect key="frame" x="0.0" y="0.0" width="234" height="454"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="233" height="454"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="234" height="454"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                     <color key="gridColor" white="0.80000000000000004" alpha="0.0" colorSpace="deviceWhite"/>
                                     <tableColumns>
-                                        <tableColumn width="230" minWidth="40" maxWidth="1000" id="Sec-qc-bad">
+                                        <tableColumn width="231" minWidth="40" maxWidth="1000" id="Sec-qc-bad">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -108,8 +109,8 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView id="j6S-IB-7LR">
-                                                    <rect key="frame" x="1" y="1" width="230" height="45"/>
+                                                <tableCellView misplaced="YES" id="j6S-IB-7LR">
+                                                    <rect key="frame" x="1" y="1" width="231" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M1X-QT-63U">
@@ -177,7 +178,7 @@
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                         </clipView>
                         <constraints>
-                            <constraint firstAttribute="width" constant="233" id="6tS-NZ-2Mw"/>
+                            <constraint firstAttribute="width" constant="234" id="6tS-NZ-2Mw"/>
                         </constraints>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="k6D-HC-Zp5">
                             <rect key="frame" x="1" y="119" width="223" height="15"/>
@@ -435,7 +436,7 @@ Command-Line Tools?</string>
             <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IRs-Lz-3U3">
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="IRs-Lz-3U3">
                     <rect key="frame" x="16" y="185" width="201" height="84"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="84" id="4m3-st-vAg"/>
@@ -450,7 +451,7 @@ Command-Line Tools?</string>
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="IRs-Lz-3U3" firstAttribute="centerY" secondItem="qtI-Qc-skM" secondAttribute="centerY" id="0fv-Ac-RdN"/>
+                <constraint firstItem="IRs-Lz-3U3" firstAttribute="centerY" secondItem="qtI-Qc-skM" secondAttribute="centerY" constant="18" id="0fv-Ac-RdN"/>
                 <constraint firstAttribute="trailing" secondItem="IRs-Lz-3U3" secondAttribute="trailing" constant="16" id="aud-Kr-wSi"/>
                 <constraint firstItem="IRs-Lz-3U3" firstAttribute="leading" secondItem="qtI-Qc-skM" secondAttribute="leading" constant="16" id="mst-ef-TGJ"/>
             </constraints>

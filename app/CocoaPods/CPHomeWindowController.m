@@ -1,5 +1,4 @@
 #import "CPHomeWindowController.h"
-#import "CPRecentDocumentsController.h"
 #import "CocoaPods-Swift.h"
 #import "CPCLIToolInstallationController.h"
 #import "CPHomeWindowDocumentEntry.h"
@@ -7,8 +6,6 @@
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPHomeWindowController ()
-
-@property (strong) IBOutlet CPRecentDocumentsController *recentDocumentsController;
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTextField *cocoapodsVersionTextField;
@@ -89,7 +86,6 @@ static CGFloat CPCommandLineAlertHeight = 68;
 
 - (IBAction)showFullCLIInstallerMessageAnimated:(NSButton *)sender;
 {
-
   if ([sender.title isEqualToString:@"Close"]) {
     [self.commandLineToolsHeightConstraint.animator setConstant:CPCommandLineAlertHeight];
     [sender setTitle:@"Help"];
@@ -180,7 +176,7 @@ static CGFloat CPCommandLineAlertHeight = 68;
   if (fileName != nil) {
     NSDocumentController *controller = [NSDocumentController sharedDocumentController];
     [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
-      [self.recentDocumentsController refreshRecentDocuments];
+//      [self.recentDocumentsController refreshRecentDocuments];
       [self.window orderOut:self];
     }];
     return YES;

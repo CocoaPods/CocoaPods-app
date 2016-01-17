@@ -27,13 +27,13 @@ class CPSidebarDocumentsController: NSObject {
 
   @IBAction func recentButtonTapped(sender: NSButton) {
     currentSidebarItems = recentSource.recentDocuments
-    deselectButton(sender)
+    selectButton(sender)
   }
 
   @IBAction func spotlightButtonTapped(sender: NSButton) {
     let source = spotlightSource
     currentSidebarItems = source.documents
-    deselectButton(sender)
+    selectButton(sender)
 
     // Could either be no podfiles
     // on the users computer - or still searching
@@ -79,20 +79,18 @@ class CPSidebarDocumentsController: NSObject {
     documentScrollView.superview?.addSubview(openPodfileView)
 
     // Make sure that you can't tap change the doc types that will do nothing
-    buttons.forEach { (button) in
-      button.bordered = false
-      button.enabled = false
-    }
+    buttons.forEach { self.enableButton($0, select: false) }
   }
 
-  func deselectButton(button:NSButton) {
-    button.bordered = true
-    button.enabled = false
+  func selectButton(button:NSButton) {
+    enableButton(button, select:true)
 
     let otherButtons = buttons.filter { $0 != button }
-    otherButtons.forEach { (button) in
-      button.bordered = false
-      button.enabled = true
-    }
+    otherButtons.forEach { self.enableButton($0, select:false) }
+  }
+
+  func enableButton(button:NSButton, select:Bool) {
+//    button.bordered = select
+    button.enabled = !select
   }
 }

@@ -20,9 +20,7 @@ class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
     query.searchScopes = [NSMetadataQueryIndexedLocalComputerScope]
     query.valueListAttributes = [NSMetadataItemPathKey]
 
-//    query.startQuery()
-    completedPromise.checkForFulfillment()
-
+    query.startQuery()
   }
 
   func queryUpdated(notification: NSNotification) {
@@ -47,7 +45,6 @@ class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
   }
 
   func shouldForfilPromise(promise: CPMiniPromise!) -> Bool {
-    return true
     return query.stopped
   }
 }
