@@ -106,7 +106,7 @@ static NSString *iconName(NSString *platform, NSString *type) {
     if ([platform hasPrefix:@"watchOS"]) return @"watchOS-Icon";
     return @"unknown-Icon";
   }
-  if ([type isEqualToString:@"com.apple.product-type.bundle.unit-test"]) return @"Bundle-Tests-Icon";
+  if ([type isEqualToString:@"com.apple.product-type.bundle.unit-test"] || [type isEqualToString:@"com.apple.product-type.bundle.ui-testing"]) return @"Bundle-Tests-Icon";
   return @"Bundle-Icon";
 }
 
