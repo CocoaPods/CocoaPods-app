@@ -22,10 +22,13 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
     
     if textView.string!.isEmpty {
       hintButton.hidden = false
-      if project.contents.isEmpty {
-        updateHintButton(imageNamed: "emptyPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_EMPTY_PODFILE", comment: ""))
-      } else if project.syntaxErrors.count > 0 {
-        updateHintButton(imageNamed: "errorPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_ERROR_PODFILE", comment: ""))
+      if let podfileErrorState = CPPodfileErrorState(fromProject: project) {
+        switch podfileErrorState {
+        case .EmptyFile:
+          updateHintButton(imageNamed: "emptyPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_EMPTY_PODFILE", comment: ""))
+        case .SyntaxError:
+          updateHintButton(imageNamed: "errorPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_ERROR_PODFILE", comment: ""))
+        }
       } else {
         updateHintButton(imageNamed: "compiledPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_READY_PODFILE", comment: ""))
       }
@@ -48,11 +51,14 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
         return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
     
-    if project.contents.isEmpty {
-        let externalLinksHelper = CPExternalLinksHelper()
-        externalLinksHelper.openSearch(sender)
-    } else if project.syntaxErrors.count > 0 {
-      podfileVC.showEditorTab(sender)
+    if let podfileErrorState = CPPodfileErrorState(fromProject: project) {
+      switch podfileErrorState {
+      case .EmptyFile:
+          let externalLinksHelper = CPExternalLinksHelper()
+          externalLinksHelper.openSearch(sender)
+      case .SyntaxError:
+        podfileVC.showEditorTab(sender)
+      }
     } else {
       hintButton.hidden = true
       podfileVC.install(sender)

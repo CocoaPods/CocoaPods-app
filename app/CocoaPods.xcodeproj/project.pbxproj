@@ -38,6 +38,7 @@
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
+		5BEC5ABD1C4D97C90045F362 /* CPPodfileErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC5ABC1C4D97C90045F362 /* CPPodfileErrorState.swift */; };
 		5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */; };
 		5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5B7861C17990400F8C39E /* CPSideButton.swift */; };
 		60017B5E1C47B6220037658A /* CPMiniPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 60017B5D1C47B6220037658A /* CPMiniPromise.m */; };
@@ -202,6 +203,7 @@
 		51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "RBObject+CocoaPods.rb"; sourceTree = "<group>"; };
 		51EA178F1C0155E9000DC69A /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = RubyCocoa/framework/build/Default/RubyCocoa.framework; sourceTree = "<group>"; };
 		57995E0E6B8704BE797552B2 /* Pods-CocoaPods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.debug.xcconfig"; sourceTree = "<group>"; };
+		5BEC5ABC1C4D97C90045F362 /* CPPodfileErrorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileErrorState.swift; sourceTree = "<group>"; };
 		5D0F8EC2FC9E25C9EF3CED3F /* Pods-CocoaPodsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTabViewDelegate.swift; sourceTree = "<group>"; };
 		5EF5B7861C17990400F8C39E /* CPSideButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSideButton.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 			children = (
 				51165E541A1B925200DCFC94 /* CPUserProject.h */,
 				51165E551A1B925300DCFC94 /* CPUserProject.m */,
+				5BEC5ABC1C4D97C90045F362 /* CPPodfileErrorState.swift */,
 				60017B5C1C47B6220037658A /* CPMiniPromise.h */,
 				60017B5D1C47B6220037658A /* CPMiniPromise.m */,
 			);
@@ -983,6 +986,7 @@
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,
 				6051191D1C08A1EA0037B95E /* CPModifiedDecorationsWindow.swift in Sources */,
+				5BEC5ABD1C4D97C90045F362 /* CPPodfileErrorState.swift in Sources */,
 				606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */,
 				51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */,
 				60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */,
