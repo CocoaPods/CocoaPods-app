@@ -368,7 +368,7 @@
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
+                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -834,15 +834,34 @@ Gw
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="N40-YE-6Rw">
+                                <rect key="frame" x="20" y="383" width="472" height="177"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="177" id="Skg-6X-FuD"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="compiledPodfile" imagePosition="above" alignment="center" inset="2" id="cR7-FS-fVf">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <string key="title">Your podfile is ready to go!
+Hit install to see the outcome</string>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="hintButton:" target="hxh-b1-faZ" id="ARj-pc-Ofs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="q9i-w9-w0u" firstAttribute="top" secondItem="133-hW-tOB" secondAttribute="top" id="0ga-G9-Hr8"/>
                             <constraint firstAttribute="trailing" secondItem="q9i-w9-w0u" secondAttribute="trailing" id="3tB-yk-udg"/>
+                            <constraint firstItem="N40-YE-6Rw" firstAttribute="leading" secondItem="133-hW-tOB" secondAttribute="leading" constant="20" id="6x7-Dx-Os8"/>
+                            <constraint firstItem="N40-YE-6Rw" firstAttribute="top" secondItem="133-hW-tOB" secondAttribute="top" constant="40" id="Mtj-VL-oqf"/>
                             <constraint firstAttribute="bottom" secondItem="q9i-w9-w0u" secondAttribute="bottom" id="aEk-sI-oXB"/>
                             <constraint firstItem="q9i-w9-w0u" firstAttribute="leading" secondItem="133-hW-tOB" secondAttribute="leading" id="dKs-sQ-e1m"/>
+                            <constraint firstAttribute="trailing" secondItem="N40-YE-6Rw" secondAttribute="trailing" constant="20" id="hV0-zB-vfs"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="hintButton" destination="N40-YE-6Rw" id="LgB-e9-Hjg"/>
                         <outlet property="textView" destination="GuO-Ek-akK" id="RRF-Gy-8Xg"/>
                     </connections>
                 </viewController>
@@ -857,6 +876,7 @@ Gw
         <image name="TransparentButtonBG" width="23" height="20"/>
         <image name="TransparentButtonBGFilled" width="49" height="20"/>
         <image name="actionbar_background" width="250.5" height="23"/>
+        <image name="compiledPodfile" width="89" height="116"/>
         <image name="drop_down" width="7" height="5"/>
         <image name="icon_console" width="44" height="35"/>
         <image name="icon_editor" width="16" height="34"/>
