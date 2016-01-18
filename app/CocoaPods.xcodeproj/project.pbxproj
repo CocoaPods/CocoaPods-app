@@ -85,6 +85,7 @@
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
 		77356D751A2253F1002822CF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77356D741A2253F1002822CF /* Media.xcassets */; };
 		7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */; };
+		934FF1871C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FF1861C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift */; };
 		E70998471C49AB5B00229507 /* Podfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70998461C49AB5B00229507 /* Podfile.plist */; };
 		FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FAD11C144BF300DC3791 /* URLHandler.swift */; };
 		FCDCC48F0E8CE099C20D1DEB /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */; };
@@ -265,6 +266,7 @@
 		77356D741A2253F1002822CF /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPANSIEscapeHelper.h; sourceTree = "<group>"; };
 		7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPANSIEscapeHelper.m; sourceTree = "<group>"; };
+		934FF1861C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleTextView.swift; sourceTree = "<group>"; };
 		E70998461C49AB5B00229507 /* Podfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Podfile.plist; path = "Syntax Definitions/Podfile.plist"; sourceTree = "<group>"; };
 		EBD9373107B77CCDFCD43B67 /* Pods-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
 		EEB7DFACCFDF9B3B443AF311 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -518,6 +520,7 @@
 				7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */,
 				60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */,
 				605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */,
+				934FF1861C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift */,
 			);
 			name = "Podfile Logging";
 			sourceTree = "<group>";
@@ -963,6 +966,7 @@
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				60E693A91C49B5980058DF5F /* CPSpotlightDocumentSource.swift in Sources */,
+				934FF1871C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift in Sources */,
 				6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */,
 				60E693B91C4A8DAD0058DF5F /* CPRecentDocumentSource.swift in Sources */,
 				3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */,
