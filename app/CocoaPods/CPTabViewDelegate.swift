@@ -1,8 +1,9 @@
 import Cocoa
 
 // We rely on configuration from another controller (the podfile view controller) to set the initial selected button.
+
 class CPTabViewDelegate: NSObject, CPHiddenTabViewControllerDelegate {
-  dynamic var editorIsSelected = false
+  dynamic var editorIsSelected = true
   dynamic var infoIsSelected = false
   dynamic var consoleIsSelected = false
 

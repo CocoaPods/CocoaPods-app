@@ -44,7 +44,7 @@ class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
     completedPromise.checkForFulfillment()
   }
 
-  func shouldForfilPromise(promise: CPMiniPromise!) -> Bool {
+  func shouldFulfillPromise(promise: CPMiniPromise!) -> Bool {
     return query.stopped
   }
 }

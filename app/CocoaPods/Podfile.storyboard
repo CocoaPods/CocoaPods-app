@@ -125,8 +125,8 @@
                                     </binding>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
-                                <rect key="frame" x="122" y="628" width="365" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
+                                <rect key="frame" x="122" y="628" width="46" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Podfile" id="UOR-9c-QMh">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -144,19 +144,19 @@
                                     <binding destination="5gI-5U-AMq" name="hidden" keyPath="self.installAction.task.running" id="sTR-L3-nUU"/>
                                 </connections>
                             </button>
-                            <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32a-ce-wrv" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
-                                <rect key="frame" x="78" y="0.0" width="541" height="50"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="32a-ce-wrv" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
+                                <rect key="frame" x="78" y="0.0" width="537" height="50"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
-                                        <rect key="frame" x="18" y="15" width="376" height="20"/>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
+                                        <rect key="frame" x="18" y="15" width="234" height="20"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label with some text doing something" id="mW1-wj-yJA">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
-                                        <rect key="frame" x="431" y="14" width="90" height="21"/>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
+                                        <rect key="frame" x="427" y="14" width="90" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="1od-UY-AYg"/>
                                             <constraint firstAttribute="height" constant="21" id="Mqr-rp-Dnd"/>
@@ -367,7 +367,7 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
                                     <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
