@@ -85,6 +85,7 @@ static NSString *prettyBundleType(NSString *string) {
     @"com.apple.product-type.library.static" : @"Static Library",
     @"com.apple.product-type.bundle" : @"Bundle",
     @"com.apple.product-type.bundle.unit-test" : @"Test Bundle",
+    @"com.apple.product-type.bundle.ui-testing" : @"UI Testing Bundle",
     @"com.apple.product-type.app-extension" : @"App Extension",
     @"com.apple.product-type.tool" : @"Command Line Tool",
     @"com.apple.product-type.application.watchapp" : @"Watch App",
