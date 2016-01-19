@@ -74,7 +74,9 @@
   
   if (!error) {
     if ( [self.delegate respondsToSelector: @selector(contentDidChangeinUserProject:)] ) {
-      [self.delegate contentDidChangeinUserProject:self];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate contentDidChangeinUserProject:self];
+      });
     }
   }
   
