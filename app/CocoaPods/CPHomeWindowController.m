@@ -55,6 +55,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
 {
   NSInteger row = [sender selectedRow];
+  // checking if there is selected row below double clicked area. [NSTableView selectedRow] returns -1 if not.
   if (row < 0) {
     return;
   }
