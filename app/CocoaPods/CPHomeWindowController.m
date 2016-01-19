@@ -55,6 +55,9 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
 {
   NSInteger row = [sender selectedRow];
+  if (row < 0) {
+    return;
+  }
   NSTableCellView *cell = [sender viewAtColumn:0 row:row makeIfNecessary:NO];
   CPHomeWindowDocumentEntry *item = cell.objectValue;
   NSDocumentController *controller = [NSDocumentController sharedDocumentController];
