@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
@@ -125,8 +125,8 @@
                                     </binding>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
-                                <rect key="frame" x="122" y="628" width="365" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="300" translatesAutoresizingMaskIntoConstraints="NO" id="hwg-nj-RtL">
+                                <rect key="frame" x="122" y="628" width="46" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Podfile" id="UOR-9c-QMh">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -144,20 +144,21 @@
                                     <binding destination="5gI-5U-AMq" name="hidden" keyPath="self.installAction.task.running" id="sTR-L3-nUU"/>
                                 </connections>
                             </button>
-                            <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32a-ce-wrv" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
-                                <rect key="frame" x="78" y="0.0" width="541" height="50"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="32a-ce-wrv" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
+                                <rect key="frame" x="78" y="0.0" width="537" height="50"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
-                                        <rect key="frame" x="18" y="15" width="376" height="20"/>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yge-Ir-okX">
+                                        <rect key="frame" x="18" y="15" width="234" height="20"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Label with some text doing something" id="mW1-wj-yJA">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
-                                        <rect key="frame" x="454" y="14" width="67" height="21"/>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nvs-Zv-XUf" customClass="CPBorderedButton">
+                                        <rect key="frame" x="427" y="14" width="90" height="21"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="1od-UY-AYg"/>
                                             <constraint firstAttribute="height" constant="21" id="Mqr-rp-Dnd"/>
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="elj-BT-5d3" customClass="CPBorderedButtonCell">
@@ -167,9 +168,9 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Nvs-Zv-XUf" secondAttribute="bottom" constant="15" id="6jh-vK-OyW"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nvs-Zv-XUf" secondAttribute="trailing" constant="20" id="Ev7-zP-ZN5"/>
                                     <constraint firstItem="yge-Ir-okX" firstAttribute="top" secondItem="32a-ce-wrv" secondAttribute="top" constant="15" id="WGf-Gk-qMp"/>
-                                    <constraint firstAttribute="trailing" secondItem="Nvs-Zv-XUf" secondAttribute="trailing" constant="20" id="bQ2-iF-Uc7"/>
+                                    <constraint firstItem="Nvs-Zv-XUf" firstAttribute="centerY" secondItem="32a-ce-wrv" secondAttribute="centerY" id="YL1-71-Ou1"/>
                                     <constraint firstItem="yge-Ir-okX" firstAttribute="leading" secondItem="32a-ce-wrv" secondAttribute="leading" constant="20" id="i0J-1Y-Ard"/>
                                     <constraint firstAttribute="bottom" secondItem="yge-Ir-okX" secondAttribute="bottom" constant="15" id="ode-em-dMe"/>
                                     <constraint firstAttribute="height" constant="50" id="wFn-vf-vRd"/>
@@ -367,7 +368,7 @@
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="179" width="411" height="15"/>
+                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -806,18 +807,18 @@ Gw
                                     <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView editable="NO" importsGraphics="NO" richText="NO" selectionGranularity="word" findStyle="bar" incrementalSearchingEnabled="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="GuO-Ek-akK">
+                                        <textView editable="NO" importsGraphics="NO" richText="NO" selectionGranularity="word" findStyle="bar" incrementalSearchingEnabled="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="GuO-Ek-akK" customClass="CPPodfileConsoleTextView" customModule="CocoaPods" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="497" height="600"/>
+                                            <size key="minSize" width="512" height="600"/>
                                             <size key="maxSize" width="600" height="10000000"/>
                                             <connections>
                                                 <binding destination="hxh-b1-faZ" name="editable" keyPath="self.editable" id="rqN-Lz-pM6"/>
-                                                <binding destination="hxh-b1-faZ" name="attributedString" keyPath="self.podfileViewController.installAction.taskAttributedString" id="WmN-Em-YRx"/>
+                                                <binding destination="hxh-b1-faZ" name="attributedText" keyPath="self.podfileViewController.installAction.taskAttributedString" id="WmN-Em-YRx"/>
                                                 <outlet property="delegate" destination="hxh-b1-faZ" id="pDv-ms-8kF"/>
                                             </connections>
                                         </textView>
@@ -829,7 +830,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="gUJ-tJ-SOq">
-                                    <rect key="frame" x="497" y="0.0" width="15" height="600"/>
+                                    <rect key="frame" x="496" y="0.0" width="16" height="600"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>

@@ -31,12 +31,32 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
         return print("Window type is not CPModifiedDecorationsWindow")
     }
 
+    // Grab the document icon and move it into the space on our 
+    // custom title bar
     documentIcon.frame = documentIcon.bounds
     documentIconContainer.addSubview(documentIcon)
+
+    // Default the bottom label to hidden
     hideWarningLabel(false)
 
+    // Check for whether we need to install plugins
     pluginCoordinator = CPPodfilePluginCoordinator(controller: self)
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
+
+    // Makes the tabs highlight correctly
+    tabController.hiddenTabDelegate = tabViewDelegate
+
+    // When integrating into one xcodeproj
+    // we should show "Podfile for ProjectName" instead
+    userProject.registerForFullMetadataCallback {
+      guard let targets = self.userProject.xcodeIntegrationDictionary["projects"] as? [String:AnyObject] else { return }
+      if targets.keys.count == 1 {
+        let project = targets.keys.first!
+        let url = NSURL(fileURLWithPath: project)
+        let name = url.lastPathComponent!.stringByReplacingOccurrencesOfString(".xcproj", withString: "")
+        self.actionTitleLabel.stringValue = "Podfile for \(name)"
+      }
+    }
   }
 
   var tabController: CPHiddenTabViewController {

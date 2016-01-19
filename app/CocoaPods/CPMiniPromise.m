@@ -21,7 +21,7 @@
 
 - (BOOL)shouldSendCompletionBlocks
 {
-  return [self.delegate shouldForfilPromise:self];
+  return [self.delegate shouldFulfillPromise:self];
 }
 
 - (void)addBlock:(void (^)(void))block

@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "iOS-Icon.png",
       "scale" : "1x"
     },
     {

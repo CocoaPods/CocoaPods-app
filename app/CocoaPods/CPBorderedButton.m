@@ -44,7 +44,7 @@
 
 - (void)setTitle:(NSString *)title
 {
-  self.attributedTitle = [NSAttributedString string:self.title
+  self.attributedTitle = [NSAttributedString string:title
                                               color:self.textColor ?: [NSColor colorWithCalibratedWhite:1 alpha:1]
                                                font:self.font ?: [NSFont labelFontOfSize:12]
                                           alignment:NSTextAlignmentCenter];
