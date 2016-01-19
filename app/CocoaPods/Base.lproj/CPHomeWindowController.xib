@@ -417,7 +417,7 @@ Command-Line Tools?</string>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="IRs-Lz-3U3">
-                    <rect key="frame" x="16" y="185" width="201" height="84"/>
+                    <rect key="frame" x="16" y="221" width="201" height="84"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="84" id="4m3-st-vAg"/>
                     </constraints>
@@ -431,7 +431,7 @@ Command-Line Tools?</string>
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="IRs-Lz-3U3" firstAttribute="centerY" secondItem="qtI-Qc-skM" secondAttribute="centerY" constant="18" id="0fv-Ac-RdN"/>
+                <constraint firstItem="IRs-Lz-3U3" firstAttribute="centerY" secondItem="qtI-Qc-skM" secondAttribute="centerY" constant="-18" id="0fv-Ac-RdN"/>
                 <constraint firstAttribute="trailing" secondItem="IRs-Lz-3U3" secondAttribute="trailing" constant="16" id="aud-Kr-wSi"/>
                 <constraint firstItem="IRs-Lz-3U3" firstAttribute="leading" secondItem="qtI-Qc-skM" secondAttribute="leading" constant="16" id="mst-ef-TGJ"/>
             </constraints>
