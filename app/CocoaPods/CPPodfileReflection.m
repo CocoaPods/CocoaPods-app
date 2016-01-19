@@ -58,11 +58,13 @@
         project.podfilePlugins = plugins;
         // Clear any previous syntax errors.
         self.editor.syntaxErrors = nil;
-
+        project.syntaxErrors = @[];
+        
       } else if ([error.userInfo[CPErrorName] isEqualToString:@"Pod::DSLError"]) {
         SMLSyntaxError *syntaxError = SyntaxErrorFromError(error);
         if (syntaxError) {
           self.editor.syntaxErrors = @[syntaxError];
+          project.syntaxErrors = @[syntaxError];
         }
 
       } else {

@@ -20,6 +20,10 @@
 "POD_INSTALL_SHEET_COMPLETED_BUTTON_TITLE" = "Done";
 "POD_INSTALL_SHEET_IN_PROGRESS_BUTTON_TITLE" = "Cancel";
 
+"PODFILE_WINDOW_CONSOLE_HINT_EMPTY_PODFILE" = "Your Podfile seems empty...\nClick here for some inspiration";
+"PODFILE_WINDOW_CONSOLE_HINT_ERROR_PODFILE" = "Your Podfile is having some problems";
+"PODFILE_WINDOW_CONSOLE_HINT_READY_PODFILE" = "Your Podfile is ready to go!\nHit install to see the outcome";
+
 "MAIN_WINDOW_TITLE" = "Welcome to CocoaPods";
 "MAIN_WINDOW_OPEN_GUIDES_BUTTON_TITLE" = "Open Guides";
 "MAIN_WINDOW_OPEN_SEARCH_BUTTON_TITLE" = "Open Search";

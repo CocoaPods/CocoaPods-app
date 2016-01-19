@@ -13,7 +13,7 @@ class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
   func start() {
     let notificationCenter = NSNotificationCenter.defaultCenter()
     notificationCenter.addObserver(self, selector: "queryUpdated:", name: NSMetadataQueryDidUpdateNotification, object: self.query)
-    notificationCenter.addObserver(self, selector: "queryFinished:", name: NSMetadataQueryDidUpdateNotification, object: self.query)
+    notificationCenter.addObserver(self, selector: "queryGatheringFinished:", name: NSMetadataQueryDidFinishGatheringNotification, object: self.query)
 
     query.predicate = NSPredicate(format: "kMDItemFSName == 'Podfile'", argumentArray: nil)
     query.sortDescriptors = [NSSortDescriptor(key: kMDItemContentModificationDate as String, ascending: true)]
@@ -35,9 +35,17 @@ class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
     }
 
     query.enableUpdates()
+    
+    NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: Selector("queryFinished"), object: nil)
+    queryFinished()
   }
 
-  func queryFinished(notification: NSNotification) {
+  func queryGatheringFinished(notification: NSNotification) {
+    // let NSMetadataQuery finish when there are files available, if not finish the query
+    self.performSelector(Selector("queryFinished"), withObject: nil, afterDelay: 2.0)
+  }
+  
+  func queryFinished() {
     let notificationCenter = NSNotificationCenter.defaultCenter()
     notificationCenter.removeObserver(self)
     query.stopQuery()
