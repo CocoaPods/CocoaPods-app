@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "Bundle-Tests-Icon.png",
       "scale" : "1x"
     },
     {

@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "TVOS-Icon.png",
       "scale" : "1x"
     },
     {

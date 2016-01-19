@@ -1,11 +1,3 @@
-//
-//  CPPodfileErrorState.swift
-//  CocoaPods
-//
-//  Created by Wojciech Rutkowski on 18/01/16.
-//  Copyright © 2016 CocoaPods. All rights reserved.
-//
-
 import Foundation
 
 enum CPPodfileErrorState {
