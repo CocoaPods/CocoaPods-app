@@ -39,6 +39,8 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     guard let podfileVC = podfileViewController, project = podfileVC.userProject else {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
+    
+    project.delegate = self
 
     editor.syntaxColoured = true
     editor.syntaxDefinitionName = "Podfile"
@@ -254,4 +256,15 @@ extension EditorLineSelection {
     return (text as NSString).lineRangeForRange(editor.textView.selectedRange())
   }
 
+}
+
+// MARK: - CPUserProjectDelegate
+extension CPPodfileEditorViewController: CPUserProjectDelegate {
+  
+  func contentDidChangeinUserProject(userProject: CPUserProject) {
+    editor.string = userProject.contents
+    
+    // Passing the message on to the syntax checker
+    syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
+  }
 }

@@ -9,7 +9,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// the job of actually representing the Podfile and it's
 /// metadata is handled by `CPPodfile` from CocoaPods-ObjC
 
+@class CPUserProject;
+
+@protocol CPUserProjectDelegate <NSObject>
+
+- (void)contentDidChangeinUserProject:(CPUserProject *)userProject;
+
+@end
+
 @interface CPUserProject : NSDocument
+
+@property (nonatomic, weak) id<CPUserProjectDelegate> delegate;
 
 /// The raw string content of the Podfile
 @property (strong) NSString * contents;
