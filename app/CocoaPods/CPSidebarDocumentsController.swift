@@ -58,7 +58,6 @@ class CPSidebarDocumentsController: NSObject {
         if source.documents.isEmpty {
           self.showPopoverForOpenPodfile()
         } else {
-
           // Re-run the press now there's content
           self.spotlightButtonTapped(sender)
         }
@@ -76,8 +75,8 @@ class CPSidebarDocumentsController: NSObject {
 
     // Setup the title for the button
     let title = NSLocalizedString("MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE", comment:"")
-    let buttonTitle = NSAttributedString.init(title, color: .CPDarkColor(), font: .labelFontOfSize(13), alignment: .Center)
-    let altButtonTitle = NSAttributedString.init(title, color: .CPDarkColor(), font: .labelFontOfSize(13), alignment: .Center)
+    let buttonTitle = NSAttributedString.init(title, color: .ansiMutedWhite(), font: .labelFontOfSize(13), alignment: .Center)
+    let altButtonTitle = NSAttributedString.init(title, color: .ansiBrightWhite(), font: .labelFontOfSize(13), alignment: .Center)
 
     for case let button as NSButton in openPodfileView.subviews {
       button.attributedTitle = buttonTitle
@@ -89,8 +88,8 @@ class CPSidebarDocumentsController: NSObject {
     openPodfileView.frame = documentScrollView.frame
     documentScrollView.superview?.addSubview(openPodfileView)
 
-    // Make sure that you can't tap change the doc types that will do nothing
-    buttons.forEach { self.enableButton($0, select: false) }
+    // Make sure that you can't change the doc types (it will do nothing)
+    buttons.forEach { self.enableButton($0, select: true) }
   }
 
   func selectButton(button:NSButton) {
