@@ -1,6 +1,10 @@
 import Cocoa
 
-@objc class CPDocumentController: NSDocumentController {
+// This subclass is required so that the app can broadcast notifications when document 
+// based events occur, e.g. opening a document or updates to recently opened documents list.
+// The base `NSDocumentController` class currently has no built-in notifications for these events.
+
+class CPDocumentController: NSDocumentController {
   static let DocumentOpenedNotification = "CPDocumentControllerDocumentOpenedNotification"
   static let RecentDocumentUpdateNotification = "CPDocumentControllerRecentDocumentUpdateNotification"
   static let ClearRecentDocumentsNotification = "CPDocumentControllerClearRecentDocumentsNotification"
@@ -15,8 +19,6 @@ import Cocoa
       
       completionHandler(document, displayDocument, error)
     }
-
-    
   }
   
   // `noteNewRecentDocument` ends up calling to this method so we can just override this one method
