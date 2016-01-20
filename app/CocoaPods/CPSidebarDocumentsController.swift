@@ -25,6 +25,10 @@ class CPSidebarDocumentsController: NSObject {
   // the `source.documents.isEmpty?` if statment
 
   override func awakeFromNib() {
+    updateCurrentSidebarDocuments()
+  }
+  
+  func updateCurrentSidebarDocuments() {
     if recentSource.recentDocuments.count > 0 {
       recentButtonTapped(recentButton)
     } else {
@@ -35,12 +39,16 @@ class CPSidebarDocumentsController: NSObject {
   @IBAction func recentButtonTapped(sender: NSButton) {
     currentSidebarItems = recentSource.recentDocuments
     selectButton(sender)
+    
+    observeRecentDocumentNotifications(true)
   }
 
   @IBAction func spotlightButtonTapped(sender: NSButton) {
     let source = spotlightSource
     currentSidebarItems = source.documents
     selectButton(sender)
+    
+    observeRecentDocumentNotifications(false)
 
     // Could either be no podfiles
     // on the users computer - or still searching
@@ -62,6 +70,23 @@ class CPSidebarDocumentsController: NSObject {
           self.spotlightButtonTapped(sender)
         }
       }
+    }
+  }
+  
+  func observeRecentDocumentNotifications(observe: Bool) {
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    
+    // We only want to observe these notifications if the "Recent" tab is open otherwise 
+    // we would switch back from the "Spotlight" tab `on data update
+    
+    if observe {
+      
+      // Calling `resetCurrentSideBarDocuments` ensures we will have something to show in the UI, not just blank space
+      notificationCenter.addObserver(self, selector: "updateCurrentSidebarDocuments", name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
+      notificationCenter.addObserver(self, selector: "updateCurrentSidebarDocuments", name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
+    } else {
+      notificationCenter.removeObserver(self, name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
+      notificationCenter.removeObserver(self, name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
     }
   }
 
