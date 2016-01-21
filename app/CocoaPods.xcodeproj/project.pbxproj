@@ -87,6 +87,8 @@
 		77356D751A2253F1002822CF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77356D741A2253F1002822CF /* Media.xcassets */; };
 		7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */; };
 		934FF1871C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FF1861C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift */; };
+		934FF1891C4F1E2A000B4302 /* CPDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */; };
+		93FB07E11C503572007B2CDA /* CPDocumentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB07E01C503572007B2CDA /* CPDocumentSource.swift */; };
 		E70998471C49AB5B00229507 /* Podfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70998461C49AB5B00229507 /* Podfile.plist */; };
 		FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FAD11C144BF300DC3791 /* URLHandler.swift */; };
 		FCDCC48F0E8CE099C20D1DEB /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */; };
@@ -269,6 +271,8 @@
 		7C4B007B1B9B441800B6C782 /* CPANSIEscapeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPANSIEscapeHelper.h; sourceTree = "<group>"; };
 		7C4B007C1B9B441800B6C782 /* CPANSIEscapeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPANSIEscapeHelper.m; sourceTree = "<group>"; };
 		934FF1861C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleTextView.swift; sourceTree = "<group>"; };
+		934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPDocumentController.swift; sourceTree = "<group>"; };
+		93FB07E01C503572007B2CDA /* CPDocumentSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPDocumentSource.swift; sourceTree = "<group>"; };
 		E70998461C49AB5B00229507 /* Podfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Podfile.plist; path = "Syntax Definitions/Podfile.plist"; sourceTree = "<group>"; };
 		EBD9373107B77CCDFCD43B67 /* Pods-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
 		EEB7DFACCFDF9B3B443AF311 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -570,7 +574,9 @@
 				1F91775C1BA27598006698C9 /* CPHomeWindowController.xib */,
 				60E693A81C49B5980058DF5F /* CPSpotlightDocumentSource.swift */,
 				60E693B81C4A8DAD0058DF5F /* CPRecentDocumentSource.swift */,
+				93FB07E01C503572007B2CDA /* CPDocumentSource.swift */,
 				60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */,
+				934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -967,6 +973,7 @@
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */,
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
+				93FB07E11C503572007B2CDA /* CPDocumentSource.swift in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				60E693A91C49B5980058DF5F /* CPSpotlightDocumentSource.swift in Sources */,
 				934FF1871C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift in Sources */,
@@ -977,6 +984,7 @@
 				60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
 				66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */,
+				934FF1891C4F1E2A000B4302 /* CPDocumentController.swift in Sources */,
 				60E693B31C4A561E0058DF5F /* CPThickDecorationsWindow.swift in Sources */,
 				60E693BD1C4AC6390058DF5F /* CPHomeSidebarButton.swift in Sources */,
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,

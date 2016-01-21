@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
@@ -23,7 +23,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2880" height="1597"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,22 +34,6 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="FP0-mA-dMU">
                                 <rect key="frame" x="0.0" y="460" width="233" height="36"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE" customClass="CPHomeSidebarButton" customModule="CocoaPods" customModuleProvider="target">
-                                        <rect key="frame" x="119" y="0.0" width="64" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="0xs-Iz-sHf"/>
-                                            <constraint firstAttribute="width" constant="64" id="N7l-o4-iu8"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="bevel" title="Spotlight" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent">2</string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="spotlightButtonTapped:" target="Whb-bK-is0" id="wkQ-KE-rzI"/>
-                                        </connections>
-                                    </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3dY-gu-lGh" customClass="CPHomeSidebarButton" customModule="CocoaPods" customModuleProvider="target">
                                         <rect key="frame" x="44" y="0.0" width="69" height="36"/>
                                         <constraints>
@@ -57,13 +41,29 @@
                                             <constraint firstAttribute="width" constant="69" id="XTB-Da-zeW"/>
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="Recent" bezelStyle="rounded" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="cK3-dR-BDB">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <string key="keyEquivalent">1</string>
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE" customClass="CPHomeSidebarButton" customModule="CocoaPods" customModuleProvider="target">
+                                        <rect key="frame" x="121" y="0.0" width="64" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="0xs-Iz-sHf"/>
+                                            <constraint firstAttribute="width" constant="64" id="N7l-o4-iu8"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" title="Spotlight" bezelStyle="rounded" alignment="center" truncatesLastVisibleLine="YES" state="on" imageScaling="proportionallyDown" inset="2" id="cBv-G6-wqj">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">2</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="spotlightButtonTapped:" target="Whb-bK-is0" id="wkQ-KE-rzI"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -268,8 +268,16 @@
             </connections>
             <point key="canvasLocation" x="528.5" y="415"/>
         </window>
-        <customObject id="4vU-Cg-0pp" customClass="CPSpotlightDocumentSource" customModule="CocoaPods" customModuleProvider="target"/>
-        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentSource" customModule="CocoaPods" customModuleProvider="target"/>
+        <customObject id="4vU-Cg-0pp" customClass="CPSpotlightDocumentSource" customModule="CocoaPods" customModuleProvider="target">
+            <connections>
+                <outlet property="delegate" destination="Whb-bK-is0" id="AWY-Np-VKj"/>
+            </connections>
+        </customObject>
+        <customObject id="vg8-5r-eb7" customClass="CPRecentDocumentSource" customModule="CocoaPods" customModuleProvider="target">
+            <connections>
+                <outlet property="delegate" destination="Whb-bK-is0" id="rO1-dG-fS6"/>
+            </connections>
+        </customObject>
         <customObject id="TsL-KI-RcJ" customClass="CPExternalLinksHelper"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="3g8-qK-y7T" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="432" height="474"/>
@@ -401,7 +409,7 @@ Command-Line Tools?</string>
             </constraints>
             <point key="canvasLocation" x="-145" y="423"/>
         </customView>
-        <customObject id="Whb-bK-is0" customClass="CPSidebarDocumentsController" customModule="CocoaPods" customModuleProvider="target">
+        <customObject id="Whb-bK-is0" userLabel="Sidebar Documents Controller" customClass="CPSidebarDocumentsController" customModule="CocoaPods" customModuleProvider="target">
             <connections>
                 <outlet property="documentScrollView" destination="3Jq-7y-btG" id="apo-m5-pVe"/>
                 <outlet property="openPodfileView" destination="qtI-Qc-skM" id="JM2-tN-Ixs"/>

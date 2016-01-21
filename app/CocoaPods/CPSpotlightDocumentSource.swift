@@ -1,13 +1,18 @@
 import Cocoa
 
-class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
+class CPSpotlightDocumentSource: CPDocumentSource {
   let query = NSMetadataQuery()
-  var documents = [CPHomeWindowDocumentEntry]()
-  var completedPromise = CPMiniPromise()
+  
+  // CPDocumentSource demands a getter only property for `documents` but 
+  // CPSpotlightDocumentSource wants to set this array directly so we create an 
+  // internal managed array that the computed `documents` property can access
+  var spotlightDocuments: [CPHomeWindowDocumentEntry] = []
+  override var documents: [CPHomeWindowDocumentEntry] {
+    return spotlightDocuments
+  }
 
   override func awakeFromNib() {
     start();
-    completedPromise.delegate = self
   }
 
   func start() {
@@ -28,7 +33,7 @@ class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
 
     guard let podfileMetadatas = notification.userInfo?[kMDQueryUpdateAddedItems] as? [NSMetadataItem] else { return }
 
-    documents = podfileMetadatas.flatMap {
+    spotlightDocuments = podfileMetadatas.flatMap {
       guard let path = $0.valueForAttribute(NSMetadataItemPathKey) as? String else { return nil }
       let url = NSURL(fileURLWithPath: path)
       return CPHomeWindowDocumentEntry(URL: url)
@@ -49,10 +54,9 @@ class CPSpotlightDocumentSource: NSObject, CPMiniPromiseDelegate {
     let notificationCenter = NSNotificationCenter.defaultCenter()
     notificationCenter.removeObserver(self)
     query.stopQuery()
-    completedPromise.checkForFulfillment()
-  }
 
-  func shouldFulfillPromise(promise: CPMiniPromise!) -> Bool {
-    return query.stopped
+    if (query.stopped) {
+      self.delegate?.documentSourceDidUpdate(self, documents: documents)
+    }
   }
 }

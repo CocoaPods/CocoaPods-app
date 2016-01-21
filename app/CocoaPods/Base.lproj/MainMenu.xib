@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
@@ -11,7 +11,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="CPAppDelegate"/>
+        <customObject id="Voe-Tx-rLC" customClass="CPAppDelegate">
+            <connections>
+                <outlet property="documentController" destination="Qtz-kf-riq" id="Zl6-hS-hbl"/>
+            </connections>
+        </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="Byb-Tq-L28" customClass="SUUpdater"/>
         <customObject id="bzE-zY-Vxb" customClass="CPExternalLinksHelper"/>
@@ -84,7 +88,7 @@
                         <items>
                             <menuItem title="Open Podfile…" keyEquivalent="o" id="IAo-SY-fd9">
                                 <connections>
-                                    <action selector="openDocument:" target="-1" id="bVn-NM-KNZ"/>
+                                    <action selector="openDocument:" target="Qtz-kf-riq" id="uid-Xs-MhY"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent Podfile" id="tXI-mr-wws">
@@ -94,7 +98,7 @@
                                         <menuItem title="Clear Menu" id="vNY-rz-j42">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="clearRecentDocuments:" target="-1" id="Daa-9d-B3U"/>
+                                                <action selector="clearRecentDocuments:" target="Qtz-kf-riq" id="qqL-IW-wBR"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -497,5 +501,6 @@
                 </menuItem>
             </items>
         </menu>
+        <customObject id="Qtz-kf-riq" customClass="CPDocumentController" customModule="CocoaPods" customModuleProvider="target"/>
     </objects>
 </document>
