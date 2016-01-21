@@ -1,6 +1,6 @@
 import Cocoa
 
-class CPSidebarDocumentsController: NSObject {
+class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
 
   // This changes between Recent and Spotlight docs
   dynamic var currentSidebarItems = [CPHomeWindowDocumentEntry]()
@@ -9,10 +9,10 @@ class CPSidebarDocumentsController: NSObject {
   // searching
   dynamic var loading = false
 
-  @IBOutlet weak var recentButton: NSButton!
-  @IBOutlet weak var spotlightButton: NSButton!
+  @IBOutlet weak var recentButton: CPHomeSidebarButton!
+  @IBOutlet weak var spotlightButton: CPHomeSidebarButton!
 
-  var buttons :[NSButton] { return [recentButton, spotlightButton] }
+  var buttons: [CPHomeSidebarButton] { return [recentButton, spotlightButton] }
 
   @IBOutlet weak var spotlightSource: CPSpotlightDocumentSource!
   @IBOutlet weak var recentSource: CPRecentDocumentSource!
@@ -25,69 +25,65 @@ class CPSidebarDocumentsController: NSObject {
   // the `source.documents.isEmpty?` if statment
 
   override func awakeFromNib() {
-    updateCurrentSidebarDocuments()
-  }
-  
-  func updateCurrentSidebarDocuments() {
-    if recentSource.recentDocuments.count > 0 {
+    if recentSource.documents.count > 0 {
       recentButtonTapped(recentButton)
     } else {
       spotlightButtonTapped(spotlightButton)
     }
   }
-
-  @IBAction func recentButtonTapped(sender: NSButton) {
-    currentSidebarItems = recentSource.recentDocuments
-    selectButton(sender)
+  
+  func documentSourceDidUpdate(documentSource: CPDocumentSource, documents: [CPHomeWindowDocumentEntry]) {
     
-    observeRecentDocumentNotifications(true)
+    // Check the document source is the currently selected by checking the related button's state
+    // If it is selected, then update `currentSidebarItems` with the documents
+    
+    switch documentSource {
+      case recentSource:
+        recentButton.userInteractionEnabled = !documents.isEmpty // If recentSource has no data, then disable the button
+        
+        if (recentButton.state == NSOnState) {
+          if documents.count > 0 {
+            recentButtonTapped(recentButton)
+          } else {
+            spotlightButtonTapped(spotlightButton)
+          }
+        }
+      
+      case spotlightSource where spotlightButton.state == NSOnState:
+        loading = false
+        if documents.isEmpty {
+          showPopoverForOpenPodfile()
+        } else {
+          // Re-run the press now there's content
+          spotlightButtonTapped(spotlightButton)
+        }
+      
+      default:
+        break
+      }
   }
 
-  @IBAction func spotlightButtonTapped(sender: NSButton) {
+  @IBAction func recentButtonTapped(sender: CPHomeSidebarButton) {
+    currentSidebarItems = recentSource.documents
+    selectButton(sender)
+  }
+
+  @IBAction func spotlightButtonTapped(sender: CPHomeSidebarButton) {
     let source = spotlightSource
     currentSidebarItems = source.documents
     selectButton(sender)
-    
-    observeRecentDocumentNotifications(false)
 
     // Could either be no podfiles
     // on the users computer - or still searching
-    // in which case we use the promise to know
-    // for sure
-
+    // in which case we wait for the delegate
+    
     if source.documents.isEmpty {
       loading = true
-      spotlightSource.completedPromise.addBlock {
-        self.loading = false
-
-        let stillSelectedSpotlight = !sender.enabled
-        if !stillSelectedSpotlight { return }
-
-        if source.documents.isEmpty {
-          self.showPopoverForOpenPodfile()
-        } else {
-          // Re-run the press now there's content
-          self.spotlightButtonTapped(sender)
-        }
-      }
     }
-  }
-  
-  func observeRecentDocumentNotifications(observe: Bool) {
-    let notificationCenter = NSNotificationCenter.defaultCenter()
     
-    // We only want to observe these notifications if the "Recent" tab is open otherwise 
-    // we would switch back from the "Spotlight" tab `on data update
-    
-    if observe {
-      
-      // Calling `resetCurrentSideBarDocuments` ensures we will have something to show in the UI, not just blank space
-      notificationCenter.addObserver(self, selector: "updateCurrentSidebarDocuments", name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
-      notificationCenter.addObserver(self, selector: "updateCurrentSidebarDocuments", name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
-    } else {
-      notificationCenter.removeObserver(self, name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
-      notificationCenter.removeObserver(self, name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
-    }
+    // By checking if we have recent documents on spotlight tap, we can minimise code reuse of this line 
+    // as whenever we load Spotlight we should disable `recentButton` if recent documents is empty
+    recentButton.userInteractionEnabled = !recentSource.documents.isEmpty
   }
 
   // When there are no Podfiles in spotlight
@@ -114,18 +110,22 @@ class CPSidebarDocumentsController: NSObject {
     documentScrollView.superview?.addSubview(openPodfileView)
 
     // Make sure that you can't change the doc types (it will do nothing)
-    buttons.forEach { self.enableButton($0, select: true) }
+    buttons.forEach {
+      self.setButton($0, state: NSOffState)
+      $0.userInteractionEnabled = false
+    }
   }
 
-  func selectButton(button:NSButton) {
-    enableButton(button, select:true)
-
+  func selectButton(button: CPHomeSidebarButton) {
+    setButton(button, state: NSOnState)
+    
     let otherButtons = buttons.filter { $0 != button }
-    otherButtons.forEach { self.enableButton($0, select:false) }
+    otherButtons.forEach { self.setButton($0, state: NSOffState) }
   }
 
-  func enableButton(button:NSButton, select:Bool) {
+  func setButton(button: CPHomeSidebarButton, state: Int) {
 //    button.bordered = select
-    button.enabled = !select
+    button.state = state // Using NSOnState/NSOffState to signify the state of the button
+    button.userInteractionEnabled = (state != NSOnState)
   }
 }
