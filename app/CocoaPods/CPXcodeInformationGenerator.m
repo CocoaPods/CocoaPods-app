@@ -20,7 +20,7 @@
 - (NSArray<CPXcodeProject *> * _Nonnull)xcodeProjectsFromProject:(CPUserProject *)project
 {
   NSDictionary *xcodeprojs = project.xcodeIntegrationDictionary[@"projects"];
-  BOOL usesFrameworks = [project.xcodeIntegrationDictionary[@"uses_frameworks"] boolValue];
+  BOOL usesFrameworks = project.xcodeIntegrationDictionary[@"uses_frameworks"] != [NSNull null];
 
   // We promise non-null, so return empty array
   if (xcodeprojs.allKeys.count == 0) { return @[]; }
