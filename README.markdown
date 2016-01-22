@@ -16,8 +16,6 @@ through the ‘Install the Command-Line Tool…’ menu item under the applicati
   <a/>
 </p>
 
-Scroll to after the CHANGELOG for download links.
-
 ### Building for Development
 
 If you want to hack on `CocoaPods.app`:
