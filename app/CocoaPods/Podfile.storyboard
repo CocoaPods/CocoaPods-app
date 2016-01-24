@@ -847,6 +847,7 @@ Hit install to see the outcome</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="hintButton:" target="hxh-b1-faZ" id="ARj-pc-Ofs"/>
+                                    <binding destination="hxh-b1-faZ" name="hidden" keyPath="self.textView.hasText" id="dLo-pX-rV4"/>
                                 </connections>
                             </button>
                         </subviews>
