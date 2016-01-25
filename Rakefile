@@ -1,6 +1,6 @@
 BUNDLED_ENV_VERSION = 1
 # ^ This has to be at line 0
-# This is so that a buid on CP.app can be fast,
+# This is so that a build on CP.app can be fast,
 # it can make assumptions that removing `BUNDLED_ENV_VERSION = `
 # from the first line will get the version.
 
@@ -1048,9 +1048,48 @@ namespace :release do
          "updating the version to #{install_cocoapods_version} and the sha to #{sha}"
     puts
   end
+
+  desc "Version bump the Sparkle XML"
+  task :sparkle => [] do
+    `git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages` unless Dir.exists? "./gh-pages"
+    
+    version = install_cocoapods_version
+    xml_file = "gh-pages/sparkle.xml"
+    app_zip = "pkg/CocoaPods.app-#{version}.tar.bz2"
+    release_notes = "https://app.cocoapods.org/releases/#{version}"
+    download_url = "https://github.com/CocoaPods/CocoaPods-app/releases/download/#{version}/CocoaPods.app-#{version}.tar.bz2"
+    
+    require 'rexml/document'
+    doc = REXML::Document.new(File.read(xml_file))
+    channel = doc.elements['/rss/channel']
+
+    File.open(app_zip, File::RDONLY, :binmode => true) do |f|
+      data = f.read
+      length = data.length
+
+      item = channel.add_element('item')
+      item.add_element("title").add_text("Version #{version}")
+      item.add_element("sparkle:minimumSystemVersion").add_text(DEPLOYMENT_TARGET)
+      item.add_element("sparkle:releaseNotesLink").add_text("#{release_notes}")
+      item.add_element("pubDate").add_text(DateTime.now.strftime("%a, %d %h %Y %H:%M:%S %z"))
+
+      enclosure = item.add_element("enclosure")
+      enclosure.attributes["type"] = "application/octet-stream"
+      enclosure.attributes["sparkle:version"] = version
+      enclosure.attributes["length"] = length
+      enclosure.attributes["url"] = download_url
+
+      formatter = REXML::Formatters::Pretty.new(2)
+      formatter.compact = true
+      new_xml = ""
+      formatter.write(doc, new_xml)
+      File.open(xml_file, 'w') { |file| file.write new_xml }
+    end
+  end
+
 end
 
-desc "Create a clean release build for distribution"
+desc 'Create a clean release build for distribution'
 task :release do
   unless `sw_vers -productVersion`.strip.split('.').first(2).join('.') == RELEASE_PLATFORM
     puts "[!] A release build must be performed on the latest OS X version to ensure all the gems that Apple includes " \
