@@ -1,6 +1,6 @@
 BUNDLED_ENV_VERSION = 1
 # ^ This has to be at line 0
-# This is so that a buid on CP.app can be fast,
+# This is so that a build on CP.app can be fast,
 # it can make assumptions that removing `BUNDLED_ENV_VERSION = `
 # from the first line will get the version.
 
@@ -1018,20 +1018,30 @@ namespace :release do
   desc "Create a clean build"
   task :cleanbuild => [:clean, :build]
 
+  # These are used in uploading the release
+  # and updating Sparkle
+
+  require 'net/http'
+  require 'json'
+  require 'rest'
+
+  def tarball
+    File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
+  end
+
+  def sha(file)
+    `shasum -a 256 -b '#{tarball}'`.split(' ').first
+  end
+
+  github_headers = {
+    'Content-Type' => 'application/json',
+    'User-Agent' => 'runscope/0.1,segiddins',
+    'Accept' => 'application/json',
+  }
+
   desc "Upload release"
   task :upload => [] do
-    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
-    sha = `shasum -a 256 -b '#{tarball}'`.split(' ').first
-
-    require 'net/http'
-    require 'json'
-    require 'rest'
-
-    github_headers = {
-      'Content-Type' => 'application/json',
-      'User-Agent' => 'runscope/0.1,segiddins',
-      'Accept' => 'application/json',
-    }
+    sha = sha(tarball)
 
     response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
                          {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
@@ -1048,9 +1058,106 @@ namespace :release do
          "updating the version to #{install_cocoapods_version} and the sha to #{sha}"
     puts
   end
+
+  desc "Version bump the Sparkle XML"
+  task :sparkle => [] do
+    sh "git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages" unless Dir.exists? "./gh-pages"
+
+    version = install_cocoapods_version
+    xml_file = "gh-pages/sparkle.xml"
+    app_zip = "pkg/CocoaPods.app-#{version}.tar.bz2"
+    release_notes = "https://app.cocoapods.org/releases/#{version}"
+    download_url = "https://github.com/CocoaPods/CocoaPods-app/releases/download/#{version}/CocoaPods.app-#{version}.tar.bz2"
+
+    require 'rexml/document'
+    doc = REXML::Document.new(File.read(xml_file))
+    channel = doc.elements['/rss/channel']
+
+    # Add a new item to the Appcast feed
+    item = channel.add_element('item')
+    item.add_element("title").add_text("Version #{version}")
+    item.add_element("sparkle:minimumSystemVersion").add_text(DEPLOYMENT_TARGET)
+    item.add_element("sparkle:releaseNotesLink").add_text(release_notes)
+    item.add_element("pubDate").add_text(DateTime.now.strftime("%a, %d %h %Y %H:%M:%S %z"))
+
+    enclosure = item.add_element("enclosure")
+    enclosure.attributes["type"] = "application/octet-stream"
+    enclosure.attributes["sparkle:version"] = version
+    enclosure.attributes["length"] = File.size(app_zip)
+    enclosure.attributes["url"] = download_url
+    
+    # Write it out
+    formatter = REXML::Formatters::Pretty.new(2)
+    formatter.compact = true
+    new_xml = ""
+    formatter.write(doc, new_xml)
+    File.open(xml_file, 'w') { |file| file.write new_xml }
+
+    # Get the CP release notes for our inline release notes
+    response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods/releases?access_token=#{github_access_token}", github_headers)
+    latest_release = JSON.load(response.body).find { |release| release["tag_name"] == version }
+
+    markdown_notes = "pkg/#{version}_before.md"
+    File.open(markdown_notes, 'w') { |file| file.write latest_release["body"] }
+
+    # Give the user a chance to add flourish
+    puts "Please edit #{markdown_notes}, then press return to continue with this process"
+    puts "mate -w #{markdown_notes}"
+    STDIN.gets
+
+    # Get GitHub to render the MD
+    options = { text: File.read(markdown_notes), mode: "gfm", context: "cocoapods/cocoapods" }
+    response = REST.post("https://api.github.com/markdown?access_token=#{github_access_token}", options.to_json, github_headers)
+    html_markdown = response.body
+
+    # Ship the commits
+    Dir.chdir("gh-pages") do
+      sh "git add ."
+      sh "git commit -m 'Added the Sparkle XML for #{version}.'"
+
+      File.open("releases/#{version}.html", 'w') { |file| file.write html_markdown }
+
+      sh "git add ."
+      sh "git commit -m 'Added the release notes for #{version}.'"
+      sh "git push"
+    end
+
+    # Tada
+    puts "Deployed the Sparkle XML"
+  end
+
+  task :homebrew_cask do
+    cask_fork = JSON.load(REST.post("https://api.github.com/repos/caskroom/homebrew-cask/forks?access_token=#{github_access_token}",
+                                    {}.to_json,
+                                    github_headers).body)["full_name"]
+
+    branch = "cocoapods-#{version}"
+    message = "Upgrade CocoaPods to v#{version}"
+
+    rm_rf "homebrew_cask"
+    sh "git clone https://github.com/caskroom/homebrew-cask.git --depth=1"
+    Dir.chdir('homebrew_cask') do
+      sh "git remote add fork https://github.com/#{cask_fork}.git"
+      sh "git checkout #{branch}"
+
+      cask_file = 'Casks/cocoapods.rb'
+      cask = File.read(cask_file)
+      cask.sub! /version '#{Gem::Version::VERSION_PATTERN}'/, "version '#{version}'"
+      cask.sub! /sha256 '[[:xdigit:]]+'/, "sha256 '#{sha(tarball)}'"
+      File.open(cask_file, 'w') { |f| f.write(cask) }
+
+      sh "git commit -am '#{message}'"
+      sh "git push fork"
+    end
+
+    REST.post("https://api.github.com/repos/caskroom/homebrew_cask/pulls?access_token=#{github_access_token}",
+              {title: message, head: full_name.split('/').first + ":#{branch}", base: 'master'}.to_json,
+              github_headers)
+  end
+
 end
 
-desc "Create a clean release build for distribution"
+desc 'Create a clean release build for distribution'
 task :release do
   unless `sw_vers -productVersion`.strip.split('.').first(2).join('.') == RELEASE_PLATFORM
     puts "[!] A release build must be performed on the latest OS X version to ensure all the gems that Apple includes " \
@@ -1069,4 +1176,6 @@ task :release do
   end
   Rake::Task['release:cleanbuild'].invoke
   Rake::Task['release:upload'].invoke
+  Rake::Task['release:sparkle'].invoke
+  Rake::Task['release:homebrew_cask'].invoke
 end
