@@ -1144,4 +1144,5 @@ task :release do
   end
   Rake::Task['release:cleanbuild'].invoke
   Rake::Task['release:upload'].invoke
+  Rake::Task['release:sparkle'].invoke
 end
