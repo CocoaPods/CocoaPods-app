@@ -61,4 +61,3 @@ We have heard reports of issues with installing on custom ruby installations, we
 ### Creating a release
 
 1. Run `rake release`.
-2. Make a pull request to [homebrew-cask](https://github.com/caskroom/homebrew-cask/blob/master/Casks/cocoapods.rb) updating the `version` and `sha256`
