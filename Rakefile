@@ -1061,7 +1061,7 @@ namespace :release do
 
   desc "Version bump the Sparkle XML"
   task :sparkle => [] do
-    `git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages` unless Dir.exists? "./gh-pages"
+    sh "git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages" unless Dir.exists? "./gh-pages"
 
     version = install_cocoapods_version
     xml_file = "gh-pages/sparkle.xml"
@@ -1074,28 +1074,24 @@ namespace :release do
     channel = doc.elements['/rss/channel']
 
     # Add a new item to the Appcast feed
-    File.open(app_zip, File::RDONLY, :binmode => true) do |f|
-      data = f.read
-      length = data.length
+    item = channel.add_element('item')
+    item.add_element("title").add_text("Version #{version}")
+    item.add_element("sparkle:minimumSystemVersion").add_text(DEPLOYMENT_TARGET)
+    item.add_element("sparkle:releaseNotesLink").add_text(release_notes)
+    item.add_element("pubDate").add_text(DateTime.now.strftime("%a, %d %h %Y %H:%M:%S %z"))
 
-      item = channel.add_element('item')
-      item.add_element("title").add_text("Version #{version}")
-      item.add_element("sparkle:minimumSystemVersion").add_text(DEPLOYMENT_TARGET)
-      item.add_element("sparkle:releaseNotesLink").add_text("#{release_notes}")
-      item.add_element("pubDate").add_text(DateTime.now.strftime("%a, %d %h %Y %H:%M:%S %z"))
-
-      enclosure = item.add_element("enclosure")
-      enclosure.attributes["type"] = "application/octet-stream"
-      enclosure.attributes["sparkle:version"] = version
-      enclosure.attributes["length"] = length
-      enclosure.attributes["url"] = download_url
-
-      formatter = REXML::Formatters::Pretty.new(2)
-      formatter.compact = true
-      new_xml = ""
-      formatter.write(doc, new_xml)
-      File.open(xml_file, 'w') { |file| file.write new_xml }
-    end
+    enclosure = item.add_element("enclosure")
+    enclosure.attributes["type"] = "application/octet-stream"
+    enclosure.attributes["sparkle:version"] = version
+    enclosure.attributes["length"] = File.size(app_zip)
+    enclosure.attributes["url"] = download_url
+    
+    # Write it out
+    formatter = REXML::Formatters::Pretty.new(2)
+    formatter.compact = true
+    new_xml = ""
+    formatter.write(doc, new_xml)
+    File.open(xml_file, 'w') { |file| file.write new_xml }
 
     # Get the CP release notes for our inline release notes
     response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods/releases?access_token=#{github_access_token}", github_headers)
@@ -1116,14 +1112,14 @@ namespace :release do
 
     # Ship the commits
     Dir.chdir("gh-pages") do
-      `git add .`
-      `git commit -m "Added the Sparkle XML for #{version}".`
+      sh "git add ."
+      sh "git commit -m 'Added the Sparkle XML for #{version}.'"
 
       File.open("releases/#{version}.html", 'w') { |file| file.write html_markdown }
 
-      `git add .`
-      `git commit -m "Added the release notes for #{version}".`
-      `git push`
+      sh "git add ."
+      sh "git commit -m 'Added the release notes for #{version}.'"
+      sh "git push"
     end
 
     # Tada
@@ -1132,7 +1128,7 @@ namespace :release do
 
   task :homebrew_cask do
     cask_fork = JSON.load(REST.post("https://api.github.com/repos/caskroom/homebrew-cask/forks?access_token=#{github_access_token}",
-                                    {}.to_json
+                                    {}.to_json,
                                     github_headers).body)["full_name"]
 
     branch = "cocoapods-#{version}"
