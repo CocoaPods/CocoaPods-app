@@ -1018,21 +1018,24 @@ namespace :release do
   desc "Create a clean build"
   task :cleanbuild => [:clean, :build]
 
+  # These are used in uploading the release
+  # and updating Sparkle
+  
+  require 'net/http'
+  require 'json'
+  require 'rest'
+
+  github_headers = {
+    'Content-Type' => 'application/json',
+    'User-Agent' => 'runscope/0.1,segiddins',
+    'Accept' => 'application/json',
+  }
+  
   desc "Upload release"
   task :upload => [] do
     tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
     sha = `shasum -a 256 -b '#{tarball}'`.split(' ').first
-
-    require 'net/http'
-    require 'json'
-    require 'rest'
-
-    github_headers = {
-      'Content-Type' => 'application/json',
-      'User-Agent' => 'runscope/0.1,segiddins',
-      'Accept' => 'application/json',
-    }
-
+    
     response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
                          {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
                          github_headers)
@@ -1063,6 +1066,7 @@ namespace :release do
     doc = REXML::Document.new(File.read(xml_file))
     channel = doc.elements['/rss/channel']
 
+    # Add a new item to the Appcast feed
     File.open(app_zip, File::RDONLY, :binmode => true) do |f|
       data = f.read
       length = data.length
@@ -1085,6 +1089,38 @@ namespace :release do
       formatter.write(doc, new_xml)
       File.open(xml_file, 'w') { |file| file.write new_xml }
     end
+    
+    # Get the CP release notes for our inline release notes
+    response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods/releases?access_token=#{github_access_token}", github_headers)
+    latest_release = JSON.load(response.body).find { |release| release["tag_name"] == version }
+    
+    markdown_notes = "pkg/#{version}_before.md"
+    File.open(markdown_notes, 'w') { |file| file.write latest_release["body"] }
+
+    # Give the user a chance to add flourish
+    puts "Please edit #{markdown_notes}, then press return to continue with this process"
+    puts "mate -w #{markdown_notes}"
+    STDIN.gets
+    
+    # Get GitHub to render the MD
+    options = { text: File.read(markdown_notes), mode: "gfm", context: "cocoapods/cocoapods" }    
+    response = REST.post("https://api.github.com/markdown?access_token=#{github_access_token}", options.to_json, github_headers)
+    html_markdown = response.body
+    
+    # Ship the commits
+    Dir.chdir("gh-pages") do
+      `git add .`
+      `git commit -m "Added the Sparkle XML for #{version}".`
+      
+      File.open("releases/#{version}.html", 'w') { |file| file.write html_markdown }
+    
+      `git add .`
+      `git commit -m "Added the release notes for #{version}".`
+      `git push`
+    end
+    
+    # Tada
+    puts "Deployed the Sparkle XML"
   end
 
 end
