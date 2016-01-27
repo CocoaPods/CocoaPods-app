@@ -83,6 +83,12 @@ def install_cocoapods_version
   @install_cocoapods_version = YAML.load(File.read(version_file))['last']
 end
 
+# Used to differentiate app builds from CocoaPods releases.
+def cocoapods_app_build_version
+  require 'Date'
+  DateTime.now.strftime("%Y.%m.%d")
+end
+
 # ------------------------------------------------------------------------------
 # Package metadata
 # ------------------------------------------------------------------------------
@@ -967,7 +973,7 @@ namespace :app do
   task :update_version do
     info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
     execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
-    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{install_cocoapods_version}", info_plist]
+    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{cocoapods_app_build_version}", info_plist]
   end
 
   desc 'Prepare all prerequisites for building the app'
