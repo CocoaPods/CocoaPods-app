@@ -56,4 +56,7 @@
 /// Appends `--verbose` to the end of the command, defaults to NO
 @property (nonatomic, assign) BOOL verboseOutput;
 
+/// If the task is done and successful, returns YES, otherwise NO
+- (BOOL)finishedSuccessfully;
+
 @end
