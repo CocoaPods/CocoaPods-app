@@ -148,10 +148,7 @@
                                                   name:NSFileHandleDataAvailableNotification
                                                 object:nil];
 
-  NSUserNotification *completionNotification = [[NSUserNotification alloc] init];
-  completionNotification.title = NSLocalizedString(@"WORKSPACE_GENERATED_NOTIFICATION_TITLE", nil);
-  completionNotification.subtitle = [[self.userProject.fileURL relativePath] stringByAbbreviatingWithTildeInPath];
-  [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:completionNotification];
+
 
   self.terminationStatus = self.task.terminationStatus;
 

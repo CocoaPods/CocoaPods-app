@@ -20,7 +20,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   override func viewWillAppear() {
 
     // The userProject is DI'd in after viewDidLoad
-    installAction = CPInstallAction(userProject: userProject)
+    installAction = CPInstallAction(userProject: userProject, notify: true)
 
     // The view needs to be added to a window before we can use
     // the window to pull out to the document icon from the window
