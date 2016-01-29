@@ -148,8 +148,6 @@
                                                   name:NSFileHandleDataAvailableNotification
                                                 object:nil];
 
-
-
   self.terminationStatus = self.task.terminationStatus;
 
   // Setting to `nil` signals through bindings that task has finished.
