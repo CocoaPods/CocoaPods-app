@@ -14,6 +14,8 @@
 @property (nonatomic) NSProgress *progress;
 @property (nonatomic, copy) NSAttributedString *output;
 @property (nonatomic, assign) BOOL running;
+@property (nonatomic, assign) int terminationStatus;
+
 @end
 
 @implementation CPCLITask
@@ -30,6 +32,7 @@
     self.command = command;
     self.delegate = delegate;
     self.qualityOfService = qualityOfService;
+    self.terminationStatus = 1;
   }
 
   return self;
@@ -145,10 +148,7 @@
                                                   name:NSFileHandleDataAvailableNotification
                                                 object:nil];
 
-  NSUserNotification *completionNotification = [[NSUserNotification alloc] init];
-  completionNotification.title = NSLocalizedString(@"WORKSPACE_GENERATED_NOTIFICATION_TITLE", nil);
-  completionNotification.subtitle = [[self.userProject.fileURL relativePath] stringByAbbreviatingWithTildeInPath];
-  [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:completionNotification];
+  self.terminationStatus = self.task.terminationStatus;
 
   // Setting to `nil` signals through bindings that task has finished.
   self.task = nil;
@@ -160,6 +160,11 @@
   if ([self.delegate respondsToSelector:@selector(taskCompleted:)]) {
     [self.delegate taskCompleted:self];
   }
+}
+
+- (BOOL)finishedSuccessfully
+{
+  return self.terminationStatus == 0;
 }
 
 #pragma mark - Utilities
