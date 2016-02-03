@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
@@ -367,8 +367,8 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
+                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -473,8 +473,8 @@ Gw
                                                                     </connections>
                                                                 </textField>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y79-Jv-qBs">
-                                                                    <rect key="frame" x="38" y="31" width="88" height="84"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSFolderSmart" id="pTa-ru-ED3"/>
+                                                                    <rect key="frame" x="38" y="26" width="88" height="84"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="project" id="pTa-ru-ED3"/>
                                                                     <connections>
                                                                         <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.image" id="i6G-UG-axx"/>
                                                                     </connections>
@@ -544,13 +544,6 @@ Gw
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W3Y-2W-qGL">
-                                                                    <rect key="frame" x="34" y="50" width="100" height="100"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bundle-Icon" id="EbR-ka-yL4"/>
-                                                                    <connections>
-                                                                        <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.icon" id="FiZ-V2-pn9"/>
-                                                                    </connections>
-                                                                </imageView>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-et-qJD">
                                                                     <rect key="frame" x="152" y="90" width="90" height="17"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Type:" id="FIz-nq-Old">
@@ -652,6 +645,13 @@ Gw
                                                                         <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.name" id="UnH-cw-czv"/>
                                                                     </connections>
                                                                 </textField>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W3Y-2W-qGL">
+                                                                    <rect key="frame" x="34" y="34" width="100" height="100"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Bundle-Icon" id="EbR-ka-yL4"/>
+                                                                    <connections>
+                                                                        <binding destination="AcW-VW-nvx" name="value" keyPath="objectValue.icon" id="FiZ-V2-pn9"/>
+                                                                    </connections>
+                                                                </imageView>
                                                             </subviews>
                                                             <connections>
                                                                 <outlet property="textField" destination="z6A-IP-Ww8" id="Gxx-8G-8XP"/>
@@ -872,8 +872,7 @@ Hit install to see the outcome</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Bundle-Icon" width="50" height="50"/>
-        <image name="NSFolderSmart" width="32" height="32"/>
+        <image name="Bundle-Icon" width="100" height="100"/>
         <image name="TransparentButtonBG" width="23" height="20"/>
         <image name="TransparentButtonBGFilled" width="49" height="20"/>
         <image name="actionbar_background" width="250.5" height="23"/>
@@ -883,5 +882,6 @@ Hit install to see the outcome</string>
         <image name="icon_editor" width="16" height="34"/>
         <image name="icon_information" width="40" height="40"/>
         <image name="install_separator" width="1" height="16"/>
+        <image name="project" width="100" height="100"/>
     </resources>
 </document>
