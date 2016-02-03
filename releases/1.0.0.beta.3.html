@@ -1,0 +1,306 @@
+<p>The second CocoaPods.app release since we went to town making it production worthy. New major features are</p>
+
+<ul>
+<li>See a Podfile's Integration information</li>
+<li>More inline error messages</li>
+<li>Automatic installation of CocoaPods plugins for a Podfile</li>
+</ul>
+
+<p>This should be the feature-set for 1.0 final now, core-team work is mainly going towards polish and initial onboarding flow.</p>
+
+<p><a href="https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.3/CocoaPods.app-1.0.0.beta.3.tar.bz2">Download</a></p>
+
+<h3>CocoaPods 1.0.0.beta.3</h3>
+
+<h5>Breaking</h5>
+
+<ul>
+<li>Rename the <code>xcodeproj</code> Podfile directive to <code>project</code>.
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a>
+<a href="https://github.com/CocoaPods/Core/issues/298">Core#298</a>
+</li>
+</ul>
+
+<h5>Enhancements</h5>
+
+<ul>
+<li>None.</li>
+</ul>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li><p>Don't try to embed project headers into frameworks.<br>
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4819">#4819</a></p></li>
+<li><p>Fix a crash in the analyzer when target deduplication is deactivated.<br>
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4751">#4751</a></p></li>
+<li><p>Handle CoreData mapping models with recursive resource globs.<br>
+<a href="https://github.com/efirestone">Eric Firestone</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4809">#4809</a></p></li>
+<li><p>Generate valid xcconfig when target name includes spaces.<br>
+<a href="https://github.com/dnkoutso">Dimitris Koutsogiorgas</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4783">#4783</a></p></li>
+<li><p>Properly add resource files to resources build phase.<br>
+<a href="https://github.com/efirestone">Eric Firestone</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4762">#4762</a></p></li>
+<li><p>Fix suggestion of sudo when it actually isn't needed.<br>
+<a href="https://github.com/sirlantis">Marcel Jackwerth</a></p></li>
+<li><p>Set the <code>TARGET_DEVICE_FAMILY</code> to support both iPhone and iPad for iOS<br>
+resource bundle targets.<br>
+<a href="https://github.com/arifken">Andy Rifken</a></p></li>
+<li><p>Share user schemes of <code>Pods.xcodeproj</code> after generating deterministic UUIDS.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Only attempt to <code>import</code> a framework during linting if the pod has source<br>
+files, and is thus being built by CocoaPods.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4823">#4823</a></p></li>
+<li><p>Determine whether an external source needs to be fetched when updating a<br>
+dependency regardless of subspec names.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4821">#4821</a></p></li>
+</ul>
+
+<h2>1.0.0.beta.2 (2016-01-05)</h2>
+
+<h5>Enhancements</h5>
+
+<ul>
+<li><p>Present a friendly error suggesting running <code>pod install</code> when there are<br>
+missing local podspecs when running <code>pod outdated</code>.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4716">#4716</a></p></li>
+<li><p>Don't warn about setting base config when identical to current config.<br>
+<a href="https://github.com/jedlewison">Jed Lewison</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4722">#4722</a></p></li>
+<li><p>Add <code>user_targets</code> method to the <code>UmbrellaTargetDescription</code> in the<br>
+post-install hooks context.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+</ul>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li><p>Always fetch a <code>:podspec</code> dependency's podspec when it is missing in the<br>
+<code>Pods</code> directory.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4717">#4717</a></p></li>
+<li><p>The <code>Info.plist</code> file will now be generated properly for resource bundles,<br>
+setting the proper <code>CFBundlePackageType</code> and omitting the <code>CFBundleExecutable</code><br>
+key.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/Xcodeproj/issues/259">Xcodeproj#259</a></p></li>
+<li><p>Fix crash when deintegrating due to major version change and there are<br>
+multiple root-level Xcode projects.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Ensure the <code>sandbox_root</code> attribute is set on the pre-install hooks context.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+</ul>
+
+<h2>1.0.0.beta.1 (2015-12-30)</h2>
+
+<h5>Breaking</h5>
+
+<ul>
+<li><p>The <code>link_with</code> Podfile DSL method has been removed in favor of target<br>
+inheritance.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>The <code>:exclusive =&gt; true</code> Podfile DSL target option has been removed in favor<br>
+of the <code>inherit! :search_paths</code> directive.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>The specification of <code>:head</code> dependencies has been removed.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4673">#4673</a></p></li>
+<li><p>The deprecated <code>:local</code> dependency option has been removed in favor of the<br>
+equivalent <code>:path</code> option.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>The deprecated <code>dependency</code> method in the Podfile DSL has been removed in<br>
+favor of the equivalent <code>pod</code> method.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>The deprecated <code>preferred_dependency</code> method in the Specification DSL has been<br>
+removed in favor of the equivalent <code>default_subspecs</code> method.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>The <code>docset_url</code> Specification attribute has been removed.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/Core/issues/284">Core#284</a></p></li>
+<li><p>Build configuration names are no longer set as pre-processor defines, but<br>
+rather <code>POD_CONFIGURATION_$CONFIGURATION_NAME</code> is defined in order to lessen<br>
+conflicts with pod code.<br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4143">#4143</a></p></li>
+</ul>
+
+<h5>Highlighted Enhancements That Need Testing</h5>
+
+<ul>
+<li>The Podfile DSL has been cleaned up, with the removal of confusing options and
+the introduction of abstract targets, search paths-only inheritance, the
+specification of installation options, and the removal of head dependencies.
+<a href="https://github.com/segiddins">Samuel Giddins</a>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/840">#840</a>
+</li>
+</ul>
+
+<h5>Enhancements</h5>
+
+<ul>
+<li><p>Add the ability to add a custom commit message when pushing a spec.<br>
+<a href="https://github.com/bartjacobs">Bart Jacobs</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4583">#4583</a></p></li>
+<li><p>Added support for <code>pod env</code> to print the pod environment without having to crash.<br>
+<a href="https://github.com/hemal">Hemal Shah</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3660">#3660</a></p></li>
+<li><p>Add support for specifying :source with a pod dependency.<br>
+<a href="https://github.com/efirestone">Eric Firestone</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4486">#4486</a></p></li>
+<li><p>Ask user to run <code>pod install</code> when a resource not found during in copy resources script.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a></p></li>
+<li><p>Add support to track <code>.def</code> sources.</p></li>
+<li><p>Add support to track <code>.def</code> files as headers.<br>
+<a href="https://github.com/dnkoutso">Dimitris Koutsogiorgas</a><br>
+<a href="https://github.com/CocoaPods/Xcodeproj/pull/338">#338</a></p></li>
+<li><p><code>Pod::Installer::PostInstallHooksContext</code> now offers access to the <code>sandbox</code><br>
+object.<br>
+<a href="https://github.com/marcelofabri">Marcelo Fabri</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4487">#4487</a></p></li>
+<li><p>Improve sorting algorithm for <code>pod search</code>.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a><br>
+<a href="https://github.com/CocoaPods/cocoapods-search/issues/12">cocoapods-search#12</a></p></li>
+<li><p>Improve <code>pod search</code> performance while using <em><code>--full</code></em> flag.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a><br>
+<a href="https://github.com/CocoaPods/cocoapods-search/issues/8">cocoapods-search#8</a></p></li>
+<li><p>Improve message when there is no spec in repos for dependency set in Podfile.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4430">#4430</a></p></li>
+<li><p>Reduce the number of times the user's Xcode project is opened, speeding up<br>
+installation.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4374">#4374</a></p></li>
+<li><p>Improving the performance of Pod::Installer::Analyzer#generate_pod_targets<br>
+<a href="https://github.com/danielribeiro">Daniel Ribeiro</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4399">#4399</a></p></li>
+<li><p>Framework pods that have a <code>header_mappings_dirs</code> set will now produce<br>
+frameworks with headers that respect the nesting.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>The validator will now ensure that pods with a <code>header_mappings_dirs</code> have all<br>
+of their headers inside that directory.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Pods will be validated with the <code>-Wincomplete-umbrella</code> compiler flag to<br>
+ensure module maps are valid.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3428">#3428</a></p></li>
+<li><p>The validator will now attempt to build an app that imports the pod.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/2095">#2095</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/2134">#2134</a></p></li>
+<li><p>The <code>Info.plist</code> file's <code>CFBundleIdentifier</code> is now set via the<br>
+<code>PRODUCT_BUNDLE_IDENTIFIER</code> build setting, consistent with Xcode 7.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4426">#4426</a></p></li>
+<li><p>Externally-sourced pods will now have their specifications quickly linted.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Set the deployment target on pods to be that which is defined in the<br>
+podspec.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3454">#4354</a></p></li>
+<li><p>Set a deployment target for resource bundle targets.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3347">#3347</a></p></li>
+<li><p>Targets that are no longer integrated with CocoaPods will be properly<br>
+de-integrated when installation occurs.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Targets that are integrated will be ensured that they have all<br>
+CocoaPods-related settings and phases properly installed.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Total de-integration will happen whenever the major version of CocoaPods<br>
+changes, ensuring backwards-incompatible changes are properly applied.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>The Podfile now allows specifying installation options via the <code>install!</code><br>
+directive.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/Core/issues/151">Core#151</a></p></li>
+<li><p>The Podfile now allows marking targets as <code>abstract</code> and specifying the pod<br>
+inheritance mode via the <code>inherit!</code> directive.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/1249">#1249</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/1626">#1626</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4001">#4001</a></p></li>
+</ul>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li><p>Fix compiling of localized resources.<br>
+<a href="https://github.com/efirestone">Eric Firestone</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/1653">#1653</a></p></li>
+<li><p>Fix compiling of asset catalog files inside resource bundles.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4501">#4501</a></p></li>
+<li><p>Prevent installer to be run from inside sandbox directory.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a></p></li>
+<li><p>Improve repo lint error message when no repo found with given name.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4142">#4142</a></p></li>
+<li><p>Fix a crash in dependency resolution when running Ruby 2.3.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4345">#4345</a></p></li>
+<li><p>Fix handling of localized files in Pods installed as frameworks.<br>
+<a href="https://github.com/timbodeit">Tim Bodeit</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/2597">#2597</a></p></li>
+<li><p>Only include native targets when generating the Podfile in <code>pod init</code>.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/2169">#2169</a></p></li>
+<li><p>Ensure that generated <code>Info.plist</code> files have a <code>CFBundleShortVersionString</code><br>
+that is precisely three dot-separated numbers.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4421">#4421</a></p></li>
+<li><p>Set the <code>APPLICATION_EXTENSION_API_ONLY</code> build setting if integrating with a<br>
+tvOS extension target, or a target that has the setting set to <code>YES</code>.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3644">#3644</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4393">#4393</a></p></li>
+<li><p>Only the root directory of externally-sourced pods will be searched for<br>
+podspecs.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3683">#3683</a></p></li>
+<li><p>Remove the library name's extension when adding it in the "linker flags" build<br>
+setting to support dynamic libraries.<br>
+<a href="https://github.com/andreacremaschi">Andrea Cremaschi</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4468">#4468</a></p></li>
+<li><p>Specifying relative subspec names to the linter is now supported.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/1917">#1917</a></p></li>
+<li><p>Headers used to build a pod will no longer be duplicated for frameworks.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4420">#4420</a></p></li>
+<li><p>The <code>UIRequiredDeviceCapabilities</code> key is now specified in the <code>Info.plist</code><br>
+file for tvOS pods built as frameworks.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4514">#4514</a></p></li>
+<li><p>Fix Swift code completion for Development Pods by using <code>realpath</code> for<br>
+symlinked source files.<br>
+<a href="https://github.com/neonichu">Boris Bügling</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3777">#3777</a></p></li>
+<li><p>Avoid the duplicate UUID warning when a Pod is installed for multiple<br>
+platforms.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4521">#4521</a></p></li>
+<li><p>Changing the name of a target in a Podfile will no longer cause warnings about<br>
+being unable to set the base configuration XCConfig.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Ensure that linking multiple times against the same framework does not trigger<br>
+the duplicate module name check for frameworks.<br>
+<a href="https://github.com/neonichu">Boris Bügling</a><br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4550">#4550</a></p></li>
+<li><p>Fix lint in Xcode 7.2, it requires <code>-destination</code>.<br>
+<a href="https://github.com/neonichu">Boris Bügling</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4652">#4652</a></p></li>
+<li><p>Empty podfiles / target blocks no longer break the user's Xcode project.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/3617">#3617</a></p></li>
+<li><p>The pre-processor define for <code>DEBUG</code> will be set for all debug-based build<br>
+configurations when building pods.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4148">#4148</a></p></li>
+</ul>
