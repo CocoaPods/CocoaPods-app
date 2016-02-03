@@ -1,4 +1,4 @@
-BUNDLED_ENV_VERSION = 1
+BUNDLED_ENV_VERSION = 2
 # ^ This has to be at line 0
 # This is so that a build on CP.app can be fast,
 # it can make assumptions that removing `BUNDLED_ENV_VERSION = `
@@ -931,7 +931,7 @@ namespace :bundle do
   namespace :clean do
     task :build do
       rm_rf WORKBENCH_DIR
-      rm "app/CPReflectionService/libruby+exts.a"
+      rm "app/CPReflectionService/libruby+exts.a" if File.exists? "app/CPReflectionService/libruby+exts.a"
     end
 
     task :downloads do
@@ -1048,21 +1048,15 @@ namespace :release do
   desc "Upload release"
   task :upload => [] do
     sha = sha(tarball)
-
+    puts "Uploading zip as a GitHub release"
     response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
                          {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
                          github_headers)
-
     tarball_name = File.basename(tarball)
 
     upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
-
-    puts
-    puts "Make a PR to https://github.com/CocoaPods/CocoaPods-app/blob/master/homebrew-cask " \
-         "updating the version to #{install_cocoapods_version} and the sha to #{sha}"
-    puts
   end
 
   desc "Version bump the Sparkle XML"
@@ -1091,7 +1085,7 @@ namespace :release do
     enclosure.attributes["sparkle:version"] = version
     enclosure.attributes["length"] = File.size(app_zip)
     enclosure.attributes["url"] = download_url
-    
+
     # Write it out
     formatter = REXML::Formatters::Pretty.new(2)
     formatter.compact = true
@@ -1133,18 +1127,18 @@ namespace :release do
   end
 
   task :homebrew_cask do
+    version = install_cocoapods_version
+
     cask_fork = JSON.load(REST.post("https://api.github.com/repos/caskroom/homebrew-cask/forks?access_token=#{github_access_token}",
                                     {}.to_json,
                                     github_headers).body)["full_name"]
-
     branch = "cocoapods-#{version}"
     message = "Upgrade CocoaPods to v#{version}"
 
-    rm_rf "homebrew_cask"
-    sh "git clone https://github.com/caskroom/homebrew-cask.git --depth=1"
+    sh "git clone https://github.com/caskroom/homebrew-cask.git homebrew_cask" unless Dir.exists? "homebrew_cask"
     Dir.chdir('homebrew_cask') do
       sh "git remote add fork https://github.com/#{cask_fork}.git"
-      sh "git checkout #{branch}"
+      sh "git checkout -b #{branch}"
 
       cask_file = 'Casks/cocoapods.rb'
       cask = File.read(cask_file)
@@ -1160,7 +1154,6 @@ namespace :release do
               {title: message, head: full_name.split('/').first + ":#{branch}", base: 'master'}.to_json,
               github_headers)
   end
-
 end
 
 desc 'Create a clean release build for distribution'
