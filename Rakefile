@@ -74,7 +74,9 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  Dir.chdir(File.expand_path('~/.cocoapods/repos/master')) do
+  master_specs_path = File.expand_path '~/.cocoapods/repos/master'
+  raise "[!] Please set up the Specs repo." unless Dir.exists?(master_specs_path)
+  Dir.chdir(master_specs_path) do
     execute 'CocoaPods', ['/usr/bin/git', 'pull']
   end
 
