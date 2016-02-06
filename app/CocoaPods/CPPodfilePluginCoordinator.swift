@@ -35,7 +35,7 @@ class CPPodfilePluginCoordinator: NSObject {
       dispatch_group_leave(group)
     }
 
-    // Once both asyncronous operations are completed
+    // Once both asynchronous operations are completed
     // figure out if we have all the required gems
     // and if not, show the message
 
