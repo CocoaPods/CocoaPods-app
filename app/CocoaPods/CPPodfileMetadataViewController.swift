@@ -11,7 +11,7 @@ class CPXcodeProject: NSObject {
   var filePath = NSURL(fileURLWithPath: "")
   var plugins = [String]()
 
-  var image = NSWorkspace.sharedWorkspace().iconForFileType("xcodeproj")
+  var image = NSImage(imageLiteral: "project")
 }
 
 class CPXcodeTarget: NSObject {
