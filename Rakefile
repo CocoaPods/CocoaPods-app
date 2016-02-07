@@ -74,7 +74,9 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  Dir.chdir(File.expand_path('~/.cocoapods/repos/master')) do
+  master_specs_path = File.expand_path '~/.cocoapods/repos/master'
+  raise "[!] Please set up the Specs repo." unless Dir.exists?(master_specs_path)
+  Dir.chdir(master_specs_path) do
     execute 'CocoaPods', ['/usr/bin/git', 'pull']
   end
 
@@ -1049,13 +1051,10 @@ namespace :release do
   task :upload => [] do
     sha = sha(tarball)
     puts "Uploading zip as a GitHub release"
-    # response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
-                         # github_headers)
-                         # puts response.body
+    response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
+                              {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json, github_headers)
+    upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
     tarball_name = File.basename(tarball)
-    path = "https://uploads.github.com/repos/CocoaPods/CocoaPods-app/releases/2542890/assets{?name,label}"
-    upload_url = path.gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
-    puts upload_url
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
     puts "Downloadable at #{tarball_download_url}"
