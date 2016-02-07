@@ -1049,14 +1049,16 @@ namespace :release do
   task :upload => [] do
     sha = sha(tarball)
     puts "Uploading zip as a GitHub release"
-    response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
-                         {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
-                         github_headers)
+    # response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
+                         # github_headers)
+                         # puts response.body
     tarball_name = File.basename(tarball)
-
-    upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
+    path = "https://uploads.github.com/repos/CocoaPods/CocoaPods-app/releases/2542890/assets{?name,label}"
+    upload_url = path.gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
+    puts upload_url
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
+    puts "Downloadable at #{tarball_download_url}"
   end
 
   desc "Version bump the Sparkle XML"
@@ -1137,6 +1139,7 @@ namespace :release do
 
     sh "git clone https://github.com/caskroom/homebrew-cask.git homebrew_cask" unless Dir.exists? "homebrew_cask"
     Dir.chdir('homebrew_cask') do
+      sh "git pull"
       sh "git remote add fork https://github.com/#{cask_fork}.git"
       sh "git checkout -b #{branch}"
 
