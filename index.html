@@ -2,7 +2,11 @@
   <head>
     <link rel="canonical" href="https://cocoapods.org/app" />
     <script type="text/javascript">
-      if (window.location.href.indexOf("http://app.cocoapods.org") === 0) {
+      function onPage(url) {
+        return window.location.href.indexOf(url) === 0;
+      }
+
+      if (onPage("http://app.cocoapods.org") || onPage("https://app.cocoapods.org") {
         window.location.href = "https://cocoapods.org/app";
       }
     </script>
