@@ -50,6 +50,7 @@ rake bundle:verify_linkage   # Verifies that no binaries in the bundle link to i
 rake release                 # Create a clean release build for distribution
 rake release:build           # Perform a full build of the bundle and app
 rake release:cleanbuild      # Create a clean build
+rake release:sparkle         # Version bump the Sparkle XML
 rake release:upload          # Upload release
 ```
 
