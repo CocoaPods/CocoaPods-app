@@ -21,6 +21,18 @@ class CPDocumentController: NSDocumentController {
     }
   }
   
+  override func newDocument(sender: AnyObject?) {
+    let openPanel = NSOpenPanel()
+    openPanel.allowsMultipleSelection = false
+    openPanel.allowedFileTypes = ["xcodeproj"]
+    
+    openPanel.beginWithCompletionHandler { buttonIndex in
+      guard buttonIndex == NSFileHandlingPanelOKButton else { return }
+      guard let fileURL = openPanel.URL else { return }
+      print(fileURL)
+    }
+  }
+  
   // `noteNewRecentDocument` ends up calling to this method so we can just override this one method
   
   override func noteNewRecentDocumentURL(url: NSURL) {
