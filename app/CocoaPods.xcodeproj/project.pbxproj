@@ -83,6 +83,7 @@
 		60E693BD1C4AC6390058DF5F /* CPHomeSidebarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693BC1C4AC6390058DF5F /* CPHomeSidebarButton.swift */; };
 		60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */; };
 		60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */; };
+		657841C91C6BE0EC00B6671E /* CPPodfileInitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657841C81C6BE0EC00B6671E /* CPPodfileInitController.swift */; };
 		66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */; };
 		770382F41A2035B400435285 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 770382F31A2035B400435285 /* Localizable.strings */; };
 		77356D751A2253F1002822CF /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77356D741A2253F1002822CF /* Media.xcassets */; };
@@ -265,6 +266,7 @@
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
 		60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SUUpdater+DebugMode.m"; sourceTree = "<group>"; };
 		62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		657841C81C6BE0EC00B6671E /* CPPodfileInitController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileInitController.swift; sourceTree = "<group>"; };
 		66F2E29A1C492C5500A1AF1F /* NSColor+CPColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+CPColors.h"; sourceTree = "<group>"; };
 		66F2E29B1C492C5500A1AF1F /* NSColor+CPColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+CPColors.m"; sourceTree = "<group>"; };
 		750B3A66521735BD745849E5 /* Pods-CocoaPodsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 				93FB07E01C503572007B2CDA /* CPDocumentSource.swift */,
 				60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */,
 				934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */,
+				657841C81C6BE0EC00B6671E /* CPPodfileInitController.swift */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -996,6 +999,7 @@
 				60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */,
 				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
 				60E693B51C4A71E50058DF5F /* CPSidebarDocumentsController.swift in Sources */,
+				657841C91C6BE0EC00B6671E /* CPPodfileInitController.swift in Sources */,
 				5BD58BBD1C6D2A7C003787F5 /* CPXcodeProjectCell.swift in Sources */,
 				606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */,
 				60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */,
