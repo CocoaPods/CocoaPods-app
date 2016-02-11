@@ -7,8 +7,6 @@ class CPXcodeProjectCell: NSTableCellView {
     let rightClickGesture = NSClickGestureRecognizer(target: self, action: Selector("contextualMenuForProject:"))
     rightClickGesture.buttonMask = 0x2 // right mouse
     projectOpenButton.addGestureRecognizer(rightClickGesture)
-//    projectOpenButton.target = self
-//    projectOpenButton.action = Selector("openProject")
   }
   
   func contextualMenuForProject(gestureRecognizer: NSGestureRecognizer) {

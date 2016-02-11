@@ -5,7 +5,7 @@
 #import "CocoaPods-Swift.h"
 #import "CPCLIToolInstallationController.h"
 #import <Quartz/Quartz.h>
-
+#import <LetsMove/PFMoveApplication.h>
 
 @interface CPAppDelegate ()
 @property (nonatomic, strong) CPHomeWindowController *homeWindowController;
@@ -19,6 +19,7 @@
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification;
 {
+  PFMoveToApplicationsFolderIfNecessary();
   [self startURLService];
   [self checkForBirthday];
 }
