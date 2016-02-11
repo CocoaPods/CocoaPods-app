@@ -43,7 +43,7 @@ class CPPodfileMetadataViewController: NSViewController {
   var podfileChecker: CPPodfileReflection!
   var xcodeprojects: [CPXcodeProject] = []
   var infoGenerator = CPXcodeInformationGenerator()
-
+    
   /// Allows us to bind a loading interface.
   dynamic var showingMetadata = false
 
