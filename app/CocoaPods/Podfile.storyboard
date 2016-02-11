@@ -530,7 +530,7 @@ Gw
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
                                                                     <connections>
-                                                                        <action selector="openProject:" target="cn2-HP-YjP" id="OrC-dk-9iK"/>
+                                                                        <action selector="showInFinder:" target="cn2-HP-YjP" id="KaP-1q-XZ3"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>

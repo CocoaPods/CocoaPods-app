@@ -11,20 +11,20 @@ class CPXcodeProjectCell: NSTableCellView {
   
   func contextualMenuForProject(gestureRecognizer: NSGestureRecognizer) {
     let menu = NSMenu(title: "title")
-    let openMenuItem = NSMenuItem()
-    openMenuItem.title = "Open Project"
-    openMenuItem.target = self
-    openMenuItem.action = Selector("openProject:")
-    menu.addItem(openMenuItem)
     let showMenuItem = NSMenuItem()
     showMenuItem.title = "Show in Finder"
     showMenuItem.target = self
-    showMenuItem.action = Selector("showInFinder")
+    showMenuItem.action = Selector("showInFinder:")
     menu.addItem(showMenuItem)
+    let openMenuItem = NSMenuItem()
+    openMenuItem.title = "Open Project"
+    openMenuItem.target = self
+    openMenuItem.action = Selector("openProject")
+    menu.addItem(openMenuItem)
     menu.popUpMenuPositioningItem(nil, atLocation: NSEvent.mouseLocation(), inView: nil)
   }
   
-  func showInFinder() {
+  @IBAction func showInFinder(sender: AnyObject) {
     guard let project = objectValue as? CPXcodeProject else {
       return Swift.print("objectValue is not CPXcodeProject")
     }
@@ -32,7 +32,7 @@ class CPXcodeProjectCell: NSTableCellView {
     NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs([project.filePath])
   }
   
-  @IBAction func openProject(sender: AnyObject) {
+  func openProject() {
     guard let project = objectValue as? CPXcodeProject else {
       return Swift.print("objectValue is not CPXcodeProject")
     }
