@@ -12,6 +12,7 @@ target "CocoaPods" do
   # Has 6 warnings about integer precision loss.
   pod 'ANSIEscapeHelper', :podspec => 'ANSIEscapeHelper.podspec', :inhibit_warnings => true
   pod 'Sparkle'
+  pod 'LetsMove'
 
   target "CocoaPodsTests" do
     inherit! :search_paths
