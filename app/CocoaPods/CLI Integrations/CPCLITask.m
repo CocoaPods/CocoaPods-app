@@ -6,7 +6,7 @@
 
 @property (nonatomic, weak) id<CPCLITaskDelegate> delegate;
 
-@property (nonatomic, weak) CPUserProject *userProject;
+@property (nonatomic, weak) NSString *workingDirectory;
 @property (nonatomic, copy) NSString *command;
 
 @property (nonatomic) NSTask *task;
@@ -27,14 +27,26 @@
                            delegate:(id<CPCLITaskDelegate>)delegate
                    qualityOfService:(NSQualityOfService)qualityOfService
 {
-  if (self = [super init]) {
-    self.userProject = userProject;
+  return [self initWithWorkingDirectory:[[userProject.fileURL URLByDeletingLastPathComponent] path]
+                                command:command
+                               delegate:delegate
+                       qualityOfService:qualityOfService];
+}
+
+- (instancetype)initWithWorkingDirectory:(NSString *)workingDirectory
+                                 command:(NSString *)command
+                                delegate:(id<CPCLITaskDelegate>)delegate
+                        qualityOfService:(NSQualityOfService)qualityOfService
+{
+  self = [super init];
+  if (self) {
+    self.workingDirectory = workingDirectory;
     self.command = command;
     self.delegate = delegate;
     self.qualityOfService = qualityOfService;
     self.terminationStatus = 1;
   }
-
+  
   return self;
 }
 
@@ -57,7 +69,7 @@
                                 @"TERM": @"xterm-256color"
                                 };
 
-  NSString *workingDirectory = [[self.userProject.fileURL URLByDeletingLastPathComponent] path];
+  NSString *workingDirectory = self.workingDirectory;
   NSString *launchPath = @"/bin/sh";
   NSString *envBundleScript = [[NSBundle mainBundle] pathForResource:@"bundle-env"
                                                               ofType:nil

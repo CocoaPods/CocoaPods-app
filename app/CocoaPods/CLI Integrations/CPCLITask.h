@@ -38,6 +38,15 @@
                    qualityOfService:(NSQualityOfService)qualityOfService;
 
 /**
+ * @param workingDirectory The directory for which the command should be performed.
+ * @param command The `pod` command to execute, such as `install` or `update.`
+ */
+- (instancetype)initWithWorkingDirectory:(NSString *)workingDirectory
+                                 command:(NSString *)command
+                                delegate:(id<CPCLITaskDelegate>)delegate
+                        qualityOfService:(NSQualityOfService)qualityOfService;
+
+/**
  * Perform the task.
  */
 - (void)run;

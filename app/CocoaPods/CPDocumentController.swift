@@ -9,6 +9,8 @@ class CPDocumentController: NSDocumentController {
   static let RecentDocumentUpdateNotification = "CPDocumentControllerRecentDocumentUpdateNotification"
   static let ClearRecentDocumentsNotification = "CPDocumentControllerClearRecentDocumentsNotification"
   
+  var podInitController: CPPodfileInitController?
+  
   // All of the `openDocument...` calls end up calling this one method, so adding our notification here is simple
   
   override func openDocumentWithContentsOfURL(url: NSURL, display displayDocument: Bool, completionHandler: (NSDocument?, Bool, NSError?) -> Void) {
@@ -18,6 +20,28 @@ class CPDocumentController: NSDocumentController {
       }
       
       completionHandler(document, displayDocument, error)
+    }
+  }
+  
+  override func newDocument(sender: AnyObject?) {
+    let openPanel = NSOpenPanel()
+    openPanel.allowsMultipleSelection = false
+    openPanel.allowedFileTypes = ["xcodeproj"]
+    
+    openPanel.beginWithCompletionHandler { buttonIndex in
+      guard buttonIndex == NSFileHandlingPanelOKButton else { return }
+      guard let fileURL = openPanel.URL else { return }
+      
+      self.podInitController = CPPodfileInitController(xcodeprojURL: fileURL, completionHandler: { podfileURL, error -> () in
+        guard let podfileURL = podfileURL else {
+          let alert = NSAlert(error: error! as NSError)
+          alert.informativeText = error!.message
+          alert.runModal()
+          
+          return
+        }
+        self.openDocumentWithContentsOfURL(podfileURL, display: true) { _ in }
+      })
     }
   }
   
