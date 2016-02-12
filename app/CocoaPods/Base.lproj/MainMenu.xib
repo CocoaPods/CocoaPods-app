@@ -86,7 +86,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="File" id="bib-Uj-vzu">
                         <items>
-                            <menuItem title="New Podfile" keyEquivalent="n" id="Q1o-LS-sQI">
+                            <menuItem title="New Podfile from Xcode Project" keyEquivalent="n" id="Q1o-LS-sQI">
                                 <connections>
                                     <action selector="newDocument:" target="Qtz-kf-riq" id="oL2-Tr-Eyw"/>
                                 </connections>
