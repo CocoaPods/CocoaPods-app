@@ -92,6 +92,8 @@
 		934FF1891C4F1E2A000B4302 /* CPDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */; };
 		93FB07E11C503572007B2CDA /* CPDocumentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB07E01C503572007B2CDA /* CPDocumentSource.swift */; };
 		E70998471C49AB5B00229507 /* Podfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70998461C49AB5B00229507 /* Podfile.plist */; };
+		E72E9FDA1C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */; };
+		E72E9FDC1C6E38B400A8705B /* CocoaPodsTests-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */; };
 		FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FAD11C144BF300DC3791 /* URLHandler.swift */; };
 		FCDCC48F0E8CE099C20D1DEB /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */; };
 /* End PBXBuildFile section */
@@ -278,6 +280,8 @@
 		934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPDocumentController.swift; sourceTree = "<group>"; };
 		93FB07E01C503572007B2CDA /* CPDocumentSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPDocumentSource.swift; sourceTree = "<group>"; };
 		E70998461C49AB5B00229507 /* Podfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Podfile.plist; path = "Syntax Definitions/Podfile.plist"; sourceTree = "<group>"; };
+		E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPStringArrayToSentenceValueTransformerSpec.swift; sourceTree = "<group>"; };
+		E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CocoaPodsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		EBD9373107B77CCDFCD43B67 /* Pods-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
 		EEB7DFACCFDF9B3B443AF311 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA16FAD11C144BF300DC3791 /* URLHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
@@ -563,6 +567,8 @@
 			children = (
 				60F02D1D1C0A2A6D003600FE /* Info.plist */,
 				600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */,
+				E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */,
+				E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */,
 			);
 			path = CocoaPodsTests;
 			sourceTree = "<group>";
@@ -1026,6 +1032,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E72E9FDC1C6E38B400A8705B /* CocoaPodsTests-Bridging-Header.h in Sources */,
+				E72E9FDA1C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift in Sources */,
 				600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1287,6 +1295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.CocoaPodsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "CocoaPodsTests/CocoaPodsTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CocoaPods.app/Contents/MacOS/CocoaPods";
 			};
@@ -1306,6 +1315,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.CocoaPodsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "CocoaPodsTests/CocoaPodsTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CocoaPods.app/Contents/MacOS/CocoaPods";
 			};
 			name = Release;
