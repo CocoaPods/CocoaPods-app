@@ -1,7 +1,8 @@
 #import <Cocoa/Cocoa.h>
 #import "CocoaPods-Swift.h"
 
-int CPApplicationMain(int argc, const char *argv[]) {
+int main(int argc, const char * argv[]) {
+
   [NSApplication sharedApplication];
 
   id<NSApplicationDelegate> testDelegate = nil;
@@ -11,14 +12,11 @@ int CPApplicationMain(int argc, const char *argv[]) {
     NSCParameterAssert([[NSBundle bundleWithPath:testBundlePath] load]);
     testDelegate = [NSClassFromString(@"CPTestHelper") new];
     NSApp.delegate = testDelegate;
+  } else {
+    //Loads CPAppDelegate from the .xib.
+    [NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
   }
-
-  [NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
 
   [NSApp run];
   return 0;
-}
-
-int main(int argc, const char * argv[]) {
-  return CPApplicationMain(argc, argv);
 }
