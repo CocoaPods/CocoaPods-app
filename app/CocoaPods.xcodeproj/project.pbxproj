@@ -94,6 +94,8 @@
 		E70998471C49AB5B00229507 /* Podfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70998461C49AB5B00229507 /* Podfile.plist */; };
 		E72E9FDA1C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */; };
 		E72E9FDC1C6E38B400A8705B /* CocoaPodsTests-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */; };
+		E72E9FDE1C6E459800A8705B /* CPTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */; };
+		E72E9FDF1C6E4DC900A8705B /* CPTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */; };
 		FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FAD11C144BF300DC3791 /* URLHandler.swift */; };
 		FCDCC48F0E8CE099C20D1DEB /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */; };
 /* End PBXBuildFile section */
@@ -282,6 +284,7 @@
 		E70998461C49AB5B00229507 /* Podfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Podfile.plist; path = "Syntax Definitions/Podfile.plist"; sourceTree = "<group>"; };
 		E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPStringArrayToSentenceValueTransformerSpec.swift; sourceTree = "<group>"; };
 		E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CocoaPodsTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTestHelper.swift; sourceTree = "<group>"; };
 		EBD9373107B77CCDFCD43B67 /* Pods-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
 		EEB7DFACCFDF9B3B443AF311 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA16FAD11C144BF300DC3791 /* URLHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
@@ -569,6 +572,7 @@
 				600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */,
 				E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */,
 				E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */,
+				E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */,
 			);
 			path = CocoaPodsTests;
 			sourceTree = "<group>";
@@ -967,6 +971,7 @@
 			files = (
 				6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */,
 				600CACE91C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m in Sources */,
+				E72E9FDF1C6E4DC900A8705B /* CPTestHelper.swift in Sources */,
 				510F09751C0A73B800F40F2B /* CPRubyErrors.m in Sources */,
 				603F7F1E1C1DE895006C2571 /* CPMenuVisiblityDirector.swift in Sources */,
 				7C4B007D1B9B441800B6C782 /* CPANSIEscapeHelper.m in Sources */,
@@ -1032,6 +1037,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E72E9FDE1C6E459800A8705B /* CPTestHelper.swift in Sources */,
 				E72E9FDC1C6E38B400A8705B /* CocoaPodsTests-Bridging-Header.h in Sources */,
 				E72E9FDA1C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift in Sources */,
 				600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */,
