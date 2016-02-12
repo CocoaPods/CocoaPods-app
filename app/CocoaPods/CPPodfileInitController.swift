@@ -1,11 +1,3 @@
-//
-//  CPPodfileInitController.swift
-//  CocoaPods
-//
-//  Created by Daniel Tomlinson on 10/02/2016.
-//  Copyright © 2016 CocoaPods. All rights reserved.
-//
-
 import Foundation
 
 public enum CPPodfileInitErrors: ErrorType {
