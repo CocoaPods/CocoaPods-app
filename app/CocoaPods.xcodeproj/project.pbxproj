@@ -38,6 +38,7 @@
 		51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */; };
 		51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5AF1A212A0800C0B153 /* Syntax Definitions */; };
 		51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D2E5B01A212A0800C0B153 /* SyntaxDefinitions.plist */; };
+		5BD58BBD1C6D2A7C003787F5 /* CPXcodeProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD58BBC1C6D2A7C003787F5 /* CPXcodeProjectCell.swift */; };
 		5BEC5ABD1C4D97C90045F362 /* CPPodfileErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC5ABC1C4D97C90045F362 /* CPPodfileErrorState.swift */; };
 		5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */; };
 		5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5B7861C17990400F8C39E /* CPSideButton.swift */; };
@@ -206,6 +207,7 @@
 		51EA178D1C0147BD000DC69A /* RBObject+CocoaPods.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = "RBObject+CocoaPods.rb"; sourceTree = "<group>"; };
 		51EA178F1C0155E9000DC69A /* RubyCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RubyCocoa.framework; path = RubyCocoa/framework/build/Default/RubyCocoa.framework; sourceTree = "<group>"; };
 		57995E0E6B8704BE797552B2 /* Pods-CocoaPods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.debug.xcconfig"; sourceTree = "<group>"; };
+		5BD58BBC1C6D2A7C003787F5 /* CPXcodeProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPXcodeProjectCell.swift; sourceTree = "<group>"; };
 		5BEC5ABC1C4D97C90045F362 /* CPPodfileErrorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileErrorState.swift; sourceTree = "<group>"; };
 		5D0F8EC2FC9E25C9EF3CED3F /* Pods-CocoaPodsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E946F3E1C1621F000EFEA7B /* CPTabViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTabViewDelegate.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			children = (
 				6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */,
 				606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */,
+				5BD58BBC1C6D2A7C003787F5 /* CPXcodeProjectCell.swift */,
 				601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */,
 				601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */,
 			);
@@ -993,6 +996,7 @@
 				60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */,
 				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
 				60E693B51C4A71E50058DF5F /* CPSidebarDocumentsController.swift in Sources */,
+				5BD58BBD1C6D2A7C003787F5 /* CPXcodeProjectCell.swift in Sources */,
 				606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */,
 				60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */,
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <scenes>
         <!--Window Controller-->
@@ -368,7 +368,7 @@
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
+                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -457,7 +457,7 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="xcodeproject_metadata" id="cn2-HP-YjP" userLabel="Xcodeproj Cell">
+                                                        <tableCellView identifier="xcodeproject_metadata" id="cn2-HP-YjP" userLabel="Xcodeproj Cell" customClass="CPXcodeProjectCell" customModule="CocoaPods" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="507" height="126"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -472,13 +472,6 @@ Gw
                                                                         <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.integrationType" id="mc7-gb-RwT"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y79-Jv-qBs">
-                                                                    <rect key="frame" x="38" y="26" width="88" height="84"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="project" id="pTa-ru-ED3"/>
-                                                                    <connections>
-                                                                        <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.image" id="i6G-UG-axx"/>
-                                                                    </connections>
-                                                                </imageView>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mTV-B5-C21">
                                                                     <rect key="frame" x="155" y="69" width="90" height="17"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Integration Type" id="vW1-mB-lBB">
@@ -530,7 +523,20 @@ Gw
                                                                         <binding destination="cn2-HP-YjP" name="value" keyPath="objectValue.fileName" id="fFt-D9-wJc"/>
                                                                     </connections>
                                                                 </textField>
+                                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u2J-ZV-p93">
+                                                                    <rect key="frame" x="38" y="26" width="88" height="84"/>
+                                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="project" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Nkm-lN-oi6">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="showInFinder:" target="cn2-HP-YjP" id="KaP-1q-XZ3"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
+                                                            <connections>
+                                                                <outlet property="projectOpenButton" destination="u2J-ZV-p93" id="pXh-v5-jv0"/>
+                                                            </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="target_metadata" id="AcW-VW-nvx" userLabel="Target Cell">
                                                             <rect key="frame" x="0.0" y="126" width="507" height="150"/>
