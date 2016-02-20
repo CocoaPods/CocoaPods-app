@@ -61,7 +61,8 @@
 - (void)run
 {
   // Create an indetermine progress bar since we have no way to track it for now.
-  self.progress = [NSProgress discreteProgressWithTotalUnitCount:-1];
+  self.progress = [[NSProgress alloc] initWithParent:nil userInfo:nil];
+  self.progress.totalUnitCount = -1;
 
   NSDictionary *environment = @{
                                 @"HOME": NSHomeDirectory(),
