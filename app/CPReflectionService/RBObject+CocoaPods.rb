@@ -64,5 +64,10 @@ module Pod
     def self.all_pods
       Pod::SourcesManager.aggregate.all_pods
     end
+
+    def self.lockfile_version(path)
+      lockfile = Lockfile.from_file(path)
+      lockfile.cocoapods_version.to_s
+    end
   end
 end
