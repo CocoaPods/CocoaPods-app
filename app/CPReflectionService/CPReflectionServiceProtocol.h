@@ -15,6 +15,10 @@
 - (void)versionFromLockfile:(NSString * _Nonnull)path
                   withReply:(void (^ _Nonnull)(NSString * _Nullable version, NSError * _Nullable error))reply;
 
+- (void)appVersion:(NSString * _Nonnull)appVersion
+isOlderThanLockfileVersion:(NSString * _Nonnull)lockfileVersion
+         withReply:(void (^ _Nonnull)(NSNumber * _Nullable older, NSError * _Nullable error))reply;
+
 - (void)allPods:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable pods, NSError * _Nullable error))reply;
 
 @end

@@ -69,5 +69,9 @@ module Pod
       lockfile = Lockfile.from_file(path)
       lockfile.cocoapods_version.to_s
     end
+
+    def self.compare_versions(version1, version2)
+      Pod::Version.new(version1) <=> Pod::Version.new(version2)
+    end
   end
 end
