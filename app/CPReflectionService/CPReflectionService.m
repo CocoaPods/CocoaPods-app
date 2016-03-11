@@ -61,4 +61,14 @@
   }];
 }
 
+- (void)noMethodError:(void (^)(NSError * _Nullable))reply;
+{
+  [RBObject performBlock:^{
+    [RBObjectFromString(@"Pod::App") no_method];
+    reply(nil);
+  } error:^(NSError * _Nonnull error) {
+    reply(error);
+  }];
+}
+
 @end

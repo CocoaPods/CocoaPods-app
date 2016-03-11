@@ -33,6 +33,10 @@
 #endif
 
   [self startReflectionService];
+
+  id<CPReflectionServiceProtocol> service = self.reflectionService.remoteObjectProxy;
+  [service noMethodError:^(NSError * _Nullable error) {
+  }];
 }
 
 - (void)startReflectionService;

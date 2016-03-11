@@ -49,5 +49,6 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (void)require_gems;
 - (NSDictionary * _Nonnull)analyze_podfile:(RBPodfile * _Nonnull)contents :(NSString * _Nonnull)installationRoot;
 - (NSArray<NSString *> * _Nullable)all_pods;
+- (void)no_method;
 @end
 
