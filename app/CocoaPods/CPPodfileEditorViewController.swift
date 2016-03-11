@@ -65,6 +65,52 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
   }
 
+  override func viewDidAppear() {
+    super.viewDidAppear()
+    checkLockfileVersion()
+  }
+
+  func checkLockfileVersion() {
+    if let lockfilePath = podfileViewController?.userProject.lockfilePath() {
+      pullVersionFromLockfile(lockfilePath, completion: { version in
+        self.checkForOlderAppVersionWithLockfileVersion(version, completion: { older in
+          if older?.boolValue == true {
+            if let version = version {
+              self.showWarningForLockfileVersion(version)
+            }
+          }
+        })
+      })
+    }
+  }
+
+  func appDelegate() -> CPAppDelegate? {
+    return NSApp.delegate as? CPAppDelegate
+  }
+
+  func appVersion() -> String? {
+    return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
+  }
+
+  func pullVersionFromLockfile(path: String, completion: (String?) -> Void) {
+    appDelegate()?.reflectionService.remoteObjectProxy.versionFromLockfile(path, withReply: { (version, error) in
+      completion(version)
+    })
+  }
+
+  func checkForOlderAppVersionWithLockfileVersion(version: String?, completion: (NSNumber?) -> Void) {
+    if let lockfileVersion = version, appVersion = appVersion() {
+        appDelegate()?.reflectionService.remoteObjectProxy.appVersion(appVersion, isOlderThanLockfileVersion: lockfileVersion, withReply: { (result, error) in
+          completion(result)
+        })
+    }
+    completion(nil)
+  }
+
+  func showWarningForLockfileVersion(version: String) {
+
+  }
+
   func completions() -> [AnyObject]! {
       return autoCompletions
   }
