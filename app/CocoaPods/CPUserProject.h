@@ -41,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Register for when podfilePlugins and the xcodeIntegrationDictionary are filled
 - (void)registerForFullMetadataCallback:(void (^)(void))completion;
 
-@end
-
 NS_ASSUME_NONNULL_END
+
+/// Path to the Lockfile. returns nil if the Lockfile hasn't been created yet.
+- (NSString * _Nullable)lockfilePath;
+
+@end

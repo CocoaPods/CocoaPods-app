@@ -65,6 +65,16 @@
   [self.completionPromise checkForFulfillment];
 }
 
+- (NSString * _Nullable)lockfilePath
+{
+  NSString *podfileURL = self.fileURL.relativePath;
+  NSString *lockfileURL = [podfileURL stringByAppendingString:@".lock"];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:lockfileURL]) {
+    return lockfileURL;
+  }
+  return nil;
+}
+
 #pragma mark - NSFilePresenter
 
 - (void)presentedItemDidChange
