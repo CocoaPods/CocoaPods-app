@@ -1102,7 +1102,7 @@ namespace :release do
 
     # Give the user a chance to add flourish
     puts "Please edit #{markdown_notes}, then press return to continue with this process"
-    puts "mate -w #{markdown_notes}"
+    puts "try running: mate -w #{Dir.pwd}#{markdown_notes}"
     STDIN.gets
 
     # Get GitHub to render the MD
