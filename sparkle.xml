@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?> 
 <rss version='2.0' xmlns:sparkle='http://www.andymatuschak.org/xml-namespaces/sparkle' xmlns:dc='http://purl.org/dc/elements/1.1/'>
   <channel>
     <title>CocoaPods.app Changelog</title>
@@ -53,6 +53,13 @@
       <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.3</sparkle:releaseNotesLink>
       <pubDate>Wed, 03 Feb 2016 08:43:09 +0000</pubDate>
       <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.3' length='28621165' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.3/CocoaPods.app-1.0.0.beta.3.tar.bz2'/>
+    </item>
+    <item>
+      <title>Version 1.0.0.beta.5</title>
+      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
+      <pubDate>Mon, 14 Mar 2016 07:45:33 -0400</pubDate>
+      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
     </item>
   </channel>
 </rss>
