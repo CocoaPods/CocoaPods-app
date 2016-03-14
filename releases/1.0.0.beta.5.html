@@ -1,0 +1,88 @@
+<h5>Breaking</h5>
+
+<ul>
+<li>
+<p>Development pods will no longer be implicitly unlocked. This makes CocoaPods respect<br>
+constraints related to dependencies of development pods in the lockfile.</p>
+
+<p>If you change the constraints of a dependency of your development pod and want to<br>
+override the locked version, you will have to use<br>
+<code>pod update ${DEPENDENCY_NAME}</code> manually.<br>
+<a href="https://github.com/manuyavuz">Muhammed Yavuz Nuzumlalı</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4211">#4211</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4577">#4577</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4580">#4580</a></p>
+</li>
+</ul>
+
+<h5>Enhancements</h5>
+
+<ul>
+<li><p>Add the <img class="emoji" title=":package:" alt=":package:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4e6.png" height="20" width="20" align="absmiddle"> emoji in front of CocoaPods Script Build Phases<br>
+to quickly and visually differentiate them from other phases.<br>
+<a href="https://github.com/AliSoftware">Olivier Halligon</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4985">#4985</a></p></li>
+<li><p>Enable syntax highlighting on the Podfile in the generated<br>
+<code>Pods.xcodeproj</code>.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4962">#4962</a></p></li>
+</ul>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li><p>Fixes paths passed for resources bundles in the copy resources script.<br>
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4954">#4954</a></p></li>
+<li><p>Fix saying the <code>master</code> specs repo exists when it has not been set up.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4955">#4955</a></p></li>
+<li><p>Move <code>${TARGET_DEVICE_ARGS}</code> out of the quotations for <code>--sdk</code> in the<br>
+<code>Copy Pods Resources</code> build phase.<br>
+<a href="https://github.com/seaders">seaders</a> <a href="https://github.com/CocoaPods/CocoaPods/issues/4940">#4940</a></p></li>
+<li><p>Handle when <code>$PATH</code> isn't set.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a></p></li>
+<li><p>Module maps that are set per-platform will be installed for the correct<br>
+platform.<br>
+<a href="https://github.com/segiddins">Samuel Giddins</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4968">#4968</a></p></li>
+</ul>
+
+<h2>1.0.0.beta.4 (2016-02-24)</h2>
+
+<h5>Enhancements</h5>
+
+<ul>
+<li><p>Allow deduplication to take effect even when the same pod is used with<br>
+different sets of subspecs across different platforms.<br>
+This changes the general naming scheme scoped pod targets. They are<br>
+suffixed now on base of what makes them different among others for the<br>
+same root spec instead of being prefixed by the dependent target.<br>
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4146">#4146</a></p></li>
+<li><p>Pass <code>COCOAPODS_VERSION</code> as environment variable when invoking the<br>
+<code>prepare_command</code>.<br>
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4933">#4933</a></p></li>
+</ul>
+
+<h5>Bug Fixes</h5>
+
+<ul>
+<li><p>Pods are built by default in another scoping level of the build products<br>
+directory identified by their name to prevent name clashes among<br>
+dependencies.<br>
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4146">#4146</a></p></li>
+<li><p>Fix mixed integrations where static libraries are used along frameworks<br>
+from different target definitions in one Podfile.<br>
+<a href="https://github.com/mrackwitz">Marius Rackwitz</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/pull/4146">#4146</a></p></li>
+<li><p>Pass target device arguments to <code>ibtool</code> in the copy resources script, fixing<br>
+compilation of storyboards when targeting versions of iOS prior to iOS 8.<br>
+<a href="https://github.com/seaders">seaders</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4913">#4913</a></p></li>
+<li><p>Fix <code>pod repo lint</code> when passed a path argument.<br>
+<a href="https://github.com/neonichu">Boris Bügling</a><br>
+<a href="https://github.com/CocoaPods/CocoaPods/issues/4883">#4883</a></p></li>
+</ul>
