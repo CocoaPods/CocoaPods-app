@@ -1151,8 +1151,8 @@ namespace :release do
       sh "git push fork"
     end
 
-    REST.post("https://api.github.com/repos/caskroom/homebrew_cask/pulls?access_token=#{github_access_token}",
-              {title: message, head: full_name.split('/').first + ":#{branch}", base: 'master'}.to_json,
+    REST.post("https://api.github.com/repos/caskroom/homebrew-cask/pulls?access_token=#{github_access_token}",
+              {title: message, head: cask_fork.split('/').first + ":#{branch}", base: 'master'}.to_json,
               github_headers)
   end
 end
