@@ -1017,7 +1017,6 @@ namespace :release do
     # TODO use this once OS X supports xz out of the box.
     #tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
     #sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"
-    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
     Dir.chdir(build_dir) do
       execute 'App', ['/usr/bin/tar', 'cfj', tarball, 'CocoaPods.app']
     end
@@ -1051,10 +1050,10 @@ namespace :release do
   task :upload => [] do
     sha = sha(tarball)
     puts "Uploading zip as a GitHub release"
+    tarball_name = File.basename(tarball)
     response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
                               {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json, github_headers)
     upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
-    tarball_name = File.basename(tarball)
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
     puts "Downloadable at #{tarball_download_url}"
