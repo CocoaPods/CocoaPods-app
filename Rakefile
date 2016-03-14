@@ -1145,6 +1145,12 @@ namespace :release do
       cask = File.read(cask_file)
       cask.sub! /version '#{Gem::Version::VERSION_PATTERN}'/, "version '#{version}'"
       cask.sub! /sha256 '[[:xdigit:]]+'/, "sha256 '#{sha(tarball)}'"
+      appcast_url = cask.match(/appcast '(.*)'/)[1]
+      sparkle_checkpoint = %x{curl --silent --compressed "#{appcast_url}"
+        | sed 's|<pubDate>[^<]*</pubDate>||g'
+        | shasum --algorithm 256
+        | awk '{ print $1 }'}
+      cask.sub! /checkpoint: '[[:xdigit:]]+'/, "checkpoint: '#{sparkle_checkpoint}'"
       File.open(cask_file, 'w') { |f| f.write(cask) }
 
       sh "git commit -am '#{message}'"
