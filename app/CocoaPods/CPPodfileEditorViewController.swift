@@ -74,10 +74,10 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     if let lockfilePath = podfileViewController?.userProject.lockfilePath() {
       pullVersionFromLockfile(lockfilePath, completion: { version in
         self.checkForOlderAppVersionWithLockfileVersion(version, completion: { older in
-          if older?.boolValue == true {
-            if let version = version {
-              self.showWarningForLockfileVersion(version)
-            }
+          if let old = older where old.boolValue == true {
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+              self.showWarningForNewerLockfile()
+            })
           }
         })
       })
@@ -103,11 +103,18 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
         appDelegate()?.reflectionService.remoteObjectProxy.appVersion(appVersion, isOlderThanLockfileVersion: lockfileVersion, withReply: { (result, error) in
           completion(result)
         })
+    } else {
+      completion(nil)
     }
-    completion(nil)
   }
 
-  func showWarningForLockfileVersion(version: String) {
+  func showWarningForNewerLockfile() {
+    let title = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE", comment: "")
+    let message = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR", comment: "")
+    podfileViewController?.showWarningLabelWithSender(message, actionTitle: title, target: self, action: "checkForUpdatesButtonPressed", animated: true)
+  }
+
+  func checkForUpdatesButtonPressed() {
 
   }
 
