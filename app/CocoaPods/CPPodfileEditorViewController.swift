@@ -115,7 +115,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   }
 
   func checkForUpdatesButtonPressed() {
-
+    if let url = NSURL(string: "https://cocoapods.org/app") {
+      NSWorkspace.sharedWorkspace().openURL(url)
+    }
   }
 
   func completions() -> [AnyObject]! {
