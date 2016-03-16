@@ -65,6 +65,61 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
   }
 
+  override func viewDidAppear() {
+    super.viewDidAppear()
+    checkLockfileVersion()
+  }
+
+  func checkLockfileVersion() {
+    if let lockfilePath = podfileViewController?.userProject.lockfilePath() {
+      pullVersionFromLockfile(lockfilePath, completion: { version in
+        self.checkForOlderAppVersionWithLockfileVersion(version, completion: { older in
+          if let old = older where old.boolValue == true {
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+              self.showWarningForNewerLockfile()
+            })
+          }
+        })
+      })
+    }
+  }
+
+  func appDelegate() -> CPAppDelegate? {
+    return NSApp.delegate as? CPAppDelegate
+  }
+
+  func appVersion() -> String? {
+    return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
+  }
+
+  func pullVersionFromLockfile(path: String, completion: (String?) -> Void) {
+    appDelegate()?.reflectionService.remoteObjectProxy.versionFromLockfile(path, withReply: { (version, error) in
+      completion(version)
+    })
+  }
+
+  func checkForOlderAppVersionWithLockfileVersion(version: String?, completion: (NSNumber?) -> Void) {
+    if let lockfileVersion = version, appVersion = appVersion() {
+        appDelegate()?.reflectionService.remoteObjectProxy.appVersion(appVersion, isOlderThanLockfileVersion: lockfileVersion, withReply: { (result, error) in
+          completion(result)
+        })
+    } else {
+      completion(nil)
+    }
+  }
+
+  func showWarningForNewerLockfile() {
+    let title = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE", comment: "")
+    let message = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR", comment: "")
+    podfileViewController?.showWarningLabelWithSender(message, actionTitle: title, target: self, action: "checkForUpdatesButtonPressed", animated: true)
+  }
+
+  func checkForUpdatesButtonPressed() {
+    if let url = NSURL(string: "https://cocoapods.org/app") {
+      NSWorkspace.sharedWorkspace().openURL(url)
+    }
+  }
+
   func completions() -> [AnyObject]! {
       return autoCompletions
   }

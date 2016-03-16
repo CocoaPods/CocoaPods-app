@@ -24,6 +24,8 @@
 "PODFILE_WINDOW_CONSOLE_HINT_EMPTY_PODFILE" = "Your Podfile seems empty...\nClick here for some inspiration";
 "PODFILE_WINDOW_CONSOLE_HINT_ERROR_PODFILE" = "Your Podfile is having some problems";
 "PODFILE_WINDOW_CONSOLE_HINT_READY_PODFILE" = "Your Podfile is ready to go!\nHit install to see the outcome";
+"PODFILE_WINDOW_NEWER_LOCKFILE_ERROR" = "Your Podfile.lock was generated using a newer version of CocoaPods";
+"PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE" = "Check For Updates";
 
 "MAIN_WINDOW_TITLE" = "Welcome to CocoaPods";
 "MAIN_WINDOW_OPEN_GUIDES_BUTTON_TITLE" = "Get started with CocoaPods";
