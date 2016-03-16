@@ -46,7 +46,7 @@
   [Orta Therox](https://github.com/orta)
   [#131](https://github.com/CocoaPods/CocoaPods-app/pull/131)
   
-* Pod name autocomplete while editing Podfile
+* Pod name autocomplete while editing Podfile  
   [Nate West](https://github.com/nwest)
   [#197](https://github.com/CocoaPods/CocoaPods-app/pull/197)
   
