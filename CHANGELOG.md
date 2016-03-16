@@ -20,8 +20,8 @@
   [#246](https://github.com/CocoaPods/CocoaPods-app/pull/246)
   
 * Support for `pod init`  
-[Daniel Tomlinson](https://github.com/DanielTomlinson)
-[#245](https://github.com/CocoaPods/CocoaPods-app/pull/245)
+  [Daniel Tomlinson](https://github.com/DanielTomlinson)
+  [#245](https://github.com/CocoaPods/CocoaPods-app/pull/245)
 
 ## [1.0.0.beta.3 2016.02.01](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.3)
   [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100beta3-2016-02-03)
@@ -98,7 +98,7 @@
   [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#0370-2015-05-03)
 
 ## [0.36.4 2015.04.17](https://github.com/CocoaPods/CocoaPods-app/releases/tag/0.36.4)
-[CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#0364-2015-04-16)
+  [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#0364-2015-04-16)
 
 ## [0.36.3 2015.04.05](https://github.com/CocoaPods/CocoaPods-app/releases/tag/0.36.3)
-[CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#0363-2015-03-31)
+  [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#0363-2015-03-31)
