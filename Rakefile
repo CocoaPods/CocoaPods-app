@@ -91,6 +91,11 @@ def cocoapods_app_build_version
   DateTime.now.strftime("%Y.%m.%d")
 end
 
+def update_plist_versions(info_plist)
+  execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
+  execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{cocoapods_app_build_version}", info_plist]
+end
+
 # ------------------------------------------------------------------------------
 # Package metadata
 # ------------------------------------------------------------------------------
@@ -973,9 +978,10 @@ XCODEBUILD_COMMAND = %w{ /usr/bin/xcodebuild -workspace CocoaPods.xcworkspace -s
 namespace :app do
   desc 'Updates the Info.plist of the application to reflect the CocoaPods version'
   task :update_version do
-    info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
-    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
-    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{cocoapods_app_build_version}", info_plist]
+    app_info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
+    bridge_info_plist = File.expand_path('app/CPReflectionService/Info.plist')
+    update_plist_versions(app_info_plist)
+    update_plist_versions(bridge_info_plist)
   end
 
   desc 'Prepare all prerequisites for building the app'
