@@ -20,6 +20,8 @@ through the ‘Install the Command-Line Tool…’ menu item under the applicati
 
 If you want to hack on `CocoaPods.app`:
 
+You will need Xcode 7.3 or newer.
+
 ``` sh
 git clone https://github.com/CocoaPods/CocoaPods-app.git --recursive
 cd CocoaPods-app
