@@ -750,6 +750,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CP;
+				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = CocoaPods;
