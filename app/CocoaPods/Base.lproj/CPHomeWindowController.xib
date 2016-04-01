@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CPHomeWindowController">
@@ -50,8 +50,8 @@
                                             <action selector="recentButtonTapped:" target="Whb-bK-is0" id="hnb-Y9-Dxe"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE" customClass="CPHomeSidebarButton" customModule="CocoaPods" customModuleProvider="target">
-                                        <rect key="frame" x="121" y="0.0" width="64" height="36"/>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXQ-ah-FzE" customClass="CPHomeSidebarButton" customModule="CocoaPods" customModuleProvider="target">
+                                        <rect key="frame" x="119" y="0.0" width="64" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="0xs-Iz-sHf"/>
                                             <constraint firstAttribute="width" constant="64" id="N7l-o4-iu8"/>
