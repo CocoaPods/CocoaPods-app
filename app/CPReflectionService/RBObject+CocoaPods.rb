@@ -62,7 +62,7 @@ module Pod
     end
 
     def self.all_pods
-      Pod::SourcesManager.aggregate.all_pods
+      Pod::Config.instance.sources_manager.aggregate.all_pods
     end
 
     def self.lockfile_version(path)
