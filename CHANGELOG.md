@@ -7,7 +7,11 @@
 * Show a warning while editing a Podfile for a Podfile.lock generated with a newer version of CocoaPods  
   [Nate West](https://github.com/nwest)
   [#257](https://github.com/CocoaPods/CocoaPods-app/pull/257)
-  
+
+* Migrate project to Xcode 7.3  
+  [Nate West](https://github.com/nwest)
+  [#274](https://github.com/CocoaPods/CocoaPods-app/pull/274)
+
 ## [1.0.0.beta.5 2016.03.03](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.5) 
    [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100beta5-2016-03-08)
 
