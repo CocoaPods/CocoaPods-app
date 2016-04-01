@@ -12,7 +12,7 @@ class URLHandler: NSObject {
     let manager = NSAppleEventManager.sharedAppleEventManager()
     manager.setEventHandler(
       self,
-      andSelector: "handleEvent:withReply:",
+      andSelector: #selector(handleEvent(_:withReply:)),
       forEventClass: eventClass,
       andEventID: eventId
     )
