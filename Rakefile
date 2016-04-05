@@ -1,4 +1,4 @@
-BUNDLED_ENV_VERSION = 2
+BUNDLED_ENV_VERSION = 3
 # ^ This has to be at line 0
 # This is so that a build on CP.app can be fast,
 # it can make assumptions that removing `BUNDLED_ENV_VERSION = `
@@ -145,6 +145,9 @@ BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-#{BZR_VERSION}.tar.
 
 MERCURIAL_VERSION = '3.3.3'
 MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-#{MERCURIAL_VERSION}.tar.gz"
+
+# see https://help.github.com/articles/caching-your-github-password-in-git/
+GIT_CREDENTIALS_URL = "https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain"
 
 # ------------------------------------------------------------------------------
 # Bundle Build Tools
@@ -824,6 +827,37 @@ end
 installed_bzr = bzr_tasks.installed_path
 
 # ------------------------------------------------------------------------------
+# Git Credentials Helper
+# ------------------------------------------------------------------------------
+
+class DownloadOnlyTasks < BundleDependencyTasks
+
+  # Make the installed file executable?
+  attr_accessor :is_executable
+
+  def define_tasks
+    define_download_task
+    install_task
+  end
+
+  def install_task
+    execute 'cp', File.join(DOWNLOAD_DIR, artefact_file), File.join(BUNDLE_PREFIX, installed_file)
+    execute 'chmod', 'u+x', File.join(BUNDLE_PREFIX, installed_file) if is_executable
+  end
+end
+
+git_creds_tasks = DownloadOnlyTasks.define do |t|
+  t.url             = GIT_CREDENTIALS_URL
+  t.artefact_file   = 'git-credential-osxkeychain'
+  t.installed_file  = 'bin/git-credential-osxkeychain'
+  t.prefix          = BUNDLE_PREFIX
+  t.dependencies    = [installed_libcurl]
+  t.is_executable   = true
+end
+
+installed_git_creds = git_creds_tasks.installed_path
+
+# ------------------------------------------------------------------------------
 # Root Certificates
 # ------------------------------------------------------------------------------
 
@@ -844,6 +878,7 @@ namespace :bundle do
     installed_pod_bin,
     installed_cocoapods_plugins_install,
     installed_git,
+    installed_git_creds,
     installed_svn,
     installed_bzr,
     installed_mercurial,
