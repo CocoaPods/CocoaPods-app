@@ -23,7 +23,7 @@ class CPModifiedDecorationsWindow: NSWindow {
     super.makeKeyAndOrderFront(sender)
 
     [NSWindowDidResizeNotification, NSWindowDidResizeNotification, NSWindowDidMoveNotification].forEach { notification in
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moveWindowButtons", name: notification, object: self)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(moveWindowButtons), name: notification, object: self)
     }
     moveWindowButtons()
   }
