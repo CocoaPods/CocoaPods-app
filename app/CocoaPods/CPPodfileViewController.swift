@@ -64,21 +64,25 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   }
 
   @IBAction func install(obj: AnyObject) {
+    userProject.saveDocument(self)
     installAction.performAction(.Install(verbose: false))
     showConsoleTab(self)
   }
 
   @IBAction func installVerbose(obj: AnyObject) {
+    userProject.saveDocument(self)
     installAction.performAction(.Install(verbose: true))
     showConsoleTab(self)
   }
 
   @IBAction func installUpdate(obj: AnyObject) {
+    userProject.saveDocument(self)
     installAction.performAction(.Update(verbose: false))
     showConsoleTab(self)
   }
 
   @IBAction func installUpdateVerbose(obj: AnyObject) {
+    userProject.saveDocument(self)
     installAction.performAction(.Update(verbose: true))
     showConsoleTab(self)
   }
