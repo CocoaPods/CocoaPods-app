@@ -837,6 +837,7 @@ class DownloadOnlyTasks < BundleDependencyTasks
 
   def define_tasks
     define_download_task
+    download_task
     install_task
   end
 
