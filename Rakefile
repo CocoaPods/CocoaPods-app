@@ -835,10 +835,12 @@ class DownloadOnlyTasks < BundleDependencyTasks
   # Make the installed file executable?
   attr_accessor :is_executable
 
-  def define_tasks
-    define_download_task
-    download_task
-    install_task
+  # NOP
+  def unpack_command
+  end
+  def unpack_task
+  end
+  def build_task
   end
 
   def install_task
