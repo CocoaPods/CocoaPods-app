@@ -40,6 +40,7 @@
 
 /// YES when the parsing should be updated immediately.
 /// See https://github.com/CocoaPods/CocoaPods-app/issues/130
+
 - (BOOL)shouldParseImmediately
 {
   return self.editor.syntaxErrors.count > 0;
@@ -57,11 +58,13 @@
         project.podfilePlugins = plugins;
         // Clear any previous syntax errors.
         self.editor.syntaxErrors = nil;
-
+        project.syntaxErrors = @[];
+        
       } else if ([error.userInfo[CPErrorName] isEqualToString:@"Pod::DSLError"]) {
         SMLSyntaxError *syntaxError = SyntaxErrorFromError(error);
         if (syntaxError) {
           self.editor.syntaxErrors = @[syntaxError];
+          project.syntaxErrors = @[syntaxError];
         }
 
       } else {
@@ -70,11 +73,25 @@
       }
     });
   }];
+  
+  [reflectionService.remoteObjectProxy XcodeIntegrationInformationFromPodfile:project.contents
+                                                             installationRoot:project.fileURL.URLByDeletingLastPathComponent.path
+                                                                    withReply:^(NSDictionary * _Nullable information, NSError * _Nullable error) {
+    if (error) {
+      NSLog(@"Error getting Xcode information: %@", error);
+      // Ruby error message = error.userDictionary[@"NSLocalizedRecovevrySuggestion"]
+      // we could use this for a GUI in the Podfile integration tab
+    }
+    project.xcodeIntegrationDictionary = information;
+  }];
 }
 
 static SMLSyntaxError * _Nullable
 SyntaxErrorFromError(NSError * _Nonnull error)
 {
+  /// This could be needed later for Informative CocoaPods Errors
+  NSString *recoverySuggestion = error.userInfo[NSLocalizedRecoverySuggestionErrorKey];
+
   // A Pod::DSLError only wraps the real exception and provides nicer output in the CLI.
   // We want to retrieve information from the real exception.
   if ([error.userInfo[CPErrorName] isEqualToString:@"Pod::DSLError"]) {
@@ -102,6 +119,37 @@ SyntaxErrorFromError(NSError * _Nonnull error)
     [scanner scanInteger:&lineNumber];
     [scanner scanString:@": " intoString:NULL];
     description = [description substringFromIndex:scanner.scanLocation];
+
+  } else if ([error.userInfo[CPErrorName] isEqualToString:@"Pod::Informative"]) {
+
+    // Example of recoverySuggestion:
+    //
+    // [!] Invalid `Podfile` file: [31m[!] Unsupported options `{:exclusive=>true}` for target `Aerodramus_Example`.[0m. Updating CocoaPods might fix the issue.
+
+    // #  from Podfile:14
+    // #  -------------------------------------------
+    // #
+    // >  target 'Aerodramus_Example', :exclusive => true do
+    // #    pod "Aerodramus", :path => "../"
+    // #  -------------------------------------------
+
+    NSScanner *scanner = [NSScanner scannerWithString:recoverySuggestion];
+    // Get the line number:
+    [scanner scanUpToString:@"from Podfile" intoString:NULL];
+    [scanner scanString:@"from Podfile:" intoString:NULL];
+
+    [scanner scanInteger:&lineNumber];
+    [scanner scanString:@"#" intoString:NULL];
+
+    // Get the description from the existing error message
+    // E.g. "[31m[!] Unsupported options `{:exclusive=>true}` for target `Aerodramus_ExampleTests`.[0m"
+
+    scanner = [NSScanner scannerWithString:description];
+    [scanner scanUpToString:@"[31m[!]" intoString:NULL];
+    [scanner scanString:@"[31m[!]" intoString:NULL];
+
+    [scanner scanUpToString:@"" intoString:&description];
+    description = [description substringToIndex:NSMaxRange([description rangeOfComposedCharacterSequenceAtIndex:description.length - 4])];
 
   } else {
     NSString *location = [error.userInfo[CPErrorRubyBacktrace] firstObject];

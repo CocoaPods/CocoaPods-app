@@ -8,17 +8,19 @@ It is able to expose this standalone installation in a command-line interface en
 the `pod` command-line tool, which it will request to install on launch of the application or
 through the ‘Install the Command-Line Tool…’ menu item under the application menu.
 
-### GUI
+### Download
 
-For now it provides a very minimalistic UI that allows users to open and edit their Podfile and
-perform commands equivalent to `pod install` and `pod update`.
-
-In time it will undoubtedly evolve into a full-featured GUI application, but for now this is **not**
-the _most_ important goal.
+<p align="center">
+<a href="https://github.com/CocoaPods/CocoaPods-app/releases/latest">
+  <img src="https://raw.githubusercontent.com/CocoaPods/CocoaPods-app/master/assets/screenshot.png" />
+  <a/>
+</p>
 
 ### Building for Development
 
 If you want to hack on `CocoaPods.app`:
+
+You will need Xcode 7.3 or newer.
 
 ``` sh
 git clone https://github.com/CocoaPods/CocoaPods-app.git --recursive
@@ -50,6 +52,7 @@ rake bundle:verify_linkage   # Verifies that no binaries in the bundle link to i
 rake release                 # Create a clean release build for distribution
 rake release:build           # Perform a full build of the bundle and app
 rake release:cleanbuild      # Create a clean build
+rake release:sparkle         # Version bump the Sparkle XML
 rake release:upload          # Upload release
 ```
 
@@ -61,8 +64,3 @@ We have heard reports of issues with installing on custom ruby installations, we
 ### Creating a release
 
 1. Run `rake release`.
-2. [Create a new ‘release’](https://github.com/CocoaPods/CocoaPods-app/releases/new) on GitHub, which should show app specific changelog notes followed by the CocoaPods release changelog notes.
-3. Checkout the `gh-pages` branch: `git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages`.
-4. Add `gh-pages/releases/VERSION.html` and recreate the changelog you added to the GitHub release as HTML.
-5. Update `gh-pages/sparkle.xml` to include the new version ‘item’.
-6. Make a pull request to [https://github.com/caskroom/homebrew-cask/blob/master/Casks/cocoapods.rb](homebrew-cask) updating the `version` and `sha256`

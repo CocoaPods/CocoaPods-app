@@ -1,9 +1,17 @@
+BUNDLED_ENV_VERSION = 2
+# ^ This has to be at line 0
+# This is so that a build on CP.app can be fast,
+# it can make assumptions that removing `BUNDLED_ENV_VERSION = `
+# from the first line will get the version.
+
 VERBOSE = !!RakeFileUtils.verbose_flag
 
 RELEASE_PLATFORM = '10.11'
-
 DEPLOYMENT_TARGET = '10.10'
-DEPLOYMENT_TARGET_SDK = "MacOSX#{DEPLOYMENT_TARGET}.sdk"
+
+# Ideally this would be deployment target, but
+# we use generics which didn't exist in 10.10.
+DEPLOYMENT_TARGET_SDK = "MacOSX#{RELEASE_PLATFORM}.sdk"
 
 $build_started_at = Time.now
 at_exit do
@@ -66,13 +74,26 @@ def install_cocoapods_version
   return @install_cocoapods_version if @install_cocoapods_version
   return @install_cocoapods_version = ENV['VERSION'] if ENV['VERSION']
 
-  Dir.chdir(File.expand_path('~/.cocoapods/repos/master')) do
+  master_specs_path = File.expand_path '~/.cocoapods/repos/master'
+  raise "[!] Please set up the Specs repo." unless Dir.exists?(master_specs_path)
+  Dir.chdir(master_specs_path) do
     execute 'CocoaPods', ['/usr/bin/git', 'pull']
   end
 
   version_file = File.expand_path('~/.cocoapods/repos/master/CocoaPods-version.yml')
   require 'yaml'
   @install_cocoapods_version = YAML.load(File.read(version_file))['last']
+end
+
+# Used to differentiate app builds from CocoaPods releases.
+def cocoapods_app_build_version
+  require 'Date'
+  DateTime.now.strftime("%Y.%m.%d")
+end
+
+def update_plist_versions(info_plist)
+  execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
+  execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{cocoapods_app_build_version}", info_plist]
 end
 
 # ------------------------------------------------------------------------------
@@ -463,14 +484,23 @@ installed_readline = readline_tasks.installed_path
 # ------------------------------------------------------------------------------
 
 class RubyTasks < BundleDependencyTasks
-  attr_accessor :installed_libruby_path
+  attr_accessor :installed_libruby_path, :installed_dependencies
 
+  # TODO Look into using ext/extinit.c instead, but this will autoload the extensions,
+  #      so that makes more sense to look into when switching to a dynamic libruby.
   def define_install_libruby_task
     file installed_libruby_path => artefact_path do
       cp artefact_path, installed_libruby_path
-      %w{ bigdecimal date/date_core.a pathname stringio }.each do |ext|
+      %w{ bigdecimal date/date_core.a digest fiddle pathname psych stringio strscan }.each do |ext|
         ext = "#{ext}/#{ext}.a" unless File.extname(ext) == '.a'
         execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'ext', ext)
+      end
+
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'enc', 'libenc.a')
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'enc', 'libtrans.a')
+
+      installed_dependencies.each do |installed_dependency|
+        execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, installed_dependency
       end
     end
   end
@@ -490,6 +520,7 @@ ruby_tasks = RubyTasks.define do |t|
   t.dependencies   = [installed_pkg_config, installed_yaml, installed_openssl]
 
   t.installed_libruby_path = File.join('app', 'CPReflectionService', 'libruby+exts.a')
+  t.installed_dependencies = [installed_yaml]
 end
 
 installed_ruby = ruby_tasks.installed_path
@@ -874,6 +905,12 @@ namespace :bundle do
     end
   end
 
+  desc "Creates a VERSION file in the destroot folder"
+  task :stamp_version do
+    path = File.join(BUNDLE_DESTROOT, "VERSION")
+    File.open(path, 'w') { |file| file.write "#{BUNDLED_ENV_VERSION}\n" }
+  end
+
   desc "Verifies that no binaries in the bundle link to incorrect dylibs"
   task :verify_linkage => :remove_unneeded_files do
     skip = %w( .h .rb .py .pyc .tmpl .pem .png .ttf .css .rhtml .js .sample )
@@ -907,7 +944,7 @@ namespace :bundle do
     mkdir_p test_dir
     cp 'test/Podfile', test_dir
     Dir.chdir(test_dir) do
-      execute 'Test', [BUNDLE_ENV, 'pod', 'install', '--no-integrate', '--verbose']
+      execute 'Test', [BUNDLE_ENV, 'pod', 'install', '--verbose']
     end
   end
 
@@ -917,11 +954,12 @@ namespace :bundle do
   end
 
   desc "Build complete dist bundle"
-  task :build => [:build_tools, :remove_unneeded_files]
+  task :build => [:build_tools, :remove_unneeded_files, :stamp_version]
 
   namespace :clean do
     task :build do
       rm_rf WORKBENCH_DIR
+      rm "app/CPReflectionService/libruby+exts.a" if File.exists? "app/CPReflectionService/libruby+exts.a"
     end
 
     task :downloads do
@@ -944,8 +982,8 @@ end
 # RubyCocoa
 # ------------------------------------------------------------------------------
 
-built_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
-file built_rubycocoa => [installed_ruby, installed_env_script] do
+build_rubycocoa = 'app/RubyCocoa/framework/build/Default/RubyCocoa.framework/Versions/A/RubyCocoa'
+file build_rubycocoa => [installed_ruby, installed_env_script] do
   Dir.chdir('app/RubyCocoa') do
     execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'config', '--target-archs=x86_64', '--build-as-embeddable=yes']
     execute 'RubyCocoa', [BUNDLE_ENV, 'ruby', 'install.rb', 'setup']
@@ -961,13 +999,14 @@ XCODEBUILD_COMMAND = %w{ /usr/bin/xcodebuild -workspace CocoaPods.xcworkspace -s
 namespace :app do
   desc 'Updates the Info.plist of the application to reflect the CocoaPods version'
   task :update_version do
-    info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
-    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
-    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{install_cocoapods_version}", info_plist]
+    app_info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
+    bridge_info_plist = File.expand_path('app/CPReflectionService/Info.plist')
+    update_plist_versions(app_info_plist)
+    update_plist_versions(bridge_info_plist)
   end
 
   desc 'Prepare all prerequisites for building the app'
-  task :prerequisites => ['bundle:submodules', 'bundle:build', installed_ruby_static_lib, built_rubycocoa, :update_version]
+  task :prerequisites => ['bundle:submodules', 'bundle:build', installed_ruby_static_lib, build_rubycocoa, :update_version]
 
   desc 'Build release version of application'
   task :build => :prerequisites do
@@ -997,12 +1036,14 @@ namespace :release do
 
   desc "Perform a full build of the bundle and app"
   task :build => ['bundle:build', 'bundle:verify_linkage', 'bundle:test', 'app:build', PKG_DIR] do
-    output = `#{XCODEBUILD_COMMAND} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
-    build_dir = output.split('= ').last
+    build_dir = Dir.chdir('app') do
+      output = `#{XCODEBUILD_COMMAND.join(" ")} -showBuildSettings | grep -w BUILT_PRODUCTS_DIR`.strip
+      output.split('= ').last
+    end
+
     # TODO use this once OS X supports xz out of the box.
     #tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.xz"))
     #sh "cd '#{build_dir}' && tar cfJ '#{tarball}' CocoaPods.app"
-    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
     Dir.chdir(build_dir) do
       execute 'App', ['/usr/bin/tar', 'cfj', tarball, 'CocoaPods.app']
     end
@@ -1011,39 +1052,145 @@ namespace :release do
   desc "Create a clean build"
   task :cleanbuild => [:clean, :build]
 
+  # These are used in uploading the release
+  # and updating Sparkle
+
+  require 'net/http'
+  require 'json'
+  require 'rest'
+
+  def tarball
+    File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
+  end
+
+  def sha(file)
+    `shasum -a 256 -b '#{tarball}'`.split(' ').first
+  end
+
+  github_headers = {
+    'Content-Type' => 'application/json',
+    'User-Agent' => 'runscope/0.1,segiddins',
+    'Accept' => 'application/json',
+  }
+
   desc "Upload release"
   task :upload => [] do
-    tarball = File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
-    sha = `shasum -a 256 -b '#{tarball}'`.split(' ').first
-
-    require 'net/http'
-    require 'json'
-    require 'rest'
-
-    github_headers = {
-      'Content-Type' => 'application/json',
-      'User-Agent' => 'runscope/0.1,segiddins',
-      'Accept' => 'application/json',
-    }
-
-    response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
-                         {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json,
-                         github_headers)
-
+    sha = sha(tarball)
+    puts "Uploading zip as a GitHub release"
     tarball_name = File.basename(tarball)
-
+    response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
+                              {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json, github_headers)
     upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
+    puts "Downloadable at #{tarball_download_url}"
+  end
 
-    puts
-    puts "Make a PR to https://github.com/CocoaPods/CocoaPods-app/blob/master/homebrew-cask " \
-         "updating the version to #{install_cocoapods_version} and the sha to #{sha}"
-    puts
+  desc "Version bump the Sparkle XML"
+  task :sparkle => [] do
+    sh "git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages" unless Dir.exists? "./gh-pages"
+
+    version = install_cocoapods_version
+    xml_file = "gh-pages/sparkle.xml"
+    app_zip = "pkg/CocoaPods.app-#{version}.tar.bz2"
+    release_notes = "https://app.cocoapods.org/releases/#{version}"
+    download_url = "https://github.com/CocoaPods/CocoaPods-app/releases/download/#{version}/CocoaPods.app-#{version}.tar.bz2"
+
+    require 'rexml/document'
+    doc = REXML::Document.new(File.read(xml_file))
+    channel = doc.elements['/rss/channel']
+
+    # Add a new item to the Appcast feed
+    item = channel.add_element('item')
+    item.add_element("title").add_text("Version #{version}")
+    item.add_element("sparkle:minimumSystemVersion").add_text(DEPLOYMENT_TARGET)
+    item.add_element("sparkle:releaseNotesLink").add_text(release_notes)
+    item.add_element("pubDate").add_text(DateTime.now.strftime("%a, %d %h %Y %H:%M:%S %z"))
+
+    enclosure = item.add_element("enclosure")
+    enclosure.attributes["type"] = "application/octet-stream"
+    enclosure.attributes["sparkle:version"] = version
+    enclosure.attributes["length"] = File.size(app_zip)
+    enclosure.attributes["url"] = download_url
+
+    # Write it out
+    formatter = REXML::Formatters::Pretty.new(2)
+    formatter.compact = true
+    new_xml = ""
+    formatter.write(doc, new_xml)
+    File.open(xml_file, 'w') { |file| file.write new_xml }
+
+    # Get the CP release notes for our inline release notes
+    response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods/releases?access_token=#{github_access_token}", github_headers)
+    latest_release = JSON.load(response.body).find { |release| release["tag_name"] == version }
+
+    markdown_notes = "pkg/#{version}_before.md"
+    File.open(markdown_notes, 'w') { |file| file.write latest_release["body"] }
+
+    # Give the user a chance to add flourish
+    puts "Please edit #{markdown_notes}, then press return to continue with this process"
+    puts "try running: mate -w #{Dir.pwd}#{markdown_notes}"
+    STDIN.gets
+
+    # Get GitHub to render the MD
+    options = { text: File.read(markdown_notes), mode: "gfm", context: "cocoapods/cocoapods" }
+    response = REST.post("https://api.github.com/markdown?access_token=#{github_access_token}", options.to_json, github_headers)
+    html_markdown = response.body
+
+    # Ship the commits
+    Dir.chdir("gh-pages") do
+      sh "git add ."
+      sh "git commit -m 'Added the Sparkle XML for #{version}.'"
+
+      File.open("releases/#{version}.html", 'w') { |file| file.write html_markdown }
+
+      sh "git add ."
+      sh "git commit -m 'Added the release notes for #{version}.'"
+      sh "git push"
+    end
+
+    # Tada
+    puts "Deployed the Sparkle XML"
+  end
+
+  task :homebrew_cask do
+    version = install_cocoapods_version
+
+    cask_fork = JSON.load(REST.post("https://api.github.com/repos/caskroom/homebrew-cask/forks?access_token=#{github_access_token}",
+                                    {}.to_json,
+                                    github_headers).body)["full_name"]
+    branch = "cocoapods-#{version}"
+    message = "Upgrade CocoaPods to v#{version}"
+
+    sh "git clone https://github.com/caskroom/homebrew-cask.git homebrew_cask" unless Dir.exists? "homebrew_cask"
+    Dir.chdir('homebrew_cask') do
+      sh "git pull"
+      sh "git remote add fork https://github.com/#{cask_fork}.git"
+      sh "git checkout -b #{branch}"
+
+      cask_file = 'Casks/cocoapods.rb'
+      cask = File.read(cask_file)
+      cask.sub! /version '#{Gem::Version::VERSION_PATTERN}'/, "version '#{version}'"
+      cask.sub! /sha256 '[[:xdigit:]]+'/, "sha256 '#{sha(tarball)}'"
+      appcast_url = cask.match(/appcast '(.*)'/)[1]
+      sparkle_checkpoint = %x{curl --silent --compressed "#{appcast_url}"
+        | sed 's|<pubDate>[^<]*</pubDate>||g'
+        | shasum --algorithm 256
+        | awk '{ print $1 }'}
+      cask.sub! /checkpoint: '[[:xdigit:]]+'/, "checkpoint: '#{sparkle_checkpoint}'"
+      File.open(cask_file, 'w') { |f| f.write(cask) }
+
+      sh "git commit -am '#{message}'"
+      sh "git push fork"
+    end
+
+    REST.post("https://api.github.com/repos/caskroom/homebrew-cask/pulls?access_token=#{github_access_token}",
+              {title: message, head: cask_fork.split('/').first + ":#{branch}", base: 'master'}.to_json,
+              github_headers)
   end
 end
 
-desc "Create a clean release build for distribution"
+desc 'Create a clean release build for distribution'
 task :release do
   unless `sw_vers -productVersion`.strip.split('.').first(2).join('.') == RELEASE_PLATFORM
     puts "[!] A release build must be performed on the latest OS X version to ensure all the gems that Apple includes " \
@@ -1062,4 +1209,6 @@ task :release do
   end
   Rake::Task['release:cleanbuild'].invoke
   Rake::Task['release:upload'].invoke
+  Rake::Task['release:sparkle'].invoke
+  Rake::Task['release:homebrew_cask'].invoke
 end

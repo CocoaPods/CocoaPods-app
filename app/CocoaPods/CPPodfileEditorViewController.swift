@@ -5,12 +5,30 @@ import Fragaria
 /// and ensure the changes are sent back upstream to the 
 /// CPPodfileViewController's CPUserProject
 
-class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
+class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAutoCompleteDelegate {
 
   @IBOutlet var editor: MGSFragariaView!
   var syntaxChecker: CPPodfileReflection!
   let commentSyntax = "# "
   let indentationSyntax = "  "
+  var autoCompletions: [String] = {
+    if let path = NSBundle.mainBundle().pathForResource("Podfile", ofType: "plist"),
+      dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject],
+      words = dict["autocompleteWords"] as? [String] {
+        return words
+    }
+    return []
+  }()
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let appDelegate = NSApp.delegate as? CPAppDelegate
+    appDelegate?.reflectionService.remoteObjectProxy.allPods { (pods, error) in
+      if let pods = pods {
+        self.autoCompletions.appendContentsOf(pods)
+      }
+    }
+  }
 
   // As the userProject is DI'd into the PodfileVC
   // it occurs after the view is set up.
@@ -21,6 +39,8 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     guard let podfileVC = podfileViewController, project = podfileVC.userProject else {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
+    
+    project.delegate = self
 
     editor.syntaxColoured = true
     editor.syntaxDefinitionName = "Podfile"
@@ -34,18 +54,81 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
     editor.colourForKeywords = settings.cpBlue
     editor.colourForVariables = settings.cpGreen
     editor.colourForInstructions = settings.cpBrightMagenta
+    editor.autoCompleteDelegate = self
 
+    editor.tabWidth = 2
+    editor.indentWithSpaces = true
+    
     project.undoManager = editor.textView.undoManager
     
     syntaxChecker = CPPodfileReflection(podfileEditorVC: self, fragariaEditor: editor)
     syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
   }
 
+  override func viewDidAppear() {
+    super.viewDidAppear()
+    checkLockfileVersion()
+  }
+
+  func checkLockfileVersion() {
+    if let lockfilePath = podfileViewController?.userProject.lockfilePath() {
+      pullVersionFromLockfile(lockfilePath, completion: { version in
+        self.checkForOlderAppVersionWithLockfileVersion(version, completion: { older in
+          if let old = older where old.boolValue == true {
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+              self.showWarningForNewerLockfile()
+            })
+          }
+        })
+      })
+    }
+  }
+
+  func appDelegate() -> CPAppDelegate? {
+    return NSApp.delegate as? CPAppDelegate
+  }
+
+  func appVersion() -> String? {
+    return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
+  }
+
+  func pullVersionFromLockfile(path: String, completion: (String?) -> Void) {
+    appDelegate()?.reflectionService.remoteObjectProxy.versionFromLockfile(path, withReply: { (version, error) in
+      completion(version)
+    })
+  }
+
+  func checkForOlderAppVersionWithLockfileVersion(version: String?, completion: (NSNumber?) -> Void) {
+    if let lockfileVersion = version, appVersion = appVersion() {
+        appDelegate()?.reflectionService.remoteObjectProxy.appVersion(appVersion, isOlderThanLockfileVersion: lockfileVersion, withReply: { (result, error) in
+          completion(result)
+        })
+    } else {
+      completion(nil)
+    }
+  }
+
+  func showWarningForNewerLockfile() {
+    let title = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE", comment: "")
+    let message = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR", comment: "")
+    podfileViewController?.showWarningLabelWithSender(message, actionTitle: title, target: self, action: "checkForUpdatesButtonPressed", animated: true)
+  }
+
+  func checkForUpdatesButtonPressed() {
+    if let url = NSURL(string: "https://cocoapods.org/app") {
+      NSWorkspace.sharedWorkspace().openURL(url)
+    }
+  }
+
+  func completions() -> [AnyObject]! {
+      return autoCompletions
+  }
+
   func textDidChange(notification: NSNotification) {
     guard let textView = notification.object as? NSTextView,
       let podfileVC = podfileViewController else { return }
 
-    podfileVC.userProject.contents = textView.string
+    podfileVC.userProject.contents = textView.string ?? ""
 
     // Passing the message on to the syntax checker
     syntaxChecker.textDidChange(notification)
@@ -66,6 +149,18 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate {
   @IBAction func outdentSelection(sender: NSMenuItem) {
     let range = applyTextChange(outdentedSelection, toSelection: selectedLines(editor.textView))
     editor.textView.setSelectedRange(range)
+  }
+  
+  @IBAction func increaseFontSize(sender: NSMenuItem) {
+    let settings = CPFontAndColourGateKeeper()
+    settings.increaseDefaultFontSize()
+    editor.textFont = settings.defaultFont
+  }
+  
+  @IBAction func decreaseFontSize(sender: NSMenuItem) {
+    let settings = CPFontAndColourGateKeeper()
+    settings.decreaseDefaultFontSize()
+    editor.textFont = settings.defaultFont
   }
 
   /// Apply a text transformation to a selection
@@ -216,4 +311,15 @@ extension EditorLineSelection {
     return (text as NSString).lineRangeForRange(editor.textView.selectedRange())
   }
 
+}
+
+// MARK: - CPUserProjectDelegate
+extension CPPodfileEditorViewController: CPUserProjectDelegate {
+  
+  func contentDidChangeinUserProject(userProject: CPUserProject) {
+    editor.string = userProject.contents
+    
+    // Passing the message on to the syntax checker
+    syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
+  }
 }

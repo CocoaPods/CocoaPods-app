@@ -1,8 +1,9 @@
 import Cocoa
 
 class CPFontAndColourGateKeeper: NSObject {
-  let defaultFont = NSFont(name: "Menlo", size: 16)
-
+  
+  // MARK: - Colors
+  
   let cpBlack = NSColor(calibratedRed:0.180, green:0.000, blue:0.008, alpha:1.00)
   let cpRed = NSColor(calibratedRed:0.682, green:0.000, blue:0.000, alpha:1.00)
   let cpGreen = NSColor(calibratedRed:0.161, green:0.608, blue:0.086, alpha:1.00)
@@ -21,4 +22,35 @@ class CPFontAndColourGateKeeper: NSObject {
   let cpBrightWhite = NSColor(calibratedRed:0.773, green:0.773, blue:0.773, alpha:1.00)
   let cpBrightLightBrown = NSColor(calibratedRed: 232/255, green:226/255 , blue: 224/255, alpha: 1)
   let cpBrightBrown = NSColor(calibratedRed: 209/255, green:196/255 , blue: 192/255, alpha: 1)
+  
+  //MARK: - Font
+  
+  private let kDefaultsDefaultFontSize = "defaultFontSize"
+  var defaultFont: NSFont? {
+    return NSFont(name: "Menlo", size: defaultFontSize)
+  }
+  private var defaultFontSize: CGFloat {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    if let fontSize = defaults.objectForKey(kDefaultsDefaultFontSize) as? Float {
+      return CGFloat(fontSize)
+    }
+    return 16
+  }
+  
+  func increaseDefaultFontSize() -> NSFont? {
+    let newSize = defaultFontSize + 1
+    return changeDefaultFontSize(newSize)
+  }
+  
+  func decreaseDefaultFontSize() -> NSFont? {
+    let newSize = max(1, defaultFontSize - 1)
+    return changeDefaultFontSize(newSize)
+  }
+  
+  private func changeDefaultFontSize(size: CGFloat) -> NSFont? {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    defaults.setFloat(Float(size), forKey: kDefaultsDefaultFontSize)
+    return defaultFont
+  }
+  
 }

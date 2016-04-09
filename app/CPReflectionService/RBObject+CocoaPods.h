@@ -40,8 +40,16 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 @end
 
 @interface RBPluginManager : RBObject
-// TODO This has been changed in CLAide master and should be updated on the next release!
-// https://github.com/CocoaPods/CLAide/pull/54
-- (NSArray<NSString *> * _Nonnull)plugin_load_paths:(NSString * _Nonnull)prefix;
+- (NSArray<RBGemSpecification *> * _Nonnull)installed_specifications_for_prefix:(NSString * _Nonnull)prefix;
 - (RBGemSpecification * _Nonnull)specification:(NSString * _Nonnull)pluginPath;
 @end
+
+// Defined in RBObject+CocoaPods.rb
+@interface RBApp : RBObject
+- (void)require_gems;
+- (NSDictionary * _Nonnull)analyze_podfile:(RBPodfile * _Nonnull)contents :(NSString * _Nonnull)installationRoot;
+- (NSArray<NSString *> * _Nullable)all_pods;
+- (NSString * _Nullable)lockfile_version:(RBPathname * _Nonnull)path;
+- (NSNumber * _Nonnull)compare_versions:(NSString * _Nonnull)version1 :(NSString * _Nonnull)version2;
+@end
+

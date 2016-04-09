@@ -1,19 +1,18 @@
 #import "CPHomeWindowController.h"
-#import "CPRecentDocumentsController.h"
 #import "CocoaPods-Swift.h"
 #import "CPCLIToolInstallationController.h"
+#import "CPHomeWindowDocumentEntry.h"
 
 NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 @interface CPHomeWindowController ()
-
-@property (strong) IBOutlet CPRecentDocumentsController *recentDocumentsController;
 
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTextField *cocoapodsVersionTextField;
 @property (weak) IBOutlet NSButton *openGuidesButton;
 @property (weak) IBOutlet NSButton *openSearchButton;
 @property (weak) IBOutlet NSButton *openChangelogButton;
+@property (weak) IBOutlet NSImageView *cpIconImage;
 
 @property (strong) IBOutlet NSView *installCommandLineToolsView;
 @property (weak) IBOutlet NSLayoutConstraint *commandLineToolsHeightConstraint;
@@ -35,6 +34,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   self.openSearchButton.title = NSLocalizedString(@"MAIN_WINDOW_OPEN_SEARCH_BUTTON_TITLE", nil);
   self.openChangelogButton.title = NSLocalizedString(@"MAIN_WINDOW_CHANGELOG_BUTTON_TITLE", nil);
   self.window.excludedFromWindowsMenu = YES;
+    self.cpIconImage.image = [NSApp applicationIconImage];
 
   [self.tableView setTarget:self];
   [self.tableView setDoubleAction:@selector(didDoubleTapOnRecentItem:)];
@@ -46,13 +46,21 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
     [self addCLIInstallerMessageAnimated:YES];
   }
+  
+  // Drag & Drop registration
+  
+  [self.window registerForDraggedTypes:@[NSFilenamesPboardType]];
 }
 
 - (void)didDoubleTapOnRecentItem:(NSTableView *)sender;
 {
   NSInteger row = [sender selectedRow];
-  CPHomeWindowDocumentEntry *item = self.recentDocumentsController.recentDocuments[row];
-
+  // checking if there is selected row below double clicked area. [NSTableView selectedRow] returns -1 if not.
+  if (row < 0) {
+    return;
+  }
+  NSTableCellView *cell = [sender viewAtColumn:0 row:row makeIfNecessary:NO];
+  CPHomeWindowDocumentEntry *item = cell.objectValue;
   NSDocumentController *controller = [NSDocumentController sharedDocumentController];
   [controller openDocumentWithContentsOfURL:item.podfileURL display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
     [self.window orderOut:self];
@@ -71,7 +79,7 @@ static CGFloat CPCommandLineAlertHeight = 68;
   self.commandLineToolsHeightConstraint.constant = 2;
   [content addSubview:self.installCommandLineToolsView];
 
-  NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.installCommandLineToolsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:content attribute:NSLayoutAttributeTop multiplier:1 constant:20];
+  NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.installCommandLineToolsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:content attribute:NSLayoutAttributeTop multiplier:1 constant:36];
   [content addConstraint:topConstraint];
 
   id constraint = animate ? self.commandLineToolsHeightConstraint.animator : self.commandLineToolsHeightConstraint;
@@ -82,7 +90,6 @@ static CGFloat CPCommandLineAlertHeight = 68;
 
 - (IBAction)showFullCLIInstallerMessageAnimated:(NSButton *)sender;
 {
-
   if ([sender.title isEqualToString:@"Close"]) {
     [self.commandLineToolsHeightConstraint.animator setConstant:CPCommandLineAlertHeight];
     [sender setTitle:@"Help"];
@@ -133,6 +140,52 @@ static CGFloat CPCommandLineAlertHeight = 68;
 {
   NSURL *destinationURL = [NSURL fileURLWithPath:kCPCLIToolSuggestedDestination];
   return [CPCLIToolInstallationController controllerWithSuggestedDestinationURL:destinationURL];
+}
+
+
+// MARK: - Drag & Drop
+
+- (NSString*)fileNameForDraggingPasteboard:(id<NSDraggingInfo>)sender
+{
+  NSPasteboard *pboard = [sender draggingPasteboard];
+  NSDragOperation sourceMask = [sender draggingSourceOperationMask];
+  
+  if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+    if (sourceMask & NSDragOperationLink) {
+      NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+      // allow to drop also multiple files if any of them is Podfile
+      for (NSString *fileName in files) {
+        if ([[fileName lastPathComponent] isEqualToString:@"Podfile"]) {
+          return fileName;
+        }
+      }
+    }
+  }
+  
+  return nil;
+}
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
+{
+  if ([self fileNameForDraggingPasteboard:sender] != nil) {
+    return NSDragOperationCopy;
+  } else {
+    return NSDragOperationNone;
+  }
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
+{
+  NSString *fileName = [self fileNameForDraggingPasteboard:sender];
+  if (fileName != nil) {
+    NSDocumentController *controller = [NSDocumentController sharedDocumentController];
+    [controller openDocumentWithContentsOfURL:[NSURL fileURLWithPath:fileName] display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
+      [self.window orderOut:self];
+    }];
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 @end

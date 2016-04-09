@@ -86,10 +86,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-CocoaPods/ANSIEscapeHelper.framework"
   install_framework "Pods-CocoaPods/Fragaria.framework"
+  install_framework "Pods-CocoaPods/LetsMove.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-CocoaPods/ANSIEscapeHelper.framework"
   install_framework "Pods-CocoaPods/Fragaria.framework"
+  install_framework "Pods-CocoaPods/LetsMove.framework"
   install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
 fi

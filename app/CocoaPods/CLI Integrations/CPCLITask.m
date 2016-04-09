@@ -6,7 +6,7 @@
 
 @property (nonatomic, weak) id<CPCLITaskDelegate> delegate;
 
-@property (nonatomic, weak) CPUserProject *userProject;
+@property (nonatomic, weak) NSString *workingDirectory;
 @property (nonatomic, copy) NSString *command;
 
 @property (nonatomic) NSTask *task;
@@ -14,6 +14,8 @@
 @property (nonatomic) NSProgress *progress;
 @property (nonatomic, copy) NSAttributedString *output;
 @property (nonatomic, assign) BOOL running;
+@property (nonatomic, assign) int terminationStatus;
+
 @end
 
 @implementation CPCLITask
@@ -25,13 +27,26 @@
                            delegate:(id<CPCLITaskDelegate>)delegate
                    qualityOfService:(NSQualityOfService)qualityOfService
 {
-  if (self = [super init]) {
-    self.userProject = userProject;
+  return [self initWithWorkingDirectory:[[userProject.fileURL URLByDeletingLastPathComponent] path]
+                                command:command
+                               delegate:delegate
+                       qualityOfService:qualityOfService];
+}
+
+- (instancetype)initWithWorkingDirectory:(NSString *)workingDirectory
+                                 command:(NSString *)command
+                                delegate:(id<CPCLITaskDelegate>)delegate
+                        qualityOfService:(NSQualityOfService)qualityOfService
+{
+  self = [super init];
+  if (self) {
+    self.workingDirectory = workingDirectory;
     self.command = command;
     self.delegate = delegate;
     self.qualityOfService = qualityOfService;
+    self.terminationStatus = 1;
   }
-
+  
   return self;
 }
 
@@ -46,7 +61,8 @@
 - (void)run
 {
   // Create an indetermine progress bar since we have no way to track it for now.
-  self.progress = [NSProgress discreteProgressWithTotalUnitCount:-1];
+  self.progress = [[NSProgress alloc] initWithParent:nil userInfo:nil];
+  self.progress.totalUnitCount = -1;
 
   NSDictionary *environment = @{
                                 @"HOME": NSHomeDirectory(),
@@ -54,14 +70,18 @@
                                 @"TERM": @"xterm-256color"
                                 };
 
-  NSString *workingDirectory = [[self.userProject.fileURL URLByDeletingLastPathComponent] path];
+  NSString *workingDirectory = self.workingDirectory;
   NSString *launchPath = @"/bin/sh";
   NSString *envBundleScript = [[NSBundle mainBundle] pathForResource:@"bundle-env"
                                                               ofType:nil
                                                          inDirectory:@"bundle/bin"];
 
-  NSArray *arguments = @[envBundleScript, @"pod", self.command, @"--ansi"];
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"CPShowVerboseCommandOutput"]) {
+  NSArray *arguments = @[envBundleScript, @"pod", self.command];
+  if (self.colouriseOutput) {
+    arguments = [arguments arrayByAddingObject:@"--ansi"];
+  }
+
+  if (self.verboseOutput) {
     arguments = [arguments arrayByAddingObject:@"--verbose"];
   }
 
@@ -109,7 +129,7 @@
   NSFileHandle *fileHandle = notification.object;
   NSData *data = fileHandle.availableData;
 
-  if (data.length > 0) {
+  if (data.length > 0 && [self.delegate respondsToSelector:@selector(task:didUpdateOutputContents:)]) {
     NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [self appendTaskOutput:output];
   }
@@ -141,10 +161,7 @@
                                                   name:NSFileHandleDataAvailableNotification
                                                 object:nil];
 
-  NSUserNotification *completionNotification = [[NSUserNotification alloc] init];
-  completionNotification.title = NSLocalizedString(@"WORKSPACE_GENERATED_NOTIFICATION_TITLE", nil);
-  completionNotification.subtitle = [[self.userProject.fileURL relativePath] stringByAbbreviatingWithTildeInPath];
-  [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:completionNotification];
+  self.terminationStatus = self.task.terminationStatus;
 
   // Setting to `nil` signals through bindings that task has finished.
   self.task = nil;
@@ -153,6 +170,14 @@
   self.progress.totalUnitCount = 1;
   self.progress.completedUnitCount = 1;
   self.running = false;
+  if ([self.delegate respondsToSelector:@selector(taskCompleted:)]) {
+    [self.delegate taskCompleted:self];
+  }
+}
+
+- (BOOL)finishedSuccessfully
+{
+  return self.terminationStatus == 0;
 }
 
 #pragma mark - Utilities

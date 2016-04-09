@@ -1,4 +1,5 @@
 #import "CPBorderedButton.h"
+#import "NSAttributedString+Helpers.h"
 
 @implementation CPBorderedButton
 
@@ -43,14 +44,10 @@
 
 - (void)setTitle:(NSString *)title
 {
-  NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-  style.alignment = NSTextAlignmentCenter;
-
-  self.attributedTitle = [[NSAttributedString alloc] initWithString:title attributes: @{
-    NSForegroundColorAttributeName: self.textColor ?: [NSColor colorWithCalibratedWhite:1 alpha:1],
-    NSFontAttributeName: self.font ?: [NSFont labelFontOfSize:12],
-    NSParagraphStyleAttributeName: style
-  }];
+  self.attributedTitle = [NSAttributedString string:title
+                                              color:self.textColor ?: [NSColor colorWithCalibratedWhite:1 alpha:1]
+                                               font:self.font ?: [NSFont labelFontOfSize:12]
+                                          alignment:NSTextAlignmentCenter];
 }
 
 @end
