@@ -47,7 +47,7 @@ class CPSpotlightDocumentSource: CPDocumentSource {
 
   func queryGatheringFinished(notification: NSNotification) {
     // let NSMetadataQuery finish when there are files available, if not finish the query
-    self.performSelector(Selector("queryFinished"), withObject: nil, afterDelay: 2.0)
+    self.performSelector(#selector(queryFinished), withObject: nil, afterDelay: 2.0)
   }
   
   func queryFinished() {

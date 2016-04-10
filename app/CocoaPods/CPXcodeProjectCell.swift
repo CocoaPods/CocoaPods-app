@@ -4,7 +4,7 @@ class CPXcodeProjectCell: NSTableCellView {
   @IBOutlet weak var projectOpenButton: NSButton!
   
   override func awakeFromNib() {
-    let rightClickGesture = NSClickGestureRecognizer(target: self, action: Selector("contextualMenuForProject:"))
+    let rightClickGesture = NSClickGestureRecognizer(target: self, action: #selector(contextualMenuForProject))
     rightClickGesture.buttonMask = 0x2 // right mouse
     projectOpenButton.addGestureRecognizer(rightClickGesture)
   }
@@ -14,12 +14,12 @@ class CPXcodeProjectCell: NSTableCellView {
     let showMenuItem = NSMenuItem()
     showMenuItem.title = "Show in Finder"
     showMenuItem.target = self
-    showMenuItem.action = Selector("showInFinder:")
+    showMenuItem.action = #selector(showInFinder)
     menu.addItem(showMenuItem)
     let openMenuItem = NSMenuItem()
     openMenuItem.title = "Open Project"
     openMenuItem.target = self
-    openMenuItem.action = Selector("openProject")
+    openMenuItem.action = #selector(openProject)
     menu.addItem(openMenuItem)
     menu.popUpMenuPositioningItem(nil, atLocation: NSEvent.mouseLocation(), inView: nil)
   }

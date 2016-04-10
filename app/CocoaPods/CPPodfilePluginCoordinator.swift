@@ -49,7 +49,7 @@ class CPPodfilePluginCoordinator: NSObject {
 
       dispatch_async(dispatch_get_main_queue()) {
         let inflectedPlugin = (self.pluginsToInstall.count == 1) ? "plugin" : "plugins"
-        self.controller.showWarningLabelWithSender("You need to install \(self.pluginsToInstall.count) \(inflectedPlugin) for this Podfile", actionTitle: "Install", target: self, action: "showInstaller", animated:true)
+        self.controller.showWarningLabelWithSender("You need to install \(self.pluginsToInstall.count) \(inflectedPlugin) for this Podfile", actionTitle: "Install", target: self, action: #selector(self.showInstaller), animated:true)
       }
     }
   }
