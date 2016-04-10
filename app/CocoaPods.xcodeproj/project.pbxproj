@@ -267,6 +267,9 @@
 		60E693BC1C4AC6390058DF5F /* CPHomeSidebarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHomeSidebarButton.swift; sourceTree = "<group>"; };
 		60F02D191C0A2A6D003600FE /* CocoaPodsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F02D1D1C0A2A6D003600FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60F70A691CB9378200B42FD9 /* bundled-Gemfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; name = "bundled-Gemfile"; path = "../bundled-Gemfile"; sourceTree = "<group>"; };
+		60F70A6A1CB9378200B42FD9 /* Rakefile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; name = Rakefile; path = ../Rakefile; sourceTree = "<group>"; };
+		60F70A6B1CB9378200B42FD9 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.markdown; path = ../README.markdown; sourceTree = "<group>"; };
 		60FE01661B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMLTextView+CocoaPods.m"; sourceTree = "<group>"; };
 		60FE016F1B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SUUpdater+DebugMode.m"; sourceTree = "<group>"; };
 		62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -387,6 +390,7 @@
 				51165E201A17AFF500DCFC94 /* Products */,
 				46126B404240E403B2193EE7 /* Frameworks */,
 				A3102078FAC7B7BFAC91C732 /* Pods */,
+				60F70A5A1CB91DA000B42FD9 /* Related Files */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -575,6 +579,16 @@
 				E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */,
 			);
 			path = CocoaPodsTests;
+			sourceTree = "<group>";
+		};
+		60F70A5A1CB91DA000B42FD9 /* Related Files */ = {
+			isa = PBXGroup;
+			children = (
+				60F70A691CB9378200B42FD9 /* bundled-Gemfile */,
+				60F70A6A1CB9378200B42FD9 /* Rakefile */,
+				60F70A6B1CB9378200B42FD9 /* README.markdown */,
+			);
+			name = "Related Files";
 			sourceTree = "<group>";
 		};
 		60FE01621B9B76400027EEE3 /* Home Window */ = {

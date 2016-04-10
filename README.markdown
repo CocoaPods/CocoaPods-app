@@ -20,7 +20,8 @@ through the ‘Install the Command-Line Tool…’ menu item under the applicati
 
 If you want to hack on `CocoaPods.app`:
 
-You will need Xcode 7.3 or newer.
+You will need Xcode 7.3 or newer. Note, this will take some time, as this will set up your environment with a compiled versions of: ruby, git, cocoapods (the gem), hg, openssl, etc into both `destroot` and `workbench`.
+ 
 
 ``` sh
 git clone https://github.com/CocoaPods/CocoaPods-app.git --recursive
@@ -28,8 +29,6 @@ cd CocoaPods-app
 rake app:prerequisites --quiet
 open app/CocoaPods.xcworkspace
 ```
-
-This will set up your environment with a compiled versions of: ruby, git, cocoapods (the gem), hg, openssl, etc into both `destroot` and `workbench`.
 
 ### Building for Release
 
@@ -46,6 +45,7 @@ rake app:update_version      # Updates the Info.plist of the application to refl
 rake bundle:build            # Build complete dist bundle
 rake bundle:clean:all        # Clean all artefacts, including downloads
 rake bundle:clean:artefacts  # Clean build and destroot artefacts
+rake bundle:stamp_version    # Creates a VERSION file in the destroot folder
 rake bundle:submodules       # Ensure Submodules are downloaded
 rake bundle:test             # Test bundle
 rake bundle:verify_linkage   # Verifies that no binaries in the bundle link to incorrect dylibs
