@@ -113,6 +113,8 @@ OPENSSL_VERSION = '1.0.2'
 OPENSSL_PATCH = 'd'
 OPENSSL_URL = "https://www.openssl.org/source/old/#{OPENSSL_VERSION}/openssl-#{OPENSSL_VERSION}#{OPENSSL_PATCH}.tar.gz"
 
+ROOT_CA_URL = "https://pki.google.com/roots.pem"
+
 NCURSES_VERSION = '5.9'
 NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.gz"
 
@@ -864,12 +866,15 @@ installed_git_creds = git_creds_tasks.installed_path
 # Root Certificates
 # ------------------------------------------------------------------------------
 
-installed_cacert = File.join(BUNDLE_DESTROOT, 'share/cacert.pem')
-file installed_cacert do
-  %w{ /Library/Keychains/System.keychain /System/Library/Keychains/SystemRootCertificates.keychain }.each do |keychain|
-    execute 'Certificates', ['/usr/bin/security', 'find-certificate', '-a', '-p', keychain], installed_cacert
-  end
+root_ca_tasks = DownloadOnlyTasks.define do |t|
+  t.url             = ROOT_CA_URL
+  t.artefact_file   = 'roots.pem'
+  t.installed_file  = 'share/roots.pem'
+  t.prefix          = BUNDLE_PREFIX
+  t.dependencies    = [installed_libcurl]
 end
+
+installed_cacert = root_ca_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Bundle tasks
