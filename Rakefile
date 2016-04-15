@@ -846,7 +846,7 @@ class DownloadOnlyTasks < BundleDependencyTasks
   end
 
   def install_task
-    execute 'cp', File.join(DOWNLOAD_DIR, artefact_file), File.join(BUNDLE_PREFIX, installed_file)
+    cp File.join(DOWNLOAD_DIR, artefact_file), File.join(BUNDLE_PREFIX, installed_file)
     execute 'chmod', 'u+x', File.join(BUNDLE_PREFIX, installed_file) if is_executable
   end
 end
