@@ -82,7 +82,9 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUEnableSystemProfiling</key>
+	<true/>
 	<key>SUFeedURL</key>
-	<string>https://app.cocoapods.org/sparkle.xml</string>
+	<string>https://usage.cocoapods.org/feeds/cocoapods_app.xml</string>
 </dict>
 </plist>

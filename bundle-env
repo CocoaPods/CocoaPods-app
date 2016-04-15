@@ -18,6 +18,7 @@ export GIT_TEMPLATE_DIR=$PREFIX/share/git-core/templates
 export GIT_EXEC_PATH=$PREFIX/libexec/git-core
 export LANG=en_GB.UTF-8
 export LC_CTYPE=UTF-8
+export SSL_CERT_FILE=$PREFIX/share/cacert.pem
 
 # Ensure these env variables we need are set.
 if [ -z "$HOME" ]; then
