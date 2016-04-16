@@ -218,9 +218,10 @@
                         </connections>
                     </button>
                     <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mn-Z8-QE9">
-                        <rect key="frame" x="39" y="15" width="167" height="19"/>
-                        <shadow key="shadow" blurRadius="3">
-                            <color key="color" red="0.43529411764705883" green="0.0" blue="0.035294117647058823" alpha="0.49807326858108109" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="39" y="8" width="167" height="26"/>
+                        <shadow key="shadow" blurRadius="4">
+                            <size key="offset" width="0.0" height="2"/>
+                            <color key="color" red="0.43529411764705883" green="0.0" blue="0.035294117647058823" alpha="0.80239125844594594" colorSpace="calibratedRGB"/>
                         </shadow>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0.38.2" id="J6B-uz-TYN">
                             <font key="font" size="16" name=".HelveticaNeueDeskInterface-Regular"/>
@@ -295,7 +296,7 @@ This means you get access to the whole command-line API, not just what the Cocoa
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUM-hf-i6h">
-                    <rect key="frame" x="26" y="418" width="218" height="40"/>
+                    <rect key="frame" x="26" y="418" width="247" height="40"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="eXV-TB-vrj">
                         <font key="font" metaFont="system" size="14"/>
                         <string key="title">Do you want to Install the
