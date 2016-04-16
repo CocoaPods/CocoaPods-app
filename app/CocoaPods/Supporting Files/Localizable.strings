@@ -1,4 +1,6 @@
 "INSTALL_CLI_MESSAGE_TEXT" = "Do you wish to install the CocoaPods Command-Line Tool?";
+"UPDATE_CLI_MESSAGE_TEXT" = "Do you wish to update the CocoaPods Command-Line Tool?";
+
 "INSTALL_CLI_INFORMATIVE_TEXT" = "If you wish to use CocoaPods from the Terminal, a “%@” tool can be installed which will allow you easy access to the CocoaPods installation contained inside this application.\n\nThis is not needed for the application to function normally and can always be installed at a later time by using the menu item found under the application menu.";
 
 "INSTALL_CLI_ALTERNATE_DESTINATION" = "Install to Alternate Destination…";
@@ -28,7 +30,7 @@
 "PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE" = "Check For Updates";
 
 "MAIN_WINDOW_TITLE" = "Welcome to CocoaPods";
-"MAIN_WINDOW_OPEN_GUIDES_BUTTON_TITLE" = "Get started with CocoaPods";
+"MAIN_WINDOW_OPEN_GUIDES_BUTTON_TITLE" = "Get started...";
 "MAIN_WINDOW_OPEN_SEARCH_BUTTON_TITLE" = "Search for Pods";
 "MAIN_WINDOW_CHANGELOG_BUTTON_TITLE" = "What's New?";
 "MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE" = "Open an existing Podfile";

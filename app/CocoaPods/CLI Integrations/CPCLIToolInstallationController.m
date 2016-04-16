@@ -175,6 +175,11 @@ CPBookmarkDataForURL(NSURL *URL) {
     return YES;
   }
 
+  /// Don't prompt if it's going to put the same binary in the place
+  if ([self binstubAlreadyIsTheLatestVersion] == NO) {
+    return YES;
+  }
+
   NSAlert *alert = [NSAlert new];
   alert.alertStyle = NSCriticalAlertStyle;
   NSString *formatString = NSLocalizedString(@"INSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
@@ -198,6 +203,12 @@ CPBookmarkDataForURL(NSURL *URL) {
 {
   return access([self.destinationURL.path UTF8String], F_OK) == 0;
 }
+
+- (BOOL)binstubAlreadyIsTheLatestVersion;
+{
+  return [[NSFileManager defaultManager] contentsEqualAtPath:self.destinationURL.path andPath:self.binstubSourceURL.path];
+}
+
 
 - (BOOL)hasWriteAccessToBinstub;
 {
