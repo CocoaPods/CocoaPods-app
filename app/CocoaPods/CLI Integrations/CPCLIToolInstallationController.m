@@ -209,7 +209,6 @@ CPBookmarkDataForURL(NSURL *URL) {
   return [[NSFileManager defaultManager] contentsEqualAtPath:self.destinationURL.path andPath:self.binstubSourceURL.path];
 }
 
-
 - (BOOL)hasWriteAccessToBinstub;
 {
   NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];

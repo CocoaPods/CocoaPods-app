@@ -109,7 +109,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView id="j6S-IB-7LR">
+                                                <tableCellView id="j6S-IB-7LR" customClass="CPHomeMenuTableCellView">
                                                     <rect key="frame" x="1" y="1" width="230" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
@@ -144,6 +144,7 @@
                                                         </textField>
                                                     </subviews>
                                                     <connections>
+                                                        <outlet property="subtitleTextField" destination="Qtv-S5-ALo" id="ANf-C7-dUd"/>
                                                         <outlet property="textField" destination="fzU-ug-Jul" id="ky6-fp-HZM"/>
                                                     </connections>
                                                 </tableCellView>
