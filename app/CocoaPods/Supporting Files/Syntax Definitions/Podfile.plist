@@ -138,6 +138,9 @@
 		<string>:name</string>
 		<!-- `target` directive -->
 		<string>target</string>
+		<string>target do "MyTargetName"
+  pod ""
+end</string>
 		<string>inherit! :search_paths</string>
 		<string>install! 'cocoapods',</string>
 		<string>:deterministic_uuids</string>

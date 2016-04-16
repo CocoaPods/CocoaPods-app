@@ -46,6 +46,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     editor.syntaxDefinitionName = "Podfile"
     editor.string = project.contents
 
+    editor.autoCompleteEnabled = true
+    editor.autoCompleteDelay = 0.05
+
     let settings = CPFontAndColourGateKeeper()
     editor.textFont = settings.defaultFont
     editor.colourForNumbers = settings.cpGreen
@@ -55,6 +58,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     editor.colourForVariables = settings.cpGreen
     editor.colourForInstructions = settings.cpBrightMagenta
     editor.autoCompleteDelegate = self
+
+    editor.currentLineHighlightColour = settings.cpLightYellow
+    editor.highlightsCurrentLine = true
 
     editor.tabWidth = 2
     editor.indentWithSpaces = true
