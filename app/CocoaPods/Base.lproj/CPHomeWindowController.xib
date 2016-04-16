@@ -84,13 +84,13 @@
                         </constraints>
                     </visualEffectView>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
-                        <rect key="frame" x="492" y="-121" width="234" height="454"/>
+                        <rect key="frame" x="492" y="0.0" width="234" height="333"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="8EY-xl-otL">
-                            <rect key="frame" x="0.0" y="0.0" width="234" height="454"/>
+                            <rect key="frame" x="0.0" y="0.0" width="234" height="333"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="234" height="454"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="234" height="333"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -174,7 +174,7 @@
                         <rect key="frame" x="0.0" y="333" width="493" height="36"/>
                     </customView>
                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="D18-np-NEy">
-                        <rect key="frame" x="602" y="98" width="16" height="16"/>
+                        <rect key="frame" x="602" y="168" width="16" height="16"/>
                         <connections>
                             <binding destination="Whb-bK-is0" name="animate" keyPath="self.loading" id="bbN-xD-byE"/>
                         </connections>
@@ -235,7 +235,7 @@
                     <constraint firstAttribute="trailing" secondItem="HtW-rw-ITV" secondAttribute="trailing" constant="-6" id="F9G-j7-rdt"/>
                     <constraint firstItem="YAO-eB-e3O" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="67" id="J4n-9U-cTu"/>
                     <constraint firstAttribute="trailing" secondItem="3Jq-7y-btG" secondAttribute="trailing" constant="-5" id="Y7a-a5-JXb"/>
-                    <constraint firstAttribute="bottom" secondItem="3Jq-7y-btG" secondAttribute="bottom" constant="-121" id="jue-MZ-Be6"/>
+                    <constraint firstAttribute="bottom" secondItem="3Jq-7y-btG" secondAttribute="bottom" id="jue-MZ-Be6"/>
                     <constraint firstAttribute="trailing" secondItem="YAO-eB-e3O" secondAttribute="trailing" constant="408" id="kD0-EV-Q7J"/>
                     <constraint firstItem="3Jq-7y-btG" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="36" id="xCt-6i-kaX"/>
                 </constraints>
@@ -414,11 +414,11 @@ Command-Line Tools?</string>
         </customObject>
         <userDefaultsController representsSharedInstance="YES" id="0Ov-2i-yXv"/>
         <customView id="qtI-Qc-skM">
-            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
+            <rect key="frame" x="0.0" y="0.0" width="233" height="369"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="IRs-Lz-3U3">
-                    <rect key="frame" x="16" y="221" width="201" height="84"/>
+                    <rect key="frame" x="16" y="161" width="201" height="84"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="84" id="4m3-st-vAg"/>
                     </constraints>
@@ -436,7 +436,7 @@ Command-Line Tools?</string>
                 <constraint firstAttribute="trailing" secondItem="IRs-Lz-3U3" secondAttribute="trailing" constant="16" id="aud-Kr-wSi"/>
                 <constraint firstItem="IRs-Lz-3U3" firstAttribute="leading" secondItem="qtI-Qc-skM" secondAttribute="leading" constant="16" id="mst-ef-TGJ"/>
             </constraints>
-            <point key="canvasLocation" x="1136.5" y="415"/>
+            <point key="canvasLocation" x="1136.5" y="354.5"/>
         </customView>
     </objects>
     <resources>
