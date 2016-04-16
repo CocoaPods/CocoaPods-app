@@ -14,6 +14,7 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 @property (weak) IBOutlet NSButton *openChangelogButton;
 @property (weak) IBOutlet NSImageView *cpIconImage;
 
+@property (weak) IBOutlet NSTextField *installCommandLineToolsTitleLabel;
 @property (strong) IBOutlet NSView *installCommandLineToolsView;
 @property (weak) IBOutlet NSLayoutConstraint *commandLineToolsHeightConstraint;
 
@@ -34,7 +35,9 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   self.openSearchButton.title = NSLocalizedString(@"MAIN_WINDOW_OPEN_SEARCH_BUTTON_TITLE", nil);
   self.openChangelogButton.title = NSLocalizedString(@"MAIN_WINDOW_CHANGELOG_BUTTON_TITLE", nil);
   self.window.excludedFromWindowsMenu = YES;
-    self.cpIconImage.image = [NSApp applicationIconImage];
+
+  NSString *appPath = [[NSBundle mainBundle] bundlePath];
+  self.cpIconImage.image = [[NSWorkspace sharedWorkspace] iconForFile:appPath];
 
   [self.tableView setTarget:self];
   [self.tableView setDoubleAction:@selector(didDoubleTapOnRecentItem:)];
@@ -44,9 +47,11 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
   self.cliToolController = [self createCLIToolInstallationController];
   if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
+    NSString *message = self.cliToolController.binstubAlreadyExists ? @"UPDATE_CLI_MESSAGE_TEXT" : @"INSTALL_CLI_MESSAGE_TEXT";
+    self.installCommandLineToolsTitleLabel.stringValue = NSLocalizedString(message, nil);
     [self addCLIInstallerMessageAnimated:YES];
   }
-  
+
   // Drag & Drop registration
   
   [self.window registerForDraggedTypes:@[NSFilenamesPboardType]];

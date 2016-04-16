@@ -28,7 +28,7 @@ class CPMenuVisiblityDirector: NSObject {
     let windowHasDocument = docs.documentForWindow(window) != nil
 
     for menu in podfileEditorMenuItems {
-      menu.hidden = !windowHasDocument
+      menu.enabled = !windowHasDocument
     }
   }
 }
