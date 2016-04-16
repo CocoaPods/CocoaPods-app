@@ -1,4 +1,4 @@
-BUNDLED_ENV_VERSION = 3
+BUNDLED_ENV_VERSION = 4
 # ^ This has to be at line 0
 # This is so that a build on CP.app can be fast,
 # it can make assumptions that removing `BUNDLED_ENV_VERSION = `

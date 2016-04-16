@@ -46,6 +46,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     editor.syntaxDefinitionName = "Podfile"
     editor.string = project.contents
 
+    editor.autoCompleteEnabled = true
+    editor.autoCompleteDelay = 0.05
+
     let settings = CPFontAndColourGateKeeper()
     editor.textFont = settings.defaultFont
     editor.colourForNumbers = settings.cpGreen
@@ -55,6 +58,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     editor.colourForVariables = settings.cpGreen
     editor.colourForInstructions = settings.cpBrightMagenta
     editor.autoCompleteDelegate = self
+
+    editor.currentLineHighlightColour = settings.cpLightYellow
+    editor.highlightsCurrentLine = true
 
     editor.tabWidth = 2
     editor.indentWithSpaces = true
@@ -111,7 +117,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   func showWarningForNewerLockfile() {
     let title = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE", comment: "")
     let message = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR", comment: "")
-    podfileViewController?.showWarningLabelWithSender(message, actionTitle: title, target: self, action: "checkForUpdatesButtonPressed", animated: true)
+    podfileViewController?.showWarningLabelWithSender(message, actionTitle: title, target: self, action: #selector(checkForUpdatesButtonPressed), animated: true)
   }
 
   func checkForUpdatesButtonPressed() {
@@ -207,7 +213,7 @@ extension Indentation {
 
   func indentedSelection(selection: [String]) -> [String] {
     return selection.map { line in
-      return line.stringByReplacingCharactersInRange(Range(start: line.startIndex, end: line.startIndex), withString: indentationSyntax)
+      return line.stringByReplacingCharactersInRange(line.startIndex ..< line.startIndex, withString: indentationSyntax)
     }
   }
 
@@ -266,7 +272,7 @@ extension Commenting {
 
   func addCommentsInLines(lines: [String]) -> [String] {
     return lines.map { line in
-      return line.stringByReplacingCharactersInRange(Range(start: line.startIndex, end: line.startIndex), withString: commentSyntax)
+      return line.stringByReplacingCharactersInRange(line.startIndex ..< line.startIndex, withString: commentSyntax)
     }
   }
 

@@ -3,7 +3,8 @@ import Cocoa
 class CPFontAndColourGateKeeper: NSObject {
   
   // MARK: - Colors
-  
+  let cpLightYellow = NSColor(calibratedRed:1, green:1, blue:0.832, alpha:1.00)
+
   let cpBlack = NSColor(calibratedRed:0.180, green:0.000, blue:0.008, alpha:1.00)
   let cpRed = NSColor(calibratedRed:0.682, green:0.000, blue:0.000, alpha:1.00)
   let cpGreen = NSColor(calibratedRed:0.161, green:0.608, blue:0.086, alpha:1.00)
