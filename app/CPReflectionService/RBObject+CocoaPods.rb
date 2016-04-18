@@ -61,8 +61,16 @@ module Pod
       { "projects" => user_projects, "pod_targets" => pod_targets, "uses_frameworks" => uses_frameworks}
     end
 
+    def self.sources_manager
+      Pod::Config.instance.sources_manager
+    end
+
     def self.all_pods
-      Pod::Config.instance.sources_manager.aggregate.all_pods
+      sources_manager.aggregate.all_pods
+    end
+
+    def self.master_source
+      sources_manager.master.url
     end
 
     def self.lockfile_version(path)
