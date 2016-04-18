@@ -53,6 +53,7 @@
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
 		60227EC21C351A6300A29515 /* CPPodfilePluginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */; };
 		60227EC41C351A7700A29515 /* CPInstallPluginsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */; };
+		602D84551CC58B5100EE3076 /* CPSourceRepoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602D84541CC58B5100EE3076 /* CPSourceRepoCoordinator.swift */; };
 		6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */; };
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
 		6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */; };
@@ -232,6 +233,7 @@
 		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
 		60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfilePluginCoordinator.swift; sourceTree = "<group>"; };
 		60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInstallPluginsViewController.swift; sourceTree = "<group>"; };
+		602D84541CC58B5100EE3076 /* CPSourceRepoCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSourceRepoCoordinator.swift; sourceTree = "<group>"; };
 		6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Home Screen.xcassets"; sourceTree = "<group>"; };
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
 		6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMetadataTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -462,6 +464,14 @@
 			name = "Plugin Installation";
 			sourceTree = "<group>";
 		};
+		602D84531CC58B2C00EE3076 /* Source Repos */ = {
+			isa = PBXGroup;
+			children = (
+				602D84541CC58B5100EE3076 /* CPSourceRepoCoordinator.swift */,
+			);
+			name = "Source Repos";
+			sourceTree = "<group>";
+		};
 		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -600,6 +610,7 @@
 		60FE01631B9B76470027EEE3 /* Podfile Window */ = {
 			isa = PBXGroup;
 			children = (
+				602D84531CC58B2C00EE3076 /* Source Repos */,
 				60227EC01C351A5600A29515 /* Plugin Installation */,
 				601ACA9C1C37F33F0058FA86 /* Podfile Metadata */,
 				606D1ED11BF90705000B7148 /* Podfile.storyboard */,
@@ -980,6 +991,7 @@
 				5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
 				60227EC21C351A6300A29515 /* CPPodfilePluginCoordinator.swift in Sources */,
+				602D84551CC58B5100EE3076 /* CPSourceRepoCoordinator.swift in Sources */,
 				601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */,
 				60E693B01C4A3AF80058DF5F /* NSAttributedString+Helpers.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,

@@ -46,9 +46,8 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 @end
 
 @interface RBSource : RBObject
-- (NSString *)name;
-- (NSString *)url;
-
+- (NSString * _Nonnull)name;
+- (NSString * _Nonnull)url;
 @end
 
 @interface RBSourceManager : RBObject
@@ -62,8 +61,10 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (void)require_gems;
 - (NSDictionary * _Nonnull)analyze_podfile:(RBPodfile * _Nonnull)contents :(NSString * _Nonnull)installationRoot;
 - (NSArray<NSString *> * _Nullable)all_pods;
-- (NSArray<NSString *> * _Nullable)all_sources;
-- (NSString * _Nullable)master_source;
+
+- (NSArray<RBSource *> * _Nullable)pod_sources;
+- (RBSource * _Nullable)master_source;
+
 - (NSString * _Nullable)lockfile_version:(RBPathname * _Nonnull)path;
 - (NSNumber * _Nonnull)compare_versions:(NSString * _Nonnull)version1 :(NSString * _Nonnull)version2;
 @end

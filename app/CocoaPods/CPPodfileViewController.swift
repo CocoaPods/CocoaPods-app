@@ -13,7 +13,9 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
+
   var pluginCoordinator: CPPodfilePluginCoordinator!
+  var sourcesCoordinator: CPSourceRepoCoordinator!
 
   @IBOutlet var tabViewDelegate: CPTabViewDelegate!
 
@@ -42,6 +44,10 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     // Check for whether we need to install plugins
     pluginCoordinator = CPPodfilePluginCoordinator(controller: self)
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
+
+    // Keep track of active source repos
+    sourcesCoordinator = CPSourceRepoCoordinator()
+    sourcesCoordinator.getSourceRepos()
 
     // Makes the tabs highlight correctly
     tabController.hiddenTabDelegate = tabViewDelegate

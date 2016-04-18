@@ -78,7 +78,7 @@
                                                 withReply:^(NSArray<NSString *> * _Nullable sources, NSError * _Nullable error) {
                                                   if (sources) {
                                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                                      project.sources = [NSSet setWithArray:sources];
+                                                      project.podfileSources = sources;
                                                     });
                                                   }
                                                 }];

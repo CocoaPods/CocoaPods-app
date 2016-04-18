@@ -26,13 +26,23 @@
   [RBObject performBlock:^{
     // Use just `Podfile` as the path so that we can make assumptions about error messages
     // and easily remove the path being mentioned.
+
     RBPathname *pathname = [RBObjectFromString(@"Pathname") new:@"Podfile"];
-    
+
     RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
     NSArray *sources = podfile.sources;
     reply(sources, nil);
   } error:^(NSError * _Nonnull error) {
     reply(nil, error);
+  }];
+}
+
+
+- (void)allCocoaPodsSources:(void (^ _Nonnull)(NSDictionary<NSString * , NSString * > * _Nonnull sources, NSError * _Nullable error))reply {
+  [RBObject performBlock:^{
+    reply([RBObjectFromString(@"Pod::App") pod_sources], nil);
+  } error:^(NSError * _Nonnull error) {
+    reply(@{}, error);
   }];
 }
 

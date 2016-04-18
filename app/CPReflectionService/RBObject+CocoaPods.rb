@@ -70,7 +70,14 @@ module Pod
     end
 
     def self.master_source
-      sources_manager.master.url
+      sources_manager.master
+    end
+
+    def self.pod_sources
+      sources_manager.all.map { |source|
+        { source.name => source.url }
+
+      }.reduce Hash.new, :merge
     end
 
     def self.lockfile_version(path)

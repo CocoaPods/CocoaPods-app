@@ -35,9 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Sources that are used by the project
 @property (nonatomic, strong) NSArray<NSString *> *podfileSources;
 
-/// The master podfile source.
-@property (nonatomic, strong) NSArray<NSString *> *podfileSources;
-
 /// The Xcodeprojects and CP Targets that are represented by the Podfile
 @property (nonatomic, strong) NSDictionary *xcodeIntegrationDictionary;
 
