@@ -1,8 +1,20 @@
 import Cocoa
 
 enum InstallActionType {
-  case Install(verbose: Bool)
-  case Update(verbose: Bool)
+  case Install(options: InstallOptions)
+  case Update(options: InstallOptions)
+}
+
+struct InstallOptions {
+  let verbose: Bool
+  let repoUpdate: Bool
+
+  var commandOptions : String {
+    var string = ""
+    if verbose { string += "--verbose " }
+    if repoUpdate { string += "--repo-update " }
+    return string
+  }
 }
 
 class CPInstallAction: NSObject, CPCLITaskDelegate {
@@ -18,10 +30,10 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
 
   func performAction(type: InstallActionType) {
     switch type {
-    case .Install(let verbose):
-      executeTaskWithCommand(verbose ? "install --verbose" : "install")
-    case .Update(let verbose):
-      executeTaskWithCommand(verbose ? "update --verbose" : "update")
+    case .Install(let options):
+      executeTaskWithCommand("install \(options.commandOptions)")
+    case .Update(let options):
+      executeTaskWithCommand("update \(options.commandOptions)")
     }
   }
 

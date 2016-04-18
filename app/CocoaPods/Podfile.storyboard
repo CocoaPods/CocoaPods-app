@@ -255,6 +255,13 @@
                                 <action selector="installUpdateVerbose:" target="5gI-5U-AMq" id="dCA-77-Jc3"/>
                             </connections>
                         </menuItem>
+                        <menuItem isSeparatorItem="YES" id="MfJ-p0-dcA"/>
+                        <menuItem title="Auto-Update Specs Repos" id="7VJ-3T-Bex">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleUpdateSpecsRepo:" target="5gI-5U-AMq" id="shm-m1-s3m"/>
+                            </connections>
+                        </menuItem>
                     </items>
                 </menu>
                 <userDefaultsController representsSharedInstance="YES" id="LcC-8e-1XM"/>
