@@ -38,4 +38,10 @@ extern NSString * const kCPCLIToolInstalledToDestinationsKey;
 ///
 - (BOOL)runModalDestinationChangeSavePanel;
 
+/// Checks if a binstub already exists, note: this could return `YES`
+/// from a `gem install cocoapods`, and so may not actually be a "binstub"
+
+- (BOOL)binstubAlreadyExists;
+
+
 @end

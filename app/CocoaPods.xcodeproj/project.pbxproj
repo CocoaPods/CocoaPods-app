@@ -72,6 +72,8 @@
 		60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A841C2B100F00D6663E /* CPBorderedButton.m */; };
 		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
 		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
+		60C2CBF21CC238CF009B30CA /* CPHomeMenuTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2CBF11CC238CF009B30CA /* CPHomeMenuTableCellView.m */; };
+		60C2CBF41CC25D5A009B30CA /* CPSparkleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2CBF31CC25D5A009B30CA /* CPSparkleDelegate.swift */; };
 		60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		60E693A91C49B5980058DF5F /* CPSpotlightDocumentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E693A81C49B5980058DF5F /* CPSpotlightDocumentSource.swift */; };
 		60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */; };
@@ -255,6 +257,9 @@
 		60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPWhiteCheckedButton.h; sourceTree = "<group>"; };
 		60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPWhiteCheckedButton.m; sourceTree = "<group>"; };
 		60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInterfaceBuilderOnlyLabels.swift; sourceTree = "<group>"; };
+		60C2CBF01CC238CF009B30CA /* CPHomeMenuTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeMenuTableCellView.h; sourceTree = "<group>"; };
+		60C2CBF11CC238CF009B30CA /* CPHomeMenuTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeMenuTableCellView.m; sourceTree = "<group>"; };
+		60C2CBF31CC25D5A009B30CA /* CPSparkleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSparkleDelegate.swift; sourceTree = "<group>"; };
 		60E693A81C49B5980058DF5F /* CPSpotlightDocumentSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSpotlightDocumentSource.swift; sourceTree = "<group>"; };
 		60E693AA1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeWindowDocumentEntry.h; sourceTree = "<group>"; };
 		60E693AB1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeWindowDocumentEntry.m; sourceTree = "<group>"; };
@@ -493,6 +498,8 @@
 				60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */,
 				60E693B21C4A561E0058DF5F /* CPThickDecorationsWindow.swift */,
 				60E693BC1C4AC6390058DF5F /* CPHomeSidebarButton.swift */,
+				60C2CBF01CC238CF009B30CA /* CPHomeMenuTableCellView.h */,
+				60C2CBF11CC238CF009B30CA /* CPHomeMenuTableCellView.m */,
 			);
 			name = "Custom Subviews";
 			sourceTree = "<group>";
@@ -593,6 +600,7 @@
 				60E693B41C4A71E50058DF5F /* CPSidebarDocumentsController.swift */,
 				934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */,
 				657841C81C6BE0EC00B6671E /* CPPodfileInitController.swift */,
+				60C2CBF31CC25D5A009B30CA /* CPSparkleDelegate.swift */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -1008,12 +1016,14 @@
 				605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */,
 				60FE01701B9B7F1E0027EEE3 /* SUUpdater+DebugMode.m in Sources */,
 				60E693BB1C4A8F1D0058DF5F /* ColouredViews.swift in Sources */,
+				60C2CBF41CC25D5A009B30CA /* CPSparkleDelegate.swift in Sources */,
 				60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */,
 				331188571BEBCB0F00272793 /* CPCLIToolInstallationController.m in Sources */,
 				60E693B51C4A71E50058DF5F /* CPSidebarDocumentsController.swift in Sources */,
 				657841C91C6BE0EC00B6671E /* CPPodfileInitController.swift in Sources */,
 				5BD58BBD1C6D2A7C003787F5 /* CPXcodeProjectCell.swift in Sources */,
 				606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */,
+				60C2CBF21CC238CF009B30CA /* CPHomeMenuTableCellView.m in Sources */,
 				60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */,
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,

@@ -138,11 +138,20 @@
 		<string>:name</string>
 		<!-- `target` directive -->
 		<string>target</string>
-		<string>:exclusive</string>
+		<string>target do "MyTargetName"
+  pod ""
+end</string>
+		<string>inherit! :search_paths</string>
+		<string>install! 'cocoapods',</string>
+		<string>:deterministic_uuids</string>
+		<string>:deduplicate_targets</string>
+		<string>:integrate_targets</string>
+		<string>:lock_pod_sources</string>
 		<!-- `platform` directive -->
 		<string>platform</string>
 		<string>:ios</string>
 		<string>:osx</string>
+		<string>:tvos</string>
 		<!-- `xcodeproj` directive -->
 		<string>xcodeproj</string>
 		<string>:debug</string>
@@ -159,12 +168,21 @@
 		<string>set_arc_compatibility_flag!</string>
 		<!-- `source` directive -->
 		<string>source</string>
+		<string>source 'https://github.com/CocoaPods/Specs.git'</string>
 		<!-- `plugin` directive -->
 		<string>plugin</string>
 		<!-- `pre_install` directive -->
 		<string>pre_install</string>
 		<!-- `post_install` directive -->
 		<string>post_install</string>
+		<!-- `post_install` directive -->
+		<string>post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['MY_SETTING'] = 'NO'
+      end
+    end
+end</string>
 	</array>
 </dict>
 </plist>
