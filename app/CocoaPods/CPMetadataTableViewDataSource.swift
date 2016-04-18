@@ -64,7 +64,7 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
       return tableView.makeViewWithIdentifier("spacer", owner: nil)
     }
 
-    print("Should not have data unaccounted for in the flattened xcode project");
+    print("Should not have data unaccounted for in the flattened xcode project", terminator: "");
     return nil
   }
 

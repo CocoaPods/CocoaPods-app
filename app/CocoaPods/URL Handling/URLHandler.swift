@@ -12,7 +12,7 @@ class URLHandler: NSObject {
     let manager = NSAppleEventManager.sharedAppleEventManager()
     manager.setEventHandler(
       self,
-      andSelector: "handleEvent:withReply:",
+      andSelector: #selector(handleEvent(_:withReply:)),
       forEventClass: eventClass,
       andEventID: eventId
     )
@@ -21,7 +21,7 @@ class URLHandler: NSObject {
   func handleEvent(event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
     let key = AEKeyword(keyDirectObject)
     let url = event.paramDescriptorForKeyword(key)?.stringValue
-    print("Handled URL: \(url)")
+    print("Handled URL: \(url)", terminator: "")
   }
   
 }

@@ -18,7 +18,7 @@ class CPMenuVisiblityDirector: NSObject {
   override func awakeFromNib() {
     let notificationCenter = NSNotificationCenter.defaultCenter()
 
-    notificationCenter.addObserver(self, selector: "windowsChanged:", name: NSWindowDidBecomeKeyNotification, object: nil)
+    notificationCenter.addObserver(self, selector: #selector(windowsChanged(_:)), name: NSWindowDidBecomeKeyNotification, object: nil)
   }
 
   /// Set hidden on the menus when we don't need to show the submenus

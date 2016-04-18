@@ -1,4 +1,4 @@
-BUNDLED_ENV_VERSION = 2
+BUNDLED_ENV_VERSION = 3
 # ^ This has to be at line 0
 # This is so that a build on CP.app can be fast,
 # it can make assumptions that removing `BUNDLED_ENV_VERSION = `
@@ -91,6 +91,11 @@ def cocoapods_app_build_version
   DateTime.now.strftime("%Y.%m.%d")
 end
 
+def update_plist_versions(info_plist)
+  execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
+  execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{cocoapods_app_build_version}", info_plist]
+end
+
 # ------------------------------------------------------------------------------
 # Package metadata
 # ------------------------------------------------------------------------------
@@ -107,6 +112,8 @@ ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
 OPENSSL_VERSION = '1.0.2'
 OPENSSL_PATCH = 'd'
 OPENSSL_URL = "https://www.openssl.org/source/old/#{OPENSSL_VERSION}/openssl-#{OPENSSL_VERSION}#{OPENSSL_PATCH}.tar.gz"
+
+ROOT_CA_URL = "https://pki.google.com/roots.pem"
 
 NCURSES_VERSION = '5.9'
 NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.gz"
@@ -140,6 +147,9 @@ BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-#{BZR_VERSION}.tar.
 
 MERCURIAL_VERSION = '3.3.3'
 MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-#{MERCURIAL_VERSION}.tar.gz"
+
+# see https://help.github.com/articles/caching-your-github-password-in-git/
+GIT_CREDENTIALS_URL = "https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain"
 
 # ------------------------------------------------------------------------------
 # Bundle Build Tools
@@ -819,15 +829,52 @@ end
 installed_bzr = bzr_tasks.installed_path
 
 # ------------------------------------------------------------------------------
+# Git Credentials Helper
+# ------------------------------------------------------------------------------
+
+class DownloadOnlyTasks < BundleDependencyTasks
+
+  # Make the installed file executable?
+  attr_accessor :is_executable
+
+  # NOP
+  def unpack_command
+  end
+  def unpack_task
+  end
+  def build_task
+  end
+
+  def install_task
+    cp File.join(DOWNLOAD_DIR, artefact_file), File.join(BUNDLE_PREFIX, installed_file)
+    execute 'chmod', 'u+x', File.join(BUNDLE_PREFIX, installed_file) if is_executable
+  end
+end
+
+git_creds_tasks = DownloadOnlyTasks.define do |t|
+  t.url             = GIT_CREDENTIALS_URL
+  t.artefact_file   = 'git-credential-osxkeychain'
+  t.installed_file  = 'bin/git-credential-osxkeychain'
+  t.prefix          = BUNDLE_PREFIX
+  t.dependencies    = [installed_libcurl]
+  t.is_executable   = true
+end
+
+installed_git_creds = git_creds_tasks.installed_path
+
+# ------------------------------------------------------------------------------
 # Root Certificates
 # ------------------------------------------------------------------------------
 
-installed_cacert = File.join(BUNDLE_DESTROOT, 'share/cacert.pem')
-file installed_cacert do
-  %w{ /Library/Keychains/System.keychain /System/Library/Keychains/SystemRootCertificates.keychain }.each do |keychain|
-    execute 'Certificates', ['/usr/bin/security', 'find-certificate', '-a', '-p', keychain], installed_cacert
-  end
+root_ca_tasks = DownloadOnlyTasks.define do |t|
+  t.url             = ROOT_CA_URL
+  t.artefact_file   = 'roots.pem'
+  t.installed_file  = 'share/roots.pem'
+  t.prefix          = BUNDLE_PREFIX
+  t.dependencies    = [installed_libcurl]
 end
+
+installed_cacert = root_ca_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # Bundle tasks
@@ -839,6 +886,7 @@ namespace :bundle do
     installed_pod_bin,
     installed_cocoapods_plugins_install,
     installed_git,
+    installed_git_creds,
     installed_svn,
     installed_bzr,
     installed_mercurial,
@@ -973,9 +1021,10 @@ XCODEBUILD_COMMAND = %w{ /usr/bin/xcodebuild -workspace CocoaPods.xcworkspace -s
 namespace :app do
   desc 'Updates the Info.plist of the application to reflect the CocoaPods version'
   task :update_version do
-    info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
-    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
-    execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{cocoapods_app_build_version}", info_plist]
+    app_info_plist = File.expand_path('app/CocoaPods/Supporting Files/Info.plist')
+    bridge_info_plist = File.expand_path('app/CPReflectionService/Info.plist')
+    update_plist_versions(app_info_plist)
+    update_plist_versions(bridge_info_plist)
   end
 
   desc 'Prepare all prerequisites for building the app'

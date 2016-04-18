@@ -16,8 +16,8 @@ class CPRecentDocumentSource: CPDocumentSource {
     super.init()
     
     let notificationCenter = NSNotificationCenter.defaultCenter()
-    notificationCenter.addObserver(self, selector: "updateRecentDocuments:", name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
-    notificationCenter.addObserver(self, selector: "updateRecentDocuments:", name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
+    notificationCenter.addObserver(self, selector: #selector(updateRecentDocuments(_:)), name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
+    notificationCenter.addObserver(self, selector: #selector(updateRecentDocuments(_:)), name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
   }
   
   deinit {
