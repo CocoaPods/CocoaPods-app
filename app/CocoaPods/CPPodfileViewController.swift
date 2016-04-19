@@ -65,25 +65,29 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBAction func install(obj: AnyObject) {
     userProject.saveDocument(self)
-    installAction.performAction(.Install(verbose: false))
+    let options = InstallOptions(verbose: false, repoUpdate: shouldUpdateSpecsRepo())
+    installAction.performAction(.Install(options: options))
     showConsoleTab(self)
   }
 
   @IBAction func installVerbose(obj: AnyObject) {
     userProject.saveDocument(self)
-    installAction.performAction(.Install(verbose: true))
+    let options = InstallOptions(verbose: true, repoUpdate: shouldUpdateSpecsRepo())
+    installAction.performAction(.Install(options: options))
     showConsoleTab(self)
   }
 
   @IBAction func installUpdate(obj: AnyObject) {
     userProject.saveDocument(self)
-    installAction.performAction(.Update(verbose: false))
+    let options = InstallOptions(verbose: false, repoUpdate: shouldUpdateSpecsRepo())
+    installAction.performAction(.Update(options: options))
     showConsoleTab(self)
   }
 
   @IBAction func installUpdateVerbose(obj: AnyObject) {
     userProject.saveDocument(self)
-    installAction.performAction(.Update(verbose: true))
+    let options = InstallOptions(verbose: true, repoUpdate: shouldUpdateSpecsRepo())
+    installAction.performAction(.Update(options: options))
     showConsoleTab(self)
   }
 
@@ -93,6 +97,25 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     NSMenu.popUpContextMenu(installMenu, withEvent: event, forView: button)
   }
 
+  let UpdateSpecsKey = "CPUpdateSpecsRepos"
+  func shouldUpdateSpecsRepo() -> Bool {
+    return NSUserDefaults.standardUserDefaults().boolForKey(UpdateSpecsKey)
+  }
+
+  @IBAction func toggleUpdateSpecsRepo(obj: AnyObject)  {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let current = defaults.boolForKey(UpdateSpecsKey)
+    defaults.setBool(!current, forKey: UpdateSpecsKey)
+    defaults.synchronize()
+  }
+
+  override func validateMenuItem(menuItem: NSMenuItem) -> Bool {
+    if menuItem.action == #selector(toggleUpdateSpecsRepo) {
+      let state = shouldUpdateSpecsRepo() ? 1 : 0
+      menuItem.state = state
+    }
+    return true
+  }
 
   @IBAction func showEditorTab(sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 0

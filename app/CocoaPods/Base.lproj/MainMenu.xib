@@ -463,6 +463,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Lmb-6g-oqt"/>
+                            <menuItem title="Auto-Update Specs Repos" id="bei-ab-BDq">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleUpdateSpecsRepo:" target="-1" id="NBL-g1-bOd"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
