@@ -9,7 +9,7 @@ if !modified_files.include?("CHANGELOG.md") && !declared_trivial
   fail "Please include a CHANGELOG entry to credit yourself! \nYou can find it at [CHANGELOG.md](https://github.com/CocoaPods/CocoaPods-app/blob/master/CHANGELOG.md)."
 
   pr = env.request_source.pr_json
-  markdown <<MARKDOWN
+  markdown <<-MARKDOWN
 Here's an example of your CHANGELOG entry:
 
 ```
@@ -17,5 +17,5 @@ Here's an example of your CHANGELOG entry:
   [#{pr.author}](https://github.com/#{pr.author})
   [##{pr.number}](https://github.com/#{pr.base.repo.full_name}/pull/#{pr.number})
 ```
-  MARKDOWN
+MARKDOWN
 end
