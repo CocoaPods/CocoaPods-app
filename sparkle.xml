@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?> 
+<?xml version='1.0' encoding='UTF-8'?>
 <rss version='2.0' xmlns:sparkle='http://www.andymatuschak.org/xml-namespaces/sparkle' xmlns:dc='http://purl.org/dc/elements/1.1/'>
   <channel>
     <title>CocoaPods.app Changelog</title>
@@ -58,36 +58,15 @@
       <title>Version 1.0.0.beta.5</title>
       <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
       <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
-      <pubDate>Mon, 14 Mar 2016 07:45:33 -0400</pubDate>
-      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
-    </item>
-    <item>
-      <title>Version 1.0.0.beta.5</title>
-      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
       <pubDate>Mon, 14 Mar 2016 07:48:08 -0400</pubDate>
       <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
     </item>
     <item>
-      <title>Version 1.0.0.beta.5</title>
+      <title>Version 1.0.0.beta.8</title>
       <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
-      <pubDate>Mon, 14 Mar 2016 07:48:55 -0400</pubDate>
-      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
-    </item>
-    <item>
-      <title>Version 1.0.0.beta.5</title>
-      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
-      <pubDate>Mon, 14 Mar 2016 07:49:04 -0400</pubDate>
-      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
-    </item>
-    <item>
-      <title>Version 1.0.0.beta.5</title>
-      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
-      <pubDate>Mon, 14 Mar 2016 07:49:44 -0400</pubDate>
-      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.8</sparkle:releaseNotesLink>
+      <pubDate>Tue, 19 Apr 2016 09:41:33 +0100</pubDate>
+      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.8' length='28792950' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.8/CocoaPods.app-1.0.0.beta.8.tar.bz2'/>
     </item>
   </channel>
 </rss>
