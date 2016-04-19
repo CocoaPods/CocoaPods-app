@@ -1,4 +1,4 @@
-## [1.0.0.beta.5 2016.05.19](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.8)
+## [1.0.0.beta.8 2016.05.19](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.8)
 
 * Re-designed Home Window
   [Orta Therox](https://github.com/orta)
@@ -33,6 +33,7 @@
 * [CocoaPods 1.0.0b6](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100beta6-2016-03-15)
 * [CocoaPods 1.0.0b7](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100beta7-2016-04-15)
 * [CocoaPods 1.0.0b8](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100beta8-2016-04-15)
+
 
 ---
 
