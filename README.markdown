@@ -31,10 +31,7 @@ open app/CocoaPods.xcworkspace
 
 This will set up your environment with a compiled versions of: ruby, git, cocoapods (the gem), hg, openssl, etc into both `destroot` and `workbench`.
 
-### Building for Release
-
-A release build will require the OS X 10.8 SDK that comes with Xcode 5.1.1, which can be downloaded
-[here](https://developer.apple.com/downloads).
+### Rake Tasks
 
 The main tasks can be found with `rake -T`:
 
