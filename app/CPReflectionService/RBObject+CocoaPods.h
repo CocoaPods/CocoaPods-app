@@ -62,7 +62,7 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (NSDictionary * _Nonnull)analyze_podfile:(RBPodfile * _Nonnull)contents :(NSString * _Nonnull)installationRoot;
 - (NSArray<NSString *> * _Nullable)all_pods;
 
-- (NSArray<RBSource *> * _Nullable)pod_sources;
+- (NSArray<RBSource *> * _Nonnull)pod_sources;
 - (RBSource * _Nullable)master_source;
 
 - (NSString * _Nullable)lockfile_version:(RBPathname * _Nonnull)path;

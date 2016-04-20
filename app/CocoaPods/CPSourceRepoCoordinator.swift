@@ -2,6 +2,7 @@ import Cocoa
 
 class CPSourceRepoCoordinator: NSObject {
   var repoSources = [String: String]()
+  var reposNeedUpdating = false
 
   func getSourceRepos() {
     guard let reflection = NSApp.delegate as? CPAppDelegate else {
@@ -11,8 +12,9 @@ class CPSourceRepoCoordinator: NSObject {
       return NSLog("Could not get a reflection service")
     }
 
+    
     reflector.allCocoaPodsSources { sources, error in
-      repoSources = sources
+      self.repoSources = sources
     }
   }
 
