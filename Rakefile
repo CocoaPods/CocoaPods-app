@@ -1053,6 +1053,10 @@ def github_access_token
   File.read('.github_access_token').strip rescue nil
 end
 
+def sparkler_update_key
+  File.read('.sparkler_update_key').strip rescue nil
+end
+
 namespace :release do
   task :clean => ['bundle:clean:all', 'app:clean']
 
@@ -1171,8 +1175,14 @@ namespace :release do
       sh "git push"
     end
 
+    unless sparkler_update_key
+      puts "[!] You have not provided a sparkler update key via `.sparkler_update_key`, " \
+        'so a Sparkler feed update cannot be made.'
+      exit 1
+    end
+
     # Update the Sparkler feed cache
-    REST.get("https://usage.cocoapods.org/feeds/cocoapods_app/reload", { "X_RELOAD_KEY" => ENV["X_RELOAD_KEY"] })
+    REST.get("https://usage.cocoapods.org/feeds/cocoapods_app/reload", { "X_RELOAD_KEY" => sparkler_update_key })
 
     # Tada
     puts "Deployed the Sparkle XML"
