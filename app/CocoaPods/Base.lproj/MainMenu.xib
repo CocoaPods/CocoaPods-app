@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10089" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,13 +11,22 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="CPAppDelegate">
+        <customObject id="Voe-Tx-rLC" userLabel="App Delegate" customClass="CPAppDelegate">
             <connections>
                 <outlet property="documentController" destination="Qtz-kf-riq" id="Zl6-hS-hbl"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="Byb-Tq-L28" customClass="SUUpdater"/>
+        <customObject id="Byb-Tq-L28" userLabel="Sparkle Updater" customClass="SUUpdater">
+            <connections>
+                <outlet property="delegate" destination="h87-9t-iNJ" id="mfX-w3-Dtd"/>
+            </connections>
+        </customObject>
+        <customObject id="h87-9t-iNJ" userLabel="Sparkle Delegate" customClass="CPSparkleDelegate" customModule="CocoaPods" customModuleProvider="target">
+            <connections>
+                <outlet property="toggleSparkleMenuItem" destination="5n9-do-ffe" id="Yk2-jH-8Ca"/>
+            </connections>
+        </customObject>
         <customObject id="bzE-zY-Vxb" customClass="CPExternalLinksHelper"/>
         <customObject id="SQz-GE-SRD" customClass="CPMenuVisiblityDirector" customModule="CocoaPods" customModuleProvider="target">
             <connections>
@@ -48,6 +57,22 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="checkForUpdates:" target="Byb-Tq-L28" id="LKt-IE-MQF"/>
+                                    <binding destination="W3N-Xs-kam" name="enabled" keyPath="values.CPDisableSparkleUpdates" id="GiO-TJ-61x">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="1"/>
+                                            <integer key="NSNullPlaceholder" value="1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Disable Sparkle Updates" id="5n9-do-ffe">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleSparkleUpdates:" target="h87-9t-iNJ" id="cvl-96-2Vw"/>
+                                    <binding destination="W3N-Xs-kam" name="title" keyPath="values.disableSparkle" id="cTu-Vh-LcB"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -438,6 +463,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Lmb-6g-oqt"/>
+                            <menuItem title="Auto-Update Specs Repos" id="bei-ab-BDq">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleUpdateSpecsRepo:" target="-1" id="NBL-g1-bOd"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -507,5 +538,6 @@
             </items>
         </menu>
         <customObject id="Qtz-kf-riq" customClass="CPDocumentController" customModule="CocoaPods" customModuleProvider="target"/>
+        <userDefaultsController representsSharedInstance="YES" id="W3N-Xs-kam"/>
     </objects>
 </document>

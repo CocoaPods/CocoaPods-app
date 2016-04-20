@@ -7,6 +7,7 @@ bundle.tar.gz
 cocoapods-plugins-install/*.gem
 app/CPReflectionService/libruby+exts.a
 .github_access_token
+.sparkler_update_key
 gh-pages/
 
 DerivedData

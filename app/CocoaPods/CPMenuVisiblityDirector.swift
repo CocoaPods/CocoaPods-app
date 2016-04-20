@@ -21,14 +21,14 @@ class CPMenuVisiblityDirector: NSObject {
     notificationCenter.addObserver(self, selector: #selector(windowsChanged(_:)), name: NSWindowDidBecomeKeyNotification, object: nil)
   }
 
-  /// Set hidden on the menus when we don't need to show the submenus
+  /// Set hidden on the menus when we don't need to enable the submenus
   func windowsChanged(notification: NSNotification) {
     guard let window = notification.object as? NSWindow else { return print("Notification does not have a window") }
     let docs = NSDocumentController.sharedDocumentController()
     let windowHasDocument = docs.documentForWindow(window) != nil
 
     for menu in podfileEditorMenuItems {
-      menu.hidden = !windowHasDocument
+      menu.enabled = windowHasDocument
     }
   }
 }

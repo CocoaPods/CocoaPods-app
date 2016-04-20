@@ -10,5 +10,9 @@ branches:
     - master
     - /.+-stable$/
 
-install: rake app:prerequisites --quiet
+install:
+  - gem install danger
+  - danger
+  - rake app:prerequisites --quiet
+
 script: rake bundle:test --quiet

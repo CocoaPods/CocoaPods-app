@@ -9,6 +9,7 @@
                 <outlet property="cocoapodsVersionTextField" destination="8mn-Z8-QE9" id="V6N-YU-h3E"/>
                 <outlet property="commandLineToolsHeightConstraint" destination="0dU-Fs-zRp" id="TiI-Cj-7vc"/>
                 <outlet property="cpIconImage" destination="YAO-eB-e3O" id="RjJ-rW-NYZ"/>
+                <outlet property="installCommandLineToolsTitleLabel" destination="VUM-hf-i6h" id="1GI-Xr-vS6"/>
                 <outlet property="installCommandLineToolsView" destination="3g8-qK-y7T" id="VyY-Wu-pUz"/>
                 <outlet property="openChangelogButton" destination="c72-1G-DgX" id="WMJ-bT-qBk"/>
                 <outlet property="openGuidesButton" destination="jOz-TV-Fbo" id="W3S-M3-KIQ"/>
@@ -21,15 +22,14 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Welcome to CocoaPods" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5" customClass="CPThickDecorationsWindow" customModule="CocoaPods" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
-            <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="665" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="contentRect" x="196" y="240" width="721" height="369"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="665" height="490"/>
+                <rect key="frame" x="0.0" y="0.0" width="721" height="369"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="HtW-rw-ITV">
-                        <rect key="frame" x="432" y="-5" width="234" height="495"/>
+                        <rect key="frame" x="493" y="-126" width="234" height="495"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="FP0-mA-dMU">
                                 <rect key="frame" x="0.0" y="460" width="233" height="36"/>
@@ -84,13 +84,13 @@
                         </constraints>
                     </visualEffectView>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="47" horizontalPageScroll="10" verticalLineScroll="47" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-7y-btG">
-                        <rect key="frame" x="431" y="0.0" width="234" height="454"/>
+                        <rect key="frame" x="492" y="0.0" width="234" height="333"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="8EY-xl-otL">
-                            <rect key="frame" x="0.0" y="0.0" width="234" height="454"/>
+                            <rect key="frame" x="0.0" y="0.0" width="234" height="333"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="45" rowSizeStyle="automatic" viewBased="YES" id="xXw-3l-NGv" customClass="CPReturnTriggeringTableView" customModule="CocoaPods" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="234" height="454"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="234" height="333"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -109,7 +109,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
-                                                <tableCellView id="j6S-IB-7LR">
+                                                <tableCellView id="j6S-IB-7LR" customClass="CPHomeMenuTableCellView">
                                                     <rect key="frame" x="1" y="1" width="230" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
@@ -144,6 +144,7 @@
                                                         </textField>
                                                     </subviews>
                                                     <connections>
+                                                        <outlet property="subtitleTextField" destination="Qtv-S5-ALo" id="ANf-C7-dUd"/>
                                                         <outlet property="textField" destination="fzU-ug-Jul" id="ky6-fp-HZM"/>
                                                     </connections>
                                                 </tableCellView>
@@ -169,9 +170,26 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-f6-3vu" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="333" width="493" height="36"/>
+                    </customView>
+                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="D18-np-NEy">
+                        <rect key="frame" x="602" y="168" width="16" height="16"/>
+                        <connections>
+                            <binding destination="Whb-bK-is0" name="animate" keyPath="self.loading" id="bbN-xD-byE"/>
+                        </connections>
+                    </progressIndicator>
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="YAO-eB-e3O">
+                        <rect key="frame" x="-71" y="-90" width="384" height="392"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="392" id="LTT-Oa-AmD"/>
+                            <constraint firstAttribute="width" constant="384" id="osN-kt-h7I"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="NSActionTemplate" id="iTn-Ke-V7P"/>
+                    </imageView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ltc-2S-rGH">
-                        <rect key="frame" x="14" y="17" width="125" height="32"/>
-                        <buttonCell key="cell" type="push" title="Open Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HCL-S8-9ry">
+                        <rect key="frame" x="313" y="56" width="180" height="40"/>
+                        <buttonCell key="cell" type="bevel" title="Open Search" bezelStyle="rounded" image="HomeButtonBG" imagePosition="overlaps" alignment="left" imageScaling="proportionallyDown" inset="2" id="HCL-S8-9ry">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -179,19 +197,9 @@
                             <action selector="openSearch:" target="TsL-KI-RcJ" id="BRq-W4-MUb"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c72-1G-DgX">
-                        <rect key="frame" x="133" y="17" width="125" height="32"/>
-                        <buttonCell key="cell" type="push" title="What's New?" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wGN-hy-3On">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="whatsNew:" target="TsL-KI-RcJ" id="bae-CL-gWq"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jOz-TV-Fbo">
-                        <rect key="frame" x="14" y="50" width="244" height="32"/>
-                        <buttonCell key="cell" type="push" title="Open Guides" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vPo-Ho-SFh">
+                        <rect key="frame" x="313" y="104" width="180" height="40"/>
+                        <buttonCell key="cell" type="bevel" title="Get Started with CocoaPods " bezelStyle="rounded" image="HomeButtonBG" imagePosition="overlaps" alignment="left" imageScaling="proportionallyDown" inset="2" id="vPo-Ho-SFh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -199,51 +207,37 @@
                             <action selector="openGuides:" target="TsL-KI-RcJ" id="AW1-iT-61r"/>
                         </connections>
                     </button>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="09I-WM-Nv4">
-                        <rect key="frame" x="0.0" y="174" width="432" height="154"/>
-                        <subviews>
-                            <imageView translatesAutoresizingMaskIntoConstraints="NO" id="YAO-eB-e3O">
-                                <rect key="frame" x="139" y="0.0" width="154" height="154"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="154" id="LTT-Oa-AmD"/>
-                                    <constraint firstAttribute="width" constant="154" id="osN-kt-h7I"/>
-                                </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSActionTemplate" id="iTn-Ke-V7P"/>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="154" id="9Zl-e5-dyP"/>
-                            <constraint firstItem="YAO-eB-e3O" firstAttribute="centerX" secondItem="09I-WM-Nv4" secondAttribute="centerX" id="mPg-yC-B4e"/>
-                            <constraint firstAttribute="width" constant="432" id="oHd-6w-sna"/>
-                            <constraint firstItem="YAO-eB-e3O" firstAttribute="centerY" secondItem="09I-WM-Nv4" secondAttribute="centerY" id="xuX-lv-28J"/>
-                        </constraints>
-                    </customView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mn-Z8-QE9">
-                        <rect key="frame" x="266" y="25" width="147" height="19"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0.38.2" id="J6B-uz-TYN">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c72-1G-DgX">
+                        <rect key="frame" x="313" y="8" width="180" height="40"/>
+                        <buttonCell key="cell" type="bevel" title="What's New?" bezelStyle="rounded" image="HomeButtonBG" imagePosition="overlaps" alignment="left" imageScaling="proportionallyDown" inset="2" id="wGN-hy-3On">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="whatsNew:" target="TsL-KI-RcJ" id="bae-CL-gWq"/>
+                        </connections>
+                    </button>
+                    <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mn-Z8-QE9">
+                        <rect key="frame" x="39" y="8" width="167" height="26"/>
+                        <shadow key="shadow" blurRadius="4">
+                            <size key="offset" width="0.0" height="2"/>
+                            <color key="color" red="0.43529411764705883" green="0.0" blue="0.035294117647058823" alpha="0.80239125844594594" colorSpace="calibratedRGB"/>
+                        </shadow>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0.38.2" id="J6B-uz-TYN">
                             <font key="font" size="16" name=".HelveticaNeueDeskInterface-Regular"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" red="0.81960784313725488" green="0.81568627450980391" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-f6-3vu" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="454" width="432" height="36"/>
-                    </customView>
-                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="D18-np-NEy">
-                        <rect key="frame" x="541" y="219" width="16" height="16"/>
-                        <connections>
-                            <binding destination="Whb-bK-is0" name="animate" keyPath="self.loading" id="bbN-xD-byE"/>
-                        </connections>
-                    </progressIndicator>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="HtW-rw-ITV" secondAttribute="bottom" constant="-5" id="1Wu-PO-bZ6"/>
+                    <constraint firstAttribute="bottom" secondItem="HtW-rw-ITV" secondAttribute="bottom" constant="-126" id="1Wu-PO-bZ6"/>
                     <constraint firstItem="HtW-rw-ITV" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="9Ca-ZB-0n4"/>
-                    <constraint firstAttribute="trailing" secondItem="HtW-rw-ITV" secondAttribute="trailing" constant="-1" id="F9G-j7-rdt"/>
-                    <constraint firstItem="09I-WM-Nv4" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="162" id="HK3-tO-Eun"/>
-                    <constraint firstItem="09I-WM-Nv4" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="TmG-Y2-ZOc"/>
-                    <constraint firstAttribute="trailing" secondItem="3Jq-7y-btG" secondAttribute="trailing" id="Y7a-a5-JXb"/>
+                    <constraint firstAttribute="trailing" secondItem="HtW-rw-ITV" secondAttribute="trailing" constant="-6" id="F9G-j7-rdt"/>
+                    <constraint firstItem="YAO-eB-e3O" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="67" id="J4n-9U-cTu"/>
+                    <constraint firstAttribute="trailing" secondItem="3Jq-7y-btG" secondAttribute="trailing" constant="-5" id="Y7a-a5-JXb"/>
                     <constraint firstAttribute="bottom" secondItem="3Jq-7y-btG" secondAttribute="bottom" id="jue-MZ-Be6"/>
+                    <constraint firstAttribute="trailing" secondItem="YAO-eB-e3O" secondAttribute="trailing" constant="408" id="kD0-EV-Q7J"/>
                     <constraint firstItem="3Jq-7y-btG" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="36" id="xCt-6i-kaX"/>
                 </constraints>
                 <connections>
@@ -266,7 +260,7 @@
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
                 <outlet property="initialFirstResponder" destination="xXw-3l-NGv" id="sqC-3z-Zyk"/>
             </connections>
-            <point key="canvasLocation" x="528.5" y="415"/>
+            <point key="canvasLocation" x="497.5" y="354.5"/>
         </window>
         <customObject id="4vU-Cg-0pp" customClass="CPSpotlightDocumentSource" customModule="CocoaPods" customModuleProvider="target">
             <connections>
@@ -280,10 +274,10 @@
         </customObject>
         <customObject id="TsL-KI-RcJ" customClass="CPExternalLinksHelper"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="3g8-qK-y7T" customClass="BlueView" customModule="CocoaPods" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="432" height="474"/>
+            <rect key="frame" x="0.0" y="0.0" width="493" height="474"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSn-xw-MDo">
-                    <rect key="frame" x="26" y="297" width="375" height="90"/>
+                    <rect key="frame" x="26" y="316" width="375" height="90"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="9iw-zL-1Cp">
                         <font key="font" metaFont="system" size="14"/>
                         <string key="title">By installing the CocoaPods Command Line Tools you can run the pod command from your favourite terminal. 
@@ -294,7 +288,7 @@ This means you get access to the whole command-line API, not just what the Cocoa
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-tZ-TcD">
-                    <rect key="frame" x="26" y="217" width="201" height="61"/>
+                    <rect key="frame" x="26" y="236" width="201" height="61"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="This is done by making a symbolic link to the bundled pod command in: " id="LS2-at-0ZW">
                         <font key="font" metaFont="system" size="14"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
@@ -302,7 +296,7 @@ This means you get access to the whole command-line API, not just what the Cocoa
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUM-hf-i6h">
-                    <rect key="frame" x="26" y="418" width="200" height="40"/>
+                    <rect key="frame" x="26" y="418" width="247" height="40"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" id="eXV-TB-vrj">
                         <font key="font" metaFont="system" size="14"/>
                         <string key="title">Do you want to Install the
@@ -312,7 +306,7 @@ Command-Line Tools?</string>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXn-88-qE2" customClass="CPBorderedButton">
-                    <rect key="frame" x="28" y="137" width="104" height="21"/>
+                    <rect key="frame" x="28" y="156" width="104" height="21"/>
                     <buttonCell key="cell" type="bevel" title="Change Path" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="IH3-Se-YWG" customClass="CPBorderedButtonCell">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -322,7 +316,7 @@ Command-Line Tools?</string>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-73-Olf" customClass="CPBorderedButton">
-                    <rect key="frame" x="344" y="428" width="60" height="21"/>
+                    <rect key="frame" x="403" y="428" width="60" height="21"/>
                     <buttonCell key="cell" type="bevel" title="help" bezelStyle="rounded" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="a5U-pN-aXb" customClass="CPBorderedButtonCell">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -336,11 +330,11 @@ Command-Line Tools?</string>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="CP-Term" id="Gjx-MI-J45"/>
                 </imageView>
                 <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5eX-PX-hmP">
-                    <rect key="frame" x="201" y="0.0" width="277" height="273"/>
+                    <rect key="frame" x="251" y="20" width="277" height="273"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="ConsoleWindow" id="WqU-sS-XGz"/>
                 </imageView>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmJ-CR-54e">
-                    <rect key="frame" x="258" y="-112" width="1844" height="304"/>
+                    <rect key="frame" x="308" y="-92" width="1844" height="304"/>
                     <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="Zpq-J5-F7o">
                         <font key="font" size="13" name="Menlo-Regular"/>
                         <string key="title">-&gt; Alamofire (3.1.4)
@@ -364,7 +358,7 @@ Command-Line Tools?</string>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDj-JK-Z3r">
-                    <rect key="frame" x="258" y="204" width="217" height="21"/>
+                    <rect key="frame" x="303" y="224" width="217" height="21"/>
                     <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="pod search Alamofire" id="K56-hV-25j">
                         <font key="font" size="13" name="Menlo-Regular"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
@@ -372,7 +366,7 @@ Command-Line Tools?</string>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DxV-ZX-EaL">
-                    <rect key="frame" x="26" y="164" width="186" height="48"/>
+                    <rect key="frame" x="26" y="183" width="186" height="48"/>
                     <textFieldCell key="cell" controlSize="mini" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" title="/usr/local/bin/pod/thing/other/okay" id="WUl-JY-Cqv">
                         <font key="font" size="14" name="Menlo-Regular"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
@@ -383,7 +377,7 @@ Command-Line Tools?</string>
                     </connections>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="en4-wv-beg">
-                    <rect key="frame" x="254" y="421" width="76" height="32"/>
+                    <rect key="frame" x="313" y="421" width="76" height="32"/>
                     <buttonCell key="cell" type="push" title="Install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lxI-qK-Fzy">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -393,8 +387,8 @@ Command-Line Tools?</string>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BP8-Z7-PuQ" customClass="CPWhiteCheckedButton">
-                    <rect key="frame" x="26" y="112" width="169" height="18"/>
-                    <buttonCell key="cell" type="check" title="Don't Show Alert Again" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8db-up-R4a">
+                    <rect key="frame" x="144" y="157" width="124" height="18"/>
+                    <buttonCell key="cell" type="check" title="Don't Show Alert" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8db-up-R4a">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -405,9 +399,9 @@ Command-Line Tools?</string>
             </subviews>
             <constraints>
                 <constraint firstAttribute="height" constant="474" id="0dU-Fs-zRp"/>
-                <constraint firstAttribute="width" constant="432" id="gHW-Fp-qPT"/>
+                <constraint firstAttribute="width" constant="493" id="gHW-Fp-qPT"/>
             </constraints>
-            <point key="canvasLocation" x="-145" y="423"/>
+            <point key="canvasLocation" x="-239.5" y="415"/>
         </customView>
         <customObject id="Whb-bK-is0" userLabel="Sidebar Documents Controller" customClass="CPSidebarDocumentsController" customModule="CocoaPods" customModuleProvider="target">
             <connections>
@@ -421,17 +415,17 @@ Command-Line Tools?</string>
         </customObject>
         <userDefaultsController representsSharedInstance="YES" id="0Ov-2i-yXv"/>
         <customView id="qtI-Qc-skM">
-            <rect key="frame" x="0.0" y="0.0" width="233" height="490"/>
+            <rect key="frame" x="0.0" y="0.0" width="233" height="369"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="IRs-Lz-3U3">
-                    <rect key="frame" x="16" y="221" width="201" height="84"/>
+                    <rect key="frame" x="16" y="161" width="201" height="84"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="84" id="4m3-st-vAg"/>
                     </constraints>
                     <buttonCell key="cell" type="square" title="Open an existing Podfile" alternateTitle="Open an existing Podfile" bezelStyle="shadowlessSquare" image="OpenDocument" imagePosition="above" alignment="center" alternateImage="OpenDocumentSelected" inset="2" id="t2E-3t-aO7">
                         <behavior key="behavior" lightByContents="YES"/>
-                        <font key="font" metaFont="miniSystem"/>
+                        <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
                         <action selector="openDocument:" target="-1" id="qFa-TE-MSn"/>
@@ -443,12 +437,13 @@ Command-Line Tools?</string>
                 <constraint firstAttribute="trailing" secondItem="IRs-Lz-3U3" secondAttribute="trailing" constant="16" id="aud-Kr-wSi"/>
                 <constraint firstItem="IRs-Lz-3U3" firstAttribute="leading" secondItem="qtI-Qc-skM" secondAttribute="leading" constant="16" id="mst-ef-TGJ"/>
             </constraints>
-            <point key="canvasLocation" x="1136.5" y="415"/>
+            <point key="canvasLocation" x="1136.5" y="354.5"/>
         </customView>
     </objects>
     <resources>
         <image name="CP-Term" width="420" height="120"/>
         <image name="ConsoleWindow" width="376" height="488"/>
+        <image name="HomeButtonBG" width="180" height="40"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="OpenDocument" width="57" height="41"/>
         <image name="OpenDocumentSelected" width="57" height="41"/>

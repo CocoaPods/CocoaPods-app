@@ -1067,6 +1067,10 @@ def github_access_token
   File.read('.github_access_token').strip rescue nil
 end
 
+def sparkler_update_key
+  File.read('.sparkler_update_key').strip rescue nil
+end
+
 namespace :release do
   task :clean => ['bundle:clean:all', 'app:clean']
 
@@ -1096,7 +1100,7 @@ namespace :release do
   require 'rest'
 
   def tarball
-    File.expand_path(File.join(PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
+    File.expand_path(File.join(ROOT, PKG_DIR, "CocoaPods.app-#{install_cocoapods_version}.tar.bz2"))
   end
 
   def sha(file)
@@ -1165,15 +1169,17 @@ namespace :release do
 
     # Give the user a chance to add flourish
     puts "Please edit #{markdown_notes}, then press return to continue with this process"
-    puts "try running: mate -w #{Dir.pwd}#{markdown_notes}"
+    puts "try running: mate -w #{Dir.pwd}/#{markdown_notes}"
     STDIN.gets
 
     # Get GitHub to render the MD
+    puts "Generating HTML from the Markdown"
     options = { text: File.read(markdown_notes), mode: "gfm", context: "cocoapods/cocoapods" }
     response = REST.post("https://api.github.com/markdown?access_token=#{github_access_token}", options.to_json, github_headers)
     html_markdown = response.body
 
     # Ship the commits
+    puts "Updating the Sparkle XML"
     Dir.chdir("gh-pages") do
       sh "git add ."
       sh "git commit -m 'Added the Sparkle XML for #{version}.'"
@@ -1184,6 +1190,15 @@ namespace :release do
       sh "git commit -m 'Added the release notes for #{version}.'"
       sh "git push"
     end
+
+    unless sparkler_update_key
+      puts "[!] You have not provided a sparkler update key via `.sparkler_update_key`, " \
+        'so a Sparkler feed update cannot be made.'
+      exit 1
+    end
+
+    # Update the Sparkler feed cache
+    REST.get("https://usage.cocoapods.org/feeds/cocoapods_app/reload", { "X_RELOAD_KEY" => sparkler_update_key })
 
     # Tada
     puts "Deployed the Sparkle XML"
@@ -1198,9 +1213,10 @@ namespace :release do
     branch = "cocoapods-#{version}"
     message = "Upgrade CocoaPods to v#{version}"
 
-    sh "git clone https://github.com/caskroom/homebrew-cask.git homebrew_cask" unless Dir.exists? "homebrew_cask"
+    FileUtils.remove_dir("homebrew_cask") if Dir.exists? "homebrew_cask"
+    sh "git clone https://github.com/caskroom/homebrew-cask.git homebrew_cask"
     Dir.chdir('homebrew_cask') do
-      sh "git pull"
+      sh "git pull origin master"
       sh "git remote add fork https://github.com/#{cask_fork}.git"
       sh "git checkout -b #{branch}"
 
@@ -1209,10 +1225,7 @@ namespace :release do
       cask.sub! /version '#{Gem::Version::VERSION_PATTERN}'/, "version '#{version}'"
       cask.sub! /sha256 '[[:xdigit:]]+'/, "sha256 '#{sha(tarball)}'"
       appcast_url = cask.match(/appcast '(.*)'/)[1]
-      sparkle_checkpoint = %x{curl --silent --compressed "#{appcast_url}"
-        | sed 's|<pubDate>[^<]*</pubDate>||g'
-        | shasum --algorithm 256
-        | awk '{ print $1 }'}
+      sparkle_checkpoint = %x{ cat ../gh-pages/sparkle.xml | sed 's|<pubDate>[^<]*</pubDate>||g' | shasum --algorithm 256 | awk '{ print $1 }'}.strip
       cask.sub! /checkpoint: '[[:xdigit:]]+'/, "checkpoint: '#{sparkle_checkpoint}'"
       File.open(cask_file, 'w') { |f| f.write(cask) }
 

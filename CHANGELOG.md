@@ -1,17 +1,33 @@
-## Master
+## [1.0.0.beta.8 2016.05.19](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.8)
+
+* Re-designed Home Window  
+  [Orta Therox](https://github.com/orta)  
+  [#285](https://github.com/CocoaPods/CocoaPods-app/pull/285)
+
+* Support using the keychain for access tokens for private git repos  
+  [Orta Therox](https://github.com/orta)  
+  [#279](https://github.com/CocoaPods/CocoaPods-app/pull/279)
+
+* SSL fixes  
+  [David Ohayon](https://github.com/ohwutup)  
+  [#281](https://github.com/CocoaPods/CocoaPods-app/pull/281)
+
+* Support for Handling Sources  
+  [Nate West](https://github.com/nwest)  
+  [#275](https://github.com/CocoaPods/CocoaPods-app/pull/275)
 
 * Update cask sparkle checkpoint on release  
-  [Samuel Giddins](https://github.com/segiddins)
+  [Samuel Giddins](https://github.com/segiddins)  
   [#266](https://github.com/CocoaPods/CocoaPods-app/pull/266)
 
 * Show a warning while editing a Podfile for a Podfile.lock generated with a newer version of CocoaPods  
-  [Nate West](https://github.com/nwest)
+  [Nate West](https://github.com/nwest)  
   [#257](https://github.com/CocoaPods/CocoaPods-app/pull/257)
 
 * Migrate project to Xcode 7.3  
-  [Nate West](https://github.com/nwest)
+  [Nate West](https://github.com/nwest)  
   [#274](https://github.com/CocoaPods/CocoaPods-app/pull/274)
-
+  
 ## [1.0.0.beta.5 2016.03.03](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.5) 
    [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100beta5-2016-03-08)
 
