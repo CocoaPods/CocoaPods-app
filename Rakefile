@@ -1171,6 +1171,9 @@ namespace :release do
       sh "git push"
     end
 
+    # Update the Sparkler feed cache
+    REST.get("https://usage.cocoapods.org/feeds/cocoapods_app/reload", { "X_RELOAD_KEY" => ENV["X_RELOAD_KEY"] })
+
     # Tada
     puts "Deployed the Sparkle XML"
   end
