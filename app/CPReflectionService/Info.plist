@@ -21,9 +21,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2016.04.19</string>
+	<string>2016.04.20</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2015 CocoaPods. All rights reserved.</string>
+	<string>Copyright © 2016 CocoaPods. All rights reserved.</string>
 	<key>XPCService</key>
 	<dict>
 		<key>ServiceType</key>
