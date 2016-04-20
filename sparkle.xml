@@ -6,24 +6,38 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
     <item>
-      <title>Version 0.36.3</title>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.36.3</sparkle:releaseNotesLink>
-      <pubDate>Mon, 06 Apr 2015 00:30:00 +0000</pubDate>
-      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.36.3/CocoaPods.app-0.36.3.tar.xz' sparkle:version='0.36.3' length='16778188' type='application/octet-stream'/>
-      <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
+      <title>Version 1.0.0.beta.8</title>
+      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.8</sparkle:releaseNotesLink>
+      <pubDate>Tue, 19 Apr 2016 09:41:33 +0100</pubDate>
+      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.8' length='28792950' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.8/CocoaPods.app-1.0.0.beta.8.tar.bz2'/>
     </item>
     <item>
-      <title>Version 0.36.4</title>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.36.4</sparkle:releaseNotesLink>
-      <pubDate>Fri, 17 Apr 2015 17:00:00 +0000</pubDate>
-      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.36.4/CocoaPods.app-0.36.4.tar.bz2' sparkle:version='0.36.4' length='33831422' type='application/octet-stream'/>
-      <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
+      <title>Version 1.0.0.beta.5</title>
+      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
+      <pubDate>Mon, 14 Mar 2016 07:48:08 -0400</pubDate>
+      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
     </item>
     <item>
-      <title>Version 0.37.0</title>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.37.0</sparkle:releaseNotesLink>
-      <pubDate>Mon, 4 May 2015 11:40:00 +0000</pubDate>
-      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.37.0/CocoaPods.app-0.37.0.tar.bz2' sparkle:version='0.37.0' length='33920693' type='application/octet-stream'/>
+      <title>Version 1.0.0.beta.3</title>
+      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.3</sparkle:releaseNotesLink>
+      <pubDate>Wed, 03 Feb 2016 08:43:09 +0000</pubDate>
+      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.3' length='28621165' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.3/CocoaPods.app-1.0.0.beta.3.tar.bz2'/>
+    </item>
+    <item>
+      <title>Version 0.39.0</title>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.39.0</sparkle:releaseNotesLink>
+      <pubDate>Tue, 20 Oct 2015 16:40:00 +0000</pubDate>
+      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.39.0/CocoaPods.app-0.39.0.tar.bz2' sparkle:version='0.39.0' length='30119439' type='application/octet-stream'/>
+      <sparkle:minimumSystemVersion>10.9</sparkle:minimumSystemVersion>
+    </item>
+    <item>
+      <title>Version 0.38.2</title>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.38.2</sparkle:releaseNotesLink>
+      <pubDate>Sun, 26 Jul 2015 07:40:00 +0000</pubDate>
+      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.38.2/CocoaPods.app-0.38.2.tar.bz2' sparkle:version='0.38.2' length='33402025' type='application/octet-stream'/>
       <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
     </item>
     <item>
@@ -34,39 +48,25 @@
       <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
     </item>
     <item>
-      <title>Version 0.38.2</title>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.38.2</sparkle:releaseNotesLink>
-      <pubDate>Sun, 26 Jul 2015 07:40:00 +0000</pubDate>
-      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.38.2/CocoaPods.app-0.38.2.tar.bz2' sparkle:version='0.38.2' length='33402025' type='application/octet-stream'/>
+      <title>Version 0.37.0</title>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.37.0</sparkle:releaseNotesLink>
+      <pubDate>Mon, 4 May 2015 11:40:00 +0000</pubDate>
+      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.37.0/CocoaPods.app-0.37.0.tar.bz2' sparkle:version='0.37.0' length='33920693' type='application/octet-stream'/>
       <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
     </item>
     <item>
-      <title>Version 0.39.0</title>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.39.0</sparkle:releaseNotesLink>
-      <pubDate>Tue, 20 Oct 2015 16:40:00 +0000</pubDate>
-      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.39.0/CocoaPods.app-0.39.0.tar.bz2' sparkle:version='0.39.0' length='30119439' type='application/octet-stream'/>
-      <sparkle:minimumSystemVersion>10.9</sparkle:minimumSystemVersion>
+      <title>Version 0.36.4</title>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.36.4</sparkle:releaseNotesLink>
+      <pubDate>Fri, 17 Apr 2015 17:00:00 +0000</pubDate>
+      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.36.4/CocoaPods.app-0.36.4.tar.bz2' sparkle:version='0.36.4' length='33831422' type='application/octet-stream'/>
+      <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
     </item>
     <item>
-      <title>Version 1.0.0.beta.3</title>
-      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.3</sparkle:releaseNotesLink>
-      <pubDate>Wed, 03 Feb 2016 08:43:09 +0000</pubDate>
-      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.3' length='28621165' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.3/CocoaPods.app-1.0.0.beta.3.tar.bz2'/>
-    </item>
-    <item>
-      <title>Version 1.0.0.beta.5</title>
-      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.5</sparkle:releaseNotesLink>
-      <pubDate>Mon, 14 Mar 2016 07:48:08 -0400</pubDate>
-      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.5' length='28686480' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.5/CocoaPods.app-1.0.0.beta.5.tar.bz2'/>
-    </item>
-    <item>
-      <title>Version 1.0.0.beta.8</title>
-      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.0.0.beta.8</sparkle:releaseNotesLink>
-      <pubDate>Tue, 19 Apr 2016 09:41:33 +0100</pubDate>
-      <enclosure type='application/octet-stream' sparkle:version='1.0.0.beta.8' length='28792950' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.0.0.beta.8/CocoaPods.app-1.0.0.beta.8.tar.bz2'/>
+      <title>Version 0.36.3</title>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/0.36.3</sparkle:releaseNotesLink>
+      <pubDate>Mon, 06 Apr 2015 00:30:00 +0000</pubDate>
+      <enclosure url='https://github.com/CocoaPods/CocoaPods-app/releases/download/0.36.3/CocoaPods.app-0.36.3.tar.xz' sparkle:version='0.36.3' length='16778188' type='application/octet-stream'/>
+      <sparkle:minimumSystemVersion>10.8</sparkle:minimumSystemVersion>
     </item>
   </channel>
 </rss>
