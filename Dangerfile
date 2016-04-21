@@ -13,8 +13,8 @@ if !modified_files.include?("CHANGELOG.md") && !declared_trivial
 Here's an example of your CHANGELOG entry:
 
 ```
-* #{pr.title}
-  [#{pr_author}](https://github.com/#{pr_author})
+* #{pr.title}  
+  [#{pr_author}](https://github.com/#{pr_author})  
   [##{pr.number}](https://github.com/#{pr.base.repo.full_name}/pull/#{pr.number})
 ```
 MARKDOWN
