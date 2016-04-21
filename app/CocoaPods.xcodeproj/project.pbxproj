@@ -47,6 +47,7 @@
 		600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
 		600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */; };
+		60107F181CC8CB1B002F772E /* CPSourceReposViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60107F171CC8CB1B002F772E /* CPSourceReposViewController.swift */; };
 		601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */; };
 		601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
@@ -225,6 +226,7 @@
 		600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStringArrayToSentenceValueTransformer.h; sourceTree = "<group>"; };
 		600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStringArrayToSentenceValueTransformer.m; sourceTree = "<group>"; };
 		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
+		60107F171CC8CB1B002F772E /* CPSourceReposViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSourceReposViewController.swift; sourceTree = "<group>"; };
 		601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXcodeInformationGenerator.h; sourceTree = "<group>"; };
 		601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXcodeInformationGenerator.m; sourceTree = "<group>"; };
 		601ACAA41C392BDD0058FA86 /* NSArray+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Helpers.h"; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				602D84541CC58B5100EE3076 /* CPSourceRepoCoordinator.swift */,
+				60107F171CC8CB1B002F772E /* CPSourceReposViewController.swift */,
 			);
 			name = "Source Repos";
 			sourceTree = "<group>";
@@ -1021,6 +1024,7 @@
 				604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */,
 				60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
+				60107F181CC8CB1B002F772E /* CPSourceReposViewController.swift in Sources */,
 				66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */,
 				934FF1891C4F1E2A000B4302 /* CPDocumentController.swift in Sources */,
 				60E693B31C4A561E0058DF5F /* CPThickDecorationsWindow.swift in Sources */,
