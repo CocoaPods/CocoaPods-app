@@ -14,7 +14,7 @@ Here's an example of your CHANGELOG entry:
 
 ```
 * #{pr.title}
-  [#{pr.author}](https://github.com/#{pr.author})
+  [#{pr_author}](https://github.com/#{pr_author})
   [##{pr.number}](https://github.com/#{pr.base.repo.full_name}/pull/#{pr.number})
 ```
 MARKDOWN
