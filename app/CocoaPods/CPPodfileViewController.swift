@@ -15,7 +15,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   @IBOutlet weak var documentIconContainer: NSView!
 
   var pluginCoordinator: CPPodfilePluginCoordinator!
-  var sourcesCoordinator: CPSourceRepoCoordinator!
+  @IBOutlet var sourcesCoordinator: CPSourceRepoCoordinator!
 
   @IBOutlet var tabViewDelegate: CPTabViewDelegate!
 
@@ -46,8 +46,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
 
     // Keep track of active source repos
-    sourcesCoordinator = CPSourceRepoCoordinator()
-    sourcesCoordinator.getSourceRepos()
+    sourcesCoordinator.getSourceRepos(userProject)
 
     // Makes the tabs highlight correctly
     tabController.hiddenTabDelegate = tabViewDelegate
@@ -164,6 +163,12 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     constraint.active = true
     warningDoneButton.enabled = false
   }
+
+
+  @IBAction func showSourceRepoUpdatePopover(obj: AnyObject) {
+
+  }
+
 }
 
 extension NSViewController {

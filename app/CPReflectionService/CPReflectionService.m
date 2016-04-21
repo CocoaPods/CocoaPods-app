@@ -40,7 +40,8 @@
 
 - (void)allCocoaPodsSources:(void (^ _Nonnull)(NSDictionary<NSString * , NSString * > * _Nonnull sources, NSError * _Nullable error))reply {
   [RBObject performBlock:^{
-    reply([RBObjectFromString(@"Pod::App") pod_sources], nil);
+    id sources = [RBObjectFromString(@"Pod::App") pod_sources];
+    reply(sources ?: @{}, nil);
   } error:^(NSError * _Nonnull error) {
     reply(@{}, error);
   }];

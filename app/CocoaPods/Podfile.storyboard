@@ -190,6 +190,17 @@
                                     <binding destination="5gI-5U-AMq" name="animate" keyPath="self.installAction.task.running" id="dpf-8Q-6Y9"/>
                                 </connections>
                             </progressIndicator>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXI-XY-Q0L">
+                                <rect key="frame" x="484" y="626" width="19" height="21"/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pez-e0-mBe">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showSourceRepoUpdatePopover:" target="5gI-5U-AMq" id="1kJ-RN-3N5"/>
+                                    <binding destination="UF4-FQ-6Bx" name="enabled" keyPath="self.reposNeedUpdating" id="b4v-k0-Bgi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Ywo-mw-4xh" firstAttribute="leading" secondItem="JCB-dL-BeV" secondAttribute="trailing" constant="-25" id="1QW-y4-gRa"/>
@@ -226,6 +237,7 @@
                         <outlet property="actionTitleLabel" destination="hwg-nj-RtL" id="doO-U4-vRA"/>
                         <outlet property="documentIconContainer" destination="A2C-cQ-r2M" id="XjI-Gp-RjM"/>
                         <outlet property="installMenu" destination="ipM-rO-V7M" id="TUi-D1-qEX"/>
+                        <outlet property="sourcesCoordinator" destination="UF4-FQ-6Bx" id="Xc2-7Y-aK1"/>
                         <outlet property="tabViewDelegate" destination="TcC-X8-fEE" id="rpc-oY-Jgh"/>
                         <outlet property="warningDoneButton" destination="Nvs-Zv-XUf" id="eYF-Pl-mG9"/>
                         <outlet property="warningLabel" destination="yge-Ir-okX" id="5rG-4b-9Hy"/>
@@ -235,6 +247,7 @@
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="TcC-X8-fEE" customClass="CPTabViewDelegate" customModule="CocoaPods" customModuleProvider="target"/>
+                <customObject id="UF4-FQ-6Bx" customClass="CPSourceRepoCoordinator" customModule="CocoaPods" customModuleProvider="target"/>
                 <menu id="ipM-rO-V7M">
                     <items>
                         <menuItem title="Update" id="PuO-f6-8qI">
@@ -891,6 +904,7 @@ Hit install to see the outcome</string>
     </scenes>
     <resources>
         <image name="Bundle-Icon" width="100" height="100"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
         <image name="TransparentButtonBG" width="23" height="20"/>
         <image name="TransparentButtonBGFilled" width="49" height="20"/>
         <image name="actionbar_background" width="250.5" height="23"/>
