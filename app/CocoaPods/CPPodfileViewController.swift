@@ -164,11 +164,9 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     warningDoneButton.enabled = false
   }
 
-
-  @IBAction func showSourceRepoUpdatePopover(obj: AnyObject) {
-
+  @IBAction func showSourceRepoUpdatePopover(obj: NSButton) {
+    sourcesCoordinator.showRepoSourcesPopover(obj, userProject:userProject, storyboard: storyboard!)
   }
-
 }
 
 extension NSViewController {
