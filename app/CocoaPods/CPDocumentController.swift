@@ -10,6 +10,7 @@ class CPDocumentController: NSDocumentController {
   static let ClearRecentDocumentsNotification = "CPDocumentControllerClearRecentDocumentsNotification"
   
   var podInitController: CPPodfileInitController?
+  var deintegrateController: CPDeintegrateController?
   
   // All of the `openDocument...` calls end up calling this one method, so adding our notification here is simple
   
@@ -23,28 +24,64 @@ class CPDocumentController: NSDocumentController {
     }
   }
   
-  override func newDocument(sender: AnyObject?) {
+  func selectXcodeproj(completion: NSURL? -> Void) {
     let openPanel = NSOpenPanel()
     openPanel.allowsMultipleSelection = false
     openPanel.allowedFileTypes = ["xcodeproj"]
-    
     openPanel.beginWithCompletionHandler { buttonIndex in
-      guard buttonIndex == NSFileHandlingPanelOKButton else { return }
-      guard let fileURL = openPanel.URL else { return }
-      
-      self.podInitController = CPPodfileInitController(xcodeprojURL: fileURL, completionHandler: { podfileURL, error -> () in
-        guard let podfileURL = podfileURL else {
-          let alert = NSAlert(error: error! as NSError)
-          alert.informativeText = error!.message
-          alert.runModal()
-          
-          return
-        }
-        self.openDocumentWithContentsOfURL(podfileURL, display: true) { _ in }
-      })
+      guard buttonIndex == NSFileHandlingPanelOKButton else { completion(.None); return }
+      guard let fileURL = openPanel.URL else { completion(.None); return }
+      completion(fileURL)
+    }
+  }
+
+  override func newDocument(sender: AnyObject?) {
+    selectXcodeproj { fileURL in
+      if let URL = fileURL {
+        self.setupPodfile(URL)
+      }
+    }
+  }
+
+  func setupPodfile(xcodeprojURL: NSURL) {
+    self.podInitController = CPPodfileInitController(xcodeprojURL: xcodeprojURL, completionHandler: { (podfileURL, error) in
+      guard let podfileURL = podfileURL else {
+        let alert = NSAlert(error: error! as NSError)
+        alert.informativeText = error!.message
+        alert.runModal()
+
+        return
+      }
+      self.openDocumentWithContentsOfURL(podfileURL, display: true) { _ in }
+    })
+  }
+
+  @IBAction func removeCocoaPodsFromProject(sender: AnyObject?) {
+    selectXcodeproj { fileURL in
+      if let url = fileURL {
+        self.deintegrateProject(url)
+      }
     }
   }
   
+  func deintegrateProject(xcodeprojURL: NSURL) {
+    self.deintegrateController = CPDeintegrateController(xcodeprojURL: xcodeprojURL, completionHandler: { error in
+      if let error = error {
+        let alert = NSAlert(error: error as NSError)
+        alert.informativeText = error.message
+        alert.runModal()
+      }
+      else {
+        let projectName = xcodeprojURL.lastPathComponent!
+        let localized = NSLocalizedString("POD_DEINTEGRATE_CONFIRMATION", comment: "")
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("POD_DEINTEGRATE_INFO", comment: "")
+        alert.informativeText = String.localizedStringWithFormat(localized, projectName)
+        alert.runModal()
+      }
+    })
+  }
+
   // `noteNewRecentDocument` ends up calling to this method so we can just override this one method
   
   override func noteNewRecentDocumentURL(url: NSURL) {
