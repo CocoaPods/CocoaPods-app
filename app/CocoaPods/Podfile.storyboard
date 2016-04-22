@@ -392,7 +392,7 @@
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -598,7 +598,7 @@ Gw
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="V71-OH-qaz">
-                                    <rect key="frame" x="1" y="313" width="408" height="16"/>
+                                    <rect key="frame" x="1" y="391" width="398" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="6Vd-8N-c4T">
