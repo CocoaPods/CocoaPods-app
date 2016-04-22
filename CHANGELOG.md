@@ -1,3 +1,9 @@
+## Master
+
+* Deintegrate CocoaPods from a project  
+  [Nate West](https://github.com/nwest)  
+  [#296](https://github.com/CocoaPods/CocoaPods-app/pull/296)
+
 ## [1.0.0.beta.8 2016.05.19](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.8)
 
 * Re-designed Home Window  
