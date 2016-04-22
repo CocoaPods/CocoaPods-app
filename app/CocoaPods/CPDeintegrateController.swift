@@ -10,7 +10,7 @@ public enum CPDeintegrateErrors: ErrorType {
   }
 }
 
-public class CPDeintegrateController: NSObject, CPCLITaskDelegate {
+class CPDeintegrateController: NSObject, CPCLITaskDelegate {
   let xcodeprojURL: NSURL
   private let completionHandler: (CPDeintegrateErrors?) -> ()
   private var task: CPCLITask!
@@ -27,11 +27,11 @@ public class CPDeintegrateController: NSObject, CPCLITaskDelegate {
     self.task.run()
   }
 
-  public func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
+  func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
     output.appendAttributedString(updatedOutput)
   }
 
-  public func taskCompleted(task: CPCLITask!) {
+  func taskCompleted(task: CPCLITask!) {
     guard task.finishedSuccessfully() else {
       self.callbackWithError(CPDeintegrateErrors.CommandError(self.output.string))
       return

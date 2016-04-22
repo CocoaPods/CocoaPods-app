@@ -135,7 +135,7 @@
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="wV5-hB-goc"/>
-                            <menuItem title="Remove CocoaPods From A Project..." id="fXB-fZ-GrP">
+                            <menuItem title="Remove CocoaPods from a Project…" id="fXB-fZ-GrP">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="removeCocoaPodsFromProject:" target="Qtz-kf-riq" id="Bd7-DP-sNv"/>
