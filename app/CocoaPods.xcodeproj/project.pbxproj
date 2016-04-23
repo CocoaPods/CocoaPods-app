@@ -251,6 +251,7 @@
 		605119261C0909420037B95E /* CPPodfileReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPodfileReflection.h; sourceTree = "<group>"; };
 		605119271C0909420037B95E /* CPPodfileReflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPodfileReflection.m; sourceTree = "<group>"; };
 		6061C54D1CCB5BF70063C44A /* CPMenuRepoUpdateDirector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMenuRepoUpdateDirector.swift; sourceTree = "<group>"; };
+		6061C54F1CCBA9000063C44A /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../../CHANGELOG.md; sourceTree = "<group>"; };
 		606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileMetadataViewController.swift; sourceTree = "<group>"; };
 		606D1ED11BF90705000B7148 /* Podfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Podfile.storyboard; sourceTree = "<group>"; };
 		606D1ED31BF91040000B7148 /* CocoaPods-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaPods-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -417,6 +418,7 @@
 		51165E211A17AFF500DCFC94 /* CocoaPods */ = {
 			isa = PBXGroup;
 			children = (
+				6061C54F1CCBA9000063C44A /* CHANGELOG.md */,
 				60E693B11C4A52AF0058DF5F /* App */,
 				331188541BEBCB0F00272793 /* CLI Integrations */,
 				60FE01641B9B76520027EEE3 /* Project */,

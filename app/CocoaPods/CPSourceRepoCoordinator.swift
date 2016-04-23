@@ -95,6 +95,5 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
 
   func taskCompleted(task: CPCLITask!) {
     isUpdatingRepo = false
-    print("DONE")
   }
 }
