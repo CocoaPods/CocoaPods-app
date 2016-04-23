@@ -591,16 +591,10 @@ directory installed_cocoapods_plugins_install => installed_pod_bin do
 end
 
 pod_check = "cocoapods-check"
-pod_check_version = "0.2.0.beta.1"
+pod_check_version = "0.2.1.beta.1"
 installed_cocoapods_check_install = File.join(GEM_HOME, 'gems', "#{pod_check}-#{pod_check_version}")
 directory installed_cocoapods_check_install => installed_pod_bin do
-  # temp until https://github.com/square/cocoapods-check/issues/4 is :+1:
-  `git clone https://github.com/square/cocoapods-check.git`
-  Dir.chdir(pod_check) do
-    `rake build`
-     install_gem "pkg/#{pod_check}-#{pod_check_version}.gem"
-  end
-  `rm -rf cocoapods-check`
+   install_gem pod_check, pod_check_version
 end
 
 # ------------------------------------------------------------------------------
