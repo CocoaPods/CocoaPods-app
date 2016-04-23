@@ -1,7 +1,12 @@
 import Cocoa
 
 class CPSourceRepoCoordinator: NSObject {
-  var repoSources = [String: String]()
+
+  private var repoSources = [String: String]()
+
+  var allRepos: [CPSourceRepo] {
+    return repoSources.map { CPSourceRepo(name: $0.0, address: $0.1) }
+  }
 
   // When these two are true then the binding for enabled on the
   // popover button changes to true
@@ -9,10 +14,9 @@ class CPSourceRepoCoordinator: NSObject {
   dynamic var hasAllCocoaPodsRepoSources = false
 
   var checkTask: CPCLITask?
-  var popover: NSPopover?
 
-
-  func getSourceRepos(userProject: CPUserProject) {
+  // Gets source repos, with an optional callback for the repos.
+  func getSourceRepos(callback: (([CPSourceRepo])->())? = nil) {
     guard let reflection = NSApp.delegate as? CPAppDelegate else {
       return NSLog("App delegate not CPAppDelegate")
     }
@@ -20,25 +24,32 @@ class CPSourceRepoCoordinator: NSObject {
       return NSLog("Could not get a reflection service")
     }
 
-    checkTask = CPCLITask(userProject: userProject, command: "check", delegate: self, qualityOfService: .Utility)
-    checkTask?.run()
-
     reflector.allCocoaPodsSources { sources, error in
       self.repoSources = sources
       self.hasAllCocoaPodsRepoSources = true
+
+      if let callback = callback {
+        callback(self.allRepos)
+      }
     }
   }
 
+  func checkWhetherProjectNeedsChanges(userProject: CPUserProject) {
+    checkTask = CPCLITask(userProject: userProject, command: "check", delegate: self, qualityOfService: .Utility)
+    checkTask?.run()
+  }
+
+  // Could these move to their own class just for the Podfile VC?
+
+  var popover: NSPopover?
+
   func showRepoSourcesPopover(button: NSButton, userProject:CPUserProject, storyboard: NSStoryboard) {
+
+    let activeProjects = allRepos.filter { userProject.podfileSources.contains($0.address) }
+    let inactiveProjects = allRepos.filter { userProject.podfileSources.contains($0.address) == false }
+
     guard let viewController = storyboard.instantiateControllerWithIdentifier("RepoSources") as? CPSourceReposViewController else { return }
 
-    let activeProjects = repoSources.filter { userProject.podfileSources.contains($0.1) }.map {
-      return CPSourceRepo(name: $0.0, address: $0.1, userProject: userProject)
-    }
-
-    let inactiveProjects = repoSources.filter { userProject.podfileSources.contains($0.1) == false }.map {
-      return CPSourceRepo(name: $0.0, address: $0.1, userProject: userProject)
-    }
 
     let popover = NSPopover()
     popover.contentViewController = viewController
@@ -50,7 +61,6 @@ class CPSourceRepoCoordinator: NSObject {
     popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MaxY)
     self.popover = popover
   }
-
 }
 
 extension CPSourceRepoCoordinator: CPCLITaskDelegate {
@@ -62,12 +72,10 @@ extension CPSourceRepoCoordinator: CPCLITaskDelegate {
 class CPSourceRepo: NSObject, CPCLITaskDelegate {
   let name: String
   let address: String
-  let userProject: CPUserProject
 
-  init(name: String, address: String, userProject: CPUserProject) {
+  init(name: String, address: String) {
     self.address = address
     self.name = name
-    self.userProject = userProject
   }
 
   var displayName: String {
@@ -80,14 +88,13 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
       .stringByReplacingOccurrencesOfString("www.", withString: "")
   }
 
-
   dynamic var isUpdatingRepo: Bool = false
   var updateRepoTask: CPCLITask?
 
   @IBAction func updateRepo(button: NSButton?) {
     self.isUpdatingRepo = true
 
-    updateRepoTask = CPCLITask(userProject: userProject, command: "repo update \(name)", delegate: self, qualityOfService: .Utility)
+    updateRepoTask = CPCLITask(workingDirectory: "", command: "repo update \(name)", delegate: self, qualityOfService: .Utility)
     updateRepoTask?.run()
   }
 

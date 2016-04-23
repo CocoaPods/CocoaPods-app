@@ -46,7 +46,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
 
     // Keep track of active source repos
-    sourcesCoordinator.getSourceRepos(userProject)
+    sourcesCoordinator.getSourceRepos()
 
     // Makes the tabs highlight correctly
     tabController.hiddenTabDelegate = tabViewDelegate
