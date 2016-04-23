@@ -21,6 +21,32 @@
   }];
 }
 
+- (void)sourcesFromPodfile:(NSString * _Nonnull)contents
+                 withReply:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable sources, NSError * _Nullable error))reply {
+  [RBObject performBlock:^{
+    // Use just `Podfile` as the path so that we can make assumptions about error messages
+    // and easily remove the path being mentioned.
+
+    RBPathname *pathname = [RBObjectFromString(@"Pathname") new:@"Podfile"];
+
+    RBPodfile *podfile = [RBObjectFromString(@"Pod::Podfile") from_ruby:pathname :contents];
+    NSArray *sources = podfile.sources;
+    reply(sources, nil);
+  } error:^(NSError * _Nonnull error) {
+    reply(nil, error);
+  }];
+}
+
+
+- (void)allCocoaPodsSources:(void (^ _Nonnull)(NSDictionary<NSString * , NSString * > * _Nonnull sources, NSError * _Nullable error))reply {
+  [RBObject performBlock:^{
+    id sources = [RBObjectFromString(@"Pod::App") pod_sources];
+    reply(sources ?: @{}, nil);
+  } error:^(NSError * _Nonnull error) {
+    reply(@{}, error);
+  }];
+}
+
 - (void)versionFromLockfile:(NSString * _Nonnull)path
                   withReply:(void (^ _Nonnull)(NSString * _Nullable, NSError * _Nullable))reply;
 {

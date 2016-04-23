@@ -1,8 +1,12 @@
-## Master
+## master
 
 * Deintegrate CocoaPods from a project  
   [Nate West](https://github.com/nwest)  
   [#296](https://github.com/CocoaPods/CocoaPods-app/pull/296)
+
+* Pod Repo Source Management, both in the Podfile Editor, and in the Main Menu  
+  [orta](https://github.com/orta)  
+  [#294](https://github.com/CocoaPods/CocoaPods-app/pull/294)
 
 ## [1.0.0.beta.8 2016.05.19](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.8)
 

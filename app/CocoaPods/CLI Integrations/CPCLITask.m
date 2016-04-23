@@ -86,8 +86,9 @@
   }
 
 #ifdef DEBUG
+  NSString *and = [NSUserName() isEqualToString:@"orta"] ? @"; and" : @"&&";
   NSString *args = [arguments componentsJoinedByString:@" "];
-  NSLog(@"$ cd '%@' && env HOME='%@' LANG='%@' TERM='%@' %@ %@", workingDirectory,
+  NSLog(@"$\n cd '%@' %@ env HOME='%@' LANG='%@' TERM='%@' %@ %@", workingDirectory, and,
         environment[@"HOME"],
         environment[@"LANG"],
         environment[@"TERM"],
@@ -108,7 +109,7 @@
                                            selector:@selector(outputAvailable:)
                                                name:NSFileHandleDataAvailableNotification
                                              object:[outputPipe fileHandleForReading]];
-  [[outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+  [[outputPipe fileHandleForReading] waitForDataInBackgroundAndNotifyForModes:@[NSDefaultRunLoopMode, NSEventTrackingRunLoopMode]];
 
   NSPipe *errorPipe = [NSPipe pipe];
   self.task.standardError = errorPipe;
@@ -116,7 +117,7 @@
                                            selector:@selector(outputAvailable:)
                                                name:NSFileHandleDataAvailableNotification
                                              object:[errorPipe fileHandleForReading]];
-  [[errorPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+  [[errorPipe fileHandleForReading] waitForDataInBackgroundAndNotifyForModes:@[NSDefaultRunLoopMode, NSEventTrackingRunLoopMode]];
   self.running = true;
   [self.task launch];
 }
@@ -135,7 +136,7 @@
   }
 
   if (self.task.isRunning) {
-    [fileHandle waitForDataInBackgroundAndNotify];
+    [fileHandle waitForDataInBackgroundAndNotifyForModes:@[NSDefaultRunLoopMode, NSEventTrackingRunLoopMode]];
   } else {
     [self taskDidFinish];
   }

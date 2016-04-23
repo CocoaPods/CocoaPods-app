@@ -33,6 +33,7 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 @interface RBPodfile : RBObject
 + (instancetype _Nonnull)from_ruby:(RBPathname * _Nonnull)path :(NSString * _Nullable)contents;
 - (NSDictionary<NSString *, NSDictionary *> * _Nonnull)plugins;
+- (NSArray<NSString *> * _Nonnull)sources;
 @end
 
 @interface RBGemSpecification : RBObject
@@ -44,11 +45,26 @@ typedef void (^RBObjectErrorBlock)(NSError * _Nonnull error);
 - (RBGemSpecification * _Nonnull)specification:(NSString * _Nonnull)pluginPath;
 @end
 
+@interface RBSource : RBObject
+- (NSString * _Nonnull)name;
+- (NSString * _Nonnull)url;
+@end
+
+@interface RBSourceManager : RBObject
+- (NSArray<RBSource *> * _Nonnull)all;
+- (NSArray<RBSource *> * _Nonnull)master;
+@end
+
+
 // Defined in RBObject+CocoaPods.rb
 @interface RBApp : RBObject
 - (void)require_gems;
 - (NSDictionary * _Nonnull)analyze_podfile:(RBPodfile * _Nonnull)contents :(NSString * _Nonnull)installationRoot;
 - (NSArray<NSString *> * _Nullable)all_pods;
+
+- (NSArray<RBSource *> * _Nonnull)pod_sources;
+- (RBSource * _Nullable)master_source;
+
 - (NSString * _Nullable)lockfile_version:(RBPathname * _Nonnull)path;
 - (NSNumber * _Nonnull)compare_versions:(NSString * _Nonnull)version1 :(NSString * _Nonnull)version2;
 @end

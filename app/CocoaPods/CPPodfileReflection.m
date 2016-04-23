@@ -74,6 +74,15 @@
     });
   }];
   
+  [reflectionService.remoteObjectProxy sourcesFromPodfile:project.contents
+                                                withReply:^(NSArray<NSString *> * _Nullable sources, NSError * _Nullable error) {
+                                                  if (sources) {
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                      project.podfileSources = sources;
+                                                    });
+                                                  }
+                                                }];
+  
   [reflectionService.remoteObjectProxy XcodeIntegrationInformationFromPodfile:project.contents
                                                              installationRoot:project.fileURL.URLByDeletingLastPathComponent.path
                                                                     withReply:^(NSDictionary * _Nullable information, NSError * _Nullable error) {
