@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Plugins that are used within the Podfile
 @property (nonatomic, strong) NSArray <NSString *> *podfilePlugins;
 
+/// Sources that are used by the project
+@property (nonatomic, strong) NSArray<NSString *> *podfileSources;
+
 /// The Xcodeprojects and CP Targets that are represented by the Podfile
 @property (nonatomic, strong) NSDictionary *xcodeIntegrationDictionary;
 

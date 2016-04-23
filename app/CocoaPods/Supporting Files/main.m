@@ -14,7 +14,7 @@ int main(int argc, const char * argv[]) {
     NSApp.delegate = testDelegate;
   } else {
     //Loads CPAppDelegate from the .xib.
-    [NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
+    [[NSBundle mainBundle] loadNibNamed:@"MainMenu" owner:NSApp topLevelObjects:nil];
   }
 
   [NSApp run];

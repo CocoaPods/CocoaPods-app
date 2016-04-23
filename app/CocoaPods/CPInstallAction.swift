@@ -7,12 +7,10 @@ enum InstallActionType {
 
 struct InstallOptions {
   let verbose: Bool
-  let repoUpdate: Bool
 
   var commandOptions : String {
     var string = ""
     if verbose { string += "--verbose " }
-    if repoUpdate { string += "--repo-update " }
     return string
   }
 }
@@ -65,6 +63,7 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
     if let path = userProject.fileURL?.relativePath {
       notification.subtitle = (path as NSString).stringByAbbreviatingWithTildeInPath
     }
+    NSNotificationCenter.defaultCenter().postNotificationName("CPInstallCompleted", object: nil)
     NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
   }
 }

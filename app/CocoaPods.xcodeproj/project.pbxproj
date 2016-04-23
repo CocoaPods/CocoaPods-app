@@ -47,12 +47,14 @@
 		600DDCAC1C14B98D0074C1E4 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		600DDCAD1C14B9910074C1E4 /* Podfile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6075BA641C068B5F00A5C491 /* Podfile.xcassets */; };
 		600DDCAF1C14C1850074C1E4 /* CPMiniSnaphots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */; };
+		60107F181CC8CB1B002F772E /* CPSourceReposViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60107F171CC8CB1B002F772E /* CPSourceReposViewController.swift */; };
 		601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */; };
 		601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
 		601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */; };
 		601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */; };
 		60227EC21C351A6300A29515 /* CPPodfilePluginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */; };
 		60227EC41C351A7700A29515 /* CPInstallPluginsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */; };
+		602D84551CC58B5100EE3076 /* CPSourceRepoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602D84541CC58B5100EE3076 /* CPSourceRepoCoordinator.swift */; };
 		6033ECB21C1E6B4D00C2EDAD /* Home Screen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */; };
 		6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */; };
 		6038B78C1C28B57600359F3B /* CPMetadataTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */; };
@@ -63,6 +65,7 @@
 		605119231C08F02D0037B95E /* CPBrownVisualEffectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605119221C08F02D0037B95E /* CPBrownVisualEffectsView.swift */; };
 		605119251C08F5880037B95E /* CPFontAndColourGateKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */; };
 		605119281C0909420037B95E /* CPPodfileReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 605119271C0909420037B95E /* CPPodfileReflection.m */; };
+		6061C54E1CCB5BF70063C44A /* CPMenuRepoUpdateDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6061C54D1CCB5BF70063C44A /* CPMenuRepoUpdateDirector.swift */; };
 		606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */; };
 		606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 606D1ED11BF90705000B7148 /* Podfile.storyboard */; };
 		606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D1ED41BF91040000B7148 /* CPPodfileEditorViewController.swift */; };
@@ -224,6 +227,7 @@
 		600CACE71C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPStringArrayToSentenceValueTransformer.h; sourceTree = "<group>"; };
 		600CACE81C4669030048F2F3 /* CPStringArrayToSentenceValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPStringArrayToSentenceValueTransformer.m; sourceTree = "<group>"; };
 		600DDCAE1C14C1850074C1E4 /* CPMiniSnaphots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMiniSnaphots.swift; sourceTree = "<group>"; };
+		60107F171CC8CB1B002F772E /* CPSourceReposViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSourceReposViewController.swift; sourceTree = "<group>"; };
 		601ACAA11C389E9B0058FA86 /* CPXcodeInformationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPXcodeInformationGenerator.h; sourceTree = "<group>"; };
 		601ACAA21C389E9B0058FA86 /* CPXcodeInformationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPXcodeInformationGenerator.m; sourceTree = "<group>"; };
 		601ACAA41C392BDD0058FA86 /* NSArray+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Helpers.h"; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 		601F91141BE6435E00AD22B1 /* NSURL+TersePaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TersePaths.m"; sourceTree = "<group>"; };
 		60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfilePluginCoordinator.swift; sourceTree = "<group>"; };
 		60227EC31C351A7700A29515 /* CPInstallPluginsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInstallPluginsViewController.swift; sourceTree = "<group>"; };
+		602D84541CC58B5100EE3076 /* CPSourceRepoCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSourceRepoCoordinator.swift; sourceTree = "<group>"; };
 		6033ECB11C1E6B4D00C2EDAD /* Home Screen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Home Screen.xcassets"; sourceTree = "<group>"; };
 		6035BFEF1C07C916003250A8 /* CPHiddenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPHiddenTabViewController.swift; sourceTree = "<group>"; };
 		6038B78B1C28B57600359F3B /* CPMetadataTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMetadataTableViewDataSource.swift; sourceTree = "<group>"; };
@@ -245,6 +250,8 @@
 		605119241C08F5880037B95E /* CPFontAndColourGateKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPFontAndColourGateKeeper.swift; sourceTree = "<group>"; };
 		605119261C0909420037B95E /* CPPodfileReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPodfileReflection.h; sourceTree = "<group>"; };
 		605119271C0909420037B95E /* CPPodfileReflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPodfileReflection.m; sourceTree = "<group>"; };
+		6061C54D1CCB5BF70063C44A /* CPMenuRepoUpdateDirector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMenuRepoUpdateDirector.swift; sourceTree = "<group>"; };
+		6061C54F1CCBA9000063C44A /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../../CHANGELOG.md; sourceTree = "<group>"; };
 		606C84711C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileMetadataViewController.swift; sourceTree = "<group>"; };
 		606D1ED11BF90705000B7148 /* Podfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Podfile.storyboard; sourceTree = "<group>"; };
 		606D1ED31BF91040000B7148 /* CocoaPods-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaPods-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -411,6 +418,7 @@
 		51165E211A17AFF500DCFC94 /* CocoaPods */ = {
 			isa = PBXGroup;
 			children = (
+				6061C54F1CCBA9000063C44A /* CHANGELOG.md */,
 				60E693B11C4A52AF0058DF5F /* App */,
 				331188541BEBCB0F00272793 /* CLI Integrations */,
 				60FE01641B9B76520027EEE3 /* Project */,
@@ -465,6 +473,15 @@
 				60227EC11C351A6300A29515 /* CPPodfilePluginCoordinator.swift */,
 			);
 			name = "Plugin Installation";
+			sourceTree = "<group>";
+		};
+		602D84531CC58B2C00EE3076 /* Source Repos */ = {
+			isa = PBXGroup;
+			children = (
+				602D84541CC58B5100EE3076 /* CPSourceRepoCoordinator.swift */,
+				60107F171CC8CB1B002F772E /* CPSourceReposViewController.swift */,
+			);
+			name = "Source Repos";
 			sourceTree = "<group>";
 		};
 		6033ECB01C1E588300C2EDAD /* Command Line Tools */ = {
@@ -608,6 +625,7 @@
 		60FE01631B9B76470027EEE3 /* Podfile Window */ = {
 			isa = PBXGroup;
 			children = (
+				602D84531CC58B2C00EE3076 /* Source Repos */,
 				60227EC01C351A5600A29515 /* Plugin Installation */,
 				601ACA9C1C37F33F0058FA86 /* Podfile Metadata */,
 				606D1ED11BF90705000B7148 /* Podfile.storyboard */,
@@ -627,6 +645,7 @@
 				603F7F1D1C1DE895006C2571 /* CPMenuVisiblityDirector.swift */,
 				601F910B1BE63B8100AD22B1 /* CPExternalLinksHelper.h */,
 				601F910C1BE63B8100AD22B1 /* CPExternalLinksHelper.m */,
+				6061C54D1CCB5BF70063C44A /* CPMenuRepoUpdateDirector.swift */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -988,6 +1007,7 @@
 				5E946F3F1C1621F000EFEA7B /* CPTabViewDelegate.swift in Sources */,
 				605119281C0909420037B95E /* CPPodfileReflection.m in Sources */,
 				60227EC21C351A6300A29515 /* CPPodfilePluginCoordinator.swift in Sources */,
+				602D84551CC58B5100EE3076 /* CPSourceRepoCoordinator.swift in Sources */,
 				601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */,
 				60E693B01C4A3AF80058DF5F /* NSAttributedString+Helpers.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
@@ -1009,6 +1029,7 @@
 				604C26CE1C07843C00E16D84 /* CPPodfileConsoleViewController.swift in Sources */,
 				60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */,
 				601F91151BE6435E00AD22B1 /* NSURL+TersePaths.m in Sources */,
+				60107F181CC8CB1B002F772E /* CPSourceReposViewController.swift in Sources */,
 				66F2E29C1C492C5500A1AF1F /* NSColor+CPColors.m in Sources */,
 				934FF1891C4F1E2A000B4302 /* CPDocumentController.swift in Sources */,
 				60E693B31C4A561E0058DF5F /* CPThickDecorationsWindow.swift in Sources */,
@@ -1024,6 +1045,7 @@
 				5BD58BBD1C6D2A7C003787F5 /* CPXcodeProjectCell.swift in Sources */,
 				606C84721C14C4CA00C6D15F /* CPPodfileMetadataViewController.swift in Sources */,
 				60C2CBF21CC238CF009B30CA /* CPHomeMenuTableCellView.m in Sources */,
+				6061C54E1CCB5BF70063C44A /* CPMenuRepoUpdateDirector.swift in Sources */,
 				60E693AC1C49BFDF0058DF5F /* CPHomeWindowDocumentEntry.m in Sources */,
 				FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */,
 				51165E261A17AFF500DCFC94 /* CPAppDelegate.m in Sources */,

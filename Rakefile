@@ -1,4 +1,4 @@
-BUNDLED_ENV_VERSION = 4
+BUNDLED_ENV_VERSION = 5
 # ^ This has to be at line 0
 # This is so that a build on CP.app can be fast,
 # it can make assumptions that removing `BUNDLED_ENV_VERSION = `
@@ -591,6 +591,13 @@ directory installed_cocoapods_plugins_install => installed_pod_bin do
   install_gem "#{plugin}/#{plugin_with_version}.gem"
 end
 
+pod_check = "cocoapods-check"
+pod_check_version = "0.2.1.beta.1"
+installed_cocoapods_check_install = File.join(GEM_HOME, 'gems', "#{pod_check}-#{pod_check_version}")
+directory installed_cocoapods_check_install => installed_pod_bin do
+   install_gem pod_check, pod_check_version
+end
+
 # ------------------------------------------------------------------------------
 # Third-party gems
 # ------------------------------------------------------------------------------
@@ -886,6 +893,7 @@ namespace :bundle do
     installed_ruby,
     installed_pod_bin,
     installed_cocoapods_plugins_install,
+    installed_cocoapods_check_install,
     installed_git,
     installed_git_creds,
     installed_svn,

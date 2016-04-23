@@ -14,3 +14,5 @@
 #import "CPExternalLinksHelper.h"
 #import "CPHomeWindowDocumentEntry.h"
 #import "CPMiniPromise.h"
+#import "CPBorderedButton.h"
+

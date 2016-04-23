@@ -27,6 +27,12 @@
                 <outlet property="toggleSparkleMenuItem" destination="5n9-do-ffe" id="Yk2-jH-8Ca"/>
             </connections>
         </customObject>
+        <customObject id="Qbb-bh-aEt" customClass="CPMenuRepoUpdateDirector" customModule="CocoaPods" customModuleProvider="target">
+            <connections>
+                <outlet property="sourceReposMenu" destination="zz8-7j-BMx" id="rdr-S2-gPA"/>
+                <outlet property="sourceReposMenuItem" destination="zc0-tg-Cx9" id="CcM-qT-fU7"/>
+            </connections>
+        </customObject>
         <customObject id="bzE-zY-Vxb" customClass="CPExternalLinksHelper"/>
         <customObject id="SQz-GE-SRD" customClass="CPMenuVisiblityDirector" customModule="CocoaPods" customModuleProvider="target">
             <connections>
@@ -468,6 +474,22 @@
                                 <connections>
                                     <action selector="toggleUpdateSpecsRepo:" target="-1" id="NBL-g1-bOd"/>
                                 </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Specs Repos" id="zc0-tg-Cx9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Specs Repos" id="zz8-7j-BMx">
+                        <items>
+                            <menuItem title="These" id="sxB-Ry-Mlf">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                            </menuItem>
+                            <menuItem title="Are" id="Keb-Kr-0sf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Runtime'd" id="yUA-uK-o0E">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>
                     </menu>

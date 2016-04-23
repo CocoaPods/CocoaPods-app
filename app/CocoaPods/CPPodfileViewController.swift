@@ -13,7 +13,9 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
+
   var pluginCoordinator: CPPodfilePluginCoordinator!
+  @IBOutlet var sourcesCoordinator: CPSourceRepoCoordinator!
 
   @IBOutlet var tabViewDelegate: CPTabViewDelegate!
 
@@ -43,6 +45,9 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     pluginCoordinator = CPPodfilePluginCoordinator(controller: self)
     pluginCoordinator.comparePluginsWithinUserProject(userProject)
 
+    // Keep track of active source repos
+    sourcesCoordinator.getSourceRepos()
+
     // Makes the tabs highlight correctly
     tabController.hiddenTabDelegate = tabViewDelegate
 
@@ -65,28 +70,28 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBAction func install(obj: AnyObject) {
     userProject.saveDocument(self)
-    let options = InstallOptions(verbose: false, repoUpdate: shouldUpdateSpecsRepo())
+    let options = InstallOptions(verbose: false)
     installAction.performAction(.Install(options: options))
     showConsoleTab(self)
   }
 
   @IBAction func installVerbose(obj: AnyObject) {
     userProject.saveDocument(self)
-    let options = InstallOptions(verbose: true, repoUpdate: shouldUpdateSpecsRepo())
+    let options = InstallOptions(verbose: true)
     installAction.performAction(.Install(options: options))
     showConsoleTab(self)
   }
 
   @IBAction func installUpdate(obj: AnyObject) {
     userProject.saveDocument(self)
-    let options = InstallOptions(verbose: false, repoUpdate: shouldUpdateSpecsRepo())
+    let options = InstallOptions(verbose: false)
     installAction.performAction(.Update(options: options))
     showConsoleTab(self)
   }
 
   @IBAction func installUpdateVerbose(obj: AnyObject) {
     userProject.saveDocument(self)
-    let options = InstallOptions(verbose: true, repoUpdate: shouldUpdateSpecsRepo())
+    let options = InstallOptions(verbose: true)
     installAction.performAction(.Update(options: options))
     showConsoleTab(self)
   }
@@ -95,26 +100,6 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   @IBAction func showInstallOptions(button: NSButton) {
     guard let event = NSApp.currentEvent else { return }
     NSMenu.popUpContextMenu(installMenu, withEvent: event, forView: button)
-  }
-
-  let UpdateSpecsKey = "CPUpdateSpecsRepos"
-  func shouldUpdateSpecsRepo() -> Bool {
-    return NSUserDefaults.standardUserDefaults().boolForKey(UpdateSpecsKey)
-  }
-
-  @IBAction func toggleUpdateSpecsRepo(obj: AnyObject)  {
-    let defaults = NSUserDefaults.standardUserDefaults()
-    let current = defaults.boolForKey(UpdateSpecsKey)
-    defaults.setBool(!current, forKey: UpdateSpecsKey)
-    defaults.synchronize()
-  }
-
-  override func validateMenuItem(menuItem: NSMenuItem) -> Bool {
-    if menuItem.action == #selector(toggleUpdateSpecsRepo) {
-      let state = shouldUpdateSpecsRepo() ? 1 : 0
-      menuItem.state = state
-    }
-    return true
   }
 
   @IBAction func showEditorTab(sender: AnyObject) {
@@ -158,6 +143,40 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     constraint.active = true
     warningDoneButton.enabled = false
   }
+
+  var popover: NSPopover?
+
+  @IBAction func showSourceRepoUpdatePopover(button: NSButton) {
+
+    let podfileSources = userProject.podfileSources
+    let allRepos = sourcesCoordinator.allRepos
+
+    let activeProjects:[CPSourceRepo]
+    let inactiveProjects:[CPSourceRepo]
+
+    // Handle the implicit CP source repo when none are defined
+
+    if podfileSources.isEmpty {
+      activeProjects = allRepos.filter { $0.isCocoaPodsSpecs }
+      inactiveProjects = allRepos.filter { $0.isCocoaPodsSpecs == false }
+    } else {
+      activeProjects = allRepos.filter { podfileSources.contains($0.address) }
+      inactiveProjects = allRepos.filter { podfileSources.contains($0.address) == false }
+    }
+
+    guard let viewController = storyboard?.instantiateControllerWithIdentifier("RepoSources") as? CPSourceReposViewController else { return }
+
+    let popover = NSPopover()
+    popover.contentViewController = viewController
+    popover.behavior = .Transient
+
+    viewController.setActiveSourceRepos(activeProjects, inactiveRepos: inactiveProjects)
+    popover.contentSize = NSSize(width: 400, height: viewController.heightOfData())
+
+    popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MaxY)
+    self.popover = popover
+  }
+
 }
 
 extension NSViewController {
