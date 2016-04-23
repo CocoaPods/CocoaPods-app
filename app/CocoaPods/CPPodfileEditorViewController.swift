@@ -59,8 +59,8 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     editor.colourForInstructions = settings.cpBrightMagenta
     editor.autoCompleteDelegate = self
 
-    editor.currentLineHighlightColour = settings.cpLightYellow
-    editor.highlightsCurrentLine = true
+//    editor.currentLineHighlightColour = settings.cpLightYellow
+//    editor.highlightsCurrentLine = true
 
     editor.tabWidth = 2
     editor.indentWithSpaces = true

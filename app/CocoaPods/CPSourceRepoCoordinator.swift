@@ -43,28 +43,6 @@ class CPSourceRepoCoordinator: NSObject {
     checkTask = CPCLITask(userProject: userProject, command: "check", delegate: self, qualityOfService: .Utility)
     checkTask?.run()
   }
-
-  // Could these move to their own class just for the Podfile VC?
-  var popover: NSPopover?
-
-  func showRepoSourcesPopover(button: NSButton, userProject:CPUserProject, storyboard: NSStoryboard) {
-
-    let activeProjects = allRepos.filter { userProject.podfileSources.contains($0.address) }
-    let inactiveProjects = allRepos.filter { userProject.podfileSources.contains($0.address) == false }
-
-    guard let viewController = storyboard.instantiateControllerWithIdentifier("RepoSources") as? CPSourceReposViewController else { return }
-
-
-    let popover = NSPopover()
-    popover.contentViewController = viewController
-    popover.behavior = .Transient
-
-    viewController.setActiveSourceRepos(activeProjects, inactiveRepos: inactiveProjects)
-    popover.contentSize = NSSize(width: 400, height: viewController.heightOfData())
-
-    popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MaxY)
-    self.popover = popover
-  }
 }
 
 extension CPSourceRepoCoordinator: CPCLITaskDelegate {

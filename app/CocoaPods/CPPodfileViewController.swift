@@ -144,9 +144,39 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     warningDoneButton.enabled = false
   }
 
-  @IBAction func showSourceRepoUpdatePopover(obj: NSButton) {
-    sourcesCoordinator.showRepoSourcesPopover(obj, userProject:userProject, storyboard: storyboard!)
+  var popover: NSPopover?
+
+  @IBAction func showSourceRepoUpdatePopover(button: NSButton) {
+
+    let podfileSources = userProject.podfileSources
+    let allRepos = sourcesCoordinator.allRepos
+
+    let activeProjects:[CPSourceRepo]
+    let inactiveProjects:[CPSourceRepo]
+
+    // Handle the implicit CP source repo when none are defined
+
+    if podfileSources.isEmpty {
+      activeProjects = allRepos.filter { $0.isCocoaPodsSpecs }
+      inactiveProjects = allRepos.filter { $0.isCocoaPodsSpecs == false }
+    } else {
+      activeProjects = allRepos.filter { podfileSources.contains($0.address) }
+      inactiveProjects = allRepos.filter { podfileSources.contains($0.address) == false }
+    }
+
+    guard let viewController = storyboard?.instantiateControllerWithIdentifier("RepoSources") as? CPSourceReposViewController else { return }
+
+    let popover = NSPopover()
+    popover.contentViewController = viewController
+    popover.behavior = .Transient
+
+    viewController.setActiveSourceRepos(activeProjects, inactiveRepos: inactiveProjects)
+    popover.contentSize = NSSize(width: 400, height: viewController.heightOfData())
+
+    popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MaxY)
+    self.popover = popover
   }
+
 }
 
 extension NSViewController {
