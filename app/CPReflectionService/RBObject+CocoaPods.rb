@@ -77,7 +77,7 @@ module Pod
       sources_manager.all.map { |source|
         { source.name => source.url }
 
-      }.reduce Hash.new, :merge
+      }.reduce &:merge
     end
 
     def self.lockfile_version(path)

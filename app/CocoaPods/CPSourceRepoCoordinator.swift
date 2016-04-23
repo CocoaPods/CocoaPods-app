@@ -21,13 +21,22 @@ class CPSourceRepoCoordinator: NSObject {
     }
 
     reflector.allCocoaPodsSources { sources, error in
-      self.allRepos =  sources.map { CPSourceRepo(name: $0.0, address: $0.1) }
+      let unordered_sources =  sources.map { CPSourceRepo(name: $0.0, address: $0.1) }
+      self.allRepos = unordered_sources.sort(self.cocoaPodsSpecSort)
+
       self.hasAllCocoaPodsRepoSources = true
 
       if let callback = callback {
         callback(self.allRepos)
       }
     }
+  }
+
+  // Moves the CP specs repo to the top, and then does alphabetical after that
+  func cocoaPodsSpecSort(lhs: CPSourceRepo, rhs: CPSourceRepo) -> Bool {
+    if lhs.isCocoaPodsSpecs { return true }
+    if rhs.isCocoaPodsSpecs { return false }
+    return lhs.name.localizedCaseInsensitiveCompare(rhs.name) == NSComparisonResult.OrderedAscending
   }
 
   func checkWhetherProjectNeedsChanges(userProject: CPUserProject) {
@@ -73,14 +82,20 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
     self.name = name
   }
 
+  var isCocoaPodsSpecs: Bool {
+    return name == "master"
+  }
+
   var displayName: String {
-    return name == "master" ? "CocoaPods Public Specs" : name.capitalizedString
+    return isCocoaPodsSpecs ? "CocoaPods Public Specs" : name.capitalizedString
   }
 
   var displayAddress: String {
     return address
       .stringByReplacingOccurrencesOfString("https://", withString: "")
       .stringByReplacingOccurrencesOfString("www.", withString: "")
+      .stringByReplacingOccurrencesOfString("git.", withString: "")
+      .stringByReplacingOccurrencesOfString("@git", withString: "")
   }
 
   dynamic var isUpdatingRepo: Bool = false

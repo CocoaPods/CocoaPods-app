@@ -7,12 +7,10 @@ enum InstallActionType {
 
 struct InstallOptions {
   let verbose: Bool
-  let repoUpdate: Bool
 
   var commandOptions : String {
     var string = ""
     if verbose { string += "--verbose " }
-    if repoUpdate { string += "--repo-update " }
     return string
   }
 }

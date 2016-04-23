@@ -267,13 +267,6 @@
                                 <action selector="installUpdateVerbose:" target="5gI-5U-AMq" id="dCA-77-Jc3"/>
                             </connections>
                         </menuItem>
-                        <menuItem isSeparatorItem="YES" id="MfJ-p0-dcA"/>
-                        <menuItem title="Auto-Update Specs Repos" id="7VJ-3T-Bex">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="toggleUpdateSpecsRepo:" target="5gI-5U-AMq" id="shm-m1-s3m"/>
-                            </connections>
-                        </menuItem>
                     </items>
                 </menu>
                 <userDefaultsController representsSharedInstance="YES" id="LcC-8e-1XM"/>
@@ -391,7 +384,7 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
                                     <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -597,7 +590,7 @@ Gw
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="V71-OH-qaz">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="V71-OH-qaz">
                                     <rect key="frame" x="1" y="391" width="398" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
