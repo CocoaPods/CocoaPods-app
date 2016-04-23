@@ -2,11 +2,7 @@ import Cocoa
 
 class CPSourceRepoCoordinator: NSObject {
 
-  private var repoSources = [String: String]()
-
-  var allRepos: [CPSourceRepo] {
-    return repoSources.map { CPSourceRepo(name: $0.0, address: $0.1) }
-  }
+  var allRepos = [CPSourceRepo]()
 
   // When these two are true then the binding for enabled on the
   // popover button changes to true
@@ -25,7 +21,7 @@ class CPSourceRepoCoordinator: NSObject {
     }
 
     reflector.allCocoaPodsSources { sources, error in
-      self.repoSources = sources
+      self.allRepos =  sources.map { CPSourceRepo(name: $0.0, address: $0.1) }
       self.hasAllCocoaPodsRepoSources = true
 
       if let callback = callback {
@@ -40,7 +36,6 @@ class CPSourceRepoCoordinator: NSObject {
   }
 
   // Could these move to their own class just for the Podfile VC?
-
   var popover: NSPopover?
 
   func showRepoSourcesPopover(button: NSButton, userProject:CPUserProject, storyboard: NSStoryboard) {
@@ -94,11 +89,12 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
   @IBAction func updateRepo(button: NSButton?) {
     self.isUpdatingRepo = true
 
-    updateRepoTask = CPCLITask(workingDirectory: "", command: "repo update \(name)", delegate: self, qualityOfService: .Utility)
+    updateRepoTask = CPCLITask(workingDirectory: NSTemporaryDirectory(), command: "repo update \(name)", delegate: self, qualityOfService: .UserInteractive)
     updateRepoTask?.run()
   }
 
   func taskCompleted(task: CPCLITask!) {
     isUpdatingRepo = false
+    print("DONE")
   }
 }

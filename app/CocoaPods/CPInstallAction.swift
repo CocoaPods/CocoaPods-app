@@ -65,6 +65,7 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
     if let path = userProject.fileURL?.relativePath {
       notification.subtitle = (path as NSString).stringByAbbreviatingWithTildeInPath
     }
+    NSNotificationCenter.defaultCenter().postNotificationName("CPInstallCompleted", object: nil)
     NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
   }
 }

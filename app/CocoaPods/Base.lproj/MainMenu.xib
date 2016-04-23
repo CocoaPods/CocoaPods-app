@@ -30,6 +30,7 @@
         <customObject id="Qbb-bh-aEt" customClass="CPMenuRepoUpdateDirector" customModule="CocoaPods" customModuleProvider="target">
             <connections>
                 <outlet property="sourceReposMenu" destination="zz8-7j-BMx" id="rdr-S2-gPA"/>
+                <outlet property="sourceReposMenuItem" destination="zc0-tg-Cx9" id="CcM-qT-fU7"/>
             </connections>
         </customObject>
         <customObject id="bzE-zY-Vxb" customClass="CPExternalLinksHelper"/>
