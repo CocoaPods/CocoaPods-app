@@ -94,6 +94,7 @@ end
 def update_plist_versions(info_plist)
   execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleShortVersionString #{install_cocoapods_version}", info_plist]
   execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :CFBundleVersion #{cocoapods_app_build_version}", info_plist]
+  execute 'App', ['/usr/libexec/PlistBuddy', '-c', "Set :NSHumanReadableCopyright Copyright © #{Time.new.year} CocoaPods. All rights reserved.", info_plist]
 end
 
 # ------------------------------------------------------------------------------
