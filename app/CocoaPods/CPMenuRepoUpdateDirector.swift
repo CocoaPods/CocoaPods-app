@@ -61,7 +61,7 @@ class CPSourceMenuView: NSView {
   // 
   var titleLabel: NSTextField!
   var subtitleLabel: NSTextField!
-  var updateButton: NSButton!
+  var updateButton: CPBorderedButton!
   var progress: NSProgressIndicator!
 
   var containsMouse = false {
@@ -126,8 +126,8 @@ class CPSourceMenuView: NSView {
     return label
   }
 
-  func whiteBorderedButton(title: String, frame: CGRect) -> NSButton {
-    let button = NSButton(frame: frame)
+  func whiteBorderedButton(title: String, frame: CGRect) -> CPBorderedButton {
+    let button = CPBorderedButton(frame: frame)
     let updateCell = CPBorderedButtonCell(textCell: title)
     updateCell.imageDimsWhenDisabled = false
     updateCell.imageScaling = .ScaleAxesIndependently
@@ -146,12 +146,20 @@ class CPSourceMenuView: NSView {
     guard let source = source else { return }
 
     if containsMouse {
-      titleLabel.textColor = .selectedMenuItemTextColor();
+      let textColor = NSColor.selectedMenuItemTextColor();
+      titleLabel.textColor = textColor
+      subtitleLabel.textColor = textColor
+      // TODO: Make this work on not-black!
+      updateButton.titleColor = .greenColor()
+      updateButton.title = "Update"
+
       drawSelectionBackground(dirtyRect)
       updateButton.hidden = source.isUpdatingRepo
 
     } else {
-      titleLabel.textColor = menuIsDarkMode ? .whiteColor() : .textColor()
+      let textColor = menuIsDarkMode ? NSColor.whiteColor() : NSColor.textColor()
+      titleLabel.textColor = textColor
+      subtitleLabel.textColor = textColor
       updateButton.hidden = true
       super.drawRect(dirtyRect)
     }

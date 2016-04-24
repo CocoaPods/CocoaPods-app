@@ -1,6 +1,10 @@
 #import "CPBorderedButton.h"
 #import "NSAttributedString+Helpers.h"
 
+@interface CPBorderedButtonCell()
+@property (strong) NSColor *textColor;
+@end
+
 @implementation CPBorderedButton
 
 -(void)awakeFromNib
@@ -12,10 +16,20 @@
   [self setTitle:self.title];
 }
 
-@end
+- (void)setTitle:(NSString *)title
+{
+  NSColor *color = self.titleColor ?: [NSColor colorWithCalibratedWhite:1 alpha:1];
+  self.attributedTitle = [NSAttributedString string:title
+                                              color:color
+                                               font:self.font ?: [NSFont labelFontOfSize:12]
+                                          alignment:NSTextAlignmentCenter];
 
-@interface CPBorderedButtonCell()
-@property (strong) NSColor *textColor;
+}
+
+- (BOOL)allowsVibrancy
+{
+  return NO;
+}
 
 @end
 
@@ -44,8 +58,9 @@
 
 - (void)setTitle:(NSString *)title
 {
+  NSColor *color = self.textColor ?: [NSColor colorWithCalibratedWhite:1 alpha:1];
   self.attributedTitle = [NSAttributedString string:title
-                                              color:self.textColor ?: [NSColor colorWithCalibratedWhite:1 alpha:1]
+                                              color:color
                                                font:self.font ?: [NSFont labelFontOfSize:12]
                                           alignment:NSTextAlignmentCenter];
 }
