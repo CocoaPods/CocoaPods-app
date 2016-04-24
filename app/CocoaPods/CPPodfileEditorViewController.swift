@@ -11,6 +11,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   var syntaxChecker: CPPodfileReflection!
   let commentSyntax = "# "
   let indentationSyntax = "  "
+
   var autoCompletions: [String] = {
     if let path = NSBundle.mainBundle().pathForResource("Podfile", ofType: "plist"),
       dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject],
@@ -20,13 +21,16 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     return []
   }()
 
+  var allPodNames = [String]()
+
   override func viewDidLoad() {
     super.viewDidLoad()
+
     let appDelegate = NSApp.delegate as? CPAppDelegate
     appDelegate?.reflectionService.remoteObjectProxy.allPods { (pods, error) in
-      if let pods = pods {
-        self.autoCompletions.appendContentsOf(pods)
-      }
+
+      guard let pods = pods else { return }
+      self.allPodNames.appendContentsOf(pods)
     }
   }
 
@@ -126,12 +130,26 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     }
   }
 
+  var cursorIsInsidePodQuote: Bool {
+    guard let line = selectedLines(editor.textView).first else { return false }
+
+    let startingSelection = editor.textView.selectedRange()
+    let range = selectedLinesRange(editor.textView)
+    let cursorPosition = startingSelection.location - range.location
+    let stringBefore = (line as NSString).substringToIndex(cursorPosition)
+
+    if stringBefore.containsString("pod") == false { return false }
+    return stringBefore.componentsSeparatedByString("'").count == 2 ||
+           stringBefore.componentsSeparatedByString("\"").count == 2
+  }
+
   func completions() -> [AnyObject]! {
-      return autoCompletions
+    return cursorIsInsidePodQuote ? allPodNames : autoCompletions
   }
 
   func textDidChange(notification: NSNotification) {
-    guard let textView = notification.object as? NSTextView,
+    guard
+      let textView = notification.object as? NSTextView,
       let podfileVC = podfileViewController else { return }
 
     podfileVC.userProject.contents = textView.string ?? ""
