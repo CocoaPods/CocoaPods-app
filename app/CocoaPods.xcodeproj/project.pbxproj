@@ -101,6 +101,7 @@
 		E72E9FDC1C6E38B400A8705B /* CocoaPodsTests-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */; };
 		E72E9FDE1C6E459800A8705B /* CPTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */; };
 		E72E9FDF1C6E4DC900A8705B /* CPTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */; };
+		E7ACFDBE1CCAA26C00475976 /* CPDeintegrateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACFDBD1CCAA26C00475976 /* CPDeintegrateController.swift */; };
 		FA16FAD21C144BF300DC3791 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16FAD11C144BF300DC3791 /* URLHandler.swift */; };
 		FCDCC48F0E8CE099C20D1DEB /* Pods_CocoaPodsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FB6E124C8280A7EBFD41C6 /* Pods_CocoaPodsTests.framework */; };
 /* End PBXBuildFile section */
@@ -297,6 +298,7 @@
 		E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPStringArrayToSentenceValueTransformerSpec.swift; sourceTree = "<group>"; };
 		E72E9FDB1C6E379200A8705B /* CocoaPodsTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CocoaPodsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		E72E9FDD1C6E459800A8705B /* CPTestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPTestHelper.swift; sourceTree = "<group>"; };
+		E7ACFDBD1CCAA26C00475976 /* CPDeintegrateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPDeintegrateController.swift; sourceTree = "<group>"; };
 		EBD9373107B77CCDFCD43B67 /* Pods-CocoaPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods.release.xcconfig"; sourceTree = "<group>"; };
 		EEB7DFACCFDF9B3B443AF311 /* Pods_CocoaPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA16FAD11C144BF300DC3791 /* URLHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 				934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */,
 				657841C81C6BE0EC00B6671E /* CPPodfileInitController.swift */,
 				60C2CBF31CC25D5A009B30CA /* CPSparkleDelegate.swift */,
+				E7ACFDBD1CCAA26C00475976 /* CPDeintegrateController.swift */,
 			);
 			name = "Home Window";
 			sourceTree = "<group>";
@@ -1009,6 +1012,7 @@
 				60227EC21C351A6300A29515 /* CPPodfilePluginCoordinator.swift in Sources */,
 				602D84551CC58B5100EE3076 /* CPSourceRepoCoordinator.swift in Sources */,
 				601ACAA61C392BDD0058FA86 /* NSArray+Helpers.m in Sources */,
+				E7ACFDBE1CCAA26C00475976 /* CPDeintegrateController.swift in Sources */,
 				60E693B01C4A3AF80058DF5F /* NSAttributedString+Helpers.m in Sources */,
 				6035BFF01C07C916003250A8 /* CPHiddenTabViewController.swift in Sources */,
 				60227EC41C351A7700A29515 /* CPInstallPluginsViewController.swift in Sources */,

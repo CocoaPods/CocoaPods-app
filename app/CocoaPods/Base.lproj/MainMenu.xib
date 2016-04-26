@@ -140,6 +140,13 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="wV5-hB-goc"/>
+                            <menuItem title="Remove CocoaPods from a Project…" id="fXB-fZ-GrP">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="removeCocoaPodsFromProject:" target="Qtz-kf-riq" id="Bd7-DP-sNv"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
