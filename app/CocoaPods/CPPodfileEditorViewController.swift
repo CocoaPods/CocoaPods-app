@@ -45,6 +45,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     }
     
     project.delegate = self
+    editor.becomeFirstResponder()
 
     editor.syntaxColoured = true
     editor.syntaxDefinitionName = "Podfile"

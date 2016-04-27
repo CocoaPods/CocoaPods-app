@@ -54,6 +54,7 @@ extension CPSourceRepoCoordinator: CPCLITaskDelegate {
 class CPSourceRepo: NSObject, CPCLITaskDelegate {
   let name: String
   let address: String
+  var recentlyUpdated = false
 
   init(name: String, address: String) {
     self.address = address
@@ -88,5 +89,6 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
 
   func taskCompleted(task: CPCLITask!) {
     isUpdatingRepo = false
+    recentlyUpdated = true
   }
 }
