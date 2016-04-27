@@ -115,7 +115,7 @@ class CPSourceMenuView: NSView {
     let progressRect = CGRect(x: 400-20-40, y: 20, width: 20, height: 20)
     progress = NSProgressIndicator(frame: progressRect)
     progress.style = .SpinningStyle
-    progress.displayedWhenStopped = false
+    progress.startAnimation(self)
     addSubview(progress)
   }
 
@@ -137,6 +137,7 @@ class CPSourceMenuView: NSView {
 
     updateButtonBG.hidden = !containsMouse || source.isUpdatingRepo
     completedLabel.hidden = !containsMouse || source.isUpdatingRepo
+    progress.hidden = !1source.isUpdatingRepo
 
     if containsMouse {
       let textColor = NSColor.selectedMenuItemTextColor();
@@ -192,7 +193,6 @@ class CPSourceMenuView: NSView {
   override func mouseEntered(theEvent: NSEvent) {
     super.mouseEntered(theEvent)
     containsMouse = true
-
   }
 
   override func mouseExited(theEvent: NSEvent) {

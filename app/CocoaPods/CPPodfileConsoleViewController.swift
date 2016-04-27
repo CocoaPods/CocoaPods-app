@@ -25,12 +25,12 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
       if let podfileErrorState = CPPodfileErrorState(fromProject: project) {
         switch podfileErrorState {
         case .EmptyFile:
-          updateHintButton(imageNamed: "emptyPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_EMPTY_PODFILE", comment: ""))
+          updateHintButton(imageNamed: "emptyPodfile", title: ~"PODFILE_WINDOW_CONSOLE_HINT_EMPTY_PODFILE")
         case .SyntaxError:
-          updateHintButton(imageNamed: "errorPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_ERROR_PODFILE", comment: ""))
+          updateHintButton(imageNamed: "errorPodfile", title: ~"PODFILE_WINDOW_CONSOLE_HINT_ERROR_PODFILE")
         }
       } else {
-        updateHintButton(imageNamed: "compiledPodfile", title: NSLocalizedString("PODFILE_WINDOW_CONSOLE_HINT_READY_PODFILE", comment: ""))
+        updateHintButton(imageNamed: "compiledPodfile", title: ~"PODFILE_WINDOW_CONSOLE_HINT_READY_PODFILE")
       }
     } else {
       hintButton.hidden = true
@@ -54,8 +54,9 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
     if let podfileErrorState = CPPodfileErrorState(fromProject: project) {
       switch podfileErrorState {
       case .EmptyFile:
-          let externalLinksHelper = CPExternalLinksHelper()
-          externalLinksHelper.openSearch(sender)
+        let externalLinksHelper = CPExternalLinksHelper()
+        externalLinksHelper.openSearch(sender)
+        
       case .SyntaxError:
         podfileVC.showEditorTab(sender)
       }

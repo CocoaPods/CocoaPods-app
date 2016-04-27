@@ -120,8 +120,8 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   }
 
   func showWarningForNewerLockfile() {
-    let title = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE", comment: "")
-    let message = NSLocalizedString("PODFILE_WINDOW_NEWER_LOCKFILE_ERROR", comment: "")
+    let title = ~"PODFILE_WINDOW_NEWER_LOCKFILE_ERROR_BUTTON_TITTLE"
+    let message = ~"PODFILE_WINDOW_NEWER_LOCKFILE_ERROR"
     podfileViewController?.showWarningLabelWithSender(message, actionTitle: title, target: self, action: #selector(checkForUpdatesButtonPressed), animated: true)
   }
 

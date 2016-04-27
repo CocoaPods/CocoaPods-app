@@ -50,9 +50,9 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
   func taskCompleted(task: CPCLITask!) {
     if (notify) {
       if task.finishedSuccessfully() {
-        notifyWithTitle(NSLocalizedString("WORKSPACE_GENERATED_NOTIFICATION_TITLE", comment: ""))
+        notifyWithTitle(~"WORKSPACE_GENERATED_NOTIFICATION_TITLE")
       } else {
-        notifyWithTitle(NSLocalizedString("WORKSPACE_FAILED_GENERATION_NOTIFICATION_TITLE", comment: ""))
+        notifyWithTitle(~"WORKSPACE_FAILED_GENERATION_NOTIFICATION_TITLE")
       }
     }
   }

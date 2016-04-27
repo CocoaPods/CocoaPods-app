@@ -95,7 +95,7 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
   func showPopoverForOpenPodfile() {
 
     // Setup the title for the button
-    let title = NSLocalizedString("MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE", comment:"")
+    let title = ~"MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE"
     let buttonTitle = NSAttributedString.init(title, color: .ansiMutedWhite(), font: .labelFontOfSize(13), alignment: .Center)
     let altButtonTitle = NSAttributedString.init(title, color: .ansiBrightWhite(), font: .labelFontOfSize(13), alignment: .Center)
 

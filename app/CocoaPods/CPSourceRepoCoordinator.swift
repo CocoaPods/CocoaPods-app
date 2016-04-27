@@ -54,7 +54,6 @@ extension CPSourceRepoCoordinator: CPCLITaskDelegate {
 class CPSourceRepo: NSObject, CPCLITaskDelegate {
   let name: String
   let address: String
-  var recentlyUpdated = false
 
   init(name: String, address: String) {
     self.address = address
@@ -87,8 +86,23 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
     updateRepoTask?.run()
   }
 
+  var recentlyUpdated = false
   func taskCompleted(task: CPCLITask!) {
     isUpdatingRepo = false
     recentlyUpdated = true
+    
+    if task.finishedSuccessfully() {
+      notifyWithTitle(~"REPO_UPDATE_NOTIFICATION_TITLE")
+    } else {
+      notifyWithTitle(~"REPO_UPDATE_FAILED_NOTIFICATION_TITLE")
+    }
+  }
+
+  private func notifyWithTitle(title: String) {
+    let notification = NSUserNotification()
+    notification.title = title
+    notification.subtitle = displayName
+    NSNotificationCenter.defaultCenter().postNotificationName("CPRepoUpdatedCompleted", object: nil)
+    NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
   }
 }
