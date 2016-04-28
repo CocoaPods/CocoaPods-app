@@ -1,5 +1,9 @@
 ## master
 
+* Polish for Source Menus & Pod Autocomplete improvements  
+  [orta](https://github.com/orta)  
+  [#298](https://github.com/CocoaPods/CocoaPods-app/pull/298)
+
 * Deintegrate CocoaPods from a project  
   [Nate West](https://github.com/nwest)  
   [#296](https://github.com/CocoaPods/CocoaPods-app/pull/296)
