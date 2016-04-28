@@ -137,7 +137,7 @@ class CPSourceMenuView: NSView {
 
     updateButtonBG.hidden = !containsMouse || source.isUpdatingRepo
     completedLabel.hidden = !containsMouse || source.isUpdatingRepo
-    progress.hidden = !1source.isUpdatingRepo
+    progress.hidden = !source.isUpdatingRepo
 
     if containsMouse {
       let textColor = NSColor.selectedMenuItemTextColor();
