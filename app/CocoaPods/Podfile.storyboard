@@ -190,7 +190,7 @@
                                     <binding destination="5gI-5U-AMq" name="animate" keyPath="self.installAction.task.running" id="dpf-8Q-6Y9"/>
                                 </connections>
                             </progressIndicator>
-                            <button toolTip="Show Pod" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXI-XY-Q0L">
+                            <button toolTip="Show Pod Spec Repos to Update" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXI-XY-Q0L">
                                 <rect key="frame" x="484" y="629" width="18" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="18" id="BOP-Jd-JHJ"/>
@@ -202,6 +202,7 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="showSourceRepoUpdatePopover:" target="5gI-5U-AMq" id="1kJ-RN-3N5"/>
+                                    <binding destination="UF4-FQ-6Bx" name="image" keyPath="self.imageForShowReposPopover" id="Xrt-8U-BXK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -390,8 +391,8 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
-                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
+                                    <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KRR-5W-Zmf">
@@ -522,7 +523,7 @@ Gw
                                                                         <binding destination="w9H-6A-7Ju" name="value" keyPath="objectValue.displayName" id="cAM-4D-WHc"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="aHn-oc-RUy" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
+                                                                <customView wantsLayer="YES" alphaValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-oc-RUy" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                                                                     <rect key="frame" x="20" y="1" width="355" height="1"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="fow-eY-NDY"/>
@@ -596,7 +597,7 @@ Gw
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="V71-OH-qaz">
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="V71-OH-qaz">
                                     <rect key="frame" x="1" y="391" width="398" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>

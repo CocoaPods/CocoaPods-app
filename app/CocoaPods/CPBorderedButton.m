@@ -36,8 +36,8 @@
 - (void)highlight:(BOOL)flag withFrame:(NSRect)cellFrame inView:(NSView*)controlView
 {
   [super highlight:flag withFrame:cellFrame inView:controlView];
-  self.textColor = flag ? [NSColor colorWithCalibratedRed:0.227 green:0.463 blue:0.733 alpha:1]
-  : [NSColor colorWithCalibratedWhite:1 alpha:1];
+  self.textColor = flag ? [NSColor colorWithCalibratedRed:0.227 green:0.463 blue:0.733 alpha:1] : [NSColor colorWithCalibratedWhite:1 alpha:1];
+  
   // Re-renders the text via the function below
   self.title = self.title;
 }
