@@ -1,5 +1,9 @@
 ## master
 
+* Fixes to Sparkle updates, by returning to CocoaPods' version numbers    
+  [orta](https://github.com/orta)  
+  [#300](https://github.com/CocoaPods/CocoaPods-app/pull/300)
+
 * Polish for Source Menus & Pod Autocomplete improvements  
   [orta](https://github.com/orta)  
   [#298](https://github.com/CocoaPods/CocoaPods-app/pull/298)
