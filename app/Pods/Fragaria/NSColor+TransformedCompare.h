@@ -4,7 +4,7 @@
 //
 //  Created by Jim Derry on 3/23/15.
 //
-//
+/// @cond PRIVATE
 
 #import <Foundation/Foundation.h>
 

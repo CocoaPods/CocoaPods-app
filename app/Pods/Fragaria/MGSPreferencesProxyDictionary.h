@@ -1,10 +1,10 @@
 //
-//  MGSMutableDictionary.h
+//  MGSPreferencesProxyDictionary.h
 //  Fragaria
 //
 //  Created by Jim Derry on 3/14/15.
 //
-//
+/// @cond PRIVATE
 
 #import <Foundation/Foundation.h>
 
@@ -15,7 +15,7 @@
  *  An NSMutableDictionary subclass implemented by MGSUserDefaultsController so
  *  that it can persist keys in the user defaults system, if desired.
  */
-@interface MGSMutableDictionary : NSMutableDictionary
+@interface MGSPreferencesProxyDictionary : NSMutableDictionary
 
 /**
  *  A convenience initializer to assign the controller and dictionary contents.

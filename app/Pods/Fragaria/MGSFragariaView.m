@@ -17,6 +17,8 @@
 #import "MGSExtraInterfaceController.h"
 #import "MGSLineNumberView.h"
 #import "MGSSyntaxController.h"
+#import "NSTextStorage+Fragaria.h"
+#import "NSString+Fragaria.h"
 
 #import "MGSSyntaxErrorController.h"
 #import "SMLSyntaxError.h"
@@ -142,6 +144,33 @@
     [self.gutterView layoutManagerDidChangeTextStorage];
     [self.syntaxErrorController layoutManagerDidChangeTextStorage];
     [self.textView.syntaxColouring layoutManagerDidChangeTextStorage];
+}
+
+
+#pragma mark - Getting Line and Column Information
+
+
+- (void)getRow:(NSUInteger *)r column:(NSUInteger *)c forCharacterIndex:(NSUInteger)i
+{
+    [self.textView getRow:r column:c forCharacterIndex:i];
+}
+
+
+- (void)getRow:(NSUInteger *)r indexInRow:(NSUInteger *)c forCharacterIndex:(NSUInteger)i
+{
+    [self.textView getRow:r indexInRow:c forCharacterIndex:i];
+}
+
+
+- (NSUInteger)characterIndexAtColumn:(NSUInteger)c withinRow:(NSUInteger)r
+{
+    return [self.textView characterIndexAtColumn:c withinRow:r];
+}
+
+
+- (NSUInteger)characterIndexAtIndex:(NSUInteger)c withinRow:(NSUInteger)r
+{
+    return [self.textView characterIndexAtIndex:c withinRow:r];
 }
 
 
@@ -408,6 +437,20 @@
     return self.gutterView.textColor;
 }
 
+/*
+ * @property gutterBackgroundColour
+ */
+- (void)setGutterBackgroundColour:(NSColor *)gutterBackgroundColour
+{
+    self.gutterView.backgroundColor = gutterBackgroundColour;
+    [self mgs_propagateValue:gutterBackgroundColour forBinding:NSStringFromSelector(@selector(gutterBackgroundColour))];
+}
+
+- (NSColor *)gutterBackgroundColour
+{
+    return self.gutterView.backgroundColor;
+}
+
 
 #pragma mark - Showing Syntax Errors
 
@@ -485,6 +528,12 @@
 - (id<MGSBreakpointDelegate>)breakpointDelegate
 {
 	return self.gutterView.breakpointDelegate;
+}
+
+
+- (void)reloadBreakpointData
+{
+    [self.gutterView reloadBreakpointData];
 }
 
 

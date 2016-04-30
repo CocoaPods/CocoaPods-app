@@ -4,7 +4,7 @@
 //
 //  Created by Jim Derry on 2/15/15.
 //
-//
+/// @cond PRIVATE
 
 #import <Cocoa/Cocoa.h>
 

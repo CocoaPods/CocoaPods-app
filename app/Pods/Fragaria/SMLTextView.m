@@ -29,6 +29,7 @@
 #import "SMLSyntaxColouring.h"
 #import "MGSExtraInterfaceController.h"
 #import "NSString+Fragaria.h"
+#import "NSTextStorage+Fragaria.h"
 
 
 static BOOL CharacterIsBrace(unichar c)
@@ -289,7 +290,10 @@ static unichar ClosingBraceForOpeningBrace(unichar c)
 
 - (NSColor *)textColor
 {
-    return [[self typingAttributes] objectForKey:NSForegroundColorAttributeName];
+    NSColor *res;
+    
+    res = [[self typingAttributes] objectForKey:NSForegroundColorAttributeName];
+    return res ? res : [NSColor blackColor];
 }
 
 
@@ -371,6 +375,81 @@ static unichar ClosingBraceForOpeningBrace(unichar c)
 	
 	// get content with layout manager temporary attributes persisted
 	return [self.layoutManager attributedStringWithTemporaryAttributesApplied];
+}
+
+
+#pragma mark - Getting Line and Column Information
+
+
+- (void)getRow:(NSUInteger * __nullable)r column:(NSUInteger * __nullable)c forCharacterIndex:(NSUInteger)i
+{
+    NSTextStorage *ts = self.textStorage;
+    NSString *temp;
+    NSRange lr;
+    NSUInteger j;
+    
+    if (r)
+        *r = [ts mgs_rowOfCharacter:i];
+    if (c) {
+        lr = [ts.string mgs_lineRangeForCharacterIndex:i];
+        if (lr.location != NSNotFound) {
+            temp = [ts.string substringWithRange:lr];
+            j = i - lr.location;
+            *c = [temp mgs_columnOfCharacter:j tabWidth:self.tabWidth];
+        } else
+            *c = NSNotFound;
+    }
+}
+
+
+- (void)getRow:(NSUInteger * __nullable)r indexInRow:(NSUInteger * __nullable)c forCharacterIndex:(NSUInteger)i
+{
+    NSTextStorage *ts = self.textStorage;
+    NSUInteger fc;
+    NSRange lr;
+    
+    if (r) {
+        *r = [ts mgs_rowOfCharacter:i];
+        if (c) {
+            if (*r != NSNotFound) {
+                fc = [ts mgs_firstCharacterInRow:*r];
+                *c = i - fc;
+            } else
+                *c = NSNotFound;
+        }
+    } else if (c) {
+        lr = [ts.string mgs_lineRangeForCharacterIndex:i];
+        if (lr.location != NSNotFound)
+            *c = i - lr.location;
+        else
+            *c = NSNotFound;
+    }
+}
+
+
+- (NSUInteger)characterIndexAtColumn:(NSUInteger)c withinRow:(NSUInteger)r
+{
+    NSUInteger fcr, ci;
+    NSRange lr;
+    NSString *tmp, *s;
+    
+    fcr = [self.textStorage mgs_firstCharacterInRow:r];
+    if (fcr == NSNotFound)
+        return NSNotFound;
+    
+    s = self.string;
+    lr = [s lineRangeForRange:NSMakeRange(fcr, 0)];
+    tmp = [s substringWithRange:lr];
+    ci = [tmp mgs_characterInColumn:c tabWidth:self.tabWidth];
+    if (ci == NSNotFound)
+        return NSNotFound;
+    return fcr + ci;
+}
+
+
+- (NSUInteger)characterIndexAtIndex:(NSUInteger)c withinRow:(NSUInteger)r
+{
+    return [self.textStorage mgs_characterAtIndex:c withinRow:r];
 }
 
 

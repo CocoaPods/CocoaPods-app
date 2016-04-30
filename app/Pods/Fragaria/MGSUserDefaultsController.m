@@ -6,7 +6,7 @@
 //
 //
 
-#import "MGSMutableDictionary.h"
+#import "MGSPreferencesProxyDictionary.h"
 #import "MGSUserDefaultsController.h"
 #import "MGSFragariaView+Definitions.h"
 #import "MGSUserDefaults.h"
@@ -265,7 +265,7 @@ static NSCountedSet *allNonGlobalProperties;
     [[MGSUserDefaults sharedUserDefaultsForGroupID:groupID] registerDefaults:defaults];
     defaults = [[NSUserDefaults standardUserDefaults] valueForKey:groupID];
     
-    self.values = [[MGSMutableDictionary alloc] initWithController:self
+    self.values = [[MGSPreferencesProxyDictionary alloc] initWithController:self
       dictionary:[self unarchiveFromDefaultsDictionary:defaults]];
 	
 	return self;

@@ -4,7 +4,7 @@
 //
 //  Created by Daniele Cattaneo on 03/02/15.
 //
-//
+/// @cond PRIVATE
 
 #import <Foundation/Foundation.h>
 #import "SMLAutoCompleteDelegate.h"

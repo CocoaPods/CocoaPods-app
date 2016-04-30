@@ -14,6 +14,7 @@
 #import "MGSExtraInterfaceController.h"
 #import "MGSMutableSubstring.h"
 #import "NSString+Fragaria.h"
+#import "NSTextStorage+Fragaria.h"
 
 
 @implementation SMLTextView (MGSTextActions)
@@ -91,13 +92,17 @@
     NSMutableString *string = [[self textStorage] mutableString];
     
     indexset = [NSMutableIndexSet indexSet];
+    newsel = [NSMutableArray array];
+    
     sel = [self selectedRanges];
     for (rangeval in sel) {
         range = [string lineRangeForRange:[rangeval rangeValue]];
-        [indexset addIndexesInRange:range];
+        if (range.length)
+            [indexset addIndexesInRange:range];
+        else /* Last line */
+            [newsel addObject:[NSValue valueWithRange:range]];
     }
     
-    newsel = [NSMutableArray array];
     [indexset enumerateRangesUsingBlock:^(NSRange range, BOOL *stop) {
         [newsel addObject:[NSValue valueWithRange:range]];
     }];
@@ -370,27 +375,26 @@
  */
 - (void)performGoToLine:(NSInteger)lineToGoTo setSelected:(BOOL)highlight
 {
-    NSInteger lineNumber;
-    NSInteger idx;
-    NSString *completeString = self.string;
-    NSInteger completeStringLength = [completeString length];
-    NSInteger numberOfLinesInDocument;
-    for (idx = 0, numberOfLinesInDocument = 1; idx < completeStringLength; numberOfLinesInDocument++) {
-        idx = NSMaxRange([completeString lineRangeForRange:NSMakeRange(idx, 0)]);
+    NSUInteger idx, target;
+    NSRange line;
+    NSTextStorage *ts = self.textStorage;
+    
+    if (lineToGoTo < 1) {
+        NSBeep();
+        return;
     }
-    if (lineToGoTo > numberOfLinesInDocument) {
+    target = lineToGoTo - 1;
+    if (target >= ts.mgs_lineCount) {
         NSBeep();
         return;
     }
     
-    for (idx = 0, lineNumber = 1; lineNumber < lineToGoTo; lineNumber++) {
-        idx = NSMaxRange([completeString lineRangeForRange:NSMakeRange(idx, 0)]);
-    }
+    idx = [ts mgs_firstCharacterInRow:target];
+    line = [ts.string lineRangeForRange:NSMakeRange(idx, 0)];
     
-    if (highlight) {
-        [self setSelectedRange:[completeString lineRangeForRange:NSMakeRange(idx, 0)]];
-    }
-    [self scrollRangeToVisible:[completeString lineRangeForRange:NSMakeRange(idx, 0)]];
+    if (highlight)
+        [self setSelectedRange:line];
+    [self scrollRangeToVisible:line];
 }
 
 
