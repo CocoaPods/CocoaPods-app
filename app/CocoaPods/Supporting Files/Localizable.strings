@@ -44,3 +44,8 @@
 
 "PLUGIN_FAILED_TO_INSTALL_MESSAGE" = "Failed to Install Plugins";
 "PLUGINS_ALL_INSTALLED_MESSAGE" = "Installed Plugins";
+
+"REINTEGRATION_ALERT_FORMAT_TITLE" = "Re-integration";
+"REINTEGRATION_ALERT_FORMAT_MESSAGE" = "CocoaPods is going to migrate your project from %@ to %@, this is considered a breaking change. To migrate, CocoaPods will re-install your integration from scratch, including re-downloading all Pods";
+"REINTEGRATION_ALERT_CONFIRM" = "Okay, lets do it";
+"REINTEGRATION_ALERT_CANCEL" = "Cancel";

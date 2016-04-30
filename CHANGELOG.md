@@ -1,5 +1,9 @@
 ## master
 
+* Show an alert if CP is going to re-integrate your project  
+  [orta](https://github.com/orta)  
+  [#299](https://github.com/CocoaPods/CocoaPods-app/pull/299)
+
 * Polish for Source Menus & Pod Autocomplete improvements  
   [orta](https://github.com/orta)  
   [#298](https://github.com/CocoaPods/CocoaPods-app/pull/298)
