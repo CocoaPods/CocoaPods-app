@@ -58,11 +58,12 @@ class CPSourceMenuView: NSView {
   // for an NSMenuItem in all it's many possible states. :)
   var backgroundHighlightView: NSTextField!
 
-  // 
+  // Views used in the menu items
   var titleLabel: NSTextField!
   var subtitleLabel: NSTextField!
-  var updateButton: NSButton!
+  var updateButtonBG: NSImageView!
   var progress: NSProgressIndicator!
+  var completedLabel: NSTextField!
 
   var containsMouse = false {
     didSet {
@@ -102,17 +103,19 @@ class CPSourceMenuView: NSView {
     addSubview(subtitleLabel)
 
     let buttonRect = CGRect(x: 400-20-60, y: 20, width: 60, height: 20)
-    updateButton = whiteBorderedButton("Update", frame: buttonRect)
-    updateButton.enabled = false
-    updateButton.hidden = true
-    updateButton.bind("hidden", toObject:source, withKeyPath: "isUpdatingRepo", options: nil)
-    addSubview(updateButton)
+    updateButtonBG = NSImageView(frame: buttonRect)
+    updateButtonBG.imageScaling = .ScaleAxesIndependently
+    updateButtonBG.image = NSImage(named: "TransparentButtonBG")
+    addSubview(updateButtonBG)
+
+    completedLabel = label(buttonRect)
+    completedLabel.alignment = .Center
+    addSubview(completedLabel)
 
     let progressRect = CGRect(x: 400-20-40, y: 20, width: 20, height: 20)
     progress = NSProgressIndicator(frame: progressRect)
     progress.style = .SpinningStyle
-    progress.displayedWhenStopped = false
-    progress.bind("animate", toObject: source, withKeyPath: "isUpdatingRepo", options: nil)
+    progress.startAnimation(self)
     addSubview(progress)
   }
 
@@ -126,33 +129,28 @@ class CPSourceMenuView: NSView {
     return label
   }
 
-  func whiteBorderedButton(title: String, frame: CGRect) -> NSButton {
-    let button = NSButton(frame: frame)
-    let updateCell = CPBorderedButtonCell(textCell: title)
-    updateCell.imageDimsWhenDisabled = false
-    updateCell.imageScaling = .ScaleAxesIndependently
-
-    button.cell = updateCell
-    button.bordered = false
-    button.image = NSImage(named: "TransparentButtonBG")
-    button.imagePosition = .ImageOverlaps
-    return button
-  }
-
   // The drawing is handled inside a drawrect, as we need
   // to handle the background ourselves.
 
   override func drawRect(dirtyRect: NSRect) {
     guard let source = source else { return }
 
+    updateButtonBG.hidden = !containsMouse || source.isUpdatingRepo
+    completedLabel.hidden = !containsMouse || source.isUpdatingRepo
+    progress.hidden = !source.isUpdatingRepo
+
     if containsMouse {
-      titleLabel.textColor = .selectedMenuItemTextColor();
+      let textColor = NSColor.selectedMenuItemTextColor();
+      for label in [titleLabel, subtitleLabel, completedLabel] { label.textColor = textColor }
+
+      completedLabel.stringValue = source.recentlyUpdated ? "👍🏾" : "Update"
       drawSelectionBackground(dirtyRect)
-      updateButton.hidden = source.isUpdatingRepo
 
     } else {
-      titleLabel.textColor = menuIsDarkMode ? .whiteColor() : .textColor()
-      updateButton.hidden = true
+      let textColor = menuIsDarkMode ? NSColor.whiteColor() : NSColor.textColor()
+      titleLabel.textColor = textColor
+      subtitleLabel.textColor = textColor
+
       super.drawRect(dirtyRect)
     }
   }
@@ -205,6 +203,7 @@ class CPSourceMenuView: NSView {
   override func mouseUp(theEvent: NSEvent) {
     guard let sourceRepo = source else { return }
     sourceRepo.updateRepo(nil)
+    setNeedsDisplayInRect(bounds)
   }
 }
 

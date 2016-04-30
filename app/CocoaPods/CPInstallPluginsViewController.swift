@@ -22,7 +22,6 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
   }
 
   func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
-    NSLog("Task: \(updatedOutput.string)")
     failed = failed && updatedOutput.string.containsString("ERROR:")
   }
 
@@ -30,12 +29,12 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
   @IBOutlet weak var exitButton: NSButton!
   func taskCompleted(task: CPCLITask!) {
     if failed {
-      exitButton.title = NSLocalizedString("Exit", comment: "Exit sheet button title")
-      titleLabel.stringValue = NSLocalizedString("Failed to Install Plugins", comment: "Failed to Install Plugins")
+      exitButton.title = ~"Exit"
+      titleLabel.stringValue = ~"plugin failed to install message"
 
     } else {
-      exitButton.title = NSLocalizedString("Close", comment: "Close sheet button title")
-      titleLabel.stringValue = NSLocalizedString("Installed Plugins", comment: "Install plugin title when completed")
+      exitButton.title = ~"Close"
+      titleLabel.stringValue = ~"Installed Plugins"
       pluginsInstalled?()
     }
   }

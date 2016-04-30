@@ -10,6 +10,12 @@ class CPSourceRepoCoordinator: NSObject {
   dynamic var hasAllCocoaPodsRepoSources = false
 
   var checkTask: CPCLITask?
+  dynamic var imageForShowReposPopover: NSImage?
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    imageForShowReposPopover = NSImage(named: "repo_update_not_ready")
+  }
 
   // Gets source repos, with an optional callback for the repos.
   func getSourceRepos(callback: (([CPSourceRepo])->())? = nil) {
@@ -48,6 +54,8 @@ class CPSourceRepoCoordinator: NSObject {
 extension CPSourceRepoCoordinator: CPCLITaskDelegate {
   func taskCompleted(task: CPCLITask!) {
     reposNeedUpdating = !task.finishedSuccessfully()
+    let imageName = reposNeedUpdating ? "repo_update_not_ready" : "repo_update_needed"
+    imageForShowReposPopover = NSImage(named: imageName)
   }
 }
 
@@ -86,7 +94,23 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
     updateRepoTask?.run()
   }
 
+  var recentlyUpdated = false
   func taskCompleted(task: CPCLITask!) {
     isUpdatingRepo = false
+    recentlyUpdated = true
+    
+    if task.finishedSuccessfully() {
+      notifyWithTitle(~"REPO_UPDATE_NOTIFICATION_TITLE")
+    } else {
+      notifyWithTitle(~"REPO_UPDATE_FAILED_NOTIFICATION_TITLE")
+    }
+  }
+
+  private func notifyWithTitle(title: String) {
+    let notification = NSUserNotification()
+    notification.title = title
+    notification.subtitle = displayName
+    NSNotificationCenter.defaultCenter().postNotificationName("CPRepoUpdatedCompleted", object: nil)
+    NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
   }
 }

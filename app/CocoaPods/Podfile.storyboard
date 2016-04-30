@@ -190,14 +190,19 @@
                                     <binding destination="5gI-5U-AMq" name="animate" keyPath="self.installAction.task.running" id="dpf-8Q-6Y9"/>
                                 </connections>
                             </progressIndicator>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXI-XY-Q0L">
-                                <rect key="frame" x="484" y="626" width="19" height="21"/>
-                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pez-e0-mBe">
+                            <button toolTip="Show Pod Spec Repos to Update" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXI-XY-Q0L">
+                                <rect key="frame" x="484" y="629" width="18" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="BOP-Jd-JHJ"/>
+                                    <constraint firstAttribute="height" constant="18" id="OQs-xZ-sCt"/>
+                                </constraints>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="repo_update_not_ready" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" state="on" imageScaling="proportionallyDown" inset="2" id="Pez-e0-mBe">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="showSourceRepoUpdatePopover:" target="5gI-5U-AMq" id="1kJ-RN-3N5"/>
+                                    <binding destination="UF4-FQ-6Bx" name="image" keyPath="self.imageForShowReposPopover" id="Xrt-8U-BXK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -206,6 +211,7 @@
                             <constraint firstItem="heY-ac-ofy" firstAttribute="leading" secondItem="hwg-nj-RtL" secondAttribute="leading" constant="-34" id="2nk-XB-P8M"/>
                             <constraint firstItem="32a-ce-wrv" firstAttribute="leading" secondItem="Md7-X2-GxU" secondAttribute="trailing" id="444-fM-DRo"/>
                             <constraint firstAttribute="trailing" secondItem="5f5-Xa-ani" secondAttribute="trailing" id="8ms-0x-CSc"/>
+                            <constraint firstItem="eXI-XY-Q0L" firstAttribute="centerY" secondItem="heY-ac-ofy" secondAttribute="centerY" constant="-1" id="B8c-bm-Qd5"/>
                             <constraint firstItem="Md7-X2-GxU" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="Nfy-M9-N65"/>
                             <constraint firstItem="5f5-Xa-ani" firstAttribute="top" secondItem="JCB-dL-BeV" secondAttribute="bottom" constant="12" id="OoB-If-2Rw"/>
                             <constraint firstItem="mmI-O9-7Ce" firstAttribute="centerY" secondItem="JCB-dL-BeV" secondAttribute="centerY" id="R1d-cM-P5F"/>
@@ -225,6 +231,7 @@
                             <constraint firstAttribute="trailing" secondItem="4gD-5q-fqq" secondAttribute="trailing" constant="49" id="lCC-IL-OL8"/>
                             <constraint firstAttribute="bottom" secondItem="32a-ce-wrv" secondAttribute="bottom" id="lbf-tm-bBX"/>
                             <constraint firstAttribute="trailing" secondItem="JCB-dL-BeV" secondAttribute="trailing" constant="12" id="uW0-o5-d86"/>
+                            <constraint firstItem="eXI-XY-Q0L" firstAttribute="trailing" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="-10" id="uWV-vU-Fnu"/>
                             <constraint firstAttribute="trailing" secondItem="Ywo-mw-4xh" secondAttribute="trailing" constant="12" id="xoO-JU-Yoe"/>
                             <constraint firstItem="JCB-dL-BeV" firstAttribute="leading" secondItem="heY-ac-ofy" secondAttribute="trailing" constant="15" id="y1d-Lt-uHK"/>
                             <constraint firstAttribute="bottom" secondItem="Md7-X2-GxU" secondAttribute="bottom" id="yY9-Qk-qJq"/>
@@ -516,7 +523,7 @@ Gw
                                                                         <binding destination="w9H-6A-7Ju" name="value" keyPath="objectValue.displayName" id="cAM-4D-WHc"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="aHn-oc-RUy" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
+                                                                <customView wantsLayer="YES" alphaValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-oc-RUy" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                                                                     <rect key="frame" x="20" y="1" width="355" height="1"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="fow-eY-NDY"/>
@@ -1075,7 +1082,6 @@ Hit install to see the outcome</string>
     </scenes>
     <resources>
         <image name="Bundle-Icon" width="100" height="100"/>
-        <image name="NSAddTemplate" width="11" height="11"/>
         <image name="TransparentButtonBG" width="23" height="20"/>
         <image name="TransparentButtonBGFilled" width="49" height="20"/>
         <image name="actionbar_background" width="250.5" height="23"/>
@@ -1086,5 +1092,6 @@ Hit install to see the outcome</string>
         <image name="icon_information" width="40" height="40"/>
         <image name="install_separator" width="1" height="16"/>
         <image name="project" width="100" height="100"/>
+        <image name="repo_update_not_ready" width="32" height="32"/>
     </resources>
 </document>

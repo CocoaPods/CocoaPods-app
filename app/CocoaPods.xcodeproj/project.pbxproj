@@ -75,6 +75,7 @@
 		60814A851C2B100F00D6663E /* CPBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A841C2B100F00D6663E /* CPBorderedButton.m */; };
 		60814A881C2BCFEA00D6663E /* CPWhiteCheckedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */; };
 		60814A8A1C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */; };
+		60890BB31CD0BD3D00810BFC /* CPLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60890BB21CD0BD3D00810BFC /* CPLocalizedString.swift */; };
 		60C2CBF21CC238CF009B30CA /* CPHomeMenuTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C2CBF11CC238CF009B30CA /* CPHomeMenuTableCellView.m */; };
 		60C2CBF41CC25D5A009B30CA /* CPSparkleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2CBF31CC25D5A009B30CA /* CPSparkleDelegate.swift */; };
 		60E693A71C49B0870058DF5F /* NSArray+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 601ACAA51C392BDD0058FA86 /* NSArray+Helpers.m */; };
@@ -265,6 +266,7 @@
 		60814A861C2BCFEA00D6663E /* CPWhiteCheckedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPWhiteCheckedButton.h; sourceTree = "<group>"; };
 		60814A871C2BCFEA00D6663E /* CPWhiteCheckedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPWhiteCheckedButton.m; sourceTree = "<group>"; };
 		60814A891C2C420600D6663E /* CPInterfaceBuilderOnlyLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPInterfaceBuilderOnlyLabels.swift; sourceTree = "<group>"; };
+		60890BB21CD0BD3D00810BFC /* CPLocalizedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPLocalizedString.swift; sourceTree = "<group>"; };
 		60C2CBF01CC238CF009B30CA /* CPHomeMenuTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPHomeMenuTableCellView.h; sourceTree = "<group>"; };
 		60C2CBF11CC238CF009B30CA /* CPHomeMenuTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPHomeMenuTableCellView.m; sourceTree = "<group>"; };
 		60C2CBF31CC25D5A009B30CA /* CPSparkleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPSparkleDelegate.swift; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 				51165E251A17AFF500DCFC94 /* CPAppDelegate.m */,
 				51165E2B1A17AFF500DCFC94 /* MainMenu.xib */,
 				60E693BA1C4A8F1D0058DF5F /* ColouredViews.swift */,
+				60890BB21CD0BD3D00810BFC /* CPLocalizedString.swift */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -1057,6 +1060,7 @@
 				5BEC5ABD1C4D97C90045F362 /* CPPodfileErrorState.swift in Sources */,
 				606D1ED51BF91040000B7148 /* CPPodfileEditorViewController.swift in Sources */,
 				51165E571A1B925300DCFC94 /* CPUserProject.m in Sources */,
+				60890BB31CD0BD3D00810BFC /* CPLocalizedString.swift in Sources */,
 				60FE01671B9B7AA70027EEE3 /* SMLTextView+CocoaPods.m in Sources */,
 				601F910D1BE63B8100AD22B1 /* CPExternalLinksHelper.m in Sources */,
 			);
