@@ -391,7 +391,7 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PHf-HC-OTM">
                                     <rect key="frame" x="1" y="178" width="411" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -451,20 +451,20 @@ Gw
                         <rect key="frame" x="0.0" y="0.0" width="400" height="408"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="65" horizontalPageScroll="10" verticalLineScroll="65" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-AN-YRf">
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="65" horizontalPageScroll="10" verticalLineScroll="65" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-AN-YRf">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="408"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="DE9-dP-lGv">
-                                    <rect key="frame" x="1" y="1" width="398" height="406"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="408"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="63" rowSizeStyle="automatic" viewBased="YES" id="P0e-Iy-zg7">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="408"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="395.19921875" minWidth="40" maxWidth="1000" id="4zH-px-LOR">
+                                                <tableColumn width="397.19921875" minWidth="40" maxWidth="1000" id="4zH-px-LOR">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -478,16 +478,16 @@ Gw
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="title" id="UmD-Ug-xsu">
-                                                            <rect key="frame" x="1" y="1" width="395" height="61"/>
+                                                            <rect key="frame" x="1" y="1" width="397" height="61"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="QeX-n1-wkV" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
+                                                                <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QeX-n1-wkV" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                                                                     <rect key="frame" x="20" y="3" width="355" height="1"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="ClQ-4X-Nya"/>
                                                                     </constraints>
                                                                 </customView>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLl-L1-myj">
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLl-L1-myj">
                                                                     <rect key="frame" x="18" y="14" width="359" height="17"/>
                                                                     <textFieldCell key="cell" lineBreakMode="charWrapping" sendsActionOnEndEditing="YES" alignment="center" title="Title" id="a9c-eG-CbQ">
                                                                         <font key="font" metaFont="systemSemibold" size="13"/>
@@ -509,7 +509,7 @@ Gw
                                                             </constraints>
                                                         </tableCellView>
                                                         <tableCellView identifier="repo" id="w9H-6A-7Ju">
-                                                            <rect key="frame" x="1" y="64" width="395" height="63"/>
+                                                            <rect key="frame" x="1" y="64" width="397" height="63"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dad-BK-2lu">
@@ -523,7 +523,7 @@ Gw
                                                                         <binding destination="w9H-6A-7Ju" name="value" keyPath="objectValue.displayName" id="cAM-4D-WHc"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <customView wantsLayer="YES" alphaValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-oc-RUy" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
+                                                                <customView wantsLayer="YES" misplaced="YES" alphaValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-oc-RUy" customClass="BrownView" customModule="CocoaPods" customModuleProvider="target">
                                                                     <rect key="frame" x="20" y="1" width="355" height="1"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="fow-eY-NDY"/>
@@ -597,7 +597,7 @@ Gw
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="V71-OH-qaz">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="V71-OH-qaz">
                                     <rect key="frame" x="1" y="391" width="398" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
