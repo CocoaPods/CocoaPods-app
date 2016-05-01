@@ -1,4 +1,4 @@
-#import <Fragaria/Fragaria.h>
+@import Fragaria;
 #import <objc/runtime.h>
 
 // Hack SMLTextView to also consider the leading colon when completing words, which are all the

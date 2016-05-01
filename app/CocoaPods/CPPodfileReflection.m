@@ -3,8 +3,7 @@
 #import "CocoaPods-Swift.h"
 #import "CPReflectionServiceProtocol.h"
 
-#import <Fragaria/Fragaria.h>
-#import <Fragaria/SMLSyntaxError.h>
+@import Fragaria;
 
 #import "CPAppDelegate.h"
 
