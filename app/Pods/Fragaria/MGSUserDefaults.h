@@ -4,7 +4,7 @@
 //
 //  Created by Jim Derry on 3/3/15.
 //
-//
+/// @cond PRIVATE
 
 #import <Foundation/Foundation.h>
 #import "MGSFragariaView+Definitions.h"

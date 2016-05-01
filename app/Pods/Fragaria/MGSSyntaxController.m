@@ -54,7 +54,7 @@ static id sharedInstance = nil;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
+        sharedInstance = [[self alloc] _init];
     });
 	
 	return sharedInstance;
@@ -73,17 +73,20 @@ static id sharedInstance = nil;
 /*
  * - init
  */
-- (id)init 
+- (id)_init
 {
-    if (sharedInstance == nil) {
-        self = [super init];
+    self = [super init];
         
-        if (self) {
-            [self insertSyntaxDefinitions];
-        }
-	}
-    
+    if (self) {
+        [self insertSyntaxDefinitions];
+    }
     return self;
+}
+
+
+- (instancetype)init
+{
+    return [[self class] sharedInstance];
 }
 
 

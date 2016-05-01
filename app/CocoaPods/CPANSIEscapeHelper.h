@@ -1,4 +1,4 @@
-#import <ANSIEscapeHelper/AMR_ANSIEscapeHelper.h>
+@import ANSIEscapeHelper;
 
 /// Provides CocoaPods specific ANSI colors and fonts.
 

@@ -55,7 +55,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     editor.autoCompleteDelay = 0.05
 
     let settings = CPFontAndColourGateKeeper()
-    editor.textFont = settings.defaultFont
+    editor.textFont = settings.defaultFont!
     editor.colourForNumbers = settings.cpGreen
     editor.colourForStrings = settings.cpRed
     editor.colourForComments = settings.cpBrightBrown
@@ -179,13 +179,13 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   @IBAction func increaseFontSize(sender: NSMenuItem) {
     let settings = CPFontAndColourGateKeeper()
     settings.increaseDefaultFontSize()
-    editor.textFont = settings.defaultFont
+    editor.textFont = settings.defaultFont!
   }
   
   @IBAction func decreaseFontSize(sender: NSMenuItem) {
     let settings = CPFontAndColourGateKeeper()
     settings.decreaseDefaultFontSize()
-    editor.textFont = settings.defaultFont
+    editor.textFont = settings.defaultFont!
   }
 
   /// Apply a text transformation to a selection

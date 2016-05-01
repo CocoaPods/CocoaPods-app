@@ -5,7 +5,7 @@
 #import "CocoaPods-Swift.h"
 #import "CPCLIToolInstallationController.h"
 #import <Quartz/Quartz.h>
-#import <LetsMove/PFMoveApplication.h>
+@import LetsMove;
 
 @interface CPAppDelegate ()
 @property (nonatomic, strong) CPHomeWindowController *homeWindowController;

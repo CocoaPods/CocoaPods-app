@@ -4,7 +4,7 @@
 //
 //  Created by Daniele Cattaneo on 29/05/15.
 //
-//
+/// @cond PRIVATE
 
 #import <Foundation/Foundation.h>
 

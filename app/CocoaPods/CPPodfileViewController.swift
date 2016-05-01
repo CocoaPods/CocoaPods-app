@@ -80,7 +80,9 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
       let project = targets.keys.first!
       let url = NSURL(fileURLWithPath: project)
       let name = url.lastPathComponent!.stringByReplacingOccurrencesOfString(".xcproj", withString: "")
-      actionTitleLabel.stringValue = "Podfile for \(name)"
+      dispatch_async(dispatch_get_main_queue()) {
+        self.actionTitleLabel.stringValue = "Podfile for \(name)"
+      }
     }
   }
 

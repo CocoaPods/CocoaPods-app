@@ -1,24 +1,24 @@
 //
-//  MGSMutableDictionary.m
+//  MGSPreferencesProxyDictionary.m
 //  Fragaria
 //
 //  Created by Jim Derry on 3/14/15.
 //
 //
 
-#import "MGSMutableDictionary.h"
+#import "MGSPreferencesProxyDictionary.h"
 #import "MGSUserDefaults.h"
 #import "MGSUserDefaultsController.h"
 
 
-@interface MGSMutableDictionary ()
+@interface MGSPreferencesProxyDictionary ()
 
 @property (nonatomic, strong) NSMutableDictionary *storage;
 
 @end
 
 
-@implementation MGSMutableDictionary
+@implementation MGSPreferencesProxyDictionary
 
 
 #pragma mark - KVC
@@ -122,7 +122,7 @@
  */
 + (Class)classForKeyedUnarchiver
 {
-    return [MGSMutableDictionary class];
+    return [MGSPreferencesProxyDictionary class];
 }
 
 
@@ -131,7 +131,7 @@
  */
 - (Class)classForKeyedArchiver
 {
-    return [MGSMutableDictionary class];
+    return [MGSPreferencesProxyDictionary class];
 }
 
 

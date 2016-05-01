@@ -38,25 +38,32 @@
 #import "MGSFragariaView.h"
 #import "MGSLineNumberView.h"
 #import "MGSBreakpointDelegate.h"
+#import "NSTextStorage+Fragaria.h"
+#import "NSSet+Fragaria.h"
 
 
 #define RULER_MARGIN		5.0
 
 
-@implementation MGSLineNumberView {
-    // Array of character indices for the beginning of each line
-    NSMutableArray      *_lineIndices;
-    // When text is edited, this is the start of the editing region. All line
-    // calculations after this point are invalid and need to be recalculated.
-    NSUInteger          _invalidCharacterIndex;
-    
+typedef enum {
+    MGSGutterHitTypeOutside = -1,
+    MGSGutterHitTypeBreakpoint,
+    MGSGutterHitTypeDecoration
+} MGSGutterHitType;
+
+
+@implementation MGSLineNumberView
+{
     NSUInteger _mouseDownLineTracking;
-    NSRect     _mouseDownRectTracking;
+    NSRect _mouseDownRectTracking;
+    MGSGutterHitType _lastHitPosition;
     
+    CGFloat _maxDigitWidthOfCurrentFont;
     NSMutableDictionary *_markerImages;
     NSSize _markerImagesSize;
     
     NSDictionary *_breakpointData;
+    NSUInteger _lastLineCount;
 }
 
 
@@ -74,7 +81,6 @@
 {
     if ((self = [super initWithScrollView:aScrollView orientation:NSVerticalRuler]) != nil)
     {
-        _lineIndices = [[NSMutableArray alloc] init];
         _startingLineNumber = 1;
         _markerImagesSize = NSMakeSize(0,0);
         _markerImages = [[NSMutableDictionary alloc] init];
@@ -83,8 +89,11 @@
         _showsLineNumbers = YES;
         _backgroundColor = [NSColor colorWithCalibratedWhite:0.94 alpha:1.0];
         _minimumWidth = 40;
+        
         _font = [NSFont fontWithName:@"Menlo" size:11];
         _textColor = [NSColor colorWithCalibratedWhite:0.42 alpha:1.0];
+        [self updateDigitWidthCache];
+        
         _breakpointData = [[NSDictionary alloc] init];
         
         [self setClientView:[aScrollView documentView]];
@@ -136,6 +145,7 @@
 - (void)setFont:(NSFont *)font
 {
     _font = font;
+    [self updateDigitWidthCache];
     [self setRuleThickness:[self requiredThickness]];
     [self setNeedsDisplay:YES];
 }
@@ -166,9 +176,9 @@
 - (void)layoutManagerDidChangeTextStorage
 {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    _lastLineCount = self.clientView.textStorage.mgs_lineCount;
     [nc addObserver:self selector:@selector(textStorageDidProcessEditing:)
       name:NSTextStorageDidProcessEditingNotification object:self.clientView.textStorage];
-    [self invalidateLineIndicesFromCharacterIndex:0];
 }
 
 
@@ -200,180 +210,91 @@
 }
 
 
-#pragma mark - Line number cache
-
-
-- (NSMutableArray *)lineIndices
-{
-	if (_invalidCharacterIndex < NSUIntegerMax)
-	{
-		[self calculateLines];
-	}
-	return _lineIndices;
-}
-
-
-// Forces recalculation of line indices starting from the given index
-- (void)invalidateLineIndicesFromCharacterIndex:(NSUInteger)charIndex
-{
-    _invalidCharacterIndex = MIN(charIndex, _invalidCharacterIndex);
-}
-
-
 - (void)textStorageDidProcessEditing:(NSNotification *)notification
 {
-    NSTextStorage       *storage;
-    NSRange             range;
+    id <MGSBreakpointDelegate> bd;
+    NSTextStorage *ts;
+    NSRange ecr, elr;
+    NSInteger charDelta, lineDelta;
     
-    storage = [notification object];
-
-    // Invalidate the line indices. They will be recalculated and re-cached on demand.
-    range = [storage editedRange];
-    if (range.location != NSNotFound)
-    {
-        [self invalidateLineIndicesFromCharacterIndex:range.location];
-        [self setNeedsDisplay:YES];
-    }
-}
-
-
-- (void)calculateLines
-{
-    id              view;
-
-    view = [self clientView];
-    
-    NSUInteger      charIndex, stringLength, lineEnd, contentEnd, count, lineIndex;
-    NSString        *text;
-    
-    text = [view string];
-    stringLength = [text length];
-    count = [_lineIndices count];
-
-    charIndex = 0;
-    lineIndex = [self lineNumberForCharacterIndex:_invalidCharacterIndex inText:text];
-    if (count > 0)
-    {
-        charIndex = [[_lineIndices objectAtIndex:lineIndex] unsignedIntegerValue];
-    }
-    
-    do
-    {
-        if (lineIndex < count)
-        {
-            [_lineIndices replaceObjectAtIndex:lineIndex withObject:[NSNumber numberWithUnsignedInteger:charIndex]];
-        }
-        else
-        {
-            [_lineIndices addObject:[NSNumber numberWithUnsignedInteger:charIndex]];
-        }
-        
-        charIndex = NSMaxRange([text lineRangeForRange:NSMakeRange(charIndex, 0)]);
-        lineIndex++;
-    }
-    while (charIndex < stringLength);
-    
-    if (lineIndex < count)
-    {
-        [_lineIndices removeObjectsInRange:NSMakeRange(lineIndex, count - lineIndex)];
-    }
-    _invalidCharacterIndex = NSUIntegerMax;
-
-    // Check if text ends with a new line.
-    [text getLineStart:NULL end:&lineEnd contentsEnd:&contentEnd forRange:NSMakeRange([[_lineIndices lastObject] unsignedIntegerValue], 0)];
-    if (contentEnd < lineEnd)
-    {
-        [_lineIndices addObject:[NSNumber numberWithUnsignedInteger:charIndex]];
-    }
-}
-
-
-- (NSUInteger)lineNumberForCharacterIndex:(NSUInteger)charIndex inText:(NSString *)text
-{
-    NSUInteger			left, right, mid, lineStart;
-	NSMutableArray		*lines;
-
-    if (_invalidCharacterIndex < NSUIntegerMax)
-    {
-        // We do not want to risk calculating the indices again since we are
-        // probably doing it right now, thus possibly causing an infinite loop.
-        lines = _lineIndices;
-    }
-    else
-    {
-        lines = [self lineIndices];
-    }
-	
-    // Binary search
-    left = 0;
-    right = [lines count];
-
-    while ((right - left) > 1)
-    {
-        mid = (right + left) / 2;
-        lineStart = [[lines objectAtIndex:mid] unsignedIntegerValue];
-        
-        if (charIndex < lineStart)
-        {
-            right = mid;
-        }
-        else if (charIndex > lineStart)
-        {
-            left = mid;
-        }
-        else
-        {
-            return mid;
+    bd = self.breakpointDelegate;
+    if ([bd respondsToSelector:
+         @selector(fixBreakpointsOfAddedLines:inLineRange:ofFragaria:)]) {
+        ts = self.clientView.textStorage;
+        charDelta = ts.changeInLength;
+        if (charDelta && self.lineCount != _lastLineCount) {
+            lineDelta = self.lineCount - _lastLineCount;
+            
+            ecr = ts.editedRange;
+            elr.location = [ts mgs_rowOfCharacter:ecr.location];
+            if (ecr.length)
+                elr.length = [ts mgs_rowOfCharacter:NSMaxRange(ecr)] - elr.location;
+            else
+                elr.length = 0;
+            elr.location++;
+            elr.length++;
+            
+            [bd fixBreakpointsOfAddedLines:lineDelta inLineRange:elr ofFragaria:_fragaria];
         }
     }
-    return left;
+    _lastLineCount = self.lineCount;
+    
+    [self setNeedsDisplay:YES];
 }
 
 
 #pragma mark - Automatic thickness control
 
+
+- (NSUInteger)lineCount
+{
+    return self.clientView.textStorage.mgs_lineCount;
+}
+
+
 + (NSSet *)keyPathsForValuesAffectingRequiredThickness
 {
-    return [NSSet setWithArray:@[
-                                 @"decorations",
-                                 @"minimumWidth",
-                                 @"drawsLineNumbers",
-                                 @"font",
-                                 @"startingLineNumber",
-                                 ]];
+    return [NSSet setWithArray:@[@"decorations", @"minimumWidth",
+      @"drawsLineNumbers", @"font", @"startingLineNumber"]];
 }
+
+
+- (void)updateDigitWidthCache
+{
+    NSDictionary *attr;
+    NSString *tmp;
+    CGFloat maxw;
+    int i;
+    
+    attr = [self textAttributes];
+    maxw = [@"0" sizeWithAttributes:attr].width;
+    for (i=1; i<10; i++) {
+        tmp = [NSString stringWithFormat:@"%d", i];
+        maxw = MAX(maxw, [tmp sizeWithAttributes:attr].width);
+    }
+    _maxDigitWidthOfCurrentFont = maxw;
+}
+
 
 - (CGFloat)requiredThickness
 {
-    NSUInteger			lineCount, digits, i;
-    NSMutableString     *sampleString;
-    NSSize              stringSize;
+    NSUInteger lineCount, digits;
+    CGFloat stringWidth;
     CGFloat decorationsWidth;
     
     if (_showsLineNumbers) {
-        lineCount = [[self lineIndices] count] + (_startingLineNumber - 1);
-        digits = 1;
-        if (lineCount > 0)
-            digits = (NSUInteger)log10(lineCount) + 1;
-        
-        sampleString = [NSMutableString string];
-        for (i = 0; i < digits; i++) {
-            // Use "8" since it is one of the fatter numbers. Anything but "1"
-            // will probably be ok here. I could be pedantic and actually find the fattest
-            // number for the current font but nah.
-            [sampleString appendString:@"8"];
-        }
-        stringSize = [sampleString sizeWithAttributes:[self textAttributes]];
-        stringSize.width += RULER_MARGIN;
+        lineCount = [self lineCount] + _startingLineNumber - 1;
+        digits = (NSUInteger)log10(lineCount) + 1;
+        stringWidth = digits * _maxDigitWidthOfCurrentFont + RULER_MARGIN;
     } else {
-        stringSize = NSZeroSize;
+        stringWidth = 0;
     }
     
     decorationsWidth = [self decorationColumnWidth];
 
 	// Round up the value. There is a bug on 10.4 where the display gets all
     // wonky when scrolling if you don't return an integral value here.
-    return ceil(MAX(_minimumWidth, decorationsWidth + stringSize.width + RULER_MARGIN));
+    return ceil(MAX(_minimumWidth, decorationsWidth + stringWidth + RULER_MARGIN));
 }
 
 
@@ -387,7 +308,7 @@
 
     for (line in linesWithDecorations) {
         linenum = [line integerValue] - 1;
-        if (linenum < [self.lineIndices count]) {
+        if (linenum < [self lineCount]) {
             decorationRect = [self decorationRectOfLine:linenum];
             value = decorationRect.origin.x + decorationRect.size.width;
             if (value > max) max = value;
@@ -403,13 +324,10 @@
     
     [super viewWillDraw];
     
-    if (_invalidCharacterIndex < NSUIntegerMax)
-        [self calculateLines];
-    
     // See if we need to adjust the width of the view
     oldThickness = [self ruleThickness];
     newThickness = [self requiredThickness];
-    if (fabs(oldThickness - newThickness) > 1) {
+    if (fabs(oldThickness - newThickness) >= 1) {
         [self willChangeValueForKey:@"requiredThickness"];
         [self setRuleThickness:newThickness];
         [self didChangeValueForKey:@"requiredThickness"];
@@ -453,44 +371,25 @@
 - (void)drawRect:(NSRect)dirtyRect
 {
     SMLTextView	*view;
-	NSRect bounds;
     NSRect visibleRect;
     NSLayoutManager	*layoutManager;
+    NSTextStorage *ts;
     NSRange range, glyphRange;
-    NSString *labelText;
     NSUInteger index, line;
     NSRect wholeLineRect;
-    CGFloat ypos;
-    NSDictionary *currentTextAttributes;
-    NSMutableArray *lines;
-    NSAttributedString *drawingAttributedString;
     CGContextRef drawingContext;
     NSColor *markerColor;
 
-	bounds = [self bounds];
+    [self drawBackgroundInRect:dirtyRect];
+    
     view = [self clientView];
     visibleRect = [[[self scrollView] contentView] bounds];
-
-	[self.backgroundColor set];
-    NSRectFill(bounds);
-    
-    [[NSColor lightGrayColor] set];
-    NSBezierPath *dottedLine = [NSBezierPath bezierPath];
-    [dottedLine moveToPoint:NSMakePoint(bounds.size.width-0.5, 0)];
-    [dottedLine lineToPoint:NSMakePoint(bounds.size.width-0.5, bounds.size.height)];
-    CGFloat dash[2];
-    dash[0] = 1.0f;
-    dash[1] = 2.0f;
-    [dottedLine setLineDash:dash count:2 phase:visibleRect.origin.y];
-    [dottedLine stroke];
-
     layoutManager = [view layoutManager];
+    ts = [layoutManager textStorage];
 
     drawingContext = [[NSGraphicsContext currentContext] graphicsPort];
     CGAffineTransform flipTransform = {1, 0, 0, -1, 0, 0};
     CGContextSetTextMatrix(drawingContext, flipTransform);
-    
-    lines = [self lineIndices];
 
     // Find the characters that are currently visible, make a range,  then fudge the range a tad in case
     // there is an extra new line at end. It doesn't show up in the glyphs so would not be accounted for.
@@ -498,51 +397,96 @@
     range = [layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
     range.length++;
 
-    for (line = [self lineNumberForCharacterIndex:range.location inText:[view string]]; line < [lines count]; line++)
+    for (line = [ts mgs_rowOfCharacter:range.location]; ; line++)
     {
-        index = [[lines objectAtIndex:line] unsignedIntegerValue];
+        index = [ts mgs_firstCharacterInRow:line];
+        
+        if (index == NSNotFound || index > NSMaxRange(range))
+            break;
         
         if (NSLocationInRange(index, range))
         {
             wholeLineRect = [self wholeLineRectForLine:line];
 
-            // Note that the ruler view is only as tall as the visible
-            // portion. Need to compensate for the clipview's coordinates.
-            ypos = wholeLineRect.origin.y;
-
+            /* Draw line numbers first so that error images won't be buried
+             * underneath long line numbers.
+             * Line numbers are internally stored starting at 0 */
             if ((markerColor = [_breakpointData objectForKey:@(line + 1)])) {
                 [self drawMarkerInRect:wholeLineRect withColor:markerColor];
-                currentTextAttributes = [self highlightTextAttributesForLine:line];
+                if (self.showsLineNumbers)
+                    [self drawLineNumber:line inRect:wholeLineRect hasMarker:YES];
             } else {
-                currentTextAttributes = [self textAttributes];
-            }
-
-            if (self.showsLineNumbers)
-            {
-                // Draw line numbers first so that error images won't be buried underneath long line numbers.
-                // Line numbers are internally stored starting at 0
-                labelText = [NSString stringWithFormat:@"%jd", (intmax_t)line + _startingLineNumber];
-                drawingAttributedString = [[NSAttributedString alloc] initWithString:labelText attributes:currentTextAttributes];
-
-                CGFloat descent, leading;
-                CTLineRef textline;
-                textline = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)drawingAttributedString);
-                CGFloat width = CTLineGetTypographicBounds(textline, NULL, &descent, &leading);
-                
-                CGFloat xpos = NSWidth(bounds) - width - RULER_MARGIN;
-                CGFloat baselinepos = ypos + NSHeight(wholeLineRect) - floor(descent + 0.5) - floor(leading+0.5);
-                CGContextSetTextPosition(drawingContext, xpos, baselinepos);
-                CTLineDraw(textline, drawingContext);
-                CFRelease(textline);
+                if (self.showsLineNumbers)
+                    [self drawLineNumber:line inRect:wholeLineRect hasMarker:NO];
             }
 
             [self drawDecorationOfLine:line];
         }
-        if (index > NSMaxRange(range))
-        {
-            break;
-        }
     }
+}
+
+
+- (void)drawBackgroundInRect:(NSRect)dirtyRect
+{
+    NSRect bounds, visibleRect;
+    NSBezierPath *dottedLine;
+    NSColor *dotColor, *borderColor;
+    const CGFloat dash[2] = {1.0f, 2.0f};
+    
+    bounds = [self bounds];
+    visibleRect = [[[self scrollView] contentView] bounds];
+    
+    [self.backgroundColor set];
+    NSRectFill(bounds);
+    
+    borderColor = [self.backgroundColor blendedColorWithFraction:.5 ofColor:self.clientView.backgroundColor];
+    dotColor = [borderColor blendedColorWithFraction:(2.0*2.0/3.0)-.94 ofColor:[NSColor blackColor]];
+    
+    dottedLine = [NSBezierPath bezierPath];
+    [dottedLine moveToPoint:NSMakePoint(bounds.size.width-0.5, 0)];
+    [dottedLine lineToPoint:NSMakePoint(bounds.size.width-0.5, bounds.size.height)];
+    
+    [borderColor set];
+    [dottedLine stroke];
+    
+    [dotColor set];
+    [dottedLine setLineDash:dash count:2 phase:visibleRect.origin.y];
+    [dottedLine stroke];
+}
+
+
+/// @param line uses zero-based indexing.
+- (void)drawLineNumber:(NSUInteger)line inRect:(NSRect)wholeLineRect hasMarker:(BOOL)marked
+{
+    CGFloat ypos;
+    NSRect bounds;
+    NSString *labelText;
+    NSAttributedString *drawingAttributedString;
+    NSDictionary *currentTextAttributes;
+    CGContextRef drawingContext;
+    
+    drawingContext = [[NSGraphicsContext currentContext] graphicsPort];
+    bounds = [self bounds];
+    ypos = wholeLineRect.origin.y;
+    
+    if (marked)
+        currentTextAttributes = [self highlightTextAttributesForLine:line];
+    else
+        currentTextAttributes = [self textAttributes];
+    
+    labelText = [NSString stringWithFormat:@"%jd", (intmax_t)line + _startingLineNumber];
+    drawingAttributedString = [[NSAttributedString alloc] initWithString:labelText attributes:currentTextAttributes];
+    
+    CGFloat descent, leading;
+    CTLineRef textline;
+    textline = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)drawingAttributedString);
+    CGFloat width = CTLineGetTypographicBounds(textline, NULL, &descent, &leading);
+    
+    CGFloat xpos = NSWidth(bounds) - width - RULER_MARGIN;
+    CGFloat baselinepos = ypos + NSHeight(wholeLineRect) - floor(descent + 0.5) - floor(leading+0.5);
+    CGContextSetTextPosition(drawingContext, xpos, baselinepos);
+    CTLineDraw(textline, drawingContext);
+    CFRelease(textline);
 }
 
 
@@ -555,7 +499,6 @@
     NSTextContainer	  *container;
     NSUInteger        index, stringLength;
     NSRect            rect;
-    NSMutableArray    *lines;
     NSRect            wholeLineRect = NSZeroRect;
 
     view = [self clientView];
@@ -565,14 +508,12 @@
     visibleRect = [[[self scrollView] contentView] bounds];
     stringLength = [[view string] length];
 
-    lines = [self lineIndices];
-
-    index = [[lines objectAtIndex:line] unsignedIntegerValue];
+    index = [layoutManager.textStorage mgs_firstCharacterInRow:line];
 
     NSUInteger glyphIdx = [layoutManager glyphIndexForCharacterAtIndex:index];
     if (index < stringLength)
         rect = [layoutManager lineFragmentRectForGlyphAtIndex:glyphIdx effectiveRange:NULL];
-    else
+    else /* Last line */
         rect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIdx, 0) inTextContainer:container];
 
     // Note that the ruler view is only as tall as the visible
@@ -588,48 +529,29 @@
 }
 
 
-/// @returns zero-based indexing.
+/// @returns zero-based indexing. Never returns NSNotFound
 - (NSUInteger)lineNumberForLocation:(CGFloat)location
 {
-	NSUInteger		line, count, index, rectCount, i;
-	NSRectArray		rects;
-	NSRect			visibleRect;
-	NSLayoutManager	*layoutManager;
-	NSTextContainer	*container;
-	NSRange			nullRange;
-	NSMutableArray	*lines;
-	id				view;
+	NSUInteger i;
+	NSRect visibleRect;
+    SMLTextView *view;
+    CGFloat insptdist;
     
 	view = [self clientView];
 	visibleRect = [[[self scrollView] contentView] bounds];
-	
-	lines = [self lineIndices];
-    
 	location += NSMinY(visibleRect);
-	
-    nullRange = NSMakeRange(NSNotFound, 0);
-    layoutManager = [view layoutManager];
-    container = [view textContainer];
-    count = [lines count];
     
-    for (line = 0; line < count; line++)
-    {
-        index = [[lines objectAtIndex:line] unsignedIntegerValue];
-        
-        rects = [layoutManager rectArrayForCharacterRange:NSMakeRange(index, 0)
-                             withinSelectedCharacterRange:nullRange
-                                          inTextContainer:container
-                                                rectCount:&rectCount];
-        
-        for (i = 0; i < rectCount; i++)
-        {
-            if (location < NSMinY(rects[i]) && line)
-                return line-1;
-            else if (location < NSMaxY(rects[i]))
-                return line;
-        }
-    }
-	return NSNotFound;
+    i = [view.layoutManager characterIndexForPoint:NSMakePoint(0, location)
+          inTextContainer:view.textContainer
+          fractionOfDistanceBetweenInsertionPoints:&insptdist];
+    /* insptdist is how far the returned character's insertion point is from
+     * the insertion point that would appear when clicking on the specified
+     * point. 0 means that the user clicked before the character i, and
+     * 1 means the user clicked after the character i.*/
+    if (insptdist >= 1.0)
+        /* Adjust the character index to become the insertion point's index */
+        i++;
+	return [view.textStorage mgs_rowOfCharacter:i];
 }
 
 
@@ -774,48 +696,103 @@
 #pragma mark - NSResponder
 
 
+- (NSUInteger)testHitAtWindowPoint:(NSPoint)p decoration:(MGSGutterHitType *)w trackingRect:(NSRect *)tr
+{
+    NSPoint location;
+    NSUInteger line;
+    NSRect trackRect;
+    MGSGutterHitType where;
+    
+    location = [self convertPoint:p fromView:nil];
+    if (!CGRectContainsPoint(self.bounds, location)) {
+        where = MGSGutterHitTypeOutside;
+        trackRect = NSZeroRect;
+        line = NSNotFound;
+    } else {
+        line = [self lineNumberForLocation:location.y];
+        where = MGSGutterHitTypeBreakpoint;
+        
+        if ([_decorations objectForKey:@(line+1)]) {
+            trackRect = [self decorationRectOfLine:line];
+            if (CGRectContainsPoint(trackRect, location))
+                where = MGSGutterHitTypeDecoration;
+        }
+        if (where == MGSGutterHitTypeBreakpoint)
+            trackRect = [self wholeLineRectForLine:line];
+    }
+    
+    if (w)
+        *w = where;
+    if (tr)
+        *tr = trackRect;
+    return line;
+}
+
+
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    NSUInteger line = [self lineNumberForLocation:location.y];
-    NSRect imageRect;
-    BOOL errorHit = NO;
-
-    if (line != NSNotFound) {
-        _mouseDownLineTracking = line + 1; // now has 1-based index.
-        _mouseDownRectTracking = NSMakeRect(0.0, 0.0, 0.0, 0.0);
-
-        if ([_decorations objectForKey:@(_mouseDownLineTracking)]) {
-            _mouseDownRectTracking = imageRect = [self decorationRectOfLine:line];
-
-            if (CGRectContainsPoint(imageRect, location))
-                errorHit = YES;
-        }
-
-        if (errorHit) {
-            _mouseDownRectTracking = imageRect;
-        } else {
-            [self breakpointClickedOnLine:_mouseDownLineTracking];
-        }
+    NSUInteger line;
+    MGSGutterHitType where;
+    NSRect tr;
+    
+    if ([theEvent buttonNumber] != 0) {
+        _mouseDownLineTracking = NSNotFound;
+        return;
     }
+    
+    line = [self testHitAtWindowPoint:theEvent.locationInWindow decoration:&where trackingRect:&tr];
+    
+    if (line != NSNotFound) {
+        _lastHitPosition = where;
+        _mouseDownLineTracking = line;
+        _mouseDownRectTracking = tr;
+        
+        if (where == MGSGutterHitTypeBreakpoint)
+            [self breakpointClickedOnLine:_mouseDownLineTracking+1];
+    } else
+        _mouseDownLineTracking = NSNotFound;
 }
 
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-    NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    NSUInteger line = [self lineNumberForLocation:location.y]; // method returns 0-based index.
-
-    if (line != _mouseDownLineTracking - 1 || location.x > self.frame.size.width) {
-        [self breakpointClickedOnLine:_mouseDownLineTracking];
-    } else {
-        if ([_decorations objectForKey:@(_mouseDownLineTracking)]) {
-            if (CGRectContainsPoint(_mouseDownRectTracking, location)) {
-                _selectedLineNumber = line;
-                [NSApp sendAction:_decorationActionSelector to:_decorationActionTarget from:self];
-            }
+    NSUInteger line;
+    MGSGutterHitType where;
+    NSRect tr;
+    
+    if ([theEvent buttonNumber] != 0)
+        return;
+    
+    if (_mouseDownLineTracking == NSNotFound)
+        return;
+    
+    line = [self testHitAtWindowPoint:theEvent.locationInWindow decoration:&where trackingRect:&tr];
+    if (CGRectEqualToRect(tr, _mouseDownRectTracking)) {
+        if (where == _lastHitPosition && where == MGSGutterHitTypeDecoration) {
+            _selectedLineNumber = _mouseDownLineTracking;
+            [NSApp sendAction:_decorationActionSelector to:_decorationActionTarget from:self];
         }
+    } else {
+        if (_lastHitPosition == MGSGutterHitTypeBreakpoint)
+            [self breakpointClickedOnLine:_mouseDownLineTracking+1];
     }
+}
+
+
+- (NSMenu *)menuForEvent:(NSEvent *)event
+{
+    NSUInteger line;
+    MGSGutterHitType where;
+    
+    if ([event buttonNumber] != 0)
+        _mouseDownLineTracking = NSNotFound;
+    
+    line = [self testHitAtWindowPoint:event.locationInWindow decoration:&where trackingRect:NULL];
+    if (line != NSNotFound) {
+        if (where == MGSGutterHitTypeBreakpoint && _breakpointDelegate)
+            return [_breakpointDelegate menuForBreakpointInLine:line+1 ofFragaria:_fragaria];
+    }
+    return [super menuForEvent:event];
 }
 
 
@@ -826,6 +803,7 @@
 {
     NSMutableDictionary *data;
     NSSet *linesWithBreakpoints;
+    id tmp;
     NSNumber *line;
     
     if (!_breakpointDelegate) {
@@ -841,7 +819,17 @@
     data = [NSMutableDictionary dictionary];
     
     if ([_breakpointDelegate respondsToSelector:@selector(breakpointsForFragaria:)]) {
-        linesWithBreakpoints = [_breakpointDelegate breakpointsForFragaria:self.fragaria];
+        tmp = [_breakpointDelegate breakpointsForFragaria:self.fragaria];
+        if ([tmp isKindOfClass:[NSIndexSet class]]) {
+            linesWithBreakpoints = [[NSSet alloc] mgs_initWithIndexSet:tmp];
+        } else if ([tmp isKindOfClass:[NSSet class]]) {
+            linesWithBreakpoints = tmp;
+        } else {
+            [NSException raise:@"MGSBrokenBreakpointDelegate" format:@"The "
+             "breakpoint delegate %@ of %@ returned an object which is not an "
+             "NSSet or an NSIndexSet, from the -breakpointsForFragaria: method.",
+             _breakpointDelegate, self];
+        }
     } else {
         [NSException raise:@"MGSBrokenBreakpointDelegate" format:@"The breakpoint "
          "delegate %@ of %@ does not implement at least one of the following "

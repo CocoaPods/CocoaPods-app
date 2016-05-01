@@ -46,6 +46,59 @@
 - (NSAttributedString *)attributedStringWithTemporaryAttributesApplied;
 
 
+#pragma mark - Getting Line and Column Information
+/// @name Getting Line and Column Information
+
+
+/** Get the row and the column corresponding to the given character index.
+ *  @param r If not NULL, on return points to the row index where i is located,
+ *    or to NSNotFound if the character index is invalid.
+ *  @param c If not NULL, on return points to the column index where i is
+ *    located, or to NSNotFound if the character index is invalid.
+ *  @param i The character index.
+ *  @discussion If i points to a tabulation character, only the first of the
+ *    columns spanned by the tabulation will be returned. If i points to one
+ *    past the last character in the string, the row and column returned
+ *    will point to where that character will be when it is inserted. */
+- (void)getRow:(NSUInteger *)r column:(NSUInteger *)c forCharacterIndex:(NSUInteger)i;
+
+/** Get the row and the offset in that row which correspond to the given
+ *  character index.
+ *  @param r If not NULL, on return points to the row index where i is located,
+ *    or to NSNotFound if the character index is invalid.
+ *  @param c If not NULL, on return points to the index in the row r where i is
+ *    located, or to NSNotFound if the character index is invalid.
+ *  @param i The character index.
+ *  @discussion If i points to one past the last character in the string, the
+ *    row and index returned will point to where that character will be when
+ *    it is inserted. */
+- (void)getRow:(NSUInteger *)r indexInRow:(NSUInteger *)c forCharacterIndex:(NSUInteger)i;
+
+/** The character index corresponding to the given column and row.
+ *  @param c A column index.
+ *  @param r A row index.
+ *  @returns A character index, or NSNotFound if there is no character at the
+ *    specified position.
+ *  @discussion If the column and the row point inside of a tabulation
+ *    character, the index of that character is returned. Newline characters
+ *    are assumed to span all the columns past the last one in the line's
+ *    contents. */
+- (NSUInteger)characterIndexAtColumn:(NSUInteger)c withinRow:(NSUInteger)r;
+
+/** The character index corresponding to the offset of a character in its row.
+ *  @param c A character index, relative to the beginning of the row.
+ *  @param r A row index.
+ *  @returns A character index, or NSNotFound if there is no character at the
+ *    specified position.
+ *  @discussion Any line number returned by mgs_rowOfCharacter: is a valid
+ *    line number for this function. If the line number is valid, this function
+ *    will always return a valid character index in that line. If the
+ *    index parameter specifies a character outside the bounds of the line,
+ *    the index of one past the last character of content of that line will be
+ *    returned. */
+- (NSUInteger)characterIndexAtIndex:(NSUInteger)c withinRow:(NSUInteger)r;
+
+
 #pragma mark - Configuring Syntax Highlighting
 /// @name Configuring Syntax Highlighting
 

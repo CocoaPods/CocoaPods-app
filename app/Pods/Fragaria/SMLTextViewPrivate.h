@@ -4,7 +4,7 @@
 //
 //  Created by Daniele Cattaneo on 26/02/15.
 //
-//
+/// @cond PRIVATE
 
 #import <Cocoa/Cocoa.h>
 #import "SMLTextView.h"

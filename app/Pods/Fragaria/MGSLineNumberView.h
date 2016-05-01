@@ -33,6 +33,7 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 //
+/// @cond PRIVATE
 
 #import <Cocoa/Cocoa.h>
 #import "SMLTextView.h"
@@ -71,7 +72,7 @@
 
 /** The starting line number in the editor. */
 @property (nonatomic) NSUInteger startingLineNumber;
-/** A dictionary of NSImages, keyed by zero-based line numbers as NSNumbers.
+/** A dictionary of NSImages, keyed by one-based line numbers as NSNumbers.
  * The NSImages will be shown at the line specified by their key. */
 @property (nonatomic) NSDictionary *decorations;
 /** The target of the action that is sent when a decoration is clicked. */
@@ -79,8 +80,8 @@
 /** The action that is sent to decorationActionTarget when a decoration is
  * clicked. */
 @property (assign) SEL decorationActionSelector;
-/** The last line clicked by the user in the gutter. May be used by
- * decorationActionTarget to determine which decoration was clicked. */
+/** The last line clicked by the user in the gutter (zero-based). May be used
+ * by decorationActionTarget to determine which decoration was clicked. */
 @property (readonly) NSUInteger selectedLineNumber;
 
 /** Indicates whether or not line numbers should be drawn. */

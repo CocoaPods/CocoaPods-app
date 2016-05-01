@@ -66,7 +66,7 @@ The best way to learn how to use the framework is to look at the sample apps.
 
 * __Fragaria Complex__ : a split view editor with an hard-wired options panel
 
-* __Fragaria Prefs__ : a split view editor like *Fragaria Complex* with the new preferences panels.
+* __Fragaria Prefs__ : a split view editor like *Fragaria Complex* with the new preferences panels and more complex breakpoint marker behavior.
 
 ### Show me code
 
@@ -105,7 +105,7 @@ message to the delegate, which will then update its breakpoint data. If you need
 breakpoints, you should refresh the gutter view manually afterwards:
 
 ```obj-c
-[[fragaria gutterView] reloadBreakpointData];
+[fragaria reloadBreakpointData];
 ```
 
 ### Syntax Error Highlighting
