@@ -56,12 +56,31 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     // we should show "Podfile for ProjectName" instead
     userProject.registerForFullMetadataCallback {
       guard let targets = self.userProject.xcodeIntegrationDictionary["projects"] as? [String:AnyObject] else { return }
-      if targets.keys.count == 1 {
-        let project = targets.keys.first!
-        let url = NSURL(fileURLWithPath: project)
-        let name = url.lastPathComponent!.stringByReplacingOccurrencesOfString(".xcproj", withString: "")
-        self.actionTitleLabel.stringValue = "Podfile for \(name)"
-      }
+      self.updatePodfileNameIfPossible(targets)
+    }
+  }
+
+  /// As CP will deintegrate, and re-integrate that app, we should show a warning
+  /// that is is going to happen
+  /// buildVersion will be cast to a string
+  func shouldShowInstallWarningForMajorChange(buildVersion: AnyObject?) -> Bool {
+    guard
+      let version = buildVersion as? String,
+      let majorLastInstallVersion = version.componentsSeparatedByString(".").first,
+      appVersion =  NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
+      majorAppVersion = appVersion.componentsSeparatedByString(".").first
+
+    else { return false}
+
+    return Int(majorAppVersion) > Int(majorLastInstallVersion)
+  }
+
+  func updatePodfileNameIfPossible(targets: [String: AnyObject]) {
+    if targets.keys.count == 1 {
+      let project = targets.keys.first!
+      let url = NSURL(fileURLWithPath: project)
+      let name = url.lastPathComponent!.stringByReplacingOccurrencesOfString(".xcproj", withString: "")
+      actionTitleLabel.stringValue = "Podfile for \(name)"
     }
   }
 
@@ -70,31 +89,48 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   }
 
   @IBAction func install(obj: AnyObject) {
-    userProject.saveDocument(self)
     let options = InstallOptions(verbose: false)
-    installAction.performAction(.Install(options: options))
-    showConsoleTab(self)
+    performInstallAction(.Install(options: options))
   }
 
   @IBAction func installVerbose(obj: AnyObject) {
-    userProject.saveDocument(self)
     let options = InstallOptions(verbose: true)
-    installAction.performAction(.Install(options: options))
-    showConsoleTab(self)
+    performInstallAction(.Install(options: options))
   }
 
   @IBAction func installUpdate(obj: AnyObject) {
-    userProject.saveDocument(self)
     let options = InstallOptions(verbose: false)
-    installAction.performAction(.Update(options: options))
-    showConsoleTab(self)
+    performInstallAction(.Update(options: options))
   }
 
   @IBAction func installUpdateVerbose(obj: AnyObject) {
-    userProject.saveDocument(self)
     let options = InstallOptions(verbose: true)
-    installAction.performAction(.Update(options: options))
+    performInstallAction(.Update(options: options))
+  }
+
+  func performInstallAction(action: InstallActionType) {
+    userProject.saveDocument(self)
+
+    let lastInstalledVersion = userProject.xcodeIntegrationDictionary["cocoapods_build_version"]
+    if shouldShowInstallWarningForMajorChange(lastInstalledVersion) {
+      if promptForInstallMigration(lastInstalledVersion) == false { return }
+    }
+
+    installAction.performAction(action)
     showConsoleTab(self)
+  }
+
+  func promptForInstallMigration(buildVersion: AnyObject?) -> Bool {
+    guard let
+      appVersion =  NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
+      version = buildVersion as? String else { return true }
+
+    let alert = NSAlert()
+    alert.messageText = ~"REINTEGRATION_ALERT_FORMAT_TITLE"
+    alert.informativeText = String(format: ~"REINTEGRATION_ALERT_FORMAT_MESSAGE", version, appVersion)
+    alert.addButtonWithTitle(~"REINTEGRATION_ALERT_CONFIRM")
+    alert.addButtonWithTitle(~"REINTEGRATION_ALERT_CANCEL")
+    return alert.runModal() == NSAlertFirstButtonReturn
   }
 
   @IBOutlet var installMenu: NSMenu!

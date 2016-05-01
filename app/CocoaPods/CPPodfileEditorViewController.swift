@@ -342,7 +342,18 @@ extension EditorLineSelection {
 extension CPPodfileEditorViewController: CPUserProjectDelegate {
   
   func contentDidChangeinUserProject(userProject: CPUserProject) {
-    editor.string = userProject.contents
+    let contentChanged = editor.string != userProject.contents
+    let appIsActive = NSApplication.sharedApplication().active
+
+    if contentChanged && !appIsActive {
+      let selection = editor.textView.selectedRange()
+      let scroll = editor.scrollView.visibleRect
+
+      editor.string = userProject.contents
+
+      editor.textView.selectedRange = selection
+      editor.scrollView.scrollPoint(scroll.origin)
+    }
     
     // Passing the message on to the syntax checker
     syntaxChecker.textDidChange(NSNotification(name: "", object: nil))
