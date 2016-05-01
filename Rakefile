@@ -1180,12 +1180,6 @@ namespace :release do
       sh "git push"
     end
 
-    unless sparkler_update_key
-      puts "[!] You have not provided a sparkler update key via `.sparkler_update_key`, " \
-        'so a Sparkler feed update cannot be made.'
-      exit 1
-    end
-
     # Update the Sparkler feed cache
     REST.get("https://usage.cocoapods.org/feeds/cocoapods_app/reload", { "X_RELOAD_KEY" => sparkler_update_key })
 
@@ -1245,6 +1239,14 @@ task :release do
          'so a GitHub release cannot be made.'
     exit 1
   end
+
+  # https://dashboard.heroku.com/apps/cocoapods-sparkler/settings
+  unless sparkler_update_key
+    puts "[!] You have not provided a sparkler update key via `.sparkler_update_key`, " \
+      'so a Sparkler feed update cannot be made.'
+    exit 1
+  end
+
   Rake::Task['release:cleanbuild'].invoke
   Rake::Task['release:upload'].invoke
   Rake::Task['release:sparkle'].invoke
