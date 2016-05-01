@@ -90,25 +90,25 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   @IBAction func install(obj: AnyObject) {
     let options = InstallOptions(verbose: false)
-    performInstall(.Install(options: options))
+    performInstallAction(.Install(options: options))
   }
 
   @IBAction func installVerbose(obj: AnyObject) {
     let options = InstallOptions(verbose: true)
-    performInstall(.Install(options: options))
+    performInstallAction(.Install(options: options))
   }
 
   @IBAction func installUpdate(obj: AnyObject) {
     let options = InstallOptions(verbose: false)
-    performInstall(.Update(options: options))
+    performInstallAction(.Update(options: options))
   }
 
   @IBAction func installUpdateVerbose(obj: AnyObject) {
     let options = InstallOptions(verbose: true)
-    performInstall(.Update(options: options))
+    performInstallAction(.Update(options: options))
   }
 
-  func performInstall(action: InstallActionType) {
+  func performInstallAction(action: InstallActionType) {
     userProject.saveDocument(self)
 
     let lastInstalledVersion = userProject.xcodeIntegrationDictionary["cocoapods_build_version"]
