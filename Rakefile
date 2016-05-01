@@ -1096,6 +1096,33 @@ namespace :release do
     `shasum -a 256 -b '#{tarball}'`.split(' ').first
   end
 
+  def create_release_notes_markdown
+    return @cp_release_notes if @cp_release_notes
+
+    # Get the CP release notes for our inline release notes
+    version = install_cocoapods_version
+
+    response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods/releases?access_token=#{github_access_token}", github_headers)
+    latest_release = JSON.load(response.body).find { |release| release["tag_name"] == version }
+
+    markdown_notes = "pkg/#{version}_before.md"
+    File.open(markdown_notes, 'w') do |file|
+      file.write "[Download](https://github.com/CocoaPods/CocoaPods-app/releases/download/#{version}/CocoaPods.app-#{version}.tar.bz2)\n\n"
+      file.write "### CocoaPods.app\n"
+      file.write File.read('CHANGELOG.md')
+      file.write "\n\n### CocoaPods\n"
+      file.write latest_release["body"]
+    end
+
+    # Give the user a chance to add flourish
+    puts "Please edit #{markdown_notes}, then press return to continue with this process"
+    puts "try running: code -w #{Dir.pwd}/#{markdown_notes}"
+    STDIN.gets
+
+    @cp_release_notes = File.read(markdown_notes)
+    @cp_release_notes
+  end
+
   github_headers = {
     'Content-Type' => 'application/json',
     'User-Agent' => 'runscope/0.1,segiddins',
@@ -1105,10 +1132,13 @@ namespace :release do
   desc "Upload release"
   task :upload => [] do
     sha = sha(tarball)
+    notes = create_release_notes_markdown
+
     puts "Uploading zip as a GitHub release"
     tarball_name = File.basename(tarball)
+    info = {tag_name: install_cocoapods_version, name: install_cocoapods_version, body: notes}
     response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
-                              {tag_name: install_cocoapods_version, name: install_cocoapods_version}.to_json, github_headers)
+                              notes.to_json, github_headers)
     upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
@@ -1149,21 +1179,9 @@ namespace :release do
     formatter.write(doc, new_xml)
     File.open(xml_file, 'w') { |file| file.write new_xml }
 
-    # Get the CP release notes for our inline release notes
-    response = REST.get("https://api.github.com/repos/CocoaPods/CocoaPods/releases?access_token=#{github_access_token}", github_headers)
-    latest_release = JSON.load(response.body).find { |release| release["tag_name"] == version }
-
-    markdown_notes = "pkg/#{version}_before.md"
-    File.open(markdown_notes, 'w') { |file| file.write latest_release["body"] }
-
-    # Give the user a chance to add flourish
-    puts "Please edit #{markdown_notes}, then press return to continue with this process"
-    puts "try running: mate -w #{Dir.pwd}/#{markdown_notes}"
-    STDIN.gets
-
     # Get GitHub to render the MD
     puts "Generating HTML from the Markdown"
-    options = { text: File.read(markdown_notes), mode: "gfm", context: "cocoapods/cocoapods" }
+    options = { text: create_release_notes_markdown, mode: "gfm", context: "cocoapods/cocoapods" }
     response = REST.post("https://api.github.com/markdown?access_token=#{github_access_token}", options.to_json, github_headers)
     html_markdown = response.body
 
