@@ -73,9 +73,9 @@ class CPDocumentController: NSDocumentController {
       }
       else {
         let projectName = xcodeprojURL.lastPathComponent!
-        let localized = NSLocalizedString("POD_DEINTEGRATE_CONFIRMATION", comment: "")
+        let localized = ~"POD_DEINTEGRATE_CONFIRMATION"
         let alert = NSAlert()
-        alert.messageText = NSLocalizedString("POD_DEINTEGRATE_INFO", comment: "")
+        alert.messageText = ~"POD_DEINTEGRATE_INFO"
         alert.informativeText = String.localizedStringWithFormat(localized, projectName)
         alert.runModal()
       }

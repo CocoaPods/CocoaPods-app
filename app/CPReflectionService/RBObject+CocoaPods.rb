@@ -58,7 +58,14 @@ module Pod
       end
 
       uses_frameworks = config.podfile.target_definitions.first.last.to_hash["uses_frameworks"]
-      { "projects" => user_projects, "pod_targets" => pod_targets, "uses_frameworks" => uses_frameworks}
+      last_installed_version = config.sandbox.manifest.cocoapods_version.to_s
+
+      {
+        "projects" => user_projects,
+        "pod_targets" => pod_targets,
+        "uses_frameworks" => uses_frameworks,
+        "cocoapods_build_version" => last_installed_version
+      }
     end
 
     def self.sources_manager
