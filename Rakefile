@@ -1213,6 +1213,14 @@ namespace :release do
                                     github_headers).body)["full_name"]
     branch = "cocoapods-#{version}"
     message = "Upgrade CocoaPods to v#{version}"
+    body = <<BODY
+### Changes to a cask
+##### Editing an existing cask
+
+- [x] Commit message includes cask’s name (and new version, if applicable).
+- [x] `brew cask audit --download cocoapods` is error-free.
+- [x] `brew cask style --fix cocoapods` left no offenses.
+BODY
 
     FileUtils.remove_dir("homebrew_cask") if Dir.exists? "homebrew_cask"
     sh "git clone https://github.com/caskroom/homebrew-cask.git homebrew_cask"
@@ -1230,12 +1238,15 @@ namespace :release do
       cask.sub! /checkpoint: '[[:xdigit:]]+'/, "checkpoint: '#{sparkle_checkpoint}'"
       File.open(cask_file, 'w') { |f| f.write(cask) }
 
+      sh "brew cask audit --download #{cask_file}"
+      sh "brew cask style #{cask_file}"
+
       sh "git commit -am '#{message}'"
       sh "git push fork"
     end
 
     REST.post("https://api.github.com/repos/caskroom/homebrew-cask/pulls?access_token=#{github_access_token}",
-              {title: message, head: cask_fork.split('/').first + ":#{branch}", base: 'master'}.to_json,
+              {title: message, head: cask_fork.split('/').first + ":#{branch}", base: 'master', body: body}.to_json,
               github_headers)
   end
 end
