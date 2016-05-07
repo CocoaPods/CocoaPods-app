@@ -143,9 +143,60 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     return stringBefore.componentsSeparatedByString("'").count == 2 ||
            stringBefore.componentsSeparatedByString("\"").count == 2
   }
+  
+  var cursorIsInsidePodVersionQuote: Bool {
+    guard let line = selectedLines(editor.textView).first else { return false }
+    
+    let startingSelection = editor.textView.selectedRange()
+    let range = selectedLinesRange(editor.textView)
+    let cursorPosition = startingSelection.location - range.location
+    let stringBefore = (line as NSString).substringToIndex(cursorPosition)
+    
+    if stringBefore.containsString("pod") == false { return false }
+    return stringBefore.componentsSeparatedByString("'").count == 4 ||
+      stringBefore.componentsSeparatedByString("\"").count == 4
+  }
+  
+  func selectedLinePodName() -> String? {
+    guard let line = selectedLines(editor.textView).first else { return nil }
+    
+    let components = line.componentsSeparatedByString("'")
+    if components.count >= 2 {
+      return components[1]
+    } else {
+      return nil
+    }
+  }
+  
+  func podVersions(podName: String) -> [String] {
+    let appDelegate = NSApp.delegate as? CPAppDelegate
+    var versions = [String]()
+    let group = dispatch_group_create()
+    if let reflectionServiceProxy = appDelegate?.reflectionService.remoteObjectProxy as? CPReflectionServiceProtocol {
+      dispatch_group_enter(group)
+      reflectionServiceProxy.versionsForPodNamed(podName) { (vs, error) in
+        guard let vs = vs else { dump(error); return }
+        versions = vs.map { "~> \($0)" }
+        dispatch_group_leave(group)
+      }
+    }
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+    return versions
+  }
 
   func completions() -> [AnyObject]! {
-    return cursorIsInsidePodQuote ? allPodNames : autoCompletions
+    switch (cursorIsInsidePodQuote, cursorIsInsidePodVersionQuote) {
+    case (true, _):
+      return allPodNames
+    case (_, true):
+      if let name = selectedLinePodName() {
+        return podVersions(name)
+      } else {
+        return []
+      }
+    default:
+      return autoCompletions
+    }
   }
 
   func textDidChange(notification: NSNotification) {
