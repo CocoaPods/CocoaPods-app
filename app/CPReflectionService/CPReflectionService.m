@@ -109,4 +109,13 @@
   }];
 }
 
+- (void)versionsForPodNamed:(NSString * _Nonnull)podName withReply:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable versions, NSError * _Nullable error))reply;
+{
+  [RBObject performBlock:^{
+    reply([RBObjectFromString(@"Pod::App") pod_versions:podName], nil);
+  } error:^(NSError * _Nonnull error) {
+    reply(nil, error);
+  }];
+}
+
 @end

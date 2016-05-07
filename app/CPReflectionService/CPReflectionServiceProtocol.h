@@ -26,4 +26,6 @@ isOlderThanLockfileVersion:(NSString * _Nonnull)lockfileVersion
 
 - (void)allPods:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable pods, NSError * _Nullable error))reply;
 
+- (void)versionsForPodNamed:(NSString * _Nonnull)podName withReply:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable versions, NSError * _Nullable error))reply;
+
 @end
