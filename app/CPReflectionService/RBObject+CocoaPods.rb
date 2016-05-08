@@ -77,9 +77,7 @@ module Pod
     end
 
     def self.pod_versions(podName)
-      sources_manager.aggregate.search_by_name(podName).first.versions.map do |version|
-        version.to_s
-      end
+      sources_manager.aggregate.search_by_name(podName).first.versions.map(&:to_s)
     end
 
     def self.master_source
