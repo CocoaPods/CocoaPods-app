@@ -22,6 +22,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   }()
 
   var allPodNames = [String]()
+  var selectedLinePodVersions = [String]()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -168,6 +169,14 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     }
   }
   
+  func updateAutocompletionsIfNeeded() {
+    if let podName = selectedLinePodName() {
+      selectedLinePodVersions = podVersions(podName)
+    } else {
+      selectedLinePodVersions = []
+    }
+  }
+  
   func podVersions(podName: String) -> [String] {
     let appDelegate = NSApp.delegate as? CPAppDelegate
     var versions = [String]()
@@ -189,11 +198,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     case (true, _):
       return allPodNames
     case (_, true):
-      if let name = selectedLinePodName() {
-        return podVersions(name)
-      } else {
-        return []
-      }
+      return selectedLinePodVersions
     default:
       return autoCompletions
     }
@@ -208,6 +213,13 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
 
     // Passing the message on to the syntax checker
     syntaxChecker.textDidChange(notification)
+  }
+  
+  func textViewDidChangeSelection(notification: NSNotification) {
+    guard let textView = notification.object as? NSTextView where textView == editor.textView else { return }
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+      self.updateAutocompletionsIfNeeded()
+    }
   }
 
   @IBAction func commentSelection(sender: NSMenuItem) {
