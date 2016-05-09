@@ -171,26 +171,21 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   
   func updateAutocompletionsIfNeeded() {
     if let podName = selectedLinePodName() {
-      selectedLinePodVersions = podVersions(podName)
+      fetchPodVersions(podName) { self.selectedLinePodVersions = $0 }
     } else {
       selectedLinePodVersions = []
     }
   }
   
-  func podVersions(podName: String) -> [String] {
+  func fetchPodVersions(podName: String, completion: [String] -> ()) {
     let appDelegate = NSApp.delegate as? CPAppDelegate
-    var versions = [String]()
-    let group = dispatch_group_create()
+    
     if let reflectionServiceProxy = appDelegate?.reflectionService.remoteObjectProxy as? CPReflectionServiceProtocol {
-      dispatch_group_enter(group)
       reflectionServiceProxy.versionsForPodNamed(podName) { (vs, error) in
         guard let vs = vs else { dump(error); return }
-        versions = vs.map { "~> \($0)" }
-        dispatch_group_leave(group)
+        completion(vs.map { "~> \($0)" })
       }
     }
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
-    return versions
   }
 
   func completions() -> [AnyObject]! {
