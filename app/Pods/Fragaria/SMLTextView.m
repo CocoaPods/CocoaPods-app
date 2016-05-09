@@ -1270,7 +1270,9 @@ static unichar ClosingBraceForOpeningBrace(unichar c)
     
     // TODO: Check if we are in a string
     NSCharacterSet *stringDelimiters = [NSCharacterSet characterSetWithCharactersInString:@"'\""];
-    if ([stringDelimiters characterIsMember:[[self string] characterAtIndex:loc-1]]) {
+    if (loc > 1 &&
+        [stringDelimiters characterIsMember:[[self string] characterAtIndex:loc-1]] &&
+        [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[[self string] characterAtIndex:loc-2]]) {
         return cursor;
     }
 
