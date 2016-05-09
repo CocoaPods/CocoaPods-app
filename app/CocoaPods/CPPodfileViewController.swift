@@ -8,7 +8,7 @@ import Cocoa
 
 class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
-  var userProject:CPUserProject!
+  var userProject: CPUserProject!
   dynamic var installAction: CPInstallAction!
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
@@ -67,10 +67,10 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     guard
       let version = buildVersion as? String,
       let majorLastInstallVersion = version.componentsSeparatedByString(".").first,
-      appVersion =  NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
-      majorAppVersion = appVersion.componentsSeparatedByString(".").first
+      let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
+      let majorAppVersion = appVersion.componentsSeparatedByString(".").first
 
-    else { return false}
+    else { return false }
 
     return Int(majorAppVersion) > Int(majorLastInstallVersion)
   }
@@ -115,7 +115,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
     let lastInstalledVersion = userProject.xcodeIntegrationDictionary["cocoapods_build_version"]
     if shouldShowInstallWarningForMajorChange(lastInstalledVersion) {
-      if promptForInstallMigration(lastInstalledVersion) == false { return }
+      if !promptForInstallMigration(lastInstalledVersion) { return }
     }
 
     installAction.performAction(action)
@@ -123,9 +123,9 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   }
 
   func promptForInstallMigration(buildVersion: AnyObject?) -> Bool {
-    guard let
-      appVersion =  NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
-      version = buildVersion as? String else { return true }
+    guard
+      let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
+      let version = buildVersion as? String else { return true }
 
     let alert = NSAlert()
     alert.messageText = ~"REINTEGRATION_ALERT_FORMAT_TITLE"
@@ -186,21 +186,25 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   var popover: NSPopover?
 
   @IBAction func showSourceRepoUpdatePopover(button: NSButton) {
+    // Prevent multiple popovers to be shown when clicking the show source repo update button rapidly
+    if let popover = self.popover where popover.shown {
+      return
+    }
 
     let podfileSources = userProject.podfileSources
     let allRepos = sourcesCoordinator.allRepos
 
-    let activeProjects:[CPSourceRepo]
-    let inactiveProjects:[CPSourceRepo]
+    let activeProjects: [CPSourceRepo]
+    let inactiveProjects: [CPSourceRepo]
 
     // Handle the implicit CP source repo when none are defined
 
     if podfileSources.isEmpty {
       activeProjects = allRepos.filter { $0.isCocoaPodsSpecs }
-      inactiveProjects = allRepos.filter { $0.isCocoaPodsSpecs == false }
+      inactiveProjects = allRepos.filter { !$0.isCocoaPodsSpecs }
     } else {
       activeProjects = allRepos.filter { podfileSources.contains($0.address) }
-      inactiveProjects = allRepos.filter { podfileSources.contains($0.address) == false }
+      inactiveProjects = allRepos.filter { !podfileSources.contains($0.address) }
     }
 
     guard let viewController = storyboard?.instantiateControllerWithIdentifier("RepoSources") as? CPSourceReposViewController else { return }
