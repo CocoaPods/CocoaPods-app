@@ -131,27 +131,27 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
       NSWorkspace.sharedWorkspace().openURL(url)
     }
   }
+  
+  var linePrefix: String? {
+    get {
+      guard let line = selectedLines(editor.textView).first else { return nil }
+      
+      let startingSelection = editor.textView.selectedRange()
+      let range = selectedLinesRange(editor.textView)
+      let cursorPosition = startingSelection.location - range.location
+      return (line as NSString).substringToIndex(cursorPosition)
+    }
+  }
 
   var cursorIsInsidePodQuote: Bool {
-    guard let line = selectedLines(editor.textView).first else { return false }
-
-    let startingSelection = editor.textView.selectedRange()
-    let range = selectedLinesRange(editor.textView)
-    let cursorPosition = startingSelection.location - range.location
-    let stringBefore = (line as NSString).substringToIndex(cursorPosition)
-
+    guard let stringBefore = linePrefix else { return false }
     if stringBefore.containsString("pod") == false { return false }
     return stringBefore.componentsSeparatedByString("'").count == 2 ||
            stringBefore.componentsSeparatedByString("\"").count == 2
   }
   
   var cursorIsInsidePodVersionQuote: Bool {
-    guard let line = selectedLines(editor.textView).first else { return false }
-    
-    let startingSelection = editor.textView.selectedRange()
-    let range = selectedLinesRange(editor.textView)
-    let cursorPosition = startingSelection.location - range.location
-    let stringBefore = (line as NSString).substringToIndex(cursorPosition)
+    guard let stringBefore = linePrefix else { return false }
     
     if stringBefore.containsString("pod") == false { return false }
     return stringBefore.componentsSeparatedByString("'").count == 4 ||
