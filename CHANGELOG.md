@@ -1,4 +1,10 @@
-## master
+## Master
+
+* Removes an unused menu item for specs repo updating  
+  [orta](https://github.com/orta)
+  [#314](https://github.com/CocoaPods/CocoaPods-app/pull/314)
+
+## [1.0.0.rc.1](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.rc.1)
 
 * Fixes to Sparkle updates, by returning to CocoaPods' version numbers  
   [orta](https://github.com/orta)  
