@@ -316,7 +316,7 @@ Command-Line Tools?</string>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-73-Olf" customClass="CPBorderedButton">
-                    <rect key="frame" x="403" y="428" width="60" height="21"/>
+                    <rect key="frame" x="403" y="428" width="60" height="20"/>
                     <buttonCell key="cell" type="bevel" title="help" bezelStyle="regularSquare" image="TransparentButtonBG" imagePosition="overlaps" alignment="center" alternateImage="TransparentButtonBGFilled" imageScaling="axesIndependently" inset="2" id="a5U-pN-aXb" customClass="CPBorderedButtonCell">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
