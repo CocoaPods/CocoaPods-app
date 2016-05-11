@@ -4,6 +4,11 @@
   [orta](https://github.com/orta)
   [#314](https://github.com/CocoaPods/CocoaPods-app/pull/314)
 
+* Fixes for localizations on the pod plugin install view controller  
+  [orta](https://github.com/orta)
+  [#318](https://github.com/CocoaPods/CocoaPods-app/pull/318)
+
+
 ## [1.0.0.rc.1](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.rc.1)
 
 * Fixes to Sparkle updates, by returning to CocoaPods' version numbers  

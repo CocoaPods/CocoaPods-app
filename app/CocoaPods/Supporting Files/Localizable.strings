@@ -42,6 +42,7 @@
 "REPO_UPDATE_NOTIFICATION_TITLE" = "Repo Updated";
 "REPO_UPDATE_FAILED_NOTIFICATION_TITLE" = "Repo not Updated";
 
+"PLUGINS_INSTALLING_MESSAGE" = "Installing Plugins";
 "PLUGIN_FAILED_TO_INSTALL_MESSAGE" = "Failed to Install Plugins";
 "PLUGINS_ALL_INSTALLED_MESSAGE" = "Installed Plugins";
 
