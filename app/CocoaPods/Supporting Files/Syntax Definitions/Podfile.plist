@@ -100,6 +100,7 @@
 		<!-- CP 1.0.0 new attributes -->
 		<string>abstract_target</string>
 		<string>install!</string>
+		<string>project</string>
 		<!-- CP pre-1.0.0 attributes -->
 		<string>set_arc_compatibility_flag!</string>
 		<string>plugin</string>
