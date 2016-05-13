@@ -1,5 +1,11 @@
 ## Master
 
+* Disable autocomplete in comments  
+	[k0nserv](https://github.com/k0nserv)
+	[#329](https://github.com/CocoaPods/CocoaPods-app/pull/329)
+
+## [1.0.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0)
+
 * Removes an unused menu item for specs repo updating  
   [orta](https://github.com/orta)
   [#314](https://github.com/CocoaPods/CocoaPods-app/pull/314)
