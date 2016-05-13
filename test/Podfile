@@ -5,7 +5,7 @@ platform :ios, '8'
 pods = [
   'AFNetworking',        # Git
   'VeriJSON',            # Mercurial
-  'gtm-http-fetcher',    # Subversion
+  'clipper',             # Subversion
   'GoogleMaps',          # HTTPS
   # TODO no public bazaar repos? :/
 ]
