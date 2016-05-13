@@ -23,6 +23,7 @@ class CPFontAndColourGateKeeper: NSObject {
   let cpBrightWhite = NSColor(calibratedRed:0.773, green:0.773, blue:0.773, alpha:1.00)
   let cpBrightLightBrown = NSColor(calibratedRed: 232/255, green:226/255 , blue: 224/255, alpha: 1)
   let cpBrightBrown = NSColor(calibratedRed: 209/255, green:196/255 , blue: 192/255, alpha: 1)
+  let cpLinkRed = NSColor(calibratedRed:0.91, green:0.22, blue:0.24, alpha:1.00)
   
   //MARK: - Font
   

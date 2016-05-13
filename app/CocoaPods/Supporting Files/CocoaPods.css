@@ -1,0 +1,8 @@
+nav.navbar.navbar-static-top {
+  min-height: 1px!important;
+  height: 8px!important;
+}
+
+nav.navbar.navbar-static-top > section {
+  visibility: hidden!important
+}
