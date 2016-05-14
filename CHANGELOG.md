@@ -1,14 +1,15 @@
 ## Master
 
-* Remeber the editor window size across runs  
-	[K0nserv](https://github.com/k0nserv)
-	[#330](https://github.com/CocoaPods/CocoaPods-app/pull/330)
+* Remember the editor window size across runs  
+  [K0nserv](https://github.com/k0nserv)
+  [#330](https://github.com/CocoaPods/CocoaPods-app/pull/330)
 
 * Disable autocomplete in comments  
-	[k0nserv](https://github.com/k0nserv)
-	[#329](https://github.com/CocoaPods/CocoaPods-app/pull/329)
+  [k0nserv](https://github.com/k0nserv)
+  [#329](https://github.com/CocoaPods/CocoaPods-app/pull/329)
 
 ## [1.0.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0)
+   [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100-2016-05-10)
 
 * Removes an unused menu item for specs repo updating  
   [orta](https://github.com/orta)
@@ -20,55 +21,57 @@
 
 
 ## [1.0.0.rc.1](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.rc.1)
+   [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100rc1-2016-04-30)
 
 * Fixes to Sparkle updates, by returning to CocoaPods' version numbers  
-  [orta](https://github.com/orta)  
+  [orta](https://github.com/orta)
   [#300](https://github.com/CocoaPods/CocoaPods-app/pull/300)
 
 * Show an alert if CP is going to re-integrate your project  
-  [orta](https://github.com/orta)  
+  [orta](https://github.com/orta)
   [#299](https://github.com/CocoaPods/CocoaPods-app/pull/299)
 
 * Polish for Source Menus & Pod Autocomplete improvements  
-  [orta](https://github.com/orta)  
+  [orta](https://github.com/orta)
   [#298](https://github.com/CocoaPods/CocoaPods-app/pull/298)
 
 * Deintegrate CocoaPods from a project  
-  [Nate West](https://github.com/nwest)  
+  [Nate West](https://github.com/nwest)
   [#296](https://github.com/CocoaPods/CocoaPods-app/pull/296)
 
 * Pod Repo Source Management, both in the Podfile Editor, and in the Main Menu  
-  [orta](https://github.com/orta)  
+  [orta](https://github.com/orta)
   [#294](https://github.com/CocoaPods/CocoaPods-app/pull/294)
 
 ## [1.0.0.beta.8 2016.05.19](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.8)
+   [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100beta8-2016-04-15)
 
 * Re-designed Home Window  
-  [Orta Therox](https://github.com/orta)  
+  [Orta Therox](https://github.com/orta)
   [#285](https://github.com/CocoaPods/CocoaPods-app/pull/285)
 
 * Support using the keychain for access tokens for private git repos  
-  [Orta Therox](https://github.com/orta)  
+  [Orta Therox](https://github.com/orta)
   [#279](https://github.com/CocoaPods/CocoaPods-app/pull/279)
 
 * SSL fixes  
-  [David Ohayon](https://github.com/ohwutup)  
+  [David Ohayon](https://github.com/ohwutup)
   [#281](https://github.com/CocoaPods/CocoaPods-app/pull/281)
 
 * Support for Handling Sources  
-  [Nate West](https://github.com/nwest)  
+  [Nate West](https://github.com/nwest)
   [#275](https://github.com/CocoaPods/CocoaPods-app/pull/275)
 
 * Update cask sparkle checkpoint on release  
-  [Samuel Giddins](https://github.com/segiddins)  
+  [Samuel Giddins](https://github.com/segiddins)
   [#266](https://github.com/CocoaPods/CocoaPods-app/pull/266)
 
 * Show a warning while editing a Podfile for a Podfile.lock generated with a newer version of CocoaPods  
-  [Nate West](https://github.com/nwest)  
+  [Nate West](https://github.com/nwest)
   [#257](https://github.com/CocoaPods/CocoaPods-app/pull/257)
 
-* Migrate project to Xcode 7.3  
-  [Nate West](https://github.com/nwest)  
+* Migrate project to Xcode 7.3
+  [Nate West](https://github.com/nwest)
   [#274](https://github.com/CocoaPods/CocoaPods-app/pull/274)
   
 ## [1.0.0.beta.5 2016.03.03](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0.beta.5) 
