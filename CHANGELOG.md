@@ -1,5 +1,9 @@
 ## Master
 
+* Remeber the editor window size across runs  
+	[K0nserv](https://github.com/k0nserv)
+	[#330](https://github.com/CocoaPods/CocoaPods-app/pull/330)
+
 * Disable autocomplete in comments  
 	[k0nserv](https://github.com/k0nserv)
 	[#329](https://github.com/CocoaPods/CocoaPods-app/pull/329)
