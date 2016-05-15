@@ -1,6 +1,7 @@
 #import "CPANSIEscapeHelper.h"
 #import "CPUserProject.h"
 #import "CPCLITask.h"
+#import "NSArray+Helpers.h"
 
 @interface CPCLITask ()
 
@@ -46,7 +47,11 @@
   if (self) {
     self.workingDirectory = workingDirectory;
     self.command = command;
-    self.arguments = arguments;
+    self.arguments = [[arguments map:^ id (id arg) {
+      return [arg stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+    }] reject:^ BOOL (NSString *arg) {
+      return arg.length == 0;
+    }];
     self.delegate = delegate;
     self.qualityOfService = qualityOfService;
     self.terminationStatus = 1;
