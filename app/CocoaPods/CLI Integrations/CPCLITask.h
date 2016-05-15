@@ -34,6 +34,7 @@
  */
 - (instancetype)initWithUserProject:(CPUserProject *)userProject
                             command:(NSString *)command
+                          arguments:(NSArray *)arguments
                            delegate:(id<CPCLITaskDelegate>)delegate
                    qualityOfService:(NSQualityOfService)qualityOfService;
 
@@ -43,6 +44,7 @@
  */
 - (instancetype)initWithWorkingDirectory:(NSString *)workingDirectory
                                  command:(NSString *)command
+                               arguments:(NSArray *)arguments
                                 delegate:(id<CPCLITaskDelegate>)delegate
                         qualityOfService:(NSQualityOfService)qualityOfService;
 

@@ -8,6 +8,10 @@
   [k0nserv](https://github.com/k0nserv)
   [#329](https://github.com/CocoaPods/CocoaPods-app/pull/329)
 
+* Fix error when trying to create a new Podfile from an xcodeproj with spaces  
+  [marcboquet](https://github.com/marcboquet)
+  [#337](https://github.com/CocoaPods/CocoaPods-app/pull/337)
+
 ## [1.0.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0)
    [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100-2016-05-10)
 
