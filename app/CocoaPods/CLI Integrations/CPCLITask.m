@@ -8,6 +8,7 @@
 
 @property (nonatomic, weak) NSString *workingDirectory;
 @property (nonatomic, copy) NSString *command;
+@property (nonatomic, copy) NSArray *arguments;
 
 @property (nonatomic) NSTask *task;
 @property (nonatomic) NSQualityOfService qualityOfService;
@@ -24,17 +25,20 @@
 
 - (instancetype)initWithUserProject:(CPUserProject *)userProject
                             command:(NSString *)command
+                          arguments:(NSArray *)arguments
                            delegate:(id<CPCLITaskDelegate>)delegate
                    qualityOfService:(NSQualityOfService)qualityOfService
 {
   return [self initWithWorkingDirectory:[[userProject.fileURL URLByDeletingLastPathComponent] path]
                                 command:command
+                              arguments:arguments
                                delegate:delegate
                        qualityOfService:qualityOfService];
 }
 
 - (instancetype)initWithWorkingDirectory:(NSString *)workingDirectory
                                  command:(NSString *)command
+                               arguments:(NSArray *)arguments
                                 delegate:(id<CPCLITaskDelegate>)delegate
                         qualityOfService:(NSQualityOfService)qualityOfService
 {
@@ -42,6 +46,7 @@
   if (self) {
     self.workingDirectory = workingDirectory;
     self.command = command;
+    self.arguments = arguments;
     self.delegate = delegate;
     self.qualityOfService = qualityOfService;
     self.terminationStatus = 1;
@@ -76,7 +81,7 @@
                                                               ofType:nil
                                                          inDirectory:@"bundle/bin"];
 
-  NSArray *arguments = @[envBundleScript, @"pod", self.command];
+  NSArray *arguments = [@[envBundleScript, @"pod", self.command] arrayByAddingObjectsFromArray:self.arguments];
   if (self.colouriseOutput) {
     arguments = [arguments arrayByAddingObject:@"--ansi"];
   }

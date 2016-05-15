@@ -14,11 +14,10 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
     super.viewWillAppear()
     titleLabel.stringValue = ~"plugins installing message"
 
-    let gems = pluginsToInstall.joinWithSeparator(" ")
-    let command = "plugins install \(gems)"
+    let command = "plugins install"
     failed = false
 
-    installTask = CPCLITask(userProject: userProject, command: command, delegate: self, qualityOfService:.UserInitiated)
+    installTask = CPCLITask(userProject: userProject, command: command, arguments: pluginsToInstall, delegate: self, qualityOfService:.UserInitiated)
     installTask?.run()
   }
 
