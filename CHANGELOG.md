@@ -2,7 +2,7 @@
 
 * Allow option clicking on a pod
   [pedrovieira7](https://github.com/pedrovieira7)
-  [#302](https://github.com/CocoaPods/CocoaPods-app/issues/302)
+  [#333](https://github.com/CocoaPods/CocoaPods-app/pull/333)
 
 * Remember the editor window size across runs  
   [K0nserv](https://github.com/k0nserv)
