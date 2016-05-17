@@ -28,4 +28,4 @@ if [ -z "$TERM" ]; then
   export TERM=xterm-256color
 fi
 
-exec $*
+exec "$@"

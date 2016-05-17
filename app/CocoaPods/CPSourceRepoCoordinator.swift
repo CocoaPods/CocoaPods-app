@@ -46,7 +46,7 @@ class CPSourceRepoCoordinator: NSObject {
   }
 
   func checkWhetherProjectNeedsChanges(userProject: CPUserProject) {
-    checkTask = CPCLITask(userProject: userProject, command: "check", delegate: self, qualityOfService: .Utility)
+    checkTask = CPCLITask(userProject: userProject, command: "check", arguments: [], delegate: self, qualityOfService: .Utility)
     checkTask?.run()
   }
 }
@@ -90,7 +90,7 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
   @IBAction func updateRepo(button: NSButton?) {
     self.isUpdatingRepo = true
 
-    updateRepoTask = CPCLITask(workingDirectory: NSTemporaryDirectory(), command: "repo update \(name)", delegate: self, qualityOfService: .UserInteractive)
+    updateRepoTask = CPCLITask(workingDirectory: NSTemporaryDirectory(), command: "repo update", arguments: [name], delegate: self, qualityOfService: .UserInteractive)
     updateRepoTask?.run()
   }
 

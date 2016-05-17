@@ -25,7 +25,8 @@ public class CPPodfileInitController: NSObject, CPCLITaskDelegate {
     super.init()
 
     self.task = CPCLITask(workingDirectory: xcodeprojURL.URLByDeletingLastPathComponent!.path,
-      command: "init \(xcodeprojURL.lastPathComponent!)",
+      command: "init",
+      arguments: [xcodeprojURL.lastPathComponent!],
       delegate: self,
       qualityOfService: .UserInitiated)
     self.task.run()
