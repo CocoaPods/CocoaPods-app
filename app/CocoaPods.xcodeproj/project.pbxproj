@@ -97,6 +97,10 @@
 		934FF1871C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FF1861C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift */; };
 		934FF1891C4F1E2A000B4302 /* CPDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */; };
 		93FB07E11C503572007B2CDA /* CPDocumentSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB07E01C503572007B2CDA /* CPDocumentSource.swift */; };
+		C90778391CE68CB400A7E235 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90778381CE68CB400A7E235 /* WebKit.framework */; };
+		C907783D1CE68CCE00A7E235 /* SMLTextView+OptionClickPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C907783B1CE68CCE00A7E235 /* SMLTextView+OptionClickPopover.swift */; };
+		C907783E1CE68CCE00A7E235 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C907783C1CE68CCE00A7E235 /* String+Extensions.swift */; };
+		C90778401CE68CD900A7E235 /* CocoaPods.css in Resources */ = {isa = PBXBuildFile; fileRef = C907783F1CE68CD900A7E235 /* CocoaPods.css */; };
 		D69F9D731CE679CF00ACB1BF /* CPPodFileWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69F9D721CE679CF00ACB1BF /* CPPodFileWindowViewController.swift */; };
 		E70998471C49AB5B00229507 /* Podfile.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70998461C49AB5B00229507 /* Podfile.plist */; };
 		E72E9FDA1C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */; };
@@ -297,6 +301,10 @@
 		934FF1861C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodfileConsoleTextView.swift; sourceTree = "<group>"; };
 		934FF1881C4F1E2A000B4302 /* CPDocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPDocumentController.swift; sourceTree = "<group>"; };
 		93FB07E01C503572007B2CDA /* CPDocumentSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPDocumentSource.swift; sourceTree = "<group>"; };
+		C90778381CE68CB400A7E235 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C907783B1CE68CCE00A7E235 /* SMLTextView+OptionClickPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SMLTextView+OptionClickPopover.swift"; sourceTree = "<group>"; };
+		C907783C1CE68CCE00A7E235 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		C907783F1CE68CD900A7E235 /* CocoaPods.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = CocoaPods.css; sourceTree = "<group>"; };
 		D69F9D721CE679CF00ACB1BF /* CPPodFileWindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPPodFileWindowViewController.swift; sourceTree = "<group>"; };
 		E70998461C49AB5B00229507 /* Podfile.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Podfile.plist; path = "Syntax Definitions/Podfile.plist"; sourceTree = "<group>"; };
 		E72E9FD91C6E328C00A8705B /* CPStringArrayToSentenceValueTransformerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPStringArrayToSentenceValueTransformerSpec.swift; sourceTree = "<group>"; };
@@ -323,6 +331,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C90778391CE68CB400A7E235 /* WebKit.framework in Frameworks */,
 				51CFC7861A2DF8E000F9ABCB /* Cocoa.framework in Frameworks */,
 				51CFC7841A2DF88700F9ABCB /* Security.framework in Frameworks */,
 				51165E531A1973CC00DCFC94 /* SecurityFoundation.framework in Frameworks */,
@@ -362,6 +371,7 @@
 		46126B404240E403B2193EE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C90778381CE68CB400A7E235 /* WebKit.framework */,
 				514280C91C36C1BD00DCE23D /* libffi.tbd */,
 				51EA178F1C0155E9000DC69A /* RubyCocoa.framework */,
 				51CFC7851A2DF8E000F9ABCB /* Cocoa.framework */,
@@ -432,6 +442,7 @@
 				60FE01621B9B76400027EEE3 /* Home Window */,
 				FA16FACB1C14475200DC3791 /* URL Handling */,
 				60FE016D1B9B7F000027EEE3 /* Categories */,
+				C907783A1CE68CBD00A7E235 /* Extensions */,
 				51165E221A17AFF500DCFC94 /* Supporting Files */,
 			);
 			path = CocoaPods;
@@ -440,6 +451,7 @@
 		51165E221A17AFF500DCFC94 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C907783F1CE68CD900A7E235 /* CocoaPods.css */,
 				5180FE931AD2A51300314D61 /* LICENSE */,
 				E70998461C49AB5B00229507 /* Podfile.plist */,
 				77356D741A2253F1002822CF /* Media.xcassets */,
@@ -686,6 +698,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C907783A1CE68CBD00A7E235 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C907783C1CE68CCE00A7E235 /* String+Extensions.swift */,
+				C907783B1CE68CCE00A7E235 /* SMLTextView+OptionClickPopover.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		FA16FACB1C14475200DC3791 /* URL Handling */ = {
 			isa = PBXGroup;
 			children = (
@@ -847,6 +868,7 @@
 				51D2E5B21A212A0800C0B153 /* SyntaxDefinitions.plist in Resources */,
 				51165E2D1A17AFF500DCFC94 /* MainMenu.xib in Resources */,
 				51D2E5B11A212A0800C0B153 /* Syntax Definitions in Resources */,
+				C90778401CE68CD900A7E235 /* CocoaPods.css in Resources */,
 				606D1ED21BF90705000B7148 /* Podfile.storyboard in Resources */,
 				E70998471C49AB5B00229507 /* Podfile.plist in Resources */,
 				6075BA651C068B5F00A5C491 /* Podfile.xcassets in Resources */,
@@ -1029,10 +1051,12 @@
 				51165E281A17AFF500DCFC94 /* main.m in Sources */,
 				601ACAA31C389E9B0058FA86 /* CPXcodeInformationGenerator.m in Sources */,
 				5EF5B7871C17990400F8C39E /* CPSideButton.swift in Sources */,
+				C907783D1CE68CCE00A7E235 /* SMLTextView+OptionClickPopover.swift in Sources */,
 				93FB07E11C503572007B2CDA /* CPDocumentSource.swift in Sources */,
 				1F9177581BA27592006698C9 /* CPHomeWindowController.m in Sources */,
 				60E693A91C49B5980058DF5F /* CPSpotlightDocumentSource.swift in Sources */,
 				934FF1871C4CB4ED000B4302 /* CPPodfileConsoleTextView.swift in Sources */,
+				C907783E1CE68CCE00A7E235 /* String+Extensions.swift in Sources */,
 				6075BA671C06963700A5C491 /* CPInstallAction.swift in Sources */,
 				60E693B91C4A8DAD0058DF5F /* CPRecentDocumentSource.swift in Sources */,
 				3311885A1BEBCB4200272793 /* CPCLITask.m in Sources */,
