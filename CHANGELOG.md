@@ -1,6 +1,6 @@
 ## Master
 
-* Allow option clicking on a pod
+* Allow option clicking on a pod  
   [pedrovieira7](https://github.com/pedrovieira7)
   [#333](https://github.com/CocoaPods/CocoaPods-app/pull/333)
 
