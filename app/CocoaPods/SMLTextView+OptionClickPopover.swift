@@ -138,7 +138,7 @@ extension SMLTextView {
       }
     }
     
-    // Iterate to the left of the text line search of the first occurence of a " or '
+    // Iterate to the left of the text line in search of the first occurence of a " or '
     // ←
     let leftSideRange = NSRange(location: 0, length: hoveredCharLineIndex)
     for (index, char) in (line as NSString).substringWithRange(leftSideRange).characters.reverse().enumerate() {
