@@ -1,5 +1,9 @@
 ## Master
 
+* Change the home window size to match Xcode's  
+	[k0nserv](https://github.com/k0nserv)
+	[#339](https://github.com/CocoaPods/CocoaPods-app/pull/339)
+
 * Allow option clicking on a pod  
   [pedrovieira7](https://github.com/pedrovieira7)
   [#333](https://github.com/CocoaPods/CocoaPods-app/pull/333)
