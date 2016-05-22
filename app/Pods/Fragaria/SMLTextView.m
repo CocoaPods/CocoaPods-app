@@ -1267,15 +1267,6 @@ static unichar ClosingBraceForOpeningBrace(unichar c)
     {
         return NSMakeRange(NSNotFound, 0);
     }
-    
-    // TODO: Check if we are in a string
-    NSCharacterSet *stringDelimiters = [NSCharacterSet characterSetWithCharactersInString:@"'\""];
-    if (loc > 1 &&
-        [stringDelimiters characterIsMember:[[self string] characterAtIndex:loc-1]] &&
-        [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[[self string] characterAtIndex:loc-2]]) {
-        return cursor;
-    }
-
 
     // Create char set with characters valid for variables
     NSCharacterSet* variableChars = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789_\\"];
@@ -1288,7 +1279,8 @@ static unichar ClosingBraceForOpeningBrace(unichar c)
         return NSMakeRange(NSNotFound, 0);
     }
 
-    
+    // TODO: Check if we are in a string
+
     // Search backwards in string until we hit a non-variable char
     NSUInteger numChars = 1;
     NSUInteger searchLoc = loc - 1;
@@ -1338,10 +1330,6 @@ static unichar ClosingBraceForOpeningBrace(unichar c)
             syntaxDefOfCachedKeywords = self.syntaxColouring.syntaxDefinition;
         }
         [allCompletions addObjectsFromArray:cachedKeywords];
-    }
-    
-    if (charRange.length == 0) {
-        return allCompletions;
     }
 
     // get string to match
