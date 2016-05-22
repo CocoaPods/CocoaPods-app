@@ -8,10 +8,10 @@ enum InstallActionType {
 struct InstallOptions {
   let verbose: Bool
 
-  var commandOptions : String {
-    var string = ""
-    if verbose { string += "--verbose " }
-    return string
+  var commandOptions : [String] {
+    var opts = [String]()
+    if verbose { opts.append("--verbose") }
+    return opts
   }
 }
 
@@ -29,14 +29,14 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
   func performAction(type: InstallActionType) {
     switch type {
     case .Install(let options):
-      executeTaskWithCommand("install \(options.commandOptions)")
+      executeTaskWithCommand("install", args: options.commandOptions)
     case .Update(let options):
-      executeTaskWithCommand("update \(options.commandOptions)")
+      executeTaskWithCommand("update", args: options.commandOptions)
     }
   }
 
-  private func executeTaskWithCommand(command: String) {
-    task = CPCLITask(userProject: userProject, command: command, delegate: self, qualityOfService: .UserInitiated)
+  private func executeTaskWithCommand(command: String, args: [String]) {
+    task = CPCLITask(userProject: userProject, command: command, arguments: args, delegate: self, qualityOfService: .UserInitiated)
     guard let task = task else { return }
 
     task.colouriseOutput = true

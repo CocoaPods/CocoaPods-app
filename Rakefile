@@ -132,7 +132,7 @@ SCONS_VERSION = '2.3.4'
 SCONS_URL = "https://bitbucket.org/scons/scons/get/#{SCONS_VERSION}.tar.gz"
 
 SERF_VERSION = '1.3.8'
-SERF_URL = "http://serf.googlecode.com/svn/src_releases/serf-#{SERF_VERSION}.tar.bz2"
+SERF_URL = "https://archive.apache.org/dist/serf/serf-#{SERF_VERSION}.tar.bz2"
 
 SVN_VERSION = '1.8.13'
 SVN_URL = "https://archive.apache.org/dist/subversion/subversion-#{SVN_VERSION}.tar.gz"

@@ -12,12 +12,12 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
 
   override func viewWillAppear() {
     super.viewWillAppear()
+    titleLabel.stringValue = ~"plugins installing message"
 
-    let gems = pluginsToInstall.joinWithSeparator(" ")
-    let command = "plugins install \(gems)"
+    let command = "plugins install"
     failed = false
 
-    installTask = CPCLITask(userProject: userProject, command: command, delegate: self, qualityOfService:.UserInitiated)
+    installTask = CPCLITask(userProject: userProject, command: command, arguments: pluginsToInstall, delegate: self, qualityOfService:.UserInitiated)
     installTask?.run()
   }
 
@@ -34,7 +34,7 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
 
     } else {
       exitButton.title = ~"Close"
-      titleLabel.stringValue = ~"Installed Plugins"
+      titleLabel.stringValue = ~"plugins all installed message"
       pluginsInstalled?()
     }
   }

@@ -22,6 +22,7 @@ class CPDeintegrateController: NSObject, CPCLITaskDelegate {
     super.init()
     self.task = CPCLITask(workingDirectory: xcodeprojURL.URLByDeletingLastPathComponent!.path,
                           command: "deintegrate",
+                          arguments: [],
                           delegate: self,
                           qualityOfService: .UserInitiated)
     self.task.run()

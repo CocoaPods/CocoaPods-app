@@ -188,11 +188,20 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     }
   }
 
+  var cursorInComment: Bool {
+    guard let line = selectedLines(editor.textView).first else { return false }
+    let trimmed = line.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+    return (trimmed as NSString).substringToIndex(1) == "#"
+  }
+
   func completions() -> [AnyObject]! {
-    switch (cursorIsInsidePodQuote, cursorIsInsidePodVersionQuote) {
-    case (true, _):
+    switch (cursorInComment, cursorIsInsidePodQuote, cursorIsInsidePodVersionQuote) {
+    case (true, _, _):
+      return []
+    case (_, true, _):
       return allPodNames
-    case (_, true):
+    case (_, _, true):
       return selectedLinePodVersions
     default:
       return autoCompletions
