@@ -23,13 +23,14 @@
   NSRange cursor = [self selectedRange];
   NSUInteger loc = cursor.location;
   
+  // Allow completion at the start of string literals
   NSCharacterSet *stringDelimiters = [NSCharacterSet characterSetWithCharactersInString:@"'\""];
   if (loc > 1 &&
     [stringDelimiters characterIsMember:[[self string] characterAtIndex:loc-1]] &&
     [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[[self string] characterAtIndex:loc-2]]) {
     return cursor;
   }
-  // TODO: Changes for version completion
+  
   if (range.location != NSNotFound && range.location > 0
       && [self.string characterAtIndex:range.location -1] == ':') {
     
@@ -41,14 +42,13 @@
 -(NSArray<NSString *> *)CP_completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
 {
   NSArray<NSString *> *completions = [self CP_completionsForPartialWordRange:charRange indexOfSelectedItem:index];
-  id <SMLAutoCompleteDelegate> delegate;
-  
-  if (!self.autoCompleteDelegate)
+  if (charRange.length == 0) { // Return all available completions at cursor position within strings
+    id <SMLAutoCompleteDelegate> delegate;
+    if (!self.autoCompleteDelegate)
       delegate = self.syntaxColouring.syntaxDefinition;
-  else
-    delegate = self.autoCompleteDelegate;
-  NSMutableArray* allCompletions = [[delegate completions] mutableCopy];
-  if (charRange.length == 0) {
+    else
+      delegate = self.autoCompleteDelegate;
+    NSMutableArray* allCompletions = [[delegate completions] mutableCopy];
     return allCompletions;
   }
   return completions;
