@@ -1,5 +1,9 @@
 ## Master
 
+* Pod version completion
+  [flufff42](https://github.com/flufff42)
+  [#313](https://github.com/CocoaPods/CocoaPods-app/pull/313)
+
 * Change the home window size to match Xcode's  
 	[k0nserv](https://github.com/k0nserv)
 	[#339](https://github.com/CocoaPods/CocoaPods-app/pull/339)
