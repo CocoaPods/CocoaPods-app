@@ -22,6 +22,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   }()
 
   var allPodNames = [String]()
+  var selectedLinePodVersions = [String]()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -130,18 +131,61 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
       NSWorkspace.sharedWorkspace().openURL(url)
     }
   }
+  
+  var linePrefix: String? {
+    get {
+      guard let line = selectedLines(editor.textView).first else { return nil }
+      
+      let startingSelection = editor.textView.selectedRange()
+      let range = selectedLinesRange(editor.textView)
+      let cursorPosition = startingSelection.location - range.location
+      return (line as NSString).substringToIndex(cursorPosition)
+    }
+  }
 
   var cursorIsInsidePodQuote: Bool {
-    guard let line = selectedLines(editor.textView).first else { return false }
-
-    let startingSelection = editor.textView.selectedRange()
-    let range = selectedLinesRange(editor.textView)
-    let cursorPosition = startingSelection.location - range.location
-    let stringBefore = (line as NSString).substringToIndex(cursorPosition)
-
+    guard let stringBefore = linePrefix else { return false }
     if stringBefore.containsString("pod") == false { return false }
     return stringBefore.componentsSeparatedByString("'").count == 2 ||
            stringBefore.componentsSeparatedByString("\"").count == 2
+  }
+  
+  var cursorIsInsidePodVersionQuote: Bool {
+    guard let stringBefore = linePrefix else { return false }
+    
+    if stringBefore.containsString("pod") == false { return false }
+    return stringBefore.componentsSeparatedByString("'").count == 4 ||
+      stringBefore.componentsSeparatedByString("\"").count == 4
+  }
+  
+  func selectedLinePodName() -> String? {
+    guard let line = selectedLines(editor.textView).first else { return nil }
+    
+    let components = line.componentsSeparatedByString("'")
+    if components.count >= 2 {
+      return components[1]
+    } else {
+      return nil
+    }
+  }
+  
+  func updateAutocompletionsIfNeeded() {
+    if let podName = selectedLinePodName() {
+      fetchPodVersions(podName) { self.selectedLinePodVersions = $0 }
+    } else {
+      selectedLinePodVersions = []
+    }
+  }
+  
+  func fetchPodVersions(podName: String, completion: [String] -> ()) {
+    let appDelegate = NSApp.delegate as? CPAppDelegate
+    
+    if let reflectionServiceProxy = appDelegate?.reflectionService.remoteObjectProxy as? CPReflectionServiceProtocol {
+      reflectionServiceProxy.versionsForPodNamed(podName) { (vs, error) in
+        guard let vs = vs else { dump(error); return }
+        completion(vs.map { "~> \($0)" })
+      }
+    }
   }
 
   var cursorInComment: Bool {
@@ -152,11 +196,16 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   }
 
   func completions() -> [AnyObject]! {
-    if cursorInComment {
+    switch (cursorInComment, cursorIsInsidePodQuote, cursorIsInsidePodVersionQuote) {
+    case (true, _, _):
       return []
+    case (_, true, _):
+      return allPodNames
+    case (_, _, true):
+      return selectedLinePodVersions
+    default:
+      return autoCompletions
     }
-
-    return cursorIsInsidePodQuote ? allPodNames : autoCompletions
   }
 
   func textDidChange(notification: NSNotification) {
@@ -168,6 +217,13 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
 
     // Passing the message on to the syntax checker
     syntaxChecker.textDidChange(notification)
+  }
+  
+  func textViewDidChangeSelection(notification: NSNotification) {
+    guard let textView = notification.object as? NSTextView where textView == editor.textView else { return }
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+      self.updateAutocompletionsIfNeeded()
+    }
   }
 
   @IBAction func commentSelection(sender: NSMenuItem) {
