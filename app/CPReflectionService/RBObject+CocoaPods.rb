@@ -76,6 +76,10 @@ module Pod
       sources_manager.aggregate.all_pods
     end
 
+    def self.pod_versions(podName)
+      sources_manager.aggregate.search_by_name(podName).first.versions.map(&:to_s)
+    end
+
     def self.master_source
       sources_manager.master
     end

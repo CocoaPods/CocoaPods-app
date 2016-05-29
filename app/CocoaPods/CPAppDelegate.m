@@ -1,5 +1,6 @@
 #import "CPAppDelegate.h"
 #import "CPCLIToolInstallationController.h"
+#import "CPDebuggerCheck.h"
 #import "CPHomeWindowController.h"
 #import "CPReflectionServiceProtocol.h"
 #import "CocoaPods-Swift.h"
@@ -22,6 +23,7 @@
   PFMoveToApplicationsFolderIfNecessary();
   [self startURLService];
   [self checkForBirthday];
+  [self checkForDebugger];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification;
@@ -105,10 +107,21 @@
   return _homeWindowController;
 }
 
+- (void)checkForDebugger
+{
+  if ([CPDebuggerCheck isInDebugger]) {
+    NSApplication *app = [NSApplication sharedApplication];
+    NSImage *appIcon = [app applicationIconImage];
+
+    [app setApplicationIconImage:[self imageWithHueAdjust:appIcon colorValue:@(400)]];
+  }
+}
+
 #pragma mark - Easter Eggs
 
 - (void)checkForBirthday
 {
+
   NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
   if (components.month == 8 && components.day == 13) {
     NSApplication *app = [NSApplication sharedApplication];
@@ -119,12 +132,16 @@
 
 - (NSImage *)editionColoredImage:(NSImage *)image
 {
+  return [self imageWithHueAdjust:image colorValue:@(365.375)];
+}
+
+- (NSImage *)imageWithHueAdjust:(NSImage *)image colorValue:(NSNumber *)colorValue
+{
   CIImage *inputImage = [[CIImage alloc] initWithData:image.TIFFRepresentation];
 
   CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust"];
   [hueAdjust setValue: inputImage forKey: @"inputImage"];
 
-  NSNumber *colorValue = @(365.375);
   [hueAdjust setValue:colorValue forKey: @"inputAngle"];
 
   CIImage *outputImage = hueAdjust.outputImage;
