@@ -33,9 +33,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 
 - (BOOL)shouldInstallBinstubIfNecessary;
 {
-  [self verifyExistingInstallDestinations];
-
-  if (self.previouslyInstalledToDestinations.count > 0) {
+  if ([self hasInstalledBinstubBefore]) {
     NSLog(@"Already installed binstub.");
     return NO;
   }
@@ -75,6 +73,41 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
   return installed;
 }
 
+#pragma mark - Uninstallation
+
+- (BOOL)hasInstalledBinstubBefore
+{
+  [self verifyExistingInstallDestinations];
+  
+  return self.previouslyInstalledToDestinations.count > 0;
+}
+
+- (BOOL)removeBinstub
+{
+  [self verifyExistingInstallDestinations];
+  
+  if (![self hasInstalledBinstubBefore]) {
+    NSLog(@"Tried to remove binstub, but it was never installed using the app before.");
+    return NO;
+  }
+  
+  if (![self promptIfUserReallyWantsToUninstall]) {
+    NSLog(@"User canceled removing binstub.");
+    return NO;
+  }
+  
+  // go ahead and delete it
+  NSLog(@"Now removing binstub ...");
+  
+  NSDictionary *remainingURLs = [self removeBinstubAccordingToPrivileges];
+  
+  [self saveBookmarksWithURLs:remainingURLs];
+  
+  // success only when we have successfully removed all urls from file system
+  NSLog(@"Finished removing binstub: %@", self.previouslyInstalledToDestinations.count == 0 ? @"success" : @"failed");
+  return self.previouslyInstalledToDestinations.count == 0;
+}
+
 #pragma mark - Installation destination bookmarks
 
 static NSData *
@@ -111,7 +144,6 @@ CPBookmarkDataForURL(NSURL *URL) {
   } else {
     NSLog(@"Verifying existing destinations.");
     NSUInteger bookmarkCount = bookmarks.count;
-    NSMutableArray *verifiedBookmarks = [NSMutableArray arrayWithCapacity:bookmarkCount];
     NSMutableDictionary *URLs = [NSMutableDictionary dictionaryWithCapacity:bookmarkCount];
     for (NSUInteger i = 0; i < bookmarkCount; i++) {
       NSData *bookmark = [bookmarks objectAtIndex:i];
@@ -141,12 +173,9 @@ CPBookmarkDataForURL(NSURL *URL) {
         }
 #endif
         URLs[URL] = bookmark;
-        [verifiedBookmarks addObject:bookmark];
       }
     }
-    self.previouslyInstalledToDestinations = [URLs copy];
-    [defaults setObject:[verifiedBookmarks copy]
-                 forKey:kCPCLIToolInstalledToDestinationsKey];
+    [self saveBookmarksWithURLs:URLs];
   }
 }
 
@@ -160,9 +189,7 @@ CPBookmarkDataForURL(NSURL *URL) {
     NSMutableDictionary *URLs = [self.previouslyInstalledToDestinations mutableCopy];
     // Update any previous bookmark data pointing to the same destination.
     URLs[self.destinationURL] = bookmark;
-    NSArray *bookmarks = [URLs allValues];
-    [[NSUserDefaults standardUserDefaults] setObject:bookmarks
-                                              forKey:kCPCLIToolInstalledToDestinationsKey];
+    [self saveBookmarksWithURLs:URLs];
   }
 }
 
@@ -196,7 +223,32 @@ CPBookmarkDataForURL(NSURL *URL) {
   return [alert runModal] == NSAlertFirstButtonReturn;
 }
 
+- (BOOL)promptIfUserReallyWantsToUninstall
+{
+  NSAlert *alert = [NSAlert new];
+  alert.alertStyle = NSCriticalAlertStyle;
+  alert.messageText = NSLocalizedString(@"UNINSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
+  
+  [alert addButtonWithTitle:NSLocalizedString(@"UNINSTALL_CLI_REMOVE", nil)];
+  [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
+  
+  return [alert runModal] == NSAlertFirstButtonReturn;
+}
+
 #pragma mark - Utility
+
+- (void)saveBookmarksWithURLs:(NSDictionary *)URLs
+{
+  self.previouslyInstalledToDestinations = [URLs copy];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSArray *bookmarks = [URLs allValues];
+  if (bookmarks.count == 0) {
+    [defaults removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
+  } else {
+    [defaults setObject:bookmarks
+                 forKey:kCPCLIToolInstalledToDestinationsKey];
+  }
+}
 
 - (NSURL *)binstubSourceURL;
 {
@@ -229,7 +281,12 @@ CPBookmarkDataForURL(NSURL *URL) {
 
 - (BOOL)hasWriteAccessToBinstub;
 {
-  NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
+  return [self hasWriteAccessToBinstubWithURL:self.destinationURL];
+}
+
+- (BOOL)hasWriteAccessToBinstubWithURL:(NSURL *)url;
+{
+  NSURL *destinationDirURL = [url URLByDeletingLastPathComponent];
   return access([destinationDirURL.path UTF8String], W_OK) == 0;
 }
 
@@ -356,6 +413,65 @@ CPBookmarkDataForURL(NSURL *URL) {
     pclose(destination_pipe);
   }
   return succeeded;
+}
+
+#pragma mark - Binstub uninstallation
+
+/// Loops through all installed destinations and tries to remove them.
+///
+/// @return Dictionary of remaining bookmarks which couldn't be removed. Empty dict means everything was succuessfully removed.
+///
+- (NSDictionary *)removeBinstubAccordingToPrivileges
+{
+  self.errorMessage = nil;
+  
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  
+  NSMutableDictionary *URLs = [self.previouslyInstalledToDestinations mutableCopy];
+  for (NSURL *url in self.previouslyInstalledToDestinations) {
+    
+    if (![fileManager fileExistsAtPath:url.path]) {
+      // remove url from our list
+      [URLs removeObjectForKey:url];
+      continue;
+    }
+    
+    NSLog(@"Removing binstub: %@", url.path);
+    
+    BOOL removed = NO;
+    if ([self hasWriteAccessToBinstubWithURL:url]) {
+      removed = [self removeBinstubFromAccessibleDestinationWithURL:url];
+    } else {
+      removed = [self removeBinstubFromPrivilegedDestinationWithURL:url];
+    }
+    
+    if (removed) {
+      [URLs removeObjectForKey:url];
+    }
+  }
+  return [URLs copy];
+}
+
+- (BOOL)removeBinstubFromAccessibleDestinationWithURL:(NSURL *)url
+{
+  NSError *error = nil;
+  BOOL success = [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+  
+  if (error) {
+    NSLog(@"Failed to remove binstub: %@", error);
+    self.errorMessage = @"Failed to remove pod command";
+    success = NO;
+  }
+  
+  return success;
+}
+
+- (BOOL)removeBinstubFromPrivilegedDestinationWithURL:(NSURL *)url
+{
+  
+  // TODO: how to do this?!?
+  
+  return NO;
 }
 
 @end

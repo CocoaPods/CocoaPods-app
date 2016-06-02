@@ -14,6 +14,7 @@
         <customObject id="Voe-Tx-rLC" userLabel="App Delegate" customClass="CPAppDelegate">
             <connections>
                 <outlet property="documentController" destination="Qtz-kf-riq" id="Zl6-hS-hbl"/>
+                <outlet property="removeCommandLineToolMenuItem" destination="JNe-tW-Tp9" id="gqu-Cm-DzJ"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -57,6 +58,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="installBinstubIfNecessary:" target="-1" id="1aC-DY-EQL"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remove the Command-Line Tool…" hidden="YES" id="JNe-tW-Tp9">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="removeBinstubIfNecessary:" target="Voe-Tx-rLC" id="nAW-bJ-hUa"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Check for Updates…" id="6Sx-7e-VkP">
@@ -111,6 +118,9 @@
                                 </connections>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="Voe-Tx-rLC" id="ahL-fs-Ah5"/>
+                        </connections>
                     </menu>
                 </menuItem>
                 <menuItem title="File" id="dMs-cI-mzQ">

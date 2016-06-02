@@ -8,10 +8,11 @@
 #import <Quartz/Quartz.h>
 @import LetsMove;
 
-@interface CPAppDelegate ()
+@interface CPAppDelegate () <NSMenuDelegate>
 @property (nonatomic, strong) CPHomeWindowController *homeWindowController;
 @property (strong) NSXPCConnection *reflectionService;
 @property (strong) URLHandler *urlHandler;
+@property (weak) IBOutlet NSMenuItem *removeCommandLineToolMenuItem;
 @end
 
 @implementation CPAppDelegate
@@ -80,11 +81,26 @@
   return YES;
 }
 
+#pragma mark - NSMenuDelegate
+
+- (void)menuWillOpen:(NSMenu *)menu
+{
+  // check if we should show or hide the "Remove CLI Tools" menu item
+  if ([menu.title isEqualToString:@"CocoaPods"]) {
+    self.removeCommandLineToolMenuItem.hidden = ![self.homeWindowController isBinstubAlreadyInstalled];
+  }
+}
+
 #pragma mark - Actions
 
 - (IBAction)installBinstubIfNecessary:(id)sender;
 {
     [self.homeWindowController installBinstub:sender];
+}
+
+- (IBAction)removeBinstubIfNecessary:(id)sender
+{
+  [self.homeWindowController removeBinstub:sender];
 }
 
 - (IBAction)showHomeWindow:(id)sender;

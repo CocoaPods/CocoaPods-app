@@ -12,29 +12,34 @@ extern NSString * const kCPCLIToolInstalledToDestinationsKey;
 /// Checks if binstub is not installed yet and is not configured to not request the
 /// user for installation again (`kCPRequestCLIToolInstallationAgainKey`).
 ///
-/// Returns whether or not installation should be performed.
+/// @returns whether or not installation should be performed.
 
 - (BOOL)shouldInstallBinstubIfNecessary;
 
 /// Only performs the installation if it's not installed yet and is not configured to not request the
 /// user for installation again (`kCPRequestCLIToolInstallationAgainKey`).
 ///
-/// Returns whether or not installation has been performed.
+/// @return Whether or not installation has been performed.
 ///
 - (BOOL)installBinstubIfNecessary;
 
 /// Always tries to perform the installation, unless the user cancels an overwrite.
 ///
-/// Returns whether or not installation has been performed.
+/// @return Whether or not installation has been performed.
 ///
 - (BOOL)installBinstub;
 
+/// Tries to remove the already installed binstub. Will only remove the binstub when it was installed using the app.
+///
+/// @return Whether uninstall was successful or not.
+///
+- (BOOL)removeBinstub;
 
 /// Allows the user to choose a different destination than the suggested destination.
 ///
 /// Updates the `destinationURL` if the user chooses a new one.
 ///
-/// Returns whether or not a destination was chosen or if the user cancelled.
+/// @returns whether or not a destination was chosen or if the user cancelled.
 ///
 - (BOOL)runModalDestinationChangeSavePanel;
 
@@ -43,5 +48,7 @@ extern NSString * const kCPCLIToolInstalledToDestinationsKey;
 
 - (BOOL)binstubAlreadyExists;
 
+/// Returns `YES` if binstub was installed using this controller.
+- (BOOL)hasInstalledBinstubBefore;
 
 @end
