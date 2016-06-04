@@ -1,5 +1,9 @@
 ## Master
 
+* Fix for app launch crash
+  [orta](https://github.com/orta)
+  [#323](https://github.com/CocoaPods/CocoaPods-app/issue/323)
+
 * Pod version completion
   [flufff42](https://github.com/flufff42)
   [#313](https://github.com/CocoaPods/CocoaPods-app/pull/313)

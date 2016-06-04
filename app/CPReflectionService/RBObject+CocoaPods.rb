@@ -88,7 +88,7 @@ module Pod
       sources_manager.all.map { |source|
         { source.name => source.url }
 
-      }.reduce &:merge
+      }.reduce(&:merge).select { |key, value| key.is_a?(String) && value.is_a?(String) }
     end
 
     def self.lockfile_version(path)
