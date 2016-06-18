@@ -53,7 +53,7 @@ extension SMLTextView {
   public override func mouseMoved(theEvent: NSEvent) {
     super.mouseMoved(theEvent)
     
-    guard theEvent.modifierFlags.contains(.AlternateKeyMask) else {
+    guard theEvent.modifierFlags.contains(NSAlternateKeyMask) else {
       return
     }
     processPodMouseHover()
@@ -62,7 +62,7 @@ extension SMLTextView {
   public override func mouseDown(theEvent: NSEvent) {
     super.mouseDown(theEvent)
     
-    guard theEvent.modifierFlags.contains(.AlternateKeyMask) else {
+    guard theEvent.modifierFlags.contains(NSAlternateKeyMask) else {
       return
     }
     quickLookWithEvent(theEvent)
@@ -82,7 +82,7 @@ extension SMLTextView {
   }
   
   public override func flagsChanged(theEvent: NSEvent) {
-    if theEvent.modifierFlags.contains(.AlternateKeyMask) {
+    if theEvent.modifierFlags.contains(NSAlternateKeyMask) {
       processPodMouseHover()
       isOptionKeyDown = true
       
