@@ -427,6 +427,7 @@ CPBookmarkDataForURL(NSURL *URL) {
   
   NSFileManager *fileManager = [NSFileManager defaultManager];
   
+  NSMutableArray *privilegedURLs = [NSMutableArray array];
   NSMutableDictionary *URLs = [self.previouslyInstalledToDestinations mutableCopy];
   for (NSURL *url in self.previouslyInstalledToDestinations) {
     
@@ -442,13 +443,23 @@ CPBookmarkDataForURL(NSURL *URL) {
     if ([self hasWriteAccessToBinstubWithURL:url]) {
       removed = [self removeBinstubFromAccessibleDestinationWithURL:url];
     } else {
-      removed = [self removeBinstubFromPrivilegedDestinationWithURL:url];
+      removed = NO; // will be done few lines below
+      [privilegedURLs addObject:url];
     }
     
     if (removed) {
       [URLs removeObjectForKey:url];
     }
   }
+  
+  // now remove privileged urls all at once
+  if (privilegedURLs.count > 0) {
+    BOOL removed = [self removeBinstubFromPrivilegedDestinationWithURLs:privilegedURLs];
+    if (removed) {
+      [URLs removeObjectsForKeys:privilegedURLs];
+    }
+  }
+  
   return [URLs copy];
 }
 
@@ -466,10 +477,82 @@ CPBookmarkDataForURL(NSURL *URL) {
   return success;
 }
 
-- (BOOL)removeBinstubFromPrivilegedDestinationWithURL:(NSURL *)url
-{
+// Possible Solutions how to gain privileged access to remove files:
+// 1. `AuthorizationExecuteWithPrivileges` but its deprecated since OS X 10.7: [1] and [2]
+// 2. `ServiceManagement.framework`'s `SMJobBless()`: [3] and [4]
+// 3. AppleScript: [5] and [6]
+//
+// Disadvantage of solution #3 is that authorization dialog will pop up for each
+//
+// References:
+// [1] http://www.michaelvobrien.com/blog/2009/07/authorizationexecutewithprivileges-a-simple-example/
+// [2] https://developer.apple.com/library/mac/documentation/Security/Conceptual/authorization_concepts/03authtasks/authtasks.html
+// [3] http://stackoverflow.com/a/6842129
+// [4] https://developer.apple.com/library/mac/samplecode/EvenBetterAuthorizationSample/Listings/Read_Me_About_EvenBetterAuthorizationSample_txt.html#//apple_ref/doc/uid/DTS40013768-Read_Me_About_EvenBetterAuthorizationSample_txt-DontLinkElementID_17
+// [5] http://stackoverflow.com/a/8865284
+// [6] http://stackoverflow.com/a/15248621
+- (BOOL)removeBinstubFromPrivilegedDestinationWithURLs:(NSArray<NSURL *> *)urls {
+  if (urls.count == 0) {
+    return NO;
+  }
   
-  // TODO: how to do this?!?
+  NSArray<NSString *> *paths = [urls valueForKey:@"path"];  // NSURL.path
+  NSString *pathsArgumentString = [NSString stringWithFormat:@"'%@'", [paths componentsJoinedByString:@"' '"]]; // [asdf, wasd] --> 'asdf' 'wasd'
+  
+  NSString *output = nil;
+  NSString *processErrorDescription = nil;
+  
+  // Command: `'/bin/rm' -f '/usr/local/bin/pod' '/usr/local/bin/path with space/someOtherBinary'`
+  BOOL success = [self runProcessAsAdministrator:@"/bin/rm"
+                                   withArguments:@[@"-f", pathsArgumentString]
+                                          output:&output
+                                errorDescription:&processErrorDescription];
+  
+  // Process failed to run
+  if (!success) {
+    NSLog(@"Failed to remove Binstub from privileged destination: %@", processErrorDescription);
+  }
+  return success;
+}
+
+// Using AppleScript
+// Source: [6] (StackOverflow)
+- (BOOL)runProcessAsAdministrator:(NSString *)scriptPath
+                    withArguments:(NSArray *)arguments
+                           output:(NSString **)output
+                 errorDescription:(NSString **)errorDescription {
+  
+  NSString *allArgs = [arguments componentsJoinedByString:@" "];
+  NSString *fullScript = [NSString stringWithFormat:@"'%@' %@", scriptPath, allArgs];
+  
+  NSDictionary *errorInfo = [NSDictionary new];
+  NSString *script = [NSString stringWithFormat:@"do shell script \"%@\" with administrator privileges", fullScript];
+  
+  NSAppleScript *appleScript = [[NSAppleScript new] initWithSource:script];
+  NSAppleEventDescriptor *eventResult = [appleScript executeAndReturnError:&errorInfo];
+  
+  if (eventResult) {
+    // Set output to the AppleScript's output
+    *output = [eventResult stringValue];
+    
+    return YES;
+  }
+  
+  // Check errorInfo & describe common errors
+  *errorDescription = nil;
+  if ([errorInfo valueForKey:NSAppleScriptErrorNumber]) {
+    NSNumber *errorNumber = (NSNumber *)[errorInfo valueForKey:NSAppleScriptErrorNumber];
+    if ([errorNumber intValue] == -128) {
+      *errorDescription = @"The administrator password is required to do this.";
+    }
+  }
+  
+  // Set error message from provided message
+  if (*errorDescription == nil) {
+    if ([errorInfo valueForKey:NSAppleScriptErrorMessage]) {
+      *errorDescription = (NSString *)[errorInfo valueForKey:NSAppleScriptErrorMessage];
+    }
+  }
   
   return NO;
 }
