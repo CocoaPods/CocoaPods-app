@@ -33,9 +33,7 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
 
 - (BOOL)shouldInstallBinstubIfNecessary;
 {
-  [self verifyExistingInstallDestinations];
-
-  if (self.previouslyInstalledToDestinations.count > 0) {
+  if ([self hasInstalledBinstubBefore]) {
     NSLog(@"Already installed binstub.");
     return NO;
   }
@@ -75,6 +73,41 @@ NSString * const kCPCLIToolInstalledToDestinationsKey = @"CPCLIToolInstalledToDe
   return installed;
 }
 
+#pragma mark - Uninstallation
+
+- (BOOL)hasInstalledBinstubBefore
+{
+  [self verifyExistingInstallDestinations];
+  
+  return self.previouslyInstalledToDestinations.count > 0;
+}
+
+- (BOOL)removeBinstub
+{
+  [self verifyExistingInstallDestinations];
+  
+  if (![self hasInstalledBinstubBefore]) {
+    NSLog(@"Tried to remove binstub, but it was never installed using the app before.");
+    return NO;
+  }
+  
+  if (![self promptIfUserReallyWantsToUninstall]) {
+    NSLog(@"User canceled removing binstub.");
+    return NO;
+  }
+  
+  // go ahead and delete it
+  NSLog(@"Now removing binstub ...");
+  
+  NSDictionary *remainingURLs = [self removeBinstubAccordingToPrivileges];
+  
+  [self saveBookmarksWithURLs:remainingURLs];
+  
+  // success only when we have successfully removed all urls from file system
+  NSLog(@"Finished removing binstub: %@", self.previouslyInstalledToDestinations.count == 0 ? @"success" : @"failed");
+  return self.previouslyInstalledToDestinations.count == 0;
+}
+
 #pragma mark - Installation destination bookmarks
 
 static NSData *
@@ -111,7 +144,6 @@ CPBookmarkDataForURL(NSURL *URL) {
   } else {
     NSLog(@"Verifying existing destinations.");
     NSUInteger bookmarkCount = bookmarks.count;
-    NSMutableArray *verifiedBookmarks = [NSMutableArray arrayWithCapacity:bookmarkCount];
     NSMutableDictionary *URLs = [NSMutableDictionary dictionaryWithCapacity:bookmarkCount];
     for (NSUInteger i = 0; i < bookmarkCount; i++) {
       NSData *bookmark = [bookmarks objectAtIndex:i];
@@ -141,12 +173,9 @@ CPBookmarkDataForURL(NSURL *URL) {
         }
 #endif
         URLs[URL] = bookmark;
-        [verifiedBookmarks addObject:bookmark];
       }
     }
-    self.previouslyInstalledToDestinations = [URLs copy];
-    [defaults setObject:[verifiedBookmarks copy]
-                 forKey:kCPCLIToolInstalledToDestinationsKey];
+    [self saveBookmarksWithURLs:URLs];
   }
 }
 
@@ -160,9 +189,7 @@ CPBookmarkDataForURL(NSURL *URL) {
     NSMutableDictionary *URLs = [self.previouslyInstalledToDestinations mutableCopy];
     // Update any previous bookmark data pointing to the same destination.
     URLs[self.destinationURL] = bookmark;
-    NSArray *bookmarks = [URLs allValues];
-    [[NSUserDefaults standardUserDefaults] setObject:bookmarks
-                                              forKey:kCPCLIToolInstalledToDestinationsKey];
+    [self saveBookmarksWithURLs:URLs];
   }
 }
 
@@ -196,7 +223,32 @@ CPBookmarkDataForURL(NSURL *URL) {
   return [alert runModal] == NSAlertFirstButtonReturn;
 }
 
+- (BOOL)promptIfUserReallyWantsToUninstall
+{
+  NSAlert *alert = [NSAlert new];
+  alert.alertStyle = NSCriticalAlertStyle;
+  alert.messageText = NSLocalizedString(@"UNINSTALL_CLI_WARNING_MESSAGE_TEXT", nil);
+  
+  [alert addButtonWithTitle:NSLocalizedString(@"UNINSTALL_CLI_REMOVE", nil)];
+  [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", nil)];
+  
+  return [alert runModal] == NSAlertFirstButtonReturn;
+}
+
 #pragma mark - Utility
+
+- (void)saveBookmarksWithURLs:(NSDictionary *)URLs
+{
+  self.previouslyInstalledToDestinations = [URLs copy];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSArray *bookmarks = [URLs allValues];
+  if (bookmarks.count == 0) {
+    [defaults removeObjectForKey:kCPCLIToolInstalledToDestinationsKey];
+  } else {
+    [defaults setObject:bookmarks
+                 forKey:kCPCLIToolInstalledToDestinationsKey];
+  }
+}
 
 - (NSURL *)binstubSourceURL;
 {
@@ -229,7 +281,12 @@ CPBookmarkDataForURL(NSURL *URL) {
 
 - (BOOL)hasWriteAccessToBinstub;
 {
-  NSURL *destinationDirURL = [self.destinationURL URLByDeletingLastPathComponent];
+  return [self hasWriteAccessToBinstubWithURL:self.destinationURL];
+}
+
+- (BOOL)hasWriteAccessToBinstubWithURL:(NSURL *)url;
+{
+  NSURL *destinationDirURL = [url URLByDeletingLastPathComponent];
   return access([destinationDirURL.path UTF8String], W_OK) == 0;
 }
 
@@ -356,6 +413,148 @@ CPBookmarkDataForURL(NSURL *URL) {
     pclose(destination_pipe);
   }
   return succeeded;
+}
+
+#pragma mark - Binstub uninstallation
+
+/// Loops through all installed destinations and tries to remove them.
+///
+/// @return Dictionary of remaining bookmarks which couldn't be removed. Empty dict means everything was succuessfully removed.
+///
+- (NSDictionary *)removeBinstubAccordingToPrivileges
+{
+  self.errorMessage = nil;
+  
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  
+  NSMutableArray *privilegedURLs = [NSMutableArray array];
+  NSMutableDictionary *URLs = [self.previouslyInstalledToDestinations mutableCopy];
+  for (NSURL *url in self.previouslyInstalledToDestinations) {
+    
+    if (![fileManager fileExistsAtPath:url.path]) {
+      // remove url from our list
+      [URLs removeObjectForKey:url];
+      continue;
+    }
+    
+    NSLog(@"Removing binstub: %@", url.path);
+    
+    BOOL removed = NO;
+    if ([self hasWriteAccessToBinstubWithURL:url]) {
+      removed = [self removeBinstubFromAccessibleDestinationWithURL:url];
+    } else {
+      removed = NO; // will be done few lines below
+      [privilegedURLs addObject:url];
+    }
+    
+    if (removed) {
+      [URLs removeObjectForKey:url];
+    }
+  }
+  
+  // now remove privileged urls all at once
+  if (privilegedURLs.count > 0) {
+    BOOL removed = [self removeBinstubFromPrivilegedDestinationWithURLs:privilegedURLs];
+    if (removed) {
+      [URLs removeObjectsForKeys:privilegedURLs];
+    }
+  }
+  
+  return [URLs copy];
+}
+
+- (BOOL)removeBinstubFromAccessibleDestinationWithURL:(NSURL *)url
+{
+  NSError *error = nil;
+  BOOL success = [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+  
+  if (error) {
+    NSLog(@"Failed to remove binstub: %@", error);
+    self.errorMessage = @"Failed to remove pod command";
+    success = NO;
+  }
+  
+  return success;
+}
+
+// Possible Solutions how to gain privileged access to remove files:
+// 1. `AuthorizationExecuteWithPrivileges` but its deprecated since OS X 10.7: [1] and [2]
+// 2. `ServiceManagement.framework`'s `SMJobBless()`: [3] and [4]
+// 3. AppleScript: [5] and [6]
+//
+// Disadvantage of solution #3 is that authorization dialog will pop up for each
+//
+// References:
+// [1] http://www.michaelvobrien.com/blog/2009/07/authorizationexecutewithprivileges-a-simple-example/
+// [2] https://developer.apple.com/library/mac/documentation/Security/Conceptual/authorization_concepts/03authtasks/authtasks.html
+// [3] http://stackoverflow.com/a/6842129
+// [4] https://developer.apple.com/library/mac/samplecode/EvenBetterAuthorizationSample/Listings/Read_Me_About_EvenBetterAuthorizationSample_txt.html#//apple_ref/doc/uid/DTS40013768-Read_Me_About_EvenBetterAuthorizationSample_txt-DontLinkElementID_17
+// [5] http://stackoverflow.com/a/8865284
+// [6] http://stackoverflow.com/a/15248621
+- (BOOL)removeBinstubFromPrivilegedDestinationWithURLs:(NSArray<NSURL *> *)urls {
+  if (urls.count == 0) {
+    return NO;
+  }
+  
+  NSArray<NSString *> *paths = [urls valueForKey:@"path"];  // NSURL.path
+  NSString *pathsArgumentString = [NSString stringWithFormat:@"'%@'", [paths componentsJoinedByString:@"' '"]]; // [asdf, wasd] --> 'asdf' 'wasd'
+  
+  NSString *output = nil;
+  NSString *processErrorDescription = nil;
+  
+  // Command: `'/bin/rm' -f '/usr/local/bin/pod' '/usr/local/bin/path with space/someOtherBinary'`
+  BOOL success = [self runProcessAsAdministrator:@"/bin/rm"
+                                   withArguments:@[@"-f", pathsArgumentString]
+                                          output:&output
+                                errorDescription:&processErrorDescription];
+  
+  // Process failed to run
+  if (!success) {
+    NSLog(@"Failed to remove Binstub from privileged destination: %@", processErrorDescription);
+  }
+  return success;
+}
+
+// Using AppleScript
+// Source: [6] (StackOverflow)
+- (BOOL)runProcessAsAdministrator:(NSString *)scriptPath
+                    withArguments:(NSArray *)arguments
+                           output:(NSString **)output
+                 errorDescription:(NSString **)errorDescription {
+  
+  NSString *allArgs = [arguments componentsJoinedByString:@" "];
+  NSString *fullScript = [NSString stringWithFormat:@"'%@' %@", scriptPath, allArgs];
+  
+  NSDictionary *errorInfo = [NSDictionary new];
+  NSString *script = [NSString stringWithFormat:@"do shell script \"%@\" with administrator privileges", fullScript];
+  
+  NSAppleScript *appleScript = [[NSAppleScript new] initWithSource:script];
+  NSAppleEventDescriptor *eventResult = [appleScript executeAndReturnError:&errorInfo];
+  
+  if (eventResult) {
+    // Set output to the AppleScript's output
+    *output = [eventResult stringValue];
+    
+    return YES;
+  }
+  
+  // Check errorInfo & describe common errors
+  *errorDescription = nil;
+  if ([errorInfo valueForKey:NSAppleScriptErrorNumber]) {
+    NSNumber *errorNumber = (NSNumber *)[errorInfo valueForKey:NSAppleScriptErrorNumber];
+    if ([errorNumber intValue] == -128) {
+      *errorDescription = @"The administrator password is required to do this.";
+    }
+  }
+  
+  // Set error message from provided message
+  if (*errorDescription == nil) {
+    if ([errorInfo valueForKey:NSAppleScriptErrorMessage]) {
+      *errorDescription = (NSString *)[errorInfo valueForKey:NSAppleScriptErrorMessage];
+    }
+  }
+  
+  return NO;
 }
 
 @end

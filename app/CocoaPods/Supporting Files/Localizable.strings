@@ -9,6 +9,9 @@
 "INSTALL_CLI_WARNING_INFORMATIVE_TEXT" = "The tool was likely installed from the Terminal by running the “gem install cocoapods” command. \n\nIf you wish to keep that installation intact, be sure to choose an alternate filename or directory (preferably in your Terminal PATH) for this tool.\n\nNote that you can always revert by running the aforementioned Terminal command again.";
 "INSTALL_CLI_WARNING_OVERWRITE" = "Overwrite";
 
+"UNINSTALL_CLI_WARNING_MESSAGE_TEXT" = "Are you really sure you want to remove the Command-Line Tool?";
+"UNINSTALL_CLI_REMOVE" = "Yes, Remove!";
+
 "WORKSPACE_GENERATED_NOTIFICATION_TITLE" = "Pod Workspace Ready";
 "WORKSPACE_FAILED_GENERATION_NOTIFICATION_TITLE" = "Something Went Wrong";
 

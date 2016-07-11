@@ -25,7 +25,11 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
 
 - (instancetype)init;
 {
-  return [super initWithWindowNibName:@"CPHomeWindowController"];
+  self = [super initWithWindowNibName:@"CPHomeWindowController"];
+  if (self) {
+    _cliToolController = [self createCLIToolInstallationController];
+  }
+  return self;
 }
 
 - (void)windowDidLoad;
@@ -45,7 +49,6 @@ NSString * const kCPCLIToolSuggestedDestination = @"/usr/local/bin/pod";
   NSString *versionNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
   self.cocoapodsVersionTextField.stringValue = versionNumber;
 
-  self.cliToolController = [self createCLIToolInstallationController];
   if ([self.cliToolController shouldInstallBinstubIfNecessary]) {
     NSString *message = self.cliToolController.binstubAlreadyExists ? @"UPDATE_CLI_MESSAGE_TEXT" : @"INSTALL_CLI_MESSAGE_TEXT";
     self.installCommandLineToolsTitleLabel.stringValue = NSLocalizedString(message, nil);
@@ -107,7 +110,12 @@ static CGFloat CPCommandLineAlertHeight = 68;
   }
 }
 
-/// Installs the bin stub
+/// Installs/Uninstalls the bin stub
+
+- (BOOL)isBinstubAlreadyInstalled
+{
+  return [self.cliToolController hasInstalledBinstubBefore];
+}
 
 - (IBAction)installBinstub:(id)sender;
 {
@@ -115,6 +123,22 @@ static CGFloat CPCommandLineAlertHeight = 68;
     // Hide the alert
     [self.commandLineToolsHeightConstraint.animator setConstant:0];
 
+  } else if(self.cliToolController.errorMessage) {
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = self.cliToolController.errorMessage;
+    [alert runModal];
+  }
+}
+
+- (IBAction)removeBinstub:(id)sender
+{
+  if (![self.cliToolController binstubAlreadyExists]) {
+    NSLog(@"Not installed yet!");
+    return;
+  }
+  
+  if ([self.cliToolController removeBinstub]) {
+    NSLog(@"Successfully removed CLI tools");
   } else if(self.cliToolController.errorMessage) {
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = self.cliToolController.errorMessage;

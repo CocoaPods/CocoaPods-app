@@ -23,6 +23,10 @@
 * Fix error when trying to create a new Podfile from an xcodeproj with spaces  
   [marcboquet](https://github.com/marcboquet)
   [#337](https://github.com/CocoaPods/CocoaPods-app/pull/337)
+  
+* Added option to remove installed Command-Line Tool again (#338)  
+  [Buju77](https://github.com/Buju77)
+  [#344](https://github.com/CocoaPods/CocoaPods-app/pull/344)  
 
 ## [1.0.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.0.0)
    [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md#100-2016-05-10)
