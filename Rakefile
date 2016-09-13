@@ -141,7 +141,7 @@ BZR_VERSION = '2.6.0'
 BZR_URL = "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-#{BZR_VERSION}.tar.gz"
 
 MERCURIAL_VERSION = '3.3.3'
-MERCURIAL_URL = "http://mercurial.selenic.com/release/mercurial-#{MERCURIAL_VERSION}.tar.gz"
+MERCURIAL_URL = "https://www.mercurial-scm.org/release/mercurial-#{MERCURIAL_VERSION}.tar.gz"
 
 # see https://help.github.com/articles/caching-your-github-password-in-git/
 GIT_CREDENTIALS_URL = "https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain"
