@@ -754,15 +754,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51165E3C1A17AFF500DCFC94 /* Build configuration list for PBXNativeTarget "CocoaPods" */;
 			buildPhases = (
-				C9B3A9B452C836DC0E134F4F /* 📦 Check Pods Manifest.lock */,
+				C9B3A9B452C836DC0E134F4F /* [CP] Check Pods Manifest.lock */,
 				60FA32A31C4846D300AF5263 /* Validate App Bundle  */,
 				51165E1B1A17AFF500DCFC94 /* Sources */,
 				51165E1C1A17AFF500DCFC94 /* Frameworks */,
 				51165E1D1A17AFF500DCFC94 /* Resources */,
 				1FFFBB091BA25469004A8D1E /* Copy Helper Executables */,
 				5102542E1C0A60680045FCD8 /* Embed XPC Services */,
-				B553C8F443325D68D3F0ECBC /* 📦 Embed Pods Frameworks */,
-				DDCA8595EBBF1866824DF78F /* 📦 Copy Pods Resources */,
+				B553C8F443325D68D3F0ECBC /* [CP] Embed Pods Frameworks */,
+				DDCA8595EBBF1866824DF78F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -796,12 +796,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60F02D221C0A2A6D003600FE /* Build configuration list for PBXNativeTarget "CocoaPodsTests" */;
 			buildPhases = (
-				458C0027E9270EE32B8CCE59 /* 📦 Check Pods Manifest.lock */,
+				458C0027E9270EE32B8CCE59 /* [CP] Check Pods Manifest.lock */,
 				60F02D151C0A2A6D003600FE /* Sources */,
 				60F02D161C0A2A6D003600FE /* Frameworks */,
 				60F02D171C0A2A6D003600FE /* Resources */,
-				A58128BAFFF8FDE9690DE404 /* 📦 Embed Pods Frameworks */,
-				18FEAF85B2D56C31CD708BE1 /* 📦 Copy Pods Resources */,
+				A58128BAFFF8FDE9690DE404 /* [CP] Embed Pods Frameworks */,
+				18FEAF85B2D56C31CD708BE1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -822,7 +822,7 @@
 				CLASSPREFIX = CP;
 				LastSwiftMigration = 0730;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					510254221C0A60670045FCD8 = {
@@ -832,12 +832,14 @@
 					51165E1E1A17AFF500DCFC94 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = AX2Q2BH2XR;
+						LastSwiftMigration = 0800;
 					};
 					51165E471A17B2D200DCFC94 = {
 						CreatedOnToolsVersion = 6.1;
 					};
 					60F02D181C0A2A6D003600FE = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 51165E1E1A17AFF500DCFC94;
 					};
 				};
@@ -904,14 +906,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		18FEAF85B2D56C31CD708BE1 /* 📦 Copy Pods Resources */ = {
+		18FEAF85B2D56C31CD708BE1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -919,19 +921,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		458C0027E9270EE32B8CCE59 /* 📦 Check Pods Manifest.lock */ = {
+		458C0027E9270EE32B8CCE59 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		60E693A61C495D3E0058DF5F /* Ensure bundle version */ = {
@@ -962,14 +964,14 @@
 			shellPath = /bin/sh;
 			shellScript = "VERSION_ID=`head -1 \"${SOURCE_ROOT}\"/../Rakefile`\nVERSION=`echo \"${VERSION_ID}\" | sed -e 's|BUNDLED_ENV_VERSION = ||'`\nLOCAL_VERSION=`head -1 \"${SOURCE_ROOT}/../destroot/bundle/VERSION\"`\n\nif [ \"$VERSION\" != \"$LOCAL_VERSION\" ]; then\ncat << EOM\nerror: The CP environment destroot is not in sync with generated environment from the Rakefile. Please run 'git submodule update; rake bundle:clean:artefacts; rake app:prerequisites' which should bring you back up to speed.\nEOM\nexit 1\nfi\n";
 		};
-		A58128BAFFF8FDE9690DE404 /* 📦 Embed Pods Frameworks */ = {
+		A58128BAFFF8FDE9690DE404 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -977,14 +979,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPodsTests/Pods-CocoaPodsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B553C8F443325D68D3F0ECBC /* 📦 Embed Pods Frameworks */ = {
+		B553C8F443325D68D3F0ECBC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -992,29 +994,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CocoaPods/Pods-CocoaPods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C9B3A9B452C836DC0E134F4F /* 📦 Check Pods Manifest.lock */ = {
+		C9B3A9B452C836DC0E134F4F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DDCA8595EBBF1866824DF78F /* 📦 Copy Pods Resources */ = {
+		DDCA8595EBBF1866824DF78F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1182,7 +1184,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
-					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin16",
 				);
 				INFOPLIST_FILE = CPReflectionService/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -1211,7 +1213,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
-					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin16",
 				);
 				INFOPLIST_FILE = CPReflectionService/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -1239,8 +1241,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -1249,6 +1253,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1280,8 +1285,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -1290,6 +1297,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1298,6 +1306,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -1315,7 +1324,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
-					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin16",
 				);
 				INFOPLIST_FILE = "CocoaPods/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1323,6 +1332,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CocoaPods/CocoaPods-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -1340,13 +1350,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0",
-					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin15",
+					"$(SRCROOT)/../destroot/bundle/include/ruby-2.2.0/x86_64-darwin16",
 				);
 				INFOPLIST_FILE = "CocoaPods/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CocoaPods/CocoaPods-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -1373,6 +1384,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 750B3A66521735BD745849E5 /* Pods-CocoaPodsTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1386,6 +1398,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CocoaPodsTests/CocoaPodsTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CocoaPods.app/Contents/MacOS/CocoaPods";
 			};
 			name = Debug;
@@ -1394,6 +1407,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5D0F8EC2FC9E25C9EF3CED3F /* Pods-CocoaPodsTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1405,6 +1419,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CocoaPodsTests/CocoaPodsTests-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CocoaPods.app/Contents/MacOS/CocoaPods";
 			};
 			name = Release;

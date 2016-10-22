@@ -160,7 +160,7 @@ class CPSourceMenuView: NSView {
     // https://gist.github.com/joelcox/28de2f0cb21ea47bd789
 
     NSColor.selectedMenuItemColor().set()
-    NSRectFillUsingOperation(dirtyRect, .CompositeSourceOver);
+    NSRectFillUsingOperation(dirtyRect, .SourceOver);
 
     if (dirtyRect.size.height > 1) {
       let heightMinus1 = dirtyRect.size.height - 1
@@ -170,13 +170,13 @@ class CPSourceMenuView: NSView {
       let gradient = NSGradient(startingColor: NSColor(white: CGFloat(1.0), alpha:startingOpacity), endingColor:NSColor(white: CGFloat(1.0), alpha: 0.0))!
       let startPoint = NSMakePoint(dirtyRect.origin.x, dirtyRect.origin.y + heightMinus1)
       let endPoint = NSMakePoint(dirtyRect.origin.x, dirtyRect.origin.y + 1)
-      gradient.drawFromPoint(startPoint, toPoint: endPoint, options:NSGradientDrawsBeforeStartingLocation)
+      gradient.drawFromPoint(startPoint, toPoint: endPoint, options:NSGradientDrawingOptions.DrawsBeforeStartingLocation)
 
       if currentControlTint == .BlueControlTint {
         NSColor(white: CGFloat(1.0), alpha: CGFloat(0.1)).set()
 
         let smallerRect = NSMakeRect(dirtyRect.origin.x, dirtyRect.origin.y + heightMinus1, dirtyRect.size.width, CGFloat(1.0))
-        NSRectFillUsingOperation(smallerRect, .CompositeSourceOver)
+        NSRectFillUsingOperation(smallerRect, .SourceOver)
       }
     }
   }

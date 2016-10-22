@@ -17,8 +17,9 @@ target "CocoaPods" do
   target "CocoaPodsTests" do
     inherit! :search_paths
 
-    pod 'Quick'
-    pod 'Nimble'
+    # These are Swift - 2.3 compatible
+    pod 'Quick', '0.9.3'
+    pod 'Nimble', '4.1.0'
   end
 end
 

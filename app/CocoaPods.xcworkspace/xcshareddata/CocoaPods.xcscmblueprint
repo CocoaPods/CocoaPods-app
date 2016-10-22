@@ -12,7 +12,7 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "9F9800D332981B4632368512DE7ED0F103520D36" : "",
     "55217336D366DC6754F2815D00346A777E51238D" : "CocoaPods-app\/app\/RubyCocoa\/",
-    "3D845910D0AC95856864A516D2820DC70D266293" : "CocoaPods-app"
+    "3D845910D0AC95856864A516D2820DC70D266293" : "CocoaPods-app\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "CocoaPods",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
