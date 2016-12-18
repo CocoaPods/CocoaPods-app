@@ -116,10 +116,10 @@ NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.g
 READLINE_VERSION = '6.3'
 READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.tar.gz"
 
-RUBY__VERSION = '2.2.3'
+RUBY__VERSION = '2.2.6'
 RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz"
 
-RUBYGEMS_VERSION = '2.5.0'
+RUBYGEMS_VERSION = '2.6.8'
 RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSION}.gem"
 
 CURL_VERSION = '7.41.0'
@@ -586,7 +586,7 @@ directory installed_cocoapods_plugins_install => installed_pod_bin do
 end
 
 pod_check = "cocoapods-check"
-pod_check_version = "0.2.1.beta.1"
+pod_check_version = "1.0.0"
 installed_cocoapods_check_install = File.join(GEM_HOME, 'gems', "#{pod_check}-#{pod_check_version}")
 directory installed_cocoapods_check_install => installed_pod_bin do
    install_gem pod_check, pod_check_version
