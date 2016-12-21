@@ -491,7 +491,7 @@ class RubyTasks < BundleDependencyTasks
   def define_install_libruby_task
     file installed_libruby_path => artefact_path do
       cp artefact_path, installed_libruby_path
-      %w{ bigdecimal date/date_core.a digest fiddle pathname psych stringio strscan }.each do |ext|
+      %w{ bigdecimal date/date_core.a digest digest/md5/md5.a fiddle pathname psych stringio strscan socket }.each do |ext|
         ext = "#{ext}/#{ext}.a" unless File.extname(ext) == '.a'
         execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'ext', ext)
       end
@@ -502,6 +502,9 @@ class RubyTasks < BundleDependencyTasks
       installed_dependencies.each do |installed_dependency|
         execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, installed_dependency
       end
+
+      # `digest/md5/md5.a` requires "_MD5_Init" which is only available inside libcrypto.a
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(DESTROOT, 'dependencies', 'lib', 'libcrypto.a')
     end
   end
 

@@ -53,6 +53,10 @@ CPRubyInit(Class bundleClass)
   rb_provide("fiddle.so");
   INIT_EXT(psych);
   rb_provide("psych.so");
+  INIT_EXT(socket);
+  rb_provide("socket.so");
+  INIT_EXT(md5);
+  rb_provide("digest/md5.so");
 
   #define PROVIDE_EXT(name) INIT_EXT(name); rb_provide(#name);
   PROVIDE_EXT(bigdecimal);
