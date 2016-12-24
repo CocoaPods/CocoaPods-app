@@ -116,10 +116,10 @@ NCURSES_URL = "http://ftpmirror.gnu.org/ncurses/ncurses-#{NCURSES_VERSION}.tar.g
 READLINE_VERSION = '6.3'
 READLINE_URL = "http://ftpmirror.gnu.org/readline/readline-#{READLINE_VERSION}.tar.gz"
 
-RUBY__VERSION = '2.2.3'
+RUBY__VERSION = '2.2.6'
 RUBY_URL = "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-#{RUBY__VERSION}.tar.gz"
 
-RUBYGEMS_VERSION = '2.5.0'
+RUBYGEMS_VERSION = '2.6.8'
 RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSION}.gem"
 
 CURL_VERSION = '7.41.0'
@@ -491,7 +491,7 @@ class RubyTasks < BundleDependencyTasks
   def define_install_libruby_task
     file installed_libruby_path => artefact_path do
       cp artefact_path, installed_libruby_path
-      %w{ bigdecimal date/date_core.a digest fiddle pathname psych stringio strscan }.each do |ext|
+      %w{ bigdecimal date/date_core.a digest digest/md5/md5.a fiddle pathname psych stringio strscan socket }.each do |ext|
         ext = "#{ext}/#{ext}.a" unless File.extname(ext) == '.a'
         execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(build_dir, 'ext', ext)
       end
@@ -502,6 +502,9 @@ class RubyTasks < BundleDependencyTasks
       installed_dependencies.each do |installed_dependency|
         execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, installed_dependency
       end
+
+      # `digest/md5/md5.a` requires "_MD5_Init" which is only available inside libcrypto.a
+      execute '/usr/bin/libtool', '-static', '-o', installed_libruby_path, installed_libruby_path, File.join(DESTROOT, 'dependencies', 'lib', 'libcrypto.a')
     end
   end
 
@@ -586,7 +589,7 @@ directory installed_cocoapods_plugins_install => installed_pod_bin do
 end
 
 pod_check = "cocoapods-check"
-pod_check_version = "0.2.1.beta.1"
+pod_check_version = "1.0.0"
 installed_cocoapods_check_install = File.join(GEM_HOME, 'gems', "#{pod_check}-#{pod_check_version}")
 directory installed_cocoapods_check_install => installed_pod_bin do
    install_gem pod_check, pod_check_version

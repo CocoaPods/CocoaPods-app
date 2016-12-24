@@ -58,8 +58,7 @@ module Pod
       end
 
       uses_frameworks = config.podfile.target_definitions.first.last.to_hash["uses_frameworks"]
-      last_installed_version = config.sandbox.manifest.cocoapods_version.to_s
-
+      last_installed_version = config.sandbox.manifest && config.sandbox.manifest.cocoapods_version.to_s
       {
         "projects" => user_projects,
         "pod_targets" => pod_targets,
