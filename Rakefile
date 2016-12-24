@@ -1063,6 +1063,16 @@ def sparkler_update_key
   File.read('.sparkler_update_key').strip rescue nil
 end
 
+
+ def github_headers
+    {
+    'Content-Type' => 'application/json',
+    'User-Agent' => 'runscope/0.1,segiddins',
+    'Accept' => 'application/json',
+    }
+  end
+
+
 namespace :release do
   task :clean => ['bundle:clean:all', 'app:clean']
 
@@ -1126,12 +1136,6 @@ namespace :release do
     @cp_release_notes
   end
 
-  github_headers = {
-    'Content-Type' => 'application/json',
-    'User-Agent' => 'runscope/0.1,segiddins',
-    'Accept' => 'application/json',
-  }
-
   desc "Upload release"
   task :upload => [] do
     sha = sha(tarball)
@@ -1140,8 +1144,8 @@ namespace :release do
     puts "Uploading zip as a GitHub release"
     tarball_name = File.basename(tarball)
     info = {tag_name: install_cocoapods_version, name: install_cocoapods_version, body: notes}
-    response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}",
-                              notes.to_json, github_headers)
+    response = REST.post("https://api.github.com/repos/CocoaPods/CocoaPods-app/releases?access_token=#{github_access_token}", info.to_json, github_headers)
+
     upload_url = JSON.load(response.body)['upload_url'].gsub('{?name,label}', "?name=#{tarball_name}&Content-Type=application/x-tar&access_token=#{github_access_token}")
     response = REST.post(upload_url, File.read(tarball, :mode => 'rb'), github_headers)
     tarball_download_url = JSON.load(response.body)['browser_download_url']
@@ -1150,7 +1154,9 @@ namespace :release do
 
   desc "Version bump the Sparkle XML"
   task :sparkle => [] do
-    sh "git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages" unless Dir.exists? "./gh-pages"
+    require 'date'
+    sh "rm -rf gh-pages" if Dir.exist?  "./gh-pages"
+    sh "git clone https://github.com/CocoaPods/CocoaPods-app.git --branch gh-pages --single-branch gh-pages"
 
     version = install_cocoapods_version
     xml_file = "gh-pages/sparkle.xml"
@@ -1208,12 +1214,11 @@ namespace :release do
     puts "Deployed the Sparkle XML"
   end
 
+  desc "Send a PR to Homebrew Cask"
   task :homebrew_cask do
     version = install_cocoapods_version
 
-    cask_fork = JSON.load(REST.post("https://api.github.com/repos/caskroom/homebrew-cask/forks?access_token=#{github_access_token}",
-                                    {}.to_json,
-                                    github_headers).body)["full_name"]
+    cask_fork = JSON.load(REST.post("https://api.github.com/repos/caskroom/homebrew-cask/forks?access_token=#{github_access_token}",{}.to_json, github_headers).body)["full_name"]
     branch = "cocoapods-#{version}"
     message = "Upgrade CocoaPods to v#{version}"
     body = <<BODY
@@ -1221,8 +1226,8 @@ namespace :release do
 ##### Editing an existing cask
 
 - [x] Commit message includes cask’s name (and new version, if applicable).
-- [x] `brew cask audit --download cocoapods` is error-free.
-- [x] `brew cask style --fix cocoapods` left no offenses.
+- [x] `brew cask audit --download cocoapods-app` is error-free.
+- [x] `brew cask style --fix cocoapods-app` left no offenses.
 BODY
 
     FileUtils.remove_dir("homebrew_cask") if Dir.exists? "homebrew_cask"
@@ -1232,7 +1237,7 @@ BODY
       sh "git remote add fork https://github.com/#{cask_fork}.git"
       sh "git checkout -b #{branch}"
 
-      cask_file = 'Casks/cocoapods.rb'
+      cask_file = 'Casks/cocoapods-app.rb'
       cask = File.read(cask_file)
       cask.sub! /version '#{Gem::Version::VERSION_PATTERN}'/, "version '#{version}'"
       cask.sub! /sha256 '[[:xdigit:]]+'/, "sha256 '#{sha(tarball)}'"
@@ -1275,7 +1280,7 @@ task :release do
   # https://dashboard.heroku.com/apps/cocoapods-sparkler/settings
   unless sparkler_update_key
     puts "[!] You have not provided a sparkler update key via `.sparkler_update_key`, " \
-      'so a Sparkler feed update cannot be made.'
+      'so a Sparkler feed update cannot be made. This is the `X_RELOAD_KEY` in the heroku env.'
     exit 1
   end
 
