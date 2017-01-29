@@ -44,6 +44,7 @@ CPRubyInit(Class bundleClass)
   INIT_EXT(utf_16be);
   INIT_EXT(utf_32le);
   INIT_EXT(utf_32be);
+  INIT_EXT(windows_31j);
 
   INIT_EXT(pathname);
   rb_provide("pathname.so");
