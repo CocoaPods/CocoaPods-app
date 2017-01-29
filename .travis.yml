@@ -11,6 +11,7 @@ branches:
     - /.+-stable$/
 
 install:
+  - gem install bundler
   - gem install danger
   - danger
   - rake app:prerequisites --quiet
