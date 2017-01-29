@@ -102,7 +102,7 @@ LIBYAML_VERSION = '0.1.6'
 LIBYAML_URL = "http://pyyaml.org/download/libyaml/yaml-#{LIBYAML_VERSION}.tar.gz"
 
 ZLIB_VERSION = '1.2.8'
-ZLIB_URL = "http://zlib.net/zlib-#{ZLIB_VERSION}.tar.gz"
+ZLIB_URL = "http://zlib.net/fossils/zlib-#{ZLIB_VERSION}.tar.gz"
 
 OPENSSL_VERSION = '1.0.2'
 OPENSSL_PATCH = 'd'
