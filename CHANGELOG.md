@@ -1,5 +1,15 @@
 ## Master
 
+## [1.2.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.2.0)
+   [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md)
+
+* Fix for loading the gh-inspector inside the ruby helper process, which should fix a lot of underlying UI issues
+  [orta](https://github.com/orta)
+  [#377](https://github.com/CocoaPods/CocoaPods-app/pull/377)
+
+## [1.1.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.1.0)
+   [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md)
+
 * Pod version completion
   [flufff42](https://github.com/flufff42)
   [#313](https://github.com/CocoaPods/CocoaPods-app/pull/313)
