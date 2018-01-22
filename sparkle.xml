@@ -103,5 +103,12 @@
       <pubDate>Sun, 29 Jan 2017 14:16:46 -0500</pubDate>
       <enclosure type='application/octet-stream' sparkle:version='1.2.0' length='29285425' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.2.0/CocoaPods.app-1.2.0.tar.bz2'/>
     </item>
+    <item>
+      <title>Version 1.4.0</title>
+      <sparkle:minimumSystemVersion>10.10</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://app.cocoapods.org/releases/1.4.0</sparkle:releaseNotesLink>
+      <pubDate>Mon, 22 Jan 2018 18:34:18 -0500</pubDate>
+      <enclosure type='application/octet-stream' sparkle:version='1.4.0' length='29457657' url='https://github.com/CocoaPods/CocoaPods-app/releases/download/1.4.0/CocoaPods.app-1.4.0.tar.bz2'/>
+    </item>
   </channel>
 </rss>
