@@ -615,7 +615,8 @@ Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby
     case gem.name
     when 'libxml-ruby'
       # libxml-ruby-2.6.0 has an extconf.rb that depends on old behavior where `RbConfig` was available as `Config`.
-      install_gem(File.join(PATCHES_DIR, "#{File.basename(gemspec, '.gemspec')}.gem"))
+      install_gem(File.join(PATCHES_DIR, "libxml-ruby-2.6.0.gem"))
+      suppress_upstream = true
     when 'sqlite3'
       # sqlite3-1.3.7 depends on BigDecimal header from before BigDecimal was made into a gem. I doubt anybody really
       # uses sqlite for CocoaPods dependencies anyways, so just skip this old version.
