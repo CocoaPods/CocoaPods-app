@@ -7,26 +7,26 @@ class CPRecentDocumentSource: CPDocumentSource {
   
   override var documents: [CPHomeWindowDocumentEntry] {
     get {
-      let docs = NSDocumentController.sharedDocumentController()
-      return docs.recentDocumentURLs.map { CPHomeWindowDocumentEntry(URL: $0) }
+      let docs = NSDocumentController.shared()
+      return docs.recentDocumentURLs.map { CPHomeWindowDocumentEntry(url: $0) }
     }
   }
   
   override init() {
     super.init()
     
-    let notificationCenter = NSNotificationCenter.defaultCenter()
-    notificationCenter.addObserver(self, selector: #selector(updateRecentDocuments(_:)), name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
-    notificationCenter.addObserver(self, selector: #selector(updateRecentDocuments(_:)), name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
+    let notificationCenter = NotificationCenter.default
+    notificationCenter.addObserver(self, selector: #selector(updateRecentDocuments(_:)), name: NSNotification.Name(rawValue: CPDocumentController.ClearRecentDocumentsNotification), object: nil)
+    notificationCenter.addObserver(self, selector: #selector(updateRecentDocuments(_:)), name: NSNotification.Name(rawValue: CPDocumentController.RecentDocumentUpdateNotification), object: nil)
   }
   
   deinit {
-    let notificationCenter = NSNotificationCenter.defaultCenter()
-    notificationCenter.removeObserver(self, name: CPDocumentController.ClearRecentDocumentsNotification, object: nil)
-    notificationCenter.removeObserver(self, name: CPDocumentController.RecentDocumentUpdateNotification, object: nil)
+    let notificationCenter = NotificationCenter.default
+    notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: CPDocumentController.ClearRecentDocumentsNotification), object: nil)
+    notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: CPDocumentController.RecentDocumentUpdateNotification), object: nil)
   }
   
-  func updateRecentDocuments(notification: NSNotification) {
+  func updateRecentDocuments(_ notification: Notification) {
     self.delegate?.documentSourceDidUpdate(self, documents: documents)
   }
 }

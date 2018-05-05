@@ -1,8 +1,8 @@
 import Cocoa
 
 enum InstallActionType {
-  case Install(options: InstallOptions)
-  case Update(options: InstallOptions)
+  case install(options: InstallOptions)
+  case update(options: InstallOptions)
 }
 
 struct InstallOptions {
@@ -26,28 +26,28 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
     self.notify = notify
   }
 
-  func performAction(type: InstallActionType) {
+  func performAction(_ type: InstallActionType) {
     switch type {
-    case .Install(let options):
+    case .install(let options):
       executeTaskWithCommand("install", args: options.commandOptions)
-    case .Update(let options):
+    case .update(let options):
       executeTaskWithCommand("update", args: options.commandOptions)
     }
   }
 
-  private func executeTaskWithCommand(command: String, args: [String]) {
-    task = CPCLITask(userProject: userProject, command: command, arguments: args, delegate: self, qualityOfService: .UserInitiated)
+  fileprivate func executeTaskWithCommand(_ command: String, args: [String]) {
+    task = CPCLITask(userProject: userProject, command: command, arguments: args, delegate: self, qualityOfService: .userInitiated)
     guard let task = task else { return }
 
     task.colouriseOutput = true
     task.run()
   }
 
-  func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
+  func task(_ task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
     self.taskAttributedString = updatedOutput
   }
 
-  func taskCompleted(task: CPCLITask!) {
+  func taskCompleted(_ task: CPCLITask!) {
     if (notify) {
       if task.finishedSuccessfully() {
         notifyWithTitle(~"WORKSPACE_GENERATED_NOTIFICATION_TITLE")
@@ -57,13 +57,13 @@ class CPInstallAction: NSObject, CPCLITaskDelegate {
     }
   }
 
-  private func notifyWithTitle(title: String) {
+  fileprivate func notifyWithTitle(_ title: String) {
     let notification = NSUserNotification()
     notification.title = title
     if let path = userProject.fileURL?.relativePath {
-      notification.subtitle = (path as NSString).stringByAbbreviatingWithTildeInPath
+      notification.subtitle = (path as NSString).abbreviatingWithTildeInPath
     }
-    NSNotificationCenter.defaultCenter().postNotificationName("CPInstallCompleted", object: nil)
-    NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: "CPInstallCompleted"), object: nil)
+    NSUserNotificationCenter.default.deliver(notification)
   }
 }

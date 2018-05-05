@@ -2,7 +2,7 @@ import Cocoa
 
 class CPSourceReposViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
-  var flattenedReposAndTitles: [AnyObject] = []
+  var flattenedReposAndTitles: [Any] = []
   @IBOutlet weak var tableView: NSTableView!
 
   override func viewDidLoad() {
@@ -10,14 +10,14 @@ class CPSourceReposViewController: NSViewController, NSTableViewDataSource, NSTa
     tableView.reloadData()
   }
 
-  func setActiveSourceRepos(activeRepos:[CPSourceRepo], inactiveRepos:[CPSourceRepo]) {
-    var repos:[AnyObject] = activeRepos.isEmpty ? [] : ["Sources Repos in this Podfile"]
+  func setActiveSourceRepos(_ activeRepos:[CPSourceRepo], inactiveRepos:[CPSourceRepo]) {
+    var repos: [Any] = activeRepos.isEmpty ? [] : ["Sources Repos in this Podfile"]
     for repo in activeRepos {
       repos.append(repo)
     }
 
     if !inactiveRepos.isEmpty {
-      repos.append("Other Source Repos")
+      repos.append("Other Source Repos" as AnyObject)
 
       for repo in inactiveRepos {
         repos.append(repo)
@@ -28,26 +28,26 @@ class CPSourceReposViewController: NSViewController, NSTableViewDataSource, NSTa
   }
 
   // Nothing is selectable except the buttons
-  func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+  func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
     return false
   }
 
-  func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+  func numberOfRows(in tableView: NSTableView) -> Int {
     return flattenedReposAndTitles.count
   }
 
   // Allows the UI to be set up via bindings
-  func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+  func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
     return flattenedReposAndTitles[row]
   }
 
-  func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+  func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
     let data = flattenedReposAndTitles[row]
     if let repo = data as? CPSourceRepo {
-      return tableView.makeViewWithIdentifier("repo", owner: repo)
+      return tableView.make(withIdentifier: "repo", owner: repo)
 
     } else if let title = data as? NSString {
-      return tableView.makeViewWithIdentifier("title", owner: title)
+      return tableView.make(withIdentifier: "title", owner: title)
     }
 
     print("Should not have data unaccounted for in the flattened repos");
@@ -67,7 +67,7 @@ class CPSourceReposViewController: NSViewController, NSTableViewDataSource, NSTa
     return height + 20
   }
 
-  func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+  func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
     let data = flattenedReposAndTitles[row]
     if let _ = data as? CPSourceRepo {
       return 63

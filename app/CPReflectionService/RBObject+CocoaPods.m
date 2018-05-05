@@ -21,7 +21,7 @@ CPRubyInit(Class bundleClass)
 {
   NSCAssert([NSThread currentThread] == (NSThread *)RBThreadInstance, @"Should only be called from the Ruby thread.");
 
-  // setenv("RUBYCOCOA_DEBUG", "1", 1);
+   setenv("DEBUG", "1", 1);
 
   // Initialize the Ruby runtime and load our Ruby setup file.
   RBBundleInit("RBObject+CocoaPods.rb", bundleClass, nil);
@@ -52,6 +52,7 @@ CPRubyInit(Class bundleClass)
   rb_provide("digest.so");
   INIT_EXT(fiddle);
   rb_provide("fiddle.so");
+  rb_eval_string("puts $LOAD_PATH");
   INIT_EXT(psych);
   rb_provide("psych.so");
   INIT_EXT(socket);

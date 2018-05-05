@@ -27,13 +27,13 @@ class CPFontAndColourGateKeeper: NSObject {
   
   //MARK: - Font
   
-  private let kDefaultsDefaultFontSize = "defaultFontSize"
+  fileprivate let kDefaultsDefaultFontSize = "defaultFontSize"
   var defaultFont: NSFont? {
     return NSFont(name: "Menlo", size: defaultFontSize)
   }
-  private var defaultFontSize: CGFloat {
-    let defaults = NSUserDefaults.standardUserDefaults()
-    if let fontSize = defaults.objectForKey(kDefaultsDefaultFontSize) as? Float {
+  fileprivate var defaultFontSize: CGFloat {
+    let defaults = UserDefaults.standard
+    if let fontSize = defaults.object(forKey: kDefaultsDefaultFontSize) as? Float {
       return CGFloat(fontSize)
     }
     return 16
@@ -49,9 +49,9 @@ class CPFontAndColourGateKeeper: NSObject {
     return changeDefaultFontSize(newSize)
   }
   
-  private func changeDefaultFontSize(size: CGFloat) -> NSFont? {
-    let defaults = NSUserDefaults.standardUserDefaults()
-    defaults.setFloat(Float(size), forKey: kDefaultsDefaultFontSize)
+  fileprivate func changeDefaultFontSize(_ size: CGFloat) -> NSFont? {
+    let defaults = UserDefaults.standard
+    defaults.set(Float(size), forKey: kDefaultsDefaultFontSize)
     return defaultFont
   }
   

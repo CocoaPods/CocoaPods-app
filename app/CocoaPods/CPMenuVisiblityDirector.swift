@@ -16,19 +16,19 @@ class CPMenuVisiblityDirector: NSObject {
 
   /// Setup notifications
   override func awakeFromNib() {
-    let notificationCenter = NSNotificationCenter.defaultCenter()
+    let notificationCenter = NotificationCenter.default
 
-    notificationCenter.addObserver(self, selector: #selector(windowsChanged(_:)), name: NSWindowDidBecomeKeyNotification, object: nil)
+    notificationCenter.addObserver(self, selector: #selector(windowsChanged(_:)), name: NSNotification.Name.NSWindowDidBecomeKey, object: nil)
   }
 
   /// Set hidden on the menus when we don't need to enable the submenus
-  func windowsChanged(notification: NSNotification) {
+  func windowsChanged(_ notification: Notification) {
     guard let window = notification.object as? NSWindow else { return print("Notification does not have a window") }
-    let docs = NSDocumentController.sharedDocumentController()
-    let windowHasDocument = docs.documentForWindow(window) != nil
+    let docs = NSDocumentController.shared()
+    let windowHasDocument = docs.document(for: window) != nil
 
     for menu in podfileEditorMenuItems {
-      menu.enabled = windowHasDocument
+      menu.isEnabled = windowHasDocument
     }
   }
 }

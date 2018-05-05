@@ -1,4 +1,28 @@
 import Cocoa
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 /// UIVIewController to represent the Podfile editor
 /// It's scope is keeping track of the user project,
@@ -54,7 +78,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
     // When integrating into one xcodeproj
     // we should show "Podfile for ProjectName" instead
-    userProject.registerForFullMetadataCallback {
+    userProject.register {
       guard let targets = self.userProject.xcodeIntegrationDictionary["projects"] as? [String:AnyObject] else { return }
       self.updatePodfileNameIfPossible(targets)
     }
@@ -63,93 +87,93 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   /// As CP will deintegrate, and re-integrate that app, we should show a warning
   /// that is is going to happen
   /// buildVersion will be cast to a string
-  func shouldShowInstallWarningForMajorChange(buildVersion: AnyObject?) -> Bool {
+  func shouldShowInstallWarningForMajorChange(_ buildVersion: AnyObject?) -> Bool {
     guard
       let version = buildVersion as? String,
-      let majorLastInstallVersion = version.componentsSeparatedByString(".").first,
-      let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
-      let majorAppVersion = appVersion.componentsSeparatedByString(".").first
+      let majorLastInstallVersion = version.components(separatedBy: ".").first,
+      let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+      let majorAppVersion = appVersion.components(separatedBy: ".").first
 
     else { return false }
 
     return Int(majorAppVersion) > Int(majorLastInstallVersion)
   }
 
-  func updatePodfileNameIfPossible(targets: [String: AnyObject]) {
+  func updatePodfileNameIfPossible(_ targets: [String: AnyObject]) {
     if targets.keys.count == 1 {
       let project = targets.keys.first!
-      let url = NSURL(fileURLWithPath: project)
-      let name = url.lastPathComponent!.stringByReplacingOccurrencesOfString(".xcproj", withString: "")
-      dispatch_async(dispatch_get_main_queue()) {
+      let url = URL(fileURLWithPath: project)
+      let name = url.lastPathComponent.replacingOccurrences(of: ".xcproj", with: "")
+      DispatchQueue.main.async {
         self.actionTitleLabel.stringValue = "Podfile for \(name)"
       }
     }
   }
 
   var tabController: CPHiddenTabViewController {
-    return childViewControllers.filter { $0.isKindOfClass(CPHiddenTabViewController) }.first! as! CPHiddenTabViewController
+    return childViewControllers.filter { $0.isKind(of: CPHiddenTabViewController.self) }.first! as! CPHiddenTabViewController
   }
 
-  @IBAction func install(obj: AnyObject) {
+  @IBAction func install(_ obj: AnyObject) {
     let options = InstallOptions(verbose: false)
-    performInstallAction(.Install(options: options))
+    performInstallAction(.install(options: options))
   }
 
-  @IBAction func installVerbose(obj: AnyObject) {
+  @IBAction func installVerbose(_ obj: AnyObject) {
     let options = InstallOptions(verbose: true)
-    performInstallAction(.Install(options: options))
+    performInstallAction(.install(options: options))
   }
 
-  @IBAction func installUpdate(obj: AnyObject) {
+  @IBAction func installUpdate(_ obj: AnyObject) {
     let options = InstallOptions(verbose: false)
-    performInstallAction(.Update(options: options))
+    performInstallAction(.update(options: options))
   }
 
-  @IBAction func installUpdateVerbose(obj: AnyObject) {
+  @IBAction func installUpdateVerbose(_ obj: AnyObject) {
     let options = InstallOptions(verbose: true)
-    performInstallAction(.Update(options: options))
+    performInstallAction(.update(options: options))
   }
 
-  func performInstallAction(action: InstallActionType) {
-    userProject.saveDocument(self)
+  func performInstallAction(_ action: InstallActionType) {
+    userProject.save(self)
 
     let lastInstalledVersion = userProject.xcodeIntegrationDictionary["cocoapods_build_version"]
-    if shouldShowInstallWarningForMajorChange(lastInstalledVersion) {
-      if !promptForInstallMigration(lastInstalledVersion) { return }
+    if shouldShowInstallWarningForMajorChange(lastInstalledVersion as AnyObject) {
+      if !promptForInstallMigration(lastInstalledVersion as AnyObject) { return }
     }
 
     installAction.performAction(action)
     showConsoleTab(self)
   }
 
-  func promptForInstallMigration(buildVersion: AnyObject?) -> Bool {
+  func promptForInstallMigration(_ buildVersion: AnyObject?) -> Bool {
     guard
-      let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String,
+      let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
       let version = buildVersion as? String else { return true }
 
     let alert = NSAlert()
     alert.messageText = ~"REINTEGRATION_ALERT_FORMAT_TITLE"
     alert.informativeText = String(format: ~"REINTEGRATION_ALERT_FORMAT_MESSAGE", version, appVersion)
-    alert.addButtonWithTitle(~"REINTEGRATION_ALERT_CONFIRM")
-    alert.addButtonWithTitle(~"REINTEGRATION_ALERT_CANCEL")
+    alert.addButton(withTitle: ~"REINTEGRATION_ALERT_CONFIRM")
+    alert.addButton(withTitle: ~"REINTEGRATION_ALERT_CANCEL")
     return alert.runModal() == NSAlertFirstButtonReturn
   }
 
   @IBOutlet var installMenu: NSMenu!
-  @IBAction func showInstallOptions(button: NSButton) {
+  @IBAction func showInstallOptions(_ button: NSButton) {
     guard let event = NSApp.currentEvent else { return }
-    NSMenu.popUpContextMenu(installMenu, withEvent: event, forView: button)
+    NSMenu.popUpContextMenu(installMenu, with: event, for: button)
   }
 
-  @IBAction func showEditorTab(sender: AnyObject) {
+  @IBAction func showEditorTab(_ sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 0
   }
 
-  @IBAction func showConsoleTab(sender: AnyObject) {
+  @IBAction func showConsoleTab(_ sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 2
   }
 
-  @IBAction func showInformationTab(sender: AnyObject) {
+  @IBAction func showInformationTab(_ sender: AnyObject) {
     tabController.selectedTabViewItemIndex = 1
   }
 
@@ -158,36 +182,36 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
   @IBOutlet weak var warningView: BlueView!
   @IBOutlet weak var warningLabelHeight: NSLayoutConstraint!
 
-  func showWarningLabelWithSender(message: String, actionTitle: String, target: AnyObject?, action: Selector, animated: Bool) {
+  func showWarningLabelWithSender(_ message: String, actionTitle: String, target: AnyObject?, action: Selector, animated: Bool) {
     let constraint = warningLabelHeight
-    warningLabelHeight.active = false
+    warningLabelHeight.isActive = false
 
     warningLabel.stringValue = message
     warningDoneButton.title = actionTitle
     warningDoneButton.target = target
     warningDoneButton.action = action
-    warningDoneButton.enabled = true
+    warningDoneButton.isEnabled = true
     view.layoutSubtreeIfNeeded()
 
-    let height = animated ? constraint.animator() : constraint
-    height.constant = warningView.fittingSize.height
+    let height = animated ? constraint?.animator() : constraint
+    height?.constant = warningView.fittingSize.height
     warningLabelHeight = constraint
-    constraint.active = true
+    constraint?.isActive = true
   }
 
-  func hideWarningLabel(animated:Bool = true) {
+  func hideWarningLabel(_ animated:Bool = true) {
     view.layoutSubtreeIfNeeded()
     let constraint = animated ? warningLabelHeight.animator() : warningLabelHeight
-    constraint.constant = 0
-    constraint.active = true
-    warningDoneButton.enabled = false
+    constraint?.constant = 0
+    constraint?.isActive = true
+    warningDoneButton.isEnabled = false
   }
 
   var popover: NSPopover?
 
-  @IBAction func showSourceRepoUpdatePopover(button: NSButton) {
+  @IBAction func showSourceRepoUpdatePopover(_ button: NSButton) {
     // Prevent multiple popovers to be shown when clicking the show source repo update button rapidly
-    if let popover = self.popover where popover.shown {
+    if let popover = self.popover, popover.isShown {
       return
     }
 
@@ -207,16 +231,16 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
       inactiveProjects = allRepos.filter { !podfileSources.contains($0.address) }
     }
 
-    guard let viewController = storyboard?.instantiateControllerWithIdentifier("RepoSources") as? CPSourceReposViewController else { return }
+    guard let viewController = storyboard?.instantiateController(withIdentifier: "RepoSources") as? CPSourceReposViewController else { return }
 
     let popover = NSPopover()
     popover.contentViewController = viewController
-    popover.behavior = .Transient
+    popover.behavior = .transient
 
     viewController.setActiveSourceRepos(activeProjects, inactiveRepos: inactiveProjects)
     popover.contentSize = NSSize(width: 400, height: viewController.heightOfData())
 
-    popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MaxY)
+    popover.show(relativeTo: button.bounds, of: button, preferredEdge: .maxY)
     self.popover = popover
   }
 
@@ -229,7 +253,7 @@ extension NSViewController {
 
   var podfileViewController: CPPodfileViewController? {
 
-    guard let parent = self.parentViewController else { return nil }
+    guard let parent = self.parent else { return nil }
     if let appVC = parent as? CPPodfileViewController {
       return appVC
     } else {

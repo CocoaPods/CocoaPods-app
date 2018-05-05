@@ -16,6 +16,13 @@ DEPENDENCIES:
   - Quick
   - Sparkle
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - LetsMove
+    - Nimble
+    - Quick
+    - Sparkle
+
 EXTERNAL SOURCES:
   ANSIEscapeHelper:
     :podspec: ANSIEscapeHelper.podspec
@@ -37,4 +44,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 182bca6568eaab8fdb1bae50cf0feca51f045ca4
 
-COCOAPODS: 1.0.0.rc.1
+COCOAPODS: 1.5.0

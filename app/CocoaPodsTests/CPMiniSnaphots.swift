@@ -3,28 +3,28 @@ import Cocoa
 // Provides a vastly simplified version of FBSnapshots + Nimble+Snapshots
 // for the Mac.
 
-enum SnapshotError: ErrorType {
-  case CouldNotGenerateNewSnapshot
-  case NoReferenceSnapshotFound
-  case SnapshotsDidNotMatch
+enum SnapshotError: Error {
+  case couldNotGenerateNewSnapshot
+  case noReferenceSnapshotFound
+  case snapshotsDidNotMatch
 }
 
 /// Verify a snapshot is what you expect it to be
 
-func verifySnapshot(name: String, view: NSView, file: String = __FILE__) throws {
-  guard let data = dataForView(view) else { throw SnapshotError.CouldNotGenerateNewSnapshot }
+func verifySnapshot(_ name: String, view: NSView, file: String = #file) throws {
+  guard let data = dataForView(view) else { throw SnapshotError.couldNotGenerateNewSnapshot }
   let referencePath = pathForName(name, file: file)
 
-  guard let referenceData = NSData(contentsOfFile: referencePath) else { throw SnapshotError.NoReferenceSnapshotFound }
-  if data != referenceData { throw SnapshotError.SnapshotsDidNotMatch }
+  guard let referenceData = try? Data(contentsOf: URL(fileURLWithPath: referencePath)) else { throw SnapshotError.noReferenceSnapshotFound }
+  if data != referenceData { throw SnapshotError.snapshotsDidNotMatch }
 }
 
 /// Create a reference snapshot
 
-func recordSnapshot(name: String, view: NSView, file: String = __FILE__) -> Bool {
+func recordSnapshot(_ name: String, view: NSView, file: String = #file) -> Bool {
   do {
     guard let data = dataForView(view) else { return false }
-    try data.writeToFile(pathForName(name, file: file), options: [.DataWritingAtomic])
+    try data.write(to: URL(fileURLWithPath: pathForName(name, file: file)), options: [.atomic])
 
   } catch {
     return false
@@ -35,16 +35,16 @@ func recordSnapshot(name: String, view: NSView, file: String = __FILE__) -> Bool
 
 /// Grabs the NSData representing a view
 
-private func dataForView(view: NSView) -> NSData? {
-  guard let rep = view.bitmapImageRepForCachingDisplayInRect(view.bounds) else { return nil }
-  view.cacheDisplayInRect(view.bounds, toBitmapImageRep: rep)
-  guard let data = rep.representationUsingType(.NSPNGFileType, properties: ["":""]) else { return nil }
+private func dataForView(_ view: NSView) -> Data? {
+  guard let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else { return nil }
+  view.cacheDisplay(in: view.bounds, to: rep)
+  guard let data = rep.representation(using: .PNG, properties: ["":""]) else { return nil }
   return data
 }
 
 /// Gets the full path for a name in a test file
 
-private func pathForName(name: String, file: String) -> String {
+private func pathForName(_ name: String, file: String) -> String {
   let folder = referencePathForTests(file)
   return folder + name + ".png"
 }
@@ -54,17 +54,17 @@ private var testFolderSuffixes = ["tests", "specs"]
 
 /// Gets the path for a test file's folder
 
-private func referencePathForTests(sourceFileName: String) -> String {
+private func referencePathForTests(_ sourceFileName: String) -> String {
 
   // Search the test file's path to find the first folder with a test suffix,
   // then append "/ReferenceImages" and use that.
 
   // Grab the file's path
-  let pathComponents: NSArray = (sourceFileName as NSString).pathComponents
+  let pathComponents: NSArray = (sourceFileName as NSString).pathComponents as NSArray
 
   // Find the directory in the path that ends with a test suffix.
   let testPath = pathComponents.filter { component -> Bool in
-    return testFolderSuffixes.filter { component.lowercaseString.hasSuffix($0) }.count > 0
+    return testFolderSuffixes.filter { (component as AnyObject).lowercased.hasSuffix($0) }.count > 0
     }.first
 
   guard let testDirectory = testPath else {
@@ -72,9 +72,9 @@ private func referencePathForTests(sourceFileName: String) -> String {
   }
 
   // Recombine the path components and append our own image directory.
-  let currentIndex = pathComponents.indexOfObject(testDirectory) + 1
-  let folderPathComponents: NSArray = pathComponents.subarrayWithRange(NSMakeRange(0, currentIndex))
-  let folderPath = NSString.pathWithComponents(folderPathComponents as! [String])
+  let currentIndex = pathComponents.index(of: testDirectory) + 1
+  let folderPathComponents: NSArray = pathComponents.subarray(with: NSMakeRange(0, currentIndex)) as NSArray
+  let folderPath = NSString.path(withComponents: folderPathComponents as! [String])
 
   return folderPath + "/ReferenceImages"
 }

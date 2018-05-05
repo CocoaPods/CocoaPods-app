@@ -29,7 +29,7 @@ class CPPodfileConsoleTextView: NSTextView {
       if (scrolledToBottom) {
         self.scrollToEndOfDocument(self)
       } else {
-        self.scrollPoint(self.visibleRect.origin)
+        self.scroll(self.visibleRect.origin)
       }
     }
   }

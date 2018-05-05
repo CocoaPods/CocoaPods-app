@@ -5,6 +5,6 @@ import Foundation
 /// into uppercase, and swapping spaces to underscores
 
 prefix func ~ (string: String) -> String {
-  let key = string.uppercaseString.stringByReplacingOccurrencesOfString(" ", withString: "_")
+  let key = string.uppercased().replacingOccurrences(of: " ", with: "_")
   return NSLocalizedString(key, comment:"")
 }

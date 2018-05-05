@@ -8,10 +8,10 @@ class CPXcodeProject: NSObject {
   var targets = [CPXcodeTarget]()
   var integrationType = "Static Libraries"
   var fileName = "CocoaPods.xcodeproj"
-  var filePath = NSURL(fileURLWithPath: "")
+  var filePath = URL(fileURLWithPath: "")
   var plugins = [String]()
 
-  var image = NSImage(imageLiteral: "project")
+  var image = NSImage(imageLiteralResourceName: "project")
 }
 
 class CPXcodeTarget: NSObject {
@@ -52,18 +52,18 @@ class CPPodfileMetadataViewController: NSViewController {
   override func viewWillAppear() {
     super.viewWillAppear()
 
-    guard let podfileVC = podfileViewController, project = podfileVC.userProject else {
+    guard let podfileVC = podfileViewController, let project = podfileVC.userProject else {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
 
     // When all XPC information has been recieved
-    project.registerForFullMetadataCallback {
+    project.register {
 
       // Take all podfile metadata dict and make it into the models above
       // this is done async, as it can be a bit of processing time.
-      self.infoGenerator.XcodeProjectMetadataFromUserProject(project) { (projects, targets, error) in
+      self.infoGenerator.xcodeProjectMetadata(from: project) { (projects, targets, error) in
 
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
 
           // Stop showing loading
           self.showingMetadata = true
@@ -77,12 +77,12 @@ class CPPodfileMetadataViewController: NSViewController {
   }
 
   // Opens a pod page in safari
-  @IBAction func openPod(sender: NSButton) {
-    let row = metadataDataSource.tableView.rowForView(sender)
-    guard let pod = metadataDataSource.tableView(metadataDataSource.tableView, objectValueForTableColumn: nil, row: row) as? CPPod else {
+  @IBAction func openPod(_ sender: NSButton) {
+    let row = metadataDataSource.tableView.row(for: sender)
+    guard let pod = metadataDataSource.tableView(metadataDataSource.tableView, objectValueFor: nil, row: row) as? CPPod else {
       return print("Index was not a pod")
     }
 
-    CPExternalLinksHelper().openPodWithName(pod.name)
+    CPExternalLinksHelper().openPod(withName: pod.name)
   }
 }

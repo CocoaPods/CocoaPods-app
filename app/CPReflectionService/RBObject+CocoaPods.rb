@@ -1,11 +1,21 @@
 Encoding.default_external = 'UTF-8'
 
+$stderr = $stdout = File.open('/tmp/rbstdout.txt', 'w'); $stdout.sync = true
+
+p caller
+
 # This is required for Foundation classes to be known to this side of the bridge at all.
-require 'osx/objc/foundation'
+begin
+  require 'osx/objc/foundation'
+rescue Object => e
+  warn "got #{e}"
+end
 
 service_bundle = OSX::NSBundle.mainBundle
-bundle_path = File.expand_path('../../Resources/bundle', service_bundle.bundlePath)
+bundle_path = File.expand_path('../../Resources/bundle', p(service_bundle.bundlePath))
 incorrect_root = File.join(service_bundle.bundlePath, 'Contents/MacOS')
+p incorrect_root
+p bundle_path
 
 # Fix all load paths to point to the bundled Ruby.
 $LOAD_PATH.map! do |path|

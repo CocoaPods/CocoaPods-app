@@ -17,17 +17,17 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
     let command = "plugins install"
     failed = false
 
-    installTask = CPCLITask(userProject: userProject, command: command, arguments: pluginsToInstall, delegate: self, qualityOfService:.UserInitiated)
+    installTask = CPCLITask(userProject: userProject, command: command, arguments: pluginsToInstall, delegate: self, qualityOfService:.userInitiated)
     installTask?.run()
   }
 
-  func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
-    failed = failed && updatedOutput.string.containsString("ERROR:")
+  func task(_ task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
+    failed = failed && updatedOutput.string.contains("ERROR:")
   }
 
   @IBOutlet weak var titleLabel: NSTextField!
   @IBOutlet weak var exitButton: NSButton!
-  func taskCompleted(task: CPCLITask!) {
+  func taskCompleted(_ task: CPCLITask!) {
     if failed {
       exitButton.title = ~"Exit"
       titleLabel.stringValue = ~"plugin failed to install message"
@@ -39,7 +39,7 @@ class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
     }
   }
 
-  @IBAction func exitTapped(sender: AnyObject) {
+  @IBAction func exitTapped(_ sender: AnyObject) {
     guard let window = view.window else { return }
     view.window?.sheetParent?.endSheet(window)
   }

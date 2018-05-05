@@ -14,28 +14,28 @@ class CPDocumentController: NSDocumentController {
   
   // All of the `openDocument...` calls end up calling this one method, so adding our notification here is simple
   
-  override func openDocumentWithContentsOfURL(url: NSURL, display displayDocument: Bool, completionHandler: (NSDocument?, Bool, NSError?) -> Void) {
-    super.openDocumentWithContentsOfURL(url, display: displayDocument) { (document, displayDocument, error) -> Void in
+  override func openDocument(withContentsOf url: URL, display displayDocument: Bool, completionHandler: @escaping (NSDocument?, Bool, Error?) -> Void) {
+    super.openDocument(withContentsOf: url, display: displayDocument) { (document, displayDocument, error) -> Void in
       if let _ = document { // Only fire the notification if we have a document
-        NSNotificationCenter.defaultCenter().postNotificationName(CPDocumentController.DocumentOpenedNotification, object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: CPDocumentController.DocumentOpenedNotification), object: self)
       }
       
       completionHandler(document, displayDocument, error)
     }
   }
   
-  func selectXcodeproj(completion: NSURL? -> Void) {
+  func selectXcodeproj(_ completion: @escaping (URL?) -> Void) {
     let openPanel = NSOpenPanel()
     openPanel.allowsMultipleSelection = false
     openPanel.allowedFileTypes = ["xcodeproj"]
-    openPanel.beginWithCompletionHandler { buttonIndex in
-      guard buttonIndex == NSFileHandlingPanelOKButton else { completion(.None); return }
-      guard let fileURL = openPanel.URL else { completion(.None); return }
+    openPanel.begin { buttonIndex in
+      guard buttonIndex == NSFileHandlingPanelOKButton else { completion(.none); return }
+      guard let fileURL = openPanel.url else { completion(.none); return }
       completion(fileURL)
     }
   }
 
-  override func newDocument(sender: AnyObject?) {
+  override func newDocument(_ sender: Any?) {
     selectXcodeproj { fileURL in
       if let URL = fileURL {
         self.setupPodfile(URL)
@@ -43,7 +43,7 @@ class CPDocumentController: NSDocumentController {
     }
   }
 
-  func setupPodfile(xcodeprojURL: NSURL) {
+  func setupPodfile(_ xcodeprojURL: URL) {
     self.podInitController = CPPodfileInitController(xcodeprojURL: xcodeprojURL, completionHandler: { (podfileURL, error) in
       guard let podfileURL = podfileURL else {
         let alert = NSAlert(error: error! as NSError)
@@ -52,11 +52,11 @@ class CPDocumentController: NSDocumentController {
 
         return
       }
-      self.openDocumentWithContentsOfURL(podfileURL, display: true) { _ in }
+      self.openDocument(withContentsOf: podfileURL, display: true) { _ in }
     })
   }
 
-  @IBAction func removeCocoaPodsFromProject(sender: AnyObject?) {
+  @IBAction func removeCocoaPodsFromProject(_ sender: AnyObject?) {
     selectXcodeproj { fileURL in
       if let url = fileURL {
         self.deintegrateProject(url)
@@ -64,7 +64,7 @@ class CPDocumentController: NSDocumentController {
     }
   }
   
-  func deintegrateProject(xcodeprojURL: NSURL) {
+  func deintegrateProject(_ xcodeprojURL: URL) {
     self.deintegrateController = CPDeintegrateController(xcodeprojURL: xcodeprojURL, completionHandler: { error in
       if let error = error {
         let alert = NSAlert(error: error as NSError)
@@ -72,7 +72,7 @@ class CPDocumentController: NSDocumentController {
         alert.runModal()
       }
       else {
-        let projectName = xcodeprojURL.lastPathComponent!
+        let projectName = xcodeprojURL.lastPathComponent
         let localized = ~"POD_DEINTEGRATE_CONFIRMATION"
         let alert = NSAlert()
         alert.messageText = ~"POD_DEINTEGRATE_INFO"
@@ -84,15 +84,15 @@ class CPDocumentController: NSDocumentController {
 
   // `noteNewRecentDocument` ends up calling to this method so we can just override this one method
   
-  override func noteNewRecentDocumentURL(url: NSURL) {
+  override func noteNewRecentDocumentURL(_ url: URL) {
     super.noteNewRecentDocumentURL(url)
     
-    NSNotificationCenter.defaultCenter().postNotificationName(CPDocumentController.RecentDocumentUpdateNotification, object: self)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: CPDocumentController.RecentDocumentUpdateNotification), object: self)
   }
   
-  override func clearRecentDocuments(sender: AnyObject?) {
+  override func clearRecentDocuments(_ sender: Any?) {
     super.clearRecentDocuments(sender)
     
-    NSNotificationCenter.defaultCenter().postNotificationName(CPDocumentController.ClearRecentDocumentsNotification, object: self)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: CPDocumentController.ClearRecentDocumentsNotification), object: self)
   }
 }

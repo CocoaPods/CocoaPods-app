@@ -1,12 +1,12 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CODE_SIGN_IDENTITY =
-EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Nimble" "$PODS_CONFIGURATION_BUILD_DIR/Quick" "$PODS_CONFIGURATION_BUILD_DIR/ANSIEscapeHelper" "$PODS_CONFIGURATION_BUILD_DIR/Fragaria" "$PODS_CONFIGURATION_BUILD_DIR/LetsMove"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Nimble" "${PODS_CONFIGURATION_BUILD_DIR}/Quick" "${PODS_CONFIGURATION_BUILD_DIR}/ANSIEscapeHelper" "${PODS_CONFIGURATION_BUILD_DIR}/Fragaria" "${PODS_CONFIGURATION_BUILD_DIR}/LetsMove" "${PODS_ROOT}/Sparkle"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Sparkle"
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Nimble/Nimble.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Quick/Quick.framework/Headers" $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/ANSIEscapeHelper/ANSIEscapeHelper.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Fragaria/Fragaria.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/LetsMove/LetsMove.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Sparkle"
-OTHER_LDFLAGS = $(inherited) -framework "Nimble" -framework "Quick"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/../Frameworks' '@loader_path/../Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Nimble/Nimble.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Quick/Quick.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/ANSIEscapeHelper/ANSIEscapeHelper.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Fragaria/Fragaria.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/LetsMove/LetsMove.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Nimble" -framework "Quick" -framework "Sparkle"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_BUILD_DIR = $BUILD_DIR
-PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
