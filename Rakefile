@@ -128,8 +128,8 @@ CURL_URL = "http://curl.haxx.se/download/curl-#{CURL_VERSION}.tar.gz"
 GIT_VERSION = '2.17.0'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
-SCONS_VERSION = '2.3.4'
-SCONS_URL = "https://bitbucket.org/scons/scons/get/#{SCONS_VERSION}.tar.gz"
+SCONS_VERSION = '3.0.1'
+SCONS_URL = "https://github.com/SCons/scons/archive/#{SCONS_VERSION}.tar.gz"
 
 SERF_VERSION = '1.3.8'
 SERF_URL = "https://archive.apache.org/dist/serf/serf-#{SERF_VERSION}.tar.bz2"
@@ -702,23 +702,6 @@ class SconsTasks < BundleDependencyTasks
 
   def package_name
     "scons-#{SCONS_VERSION}"
-  end
-
-  def downloaded_file
-    # Don’t download archive as just VERSION.tar.gz
-    File.join(DOWNLOAD_DIR, "#{package_name}.tar.gz")
-  end
-
-  def unpack_command
-    command = super
-    command[-1] = build_dir
-    # Ignore the root dir which is scons-scons-SHA
-    command + %w{ --strip 1 }
-  end
-
-  def unpack_task
-    mkdir_p build_dir
-    super
   end
 end
 
