@@ -4,8 +4,8 @@ PODS:
     - Fragaria/unicode (= 1.0.1)
   - Fragaria/unicode (1.0.1)
   - LetsMove (1.20)
-  - Nimble (3.0.0)
-  - Quick (0.8.0)
+  - Nimble (7.1.1)
+  - Quick (1.3.0)
   - Sparkle (1.14.0)
 
 DEPENDENCIES:
@@ -38,8 +38,8 @@ SPEC CHECKSUMS:
   ANSIEscapeHelper: 03afe6f9cb70698b1444d723fcc43d1b7c9a1cc2
   Fragaria: 1631d61b32a36fa134be59d39d09b8d903edbd5c
   LetsMove: 40dda5f7a19bf9976e150ce304fa5765892bef8f
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  Nimble: 391f07782af4b37914f9bd7b2ffbb952731b8202
+  Quick: 03278013f71aa05fe9ecabc94fbcc6835f1ee76f
   Sparkle: ccd95233b12a3e3d4eeb55ff01dd4c8bb8188b07
 
 PODFILE CHECKSUM: 182bca6568eaab8fdb1bae50cf0feca51f045ca4
