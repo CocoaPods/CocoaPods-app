@@ -125,7 +125,7 @@ RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSIO
 CURL_VERSION = '7.41.0'
 CURL_URL = "http://curl.haxx.se/download/curl-#{CURL_VERSION}.tar.gz"
 
-GIT_VERSION = '2.6.2'
+GIT_VERSION = '2.17.0'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
 SCONS_VERSION = '2.3.4'
