@@ -6,7 +6,7 @@ BUNDLED_ENV_VERSION = 5
 
 VERBOSE = !!RakeFileUtils.verbose_flag
 
-RELEASE_PLATFORM = '10.11'
+RELEASE_PLATFORM = '10.13'
 DEPLOYMENT_TARGET = '10.10'
 
 # Ideally this would be deployment target, but
