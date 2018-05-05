@@ -13,16 +13,16 @@ class CPThickDecorationsWindow: NSWindow {
 
     super.makeKeyAndOrderFront(sender)
 
-    [NSNotification.Name.NSWindowDidResize, NSNotification.Name.NSWindowDidMove].forEach { notification in
+    [NSWindow.didResizeNotification, NSWindow.didMoveNotification].forEach { notification in
       NotificationCenter.default.addObserver(self, selector: #selector(moveWindowButtons), name: notification, object: self)
     }
     moveWindowButtons()
   }
 
-  func moveWindowButtons(){
+  @objc func moveWindowButtons(){
     let verticalOffset: CGFloat = 12
 
-    ([.closeButton, .miniaturizeButton, .zoomButton] as [NSWindowButton]).forEach { type in
+    ([.closeButton, .miniaturizeButton, .zoomButton] as [NSWindow.ButtonType]).forEach { type in
       guard let button = standardWindowButton(type) else { return }
       button.setFrameOrigin(NSMakePoint(button.frame.origin.x, verticalOffset))
     }

@@ -3,11 +3,11 @@ import Cocoa
 class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
 
   // This changes between Recent and Spotlight docs
-  dynamic var currentSidebarItems = [CPHomeWindowDocumentEntry]()
+  @objc dynamic var currentSidebarItems = [CPHomeWindowDocumentEntry]()
 
   // for bindings to show a progress during spotlight metadata
   // searching
-  dynamic var loading = false
+  @objc dynamic var loading = false
 
   @IBOutlet weak var recentButton: CPHomeSidebarButton!
   @IBOutlet weak var spotlightButton: CPHomeSidebarButton!
@@ -41,7 +41,7 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
       case recentSource:
         recentButton.userInteractionEnabled = !documents.isEmpty // If recentSource has no data, then disable the button
         
-        if (recentButton.state == NSOnState) {
+        if (recentButton.state == .on) {
           if documents.count > 0 {
             recentButtonTapped(recentButton)
           } else {
@@ -49,7 +49,7 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
           }
         }
       
-      case spotlightSource where spotlightButton.state == NSOnState:
+      case spotlightSource where spotlightButton.state == .on:
         loading = false
         if documents.isEmpty {
           showPopoverForOpenPodfile()
@@ -111,21 +111,21 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
 
     // Make sure that you can't change the doc types (it will do nothing)
     buttons.forEach {
-      self.setButton($0, state: NSOffState)
+      self.setButton($0, state: .off)
       $0.userInteractionEnabled = false
     }
   }
 
   func selectButton(_ button: CPHomeSidebarButton) {
-    setButton(button, state: NSOnState)
+    setButton(button, state: .on)
     
     let otherButtons = buttons.filter { $0 != button }
-    otherButtons.forEach { self.setButton($0, state: NSOffState) }
+    otherButtons.forEach { self.setButton($0, state: .off) }
   }
 
-  func setButton(_ button: CPHomeSidebarButton, state: Int) {
+  func setButton(_ button: CPHomeSidebarButton, state: NSControl.StateValue) {
 //    button.bordered = select
-    button.state = state // Using NSOnState/NSOffState to signify the state of the button
-    button.userInteractionEnabled = (state != NSOnState)
+    // Using NSOnState/NSOffState to signify the state of the button
+    button.userInteractionEnabled = (state != .on)
   }
 }

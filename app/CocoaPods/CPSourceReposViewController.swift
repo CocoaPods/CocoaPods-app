@@ -44,10 +44,10 @@ class CPSourceReposViewController: NSViewController, NSTableViewDataSource, NSTa
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
     let data = flattenedReposAndTitles[row]
     if let repo = data as? CPSourceRepo {
-      return tableView.make(withIdentifier: "repo", owner: repo)
+      return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "repo"), owner: repo)
 
     } else if let title = data as? NSString {
-      return tableView.make(withIdentifier: "title", owner: title)
+      return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "title"), owner: title)
     }
 
     print("Should not have data unaccounted for in the flattened repos");

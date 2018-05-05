@@ -53,7 +53,7 @@ extension SMLTextView {
   open override func mouseMoved(with theEvent: NSEvent) {
     super.mouseMoved(with: theEvent)
     
-    guard theEvent.modifierFlags.contains(.option) else {
+    guard theEvent.modifierFlags.contains(NSEvent.ModifierFlags.option) else {
       return
     }
     processPodMouseHover()
@@ -62,7 +62,7 @@ extension SMLTextView {
   open override func mouseDown(with theEvent: NSEvent) {
     super.mouseDown(with: theEvent)
     
-    guard theEvent.modifierFlags.contains(.option) else {
+    guard theEvent.modifierFlags.contains(NSEvent.ModifierFlags.option) else {
       return
     }
     quickLook(with: theEvent)
@@ -82,7 +82,7 @@ extension SMLTextView {
   }
   
   open override func flagsChanged(with theEvent: NSEvent) {
-    if theEvent.modifierFlags.contains(.option) {
+    if theEvent.modifierFlags.contains(NSEvent.ModifierFlags.option) {
       processPodMouseHover()
       isOptionKeyDown = true
       
@@ -109,12 +109,8 @@ extension SMLTextView {
     }
   }
   
-  fileprivate func checkForPodNameBelowMouseLocation() -> (podName: String, location: NSRange)? {
-    guard let string = string else {
-      return nil
-    }
-    
-    let hoveredCharIndex = characterIndex(for: NSEvent.mouseLocation())
+  fileprivate func checkForPodNameBelowMouseLocation() -> (podName: String, location: NSRange)? {    
+    let hoveredCharIndex = characterIndex(for: NSEvent.mouseLocation)
     let lineRange = (string as NSString).lineRange(for: NSRange(location: hoveredCharIndex, length: 0))
     let line = (string as NSString).substring(with: lineRange)
     let hoveredCharLineIndex = hoveredCharIndex - lineRange.location
@@ -168,8 +164,8 @@ extension SMLTextView {
   fileprivate func updateUnderlineStyle(forPodAtRange range: NSRange) {
     textStorage?.beginEditing()
     textStorage?.addAttributes([
-      NSUnderlineStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int),
-      NSUnderlineColorAttributeName: CPFontAndColourGateKeeper().cpLinkRed
+      NSAttributedStringKey.underlineStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int),
+      NSAttributedStringKey.underlineColor: CPFontAndColourGateKeeper().cpLinkRed
       ], range: range)
     textStorage?.endEditing()
   }
@@ -178,7 +174,7 @@ extension SMLTextView {
     guard let range = range else { return }
     
     textStorage?.beginEditing()
-    textStorage?.removeAttribute(NSUnderlineStyleAttributeName, range: range)
+    textStorage?.removeAttribute(NSAttributedStringKey.underlineStyle, range: range)
     textStorage?.endEditing()
   }
   
@@ -191,7 +187,7 @@ extension SMLTextView {
   }
   
   fileprivate func showPodPopover(forPodWithName podName: String, atRange: NSRange) {
-    guard let window = window, let string = string,
+    guard let window = window,
       let podURL = URL(string: "https://cocoapods.org/pods/\(podName)") else {
         return
     }
@@ -255,7 +251,7 @@ extension SMLTextView: WebPolicyDelegate {
       let externalURL = actionInformation[WebActionOriginalURLKey] as? URL {
       // An action has ocurred (link click): redirect the user to the browser
       listener.ignore()
-      NSWorkspace.shared().open(externalURL)
+      NSWorkspace.shared.open(externalURL)
     } else {
       // Loading the CocoaPods pod page: accept
       listener.use()

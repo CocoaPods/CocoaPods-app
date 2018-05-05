@@ -7,7 +7,7 @@ class CPRecentDocumentSource: CPDocumentSource {
   
   override var documents: [CPHomeWindowDocumentEntry] {
     get {
-      let docs = NSDocumentController.shared()
+      let docs = NSDocumentController.shared
       return docs.recentDocumentURLs.map { CPHomeWindowDocumentEntry(url: $0) }
     }
   }
@@ -26,7 +26,7 @@ class CPRecentDocumentSource: CPDocumentSource {
     notificationCenter.removeObserver(self, name: NSNotification.Name(rawValue: CPDocumentController.RecentDocumentUpdateNotification), object: nil)
   }
   
-  func updateRecentDocuments(_ notification: Notification) {
+  @objc func updateRecentDocuments(_ notification: Notification) {
     self.delegate?.documentSourceDidUpdate(self, documents: documents)
   }
 }

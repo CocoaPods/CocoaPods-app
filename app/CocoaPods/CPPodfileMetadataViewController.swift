@@ -45,7 +45,7 @@ class CPPodfileMetadataViewController: NSViewController {
   var infoGenerator = CPXcodeInformationGenerator()
     
   /// Allows us to bind a loading interface.
-  dynamic var showingMetadata = false
+  @objc dynamic var showingMetadata = false
 
   @IBOutlet var metadataDataSource: CPMetadataTableViewDataSource!
 

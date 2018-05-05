@@ -29,7 +29,7 @@ class CPDocumentController: NSDocumentController {
     openPanel.allowsMultipleSelection = false
     openPanel.allowedFileTypes = ["xcodeproj"]
     openPanel.begin { buttonIndex in
-      guard buttonIndex == NSFileHandlingPanelOKButton else { completion(.none); return }
+      guard buttonIndex.rawValue == NSFileHandlingPanelOKButton else { completion(.none); return }
       guard let fileURL = openPanel.url else { completion(.none); return }
       completion(fileURL)
     }
@@ -52,7 +52,7 @@ class CPDocumentController: NSDocumentController {
 
         return
       }
-      self.openDocument(withContentsOf: podfileURL, display: true) { _ in }
+      self.openDocument(withContentsOf: podfileURL, display: true) { _,_,_  in }
     })
   }
 

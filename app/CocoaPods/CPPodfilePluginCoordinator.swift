@@ -54,9 +54,9 @@ class CPPodfilePluginCoordinator: NSObject {
     }
   }
 
-  func showInstaller() {
+  @objc func showInstaller() {
     guard let storyboard = controller.storyboard else { return }
-    guard let windowController = storyboard.instantiateController(withIdentifier: "InstallPlugins") as? NSWindowController else { return }
+    guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "InstallPlugins")) as? NSWindowController else { return }
     guard let missingPluginInstaller = windowController.contentViewController as? CPInstallPluginsViewController else { return }
 
     missingPluginInstaller.pluginsToInstall = self.pluginsToInstall

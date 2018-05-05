@@ -4,7 +4,7 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
   @IBOutlet var textView: NSTextView!
   @IBOutlet weak var hintButton: NSButton!
 
-  dynamic var editable = false // the textview in the storyboard is bound to this
+  @objc dynamic var editable = false // the textview in the storyboard is bound to this
     
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -20,7 +20,7 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
       return print("CPPodfileEditorViewController is not set up with a PodfileVC in the VC heirarchy.")
     }
     
-    if textView.string!.isEmpty {
+    if textView.string.isEmpty {
       hintButton.isHidden = false
       if let podfileErrorState = CPPodfileErrorState(fromProject: project) {
         switch podfileErrorState {
@@ -40,8 +40,8 @@ class CPPodfileConsoleViewController: NSViewController, NSTextViewDelegate {
   // MARK: - Hints
     
   func updateHintButton(imageNamed: String, title: String) {
-    hintButton.image = NSImage(named: imageNamed)
-    hintButton.alternateImage = NSImage(named: "\(imageNamed)_selected")
+    hintButton.image = NSImage(named: NSImage.Name(rawValue: imageNamed))
+    hintButton.alternateImage = NSImage(named: NSImage.Name(rawValue: "\(imageNamed)_selected"))
     hintButton.attributedTitle = NSAttributedString(title, color: NSColor.ansiMutedWhite(), font: NSFont.labelFont(ofSize: 13), alignment: .center)
     hintButton.attributedAlternateTitle = NSAttributedString(title, color: NSColor.ansiBrightWhite(), font: NSFont.labelFont(ofSize: 13), alignment: .center)
   }

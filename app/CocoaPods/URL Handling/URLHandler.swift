@@ -18,7 +18,7 @@ class URLHandler: NSObject {
     )
   }
   
-  func handleEvent(_ event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
+  @objc func handleEvent(_ event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
     let key = AEKeyword(keyDirectObject)
     let url = event.paramDescriptor(forKeyword: key)?.stringValue
     print("Handled URL: \(url)", terminator: "")

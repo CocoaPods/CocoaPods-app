@@ -18,8 +18,8 @@ struct InstallOptions {
 class CPInstallAction: NSObject, CPCLITaskDelegate {
   let userProject: CPUserProject
   let notify: Bool
-  dynamic var taskAttributedString: NSAttributedString?
-  dynamic var task: CPCLITask?
+  @objc dynamic var taskAttributedString: NSAttributedString?
+  @objc dynamic var task: CPCLITask?
 
   init(userProject: CPUserProject, notify: Bool) {
     self.userProject = userProject

@@ -2,7 +2,7 @@ import Cocoa
 
 class CPPodfileConsoleTextView: NSTextView {
   
-  dynamic var hasText: Bool = false //Currently bound to the hidden property of the console hint button
+  @objc dynamic var hasText: Bool = false //Currently bound to the hidden property of the console hint button
   
   // We bind to `attributedText`, not `attributedString` in the storyboard, this is
   // to allow us to calculate the previous scroll position before setting the new

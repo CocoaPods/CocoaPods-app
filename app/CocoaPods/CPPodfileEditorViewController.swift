@@ -126,9 +126,9 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     podfileViewController?.showWarningLabelWithSender(message, actionTitle: title, target: self, action: #selector(checkForUpdatesButtonPressed), animated: true)
   }
 
-  func checkForUpdatesButtonPressed() {
+  @objc func checkForUpdatesButtonPressed() {
     if let url = URL(string: "https://cocoapods.org/app") {
-      NSWorkspace.shared().open(url)
+      NSWorkspace.shared.open(url)
     }
   }
   
@@ -387,7 +387,7 @@ extension EditorLineSelection {
   /// - returns: String?
 
   func selectedLinesText(_ textView: NSTextView) -> String? {
-    guard let text = textView.string else { return .none }
+    let text = textView.string
 
     return (text as NSString).substring(with: selectedLinesRange(textView))
   }
@@ -398,7 +398,7 @@ extension EditorLineSelection {
   /// - returns: NSRange
 
   func selectedLinesRange(_ textView: NSTextView) -> NSRange {
-    guard let text = textView.string else { return NSMakeRange(0, 0) }
+    let text = textView.string
 
     return (text as NSString).lineRange(for: editor.textView.selectedRange())
   }
@@ -410,7 +410,7 @@ extension CPPodfileEditorViewController: CPUserProjectDelegate {
   
   func contentDidChangeinUserProject(_ userProject: CPUserProject) {
     let contentChanged = editor.string as String != userProject.contents
-    let appIsActive = NSApplication.shared().isActive
+    let appIsActive = NSApplication.shared.isActive
 
     if contentChanged && !appIsActive {
       let selection = editor.textView.selectedRange()

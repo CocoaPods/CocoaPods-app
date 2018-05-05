@@ -9,7 +9,7 @@ class CPModifiedDecorationsWindow: NSWindow {
 
   override func makeKeyAndOrderFront(_ sender: Any?) {
 
-    appearance = NSAppearance(named:NSAppearanceNameVibrantLight)
+    appearance = NSAppearance(named:NSAppearance.Name.vibrantLight)
     titlebarAppearsTransparent = true
     isMovableByWindowBackground = true
 
@@ -22,16 +22,16 @@ class CPModifiedDecorationsWindow: NSWindow {
     titleVisibility = .hidden
     super.makeKeyAndOrderFront(sender)
 
-    [NSNotification.Name.NSWindowDidResize, NSNotification.Name.NSWindowDidResize, NSNotification.Name.NSWindowDidMove].forEach { notification in
+    [NSWindow.didResizeNotification, NSWindow.didResizeNotification, NSWindow.didMoveNotification].forEach { notification in
         NotificationCenter.default.addObserver(self, selector: #selector(moveWindowButtons), name: notification, object: self)
     }
     moveWindowButtons()
   }
 
-  func moveWindowButtons(){
+  @objc func moveWindowButtons(){
     let verticalOffset = 6
 
-    [NSWindowButton.closeButton, NSWindowButton.miniaturizeButton, NSWindowButton.zoomButton].forEach { type in
+    [NSWindow.ButtonType.closeButton, NSWindow.ButtonType.miniaturizeButton, NSWindow.ButtonType.zoomButton].forEach { type in
         guard let button = standardWindowButton(type) else { return }
         button.setFrameOrigin(NSMakePoint(button.frame.origin.x, CGFloat(verticalOffset)))
     }

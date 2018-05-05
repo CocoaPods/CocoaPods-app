@@ -20,13 +20,13 @@ class CPMenuRepoUpdateDirector: NSObject {
     // and re-run it after every pod install/update, which may have
     // added new sources
 
-    for key in [NSNotification.Name.NSApplicationDidFinishLaunching, NSNotification.Name("CPInstallCompleted")] {
+    for key in [NSApplication.didFinishLaunchingNotification, NSNotification.Name("CPInstallCompleted")] {
       let center = NotificationCenter.default
       center.addObserver(self, selector: #selector(lookForSources), name:key, object: nil)
     }
   }
 
-  func lookForSources() {
+  @objc func lookForSources() {
     repoCoordinator.getSourceRepos { sources in
       /// This can be on any thread, we want to do GUI work though
       DispatchQueue.main.async {
@@ -75,8 +75,8 @@ class CPSourceMenuView: NSView {
   // feature in Yosemite, I used to hack this in before.
 
   var menuIsDarkMode: Bool {
-    let appearance =  NSAppearance.current()
-    return appearance.name.hasPrefix("NSAppearanceNameVibrantDark")
+    let appearance =  NSAppearance.current
+    return appearance?.name == .vibrantDark
   }
 
   var source: CPSourceRepo? {
@@ -105,7 +105,7 @@ class CPSourceMenuView: NSView {
     let buttonRect = CGRect(x: 400-20-60, y: 20, width: 60, height: 20)
     updateButtonBG = NSImageView(frame: buttonRect)
     updateButtonBG.imageScaling = .scaleAxesIndependently
-    updateButtonBG.image = NSImage(named: "TransparentButtonBG")
+    updateButtonBG.image = NSImage(named: NSImage.Name(rawValue: "TransparentButtonBG"))
     addSubview(updateButtonBG)
 
     completedLabel = label(buttonRect)
@@ -114,7 +114,7 @@ class CPSourceMenuView: NSView {
 
     let progressRect = CGRect(x: 400-20-40, y: 20, width: 20, height: 20)
     progress = NSProgressIndicator(frame: progressRect)
-    progress.style = .spinningStyle
+    progress.style = .spinning
     progress.startAnimation(self)
     addSubview(progress)
   }
@@ -160,7 +160,7 @@ class CPSourceMenuView: NSView {
     // https://gist.github.com/joelcox/28de2f0cb21ea47bd789
 
     NSColor.selectedMenuItemColor.set()
-    NSRectFillUsingOperation(dirtyRect, .sourceOver);
+    dirtyRect.fill(using: .sourceOver);
 
     if (dirtyRect.size.height > 1) {
       let heightMinus1 = dirtyRect.size.height - 1
@@ -170,13 +170,13 @@ class CPSourceMenuView: NSView {
       let gradient = NSGradient(starting: NSColor(white: CGFloat(1.0), alpha:startingOpacity), ending:NSColor(white: CGFloat(1.0), alpha: 0.0))!
       let startPoint = NSMakePoint(dirtyRect.origin.x, dirtyRect.origin.y + heightMinus1)
       let endPoint = NSMakePoint(dirtyRect.origin.x, dirtyRect.origin.y + 1)
-      gradient.draw(from: startPoint, to: endPoint, options:NSGradientDrawingOptions.drawsBeforeStartingLocation)
+      gradient.draw(from: startPoint, to: endPoint, options:NSGradient.DrawingOptions.drawsBeforeStartingLocation)
 
       if currentControlTint == .blueControlTint {
         NSColor(white: CGFloat(1.0), alpha: CGFloat(0.1)).set()
 
         let smallerRect = NSMakeRect(dirtyRect.origin.x, dirtyRect.origin.y + heightMinus1, dirtyRect.size.width, CGFloat(1.0))
-        NSRectFillUsingOperation(smallerRect, .sourceOver)
+        smallerRect.fill(using: .sourceOver)
       }
     }
   }
@@ -185,7 +185,7 @@ class CPSourceMenuView: NSView {
   override func updateTrackingAreas() {
     if trackingAreas.isEmpty {
       addTrackingArea(
-        NSTrackingArea(rect: bounds, options: [.activeWhenFirstResponder, .mouseEnteredAndExited, .enabledDuringMouseDrag], owner: self, userInfo: nil)
+        NSTrackingArea(rect: bounds, options: [NSTrackingArea.Options.activeWhenFirstResponder, NSTrackingArea.Options.mouseEnteredAndExited, NSTrackingArea.Options.enabledDuringMouseDrag], owner: self, userInfo: nil)
       )
     }
   }

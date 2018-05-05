@@ -52,16 +52,16 @@ class CPMetadataTableViewDataSource: NSObject, NSTableViewDataSource, NSTableVie
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
     let data = flattenedXcodeProject[row]
     if let xcodeproj = data as? CPXcodeProject {
-      return tableView.make(withIdentifier: "xcodeproject_metadata", owner: xcodeproj)
+      return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "xcodeproject_metadata"), owner: xcodeproj)
 
     } else if let target = data as? CPXcodeTarget {
-      return tableView.make(withIdentifier: "target_metadata", owner: target)
+      return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "target_metadata"), owner: target)
 
     } else if let pod = data as? CPPod {
-      return tableView.make(withIdentifier: "pod_metadata", owner: pod)
+      return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "pod_metadata"), owner: pod)
 
     } else if let _ = data as? NSString {
-      return tableView.make(withIdentifier: "spacer", owner: nil)
+      return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "spacer"), owner: nil)
     }
 
     print("Should not have data unaccounted for in the flattened xcode project", terminator: "");

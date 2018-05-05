@@ -33,7 +33,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class CPPodfileViewController: NSViewController, NSTabViewDelegate {
 
   var userProject: CPUserProject!
-  dynamic var installAction: CPInstallAction!
+  @objc dynamic var installAction: CPInstallAction!
 
   @IBOutlet weak var actionTitleLabel: NSTextField!
   @IBOutlet weak var documentIconContainer: NSView!
@@ -156,7 +156,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
     alert.informativeText = String(format: ~"REINTEGRATION_ALERT_FORMAT_MESSAGE", version, appVersion)
     alert.addButton(withTitle: ~"REINTEGRATION_ALERT_CONFIRM")
     alert.addButton(withTitle: ~"REINTEGRATION_ALERT_CANCEL")
-    return alert.runModal() == NSAlertFirstButtonReturn
+    return alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn
   }
 
   @IBOutlet var installMenu: NSMenu!
@@ -231,7 +231,7 @@ class CPPodfileViewController: NSViewController, NSTabViewDelegate {
       inactiveProjects = allRepos.filter { !podfileSources.contains($0.address) }
     }
 
-    guard let viewController = storyboard?.instantiateController(withIdentifier: "RepoSources") as? CPSourceReposViewController else { return }
+    guard let viewController = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "RepoSources")) as? CPSourceReposViewController else { return }
 
     let popover = NSPopover()
     popover.contentViewController = viewController

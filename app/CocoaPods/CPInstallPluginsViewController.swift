@@ -2,13 +2,13 @@ import Cocoa
 
 class CPInstallPluginsViewController: NSViewController, CPCLITaskDelegate {
 
-  dynamic var pluginsToInstall = [String]()
+  @objc dynamic var pluginsToInstall = [String]()
   // must be DI'd before viewWillAppear
   var userProject: CPUserProject!
   var failed: Bool = false
   var pluginsInstalled: (() -> ())?
 
-  dynamic var installTask: CPCLITask?
+  @objc dynamic var installTask: CPCLITask?
 
   override func viewWillAppear() {
     super.viewWillAppear()

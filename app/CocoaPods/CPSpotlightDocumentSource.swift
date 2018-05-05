@@ -28,7 +28,7 @@ class CPSpotlightDocumentSource: CPDocumentSource {
     query.start()
   }
 
-  func queryUpdated(_ notification: Notification) {
+  @objc func queryUpdated(_ notification: Notification) {
     query.disableUpdates()
 
     guard let podfileMetadatas = notification.userInfo?[kMDQueryUpdateAddedItems] as? [NSMetadataItem] else { return }
@@ -45,12 +45,12 @@ class CPSpotlightDocumentSource: CPDocumentSource {
     queryFinished()
   }
 
-  func queryGatheringFinished(_ notification: Notification) {
+  @objc func queryGatheringFinished(_ notification: Notification) {
     // let NSMetadataQuery finish when there are files available, if not finish the query
     self.perform(#selector(CPSpotlightDocumentSource.queryFinished), with: nil, afterDelay: 2.0)
   }
   
-  func queryFinished() {
+  @objc func queryFinished() {
     let notificationCenter = NotificationCenter.default
     notificationCenter.removeObserver(self)
     query.stop()

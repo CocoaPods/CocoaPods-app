@@ -6,15 +6,15 @@ class CPSourceRepoCoordinator: NSObject {
 
   // When these two are true then the binding for enabled on the
   // popover button changes to true
-  dynamic var reposNeedUpdating = false
-  dynamic var hasAllCocoaPodsRepoSources = false
+  @objc dynamic var reposNeedUpdating = false
+  @objc dynamic var hasAllCocoaPodsRepoSources = false
 
   var checkTask: CPCLITask?
-  dynamic var imageForShowReposPopover: NSImage?
+  @objc dynamic var imageForShowReposPopover: NSImage?
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    imageForShowReposPopover = NSImage(named: "repo_update_not_ready")
+    imageForShowReposPopover = NSImage(named: NSImage.Name(rawValue: "repo_update_not_ready"))
   }
 
   // Gets source repos, with an optional callback for the repos.
@@ -55,7 +55,7 @@ extension CPSourceRepoCoordinator: CPCLITaskDelegate {
   func taskCompleted(_ task: CPCLITask!) {
     reposNeedUpdating = !task.finishedSuccessfully()
     let imageName = reposNeedUpdating ? "repo_update_not_ready" : "repo_update_needed"
-    imageForShowReposPopover = NSImage(named: imageName)
+    imageForShowReposPopover = NSImage(named: NSImage.Name(rawValue: imageName))
   }
 }
 
@@ -84,7 +84,7 @@ class CPSourceRepo: NSObject, CPCLITaskDelegate {
       .replacingOccurrences(of: "@git", with: "")
   }
 
-  dynamic var isUpdatingRepo: Bool = false
+  @objc dynamic var isUpdatingRepo: Bool = false
   var updateRepoTask: CPCLITask?
 
   @IBAction func updateRepo(_ button: NSButton?) {

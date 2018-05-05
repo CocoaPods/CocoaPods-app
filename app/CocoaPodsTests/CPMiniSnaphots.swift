@@ -38,7 +38,7 @@ func recordSnapshot(_ name: String, view: NSView, file: String = #file) -> Bool 
 private func dataForView(_ view: NSView) -> Data? {
   guard let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else { return nil }
   view.cacheDisplay(in: view.bounds, to: rep)
-  guard let data = rep.representation(using: .PNG, properties: ["":""]) else { return nil }
+  guard let data = rep.representation(using: .png, properties: [NSBitmapImageRep.PropertyKey(rawValue: ""):""]) else { return nil }
   return data
 }
 
