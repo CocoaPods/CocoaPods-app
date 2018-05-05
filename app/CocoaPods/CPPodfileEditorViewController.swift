@@ -28,7 +28,7 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
     super.viewDidLoad()
 
     let appDelegate = NSApp.delegate as? CPAppDelegate
-    (appDelegate?.reflectionService.remoteObjectProxy as AnyObject).allPods { (pods, error) in
+    (appDelegate?.reflectionService.remoteObjectProxy as! CPReflectionServiceProtocol).allPods { (pods, error) in
 
       guard let pods = pods else { return }
       self.allPodNames.append(contentsOf: pods)
@@ -105,14 +105,14 @@ class CPPodfileEditorViewController: NSViewController, NSTextViewDelegate, SMLAu
   }
 
   func pullVersionFromLockfile(_ path: String, completion: @escaping (String?) -> Void) {
-    (appDelegate()?.reflectionService.remoteObjectProxy as AnyObject).version(fromLockfile: path, withReply: { (version, error) in
+    (appDelegate()?.reflectionService.remoteObjectProxy as! CPReflectionServiceProtocol).version(fromLockfile: path, withReply: { (version, error) in
       completion(version)
     })
   }
 
   func checkForOlderAppVersionWithLockfileVersion(_ version: String?, completion: @escaping (NSNumber?) -> Void) {
     if let lockfileVersion = version, let appVersion = appVersion() {
-        (appDelegate()?.reflectionService.remoteObjectProxy as AnyObject).appVersion(appVersion, isOlderThanLockfileVersion: lockfileVersion, withReply: { (result, error) in
+        (appDelegate()?.reflectionService.remoteObjectProxy as! CPReflectionServiceProtocol).appVersion(appVersion, isOlderThanLockfileVersion: lockfileVersion, withReply: { (result, error) in
           completion(result)
         })
     } else {
