@@ -1,5 +1,9 @@
 ## Master
 
+* Updates from pushing new releases  
+  [orta](https://github.com/orta)
+  [#403](https://github.com/CocoaPods/CocoaPods-app/pull/403)
+
 ## [1.2.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/1.2.0)
    [CocoaPods](https://github.com/CocoaPods/CocoaPods/blob/master/CHANGELOG.md)
 
