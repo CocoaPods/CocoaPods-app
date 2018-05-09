@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.0</string>
+	<string>1.4.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.2.0</string>
+	<string>1.4.0</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2017 CocoaPods. All rights reserved.</string>
+	<string>Copyright © 2018 CocoaPods. All rights reserved.</string>
 	<key>XPCService</key>
 	<dict>
 		<key>ServiceType</key>
