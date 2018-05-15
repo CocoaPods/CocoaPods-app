@@ -1,5 +1,9 @@
 ## Master
 
+* Get the app building on 10.13 / Xcode 9.3  
+  [segiddins](https://github.com/segiddins)
+  [#401](https://github.com/CocoaPods/CocoaPods-app/pull/401)
+
 * Updates from pushing new releases  
   [orta](https://github.com/orta)
   [#403](https://github.com/CocoaPods/CocoaPods-app/pull/403)
