@@ -17,7 +17,7 @@ DEPENDENCIES:
   - Sparkle
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - LetsMove
     - Nimble
     - Quick
@@ -44,4 +44,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 182bca6568eaab8fdb1bae50cf0feca51f045ca4
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

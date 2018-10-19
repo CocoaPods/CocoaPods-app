@@ -1,6 +1,6 @@
 ## Master
 
-* Get the app building on 10.13 / Xcode 9.3  
+* Get the app building on 10.14 / Xcode 10  
   [segiddins](https://github.com/segiddins)
   [#401](https://github.com/CocoaPods/CocoaPods-app/pull/401)
 
