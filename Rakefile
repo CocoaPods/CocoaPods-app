@@ -131,7 +131,7 @@ GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz
 SCONS_VERSION = '3.0.1'
 SCONS_URL = "https://github.com/SCons/scons/archive/#{SCONS_VERSION}.tar.gz"
 
-APR_VERSION = '1.6.3'
+APR_VERSION = '1.6.5'
 APR_URL = "http://www-us.apache.org/dist//apr/apr-#{APR_VERSION}.tar.gz"
 
 APR_UTIL_VERSION = '1.6.1'
