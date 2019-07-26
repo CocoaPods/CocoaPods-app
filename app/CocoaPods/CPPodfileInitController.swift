@@ -1,64 +1,65 @@
 import Foundation
 
-public enum CPPodfileInitErrors: ErrorType {
-  case CommandError(String)
-  case NSURLError
+public enum CPPodfileInitErrors: Error {
+  case commandError(String)
+  case nsurlError
   
   var message: String {
     switch self {
-    case .CommandError(let s): return s
-    case .NSURLError: return "NSURL unexpectedly nil"
+    case .commandError(let s): return s
+    case .nsurlError: return "NSURL unexpectedly nil"
     }
   }
 }
 
-public class CPPodfileInitController: NSObject, CPCLITaskDelegate {
-  private var task: CPCLITask!
-  private let completionHandler: (NSURL?, CPPodfileInitErrors?) -> ()
-  private let output = NSMutableAttributedString()
-  private let projectURL: NSURL
+open class CPPodfileInitController: NSObject, CPCLITaskDelegate {
+  fileprivate var task: CPCLITask!
+  fileprivate let completionHandler: (URL?, CPPodfileInitErrors?) -> ()
+  fileprivate let output = NSMutableAttributedString()
+  fileprivate let projectURL: URL
   
-  init(xcodeprojURL: NSURL, completionHandler: (podfileURL: NSURL?, error: CPPodfileInitErrors?) -> ()) {
+  init(xcodeprojURL: URL, completionHandler: @escaping (_ podfileURL: URL?, _ error: CPPodfileInitErrors?) -> ()) {
     self.completionHandler = completionHandler
     self.projectURL = xcodeprojURL
     
     super.init()
 
-    self.task = CPCLITask(workingDirectory: xcodeprojURL.URLByDeletingLastPathComponent!.path,
+    self.task = CPCLITask(workingDirectory: xcodeprojURL.deletingLastPathComponent().path,
       command: "init",
-      arguments: [xcodeprojURL.lastPathComponent!],
+      arguments: [xcodeprojURL.lastPathComponent],
       delegate: self,
-      qualityOfService: .UserInitiated)
+      qualityOfService: .userInitiated)
     self.task.run()
   }
   
-  public func task(task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
-    output.appendAttributedString(updatedOutput)
+  open func task(_ task: CPCLITask!, didUpdateOutputContents updatedOutput: NSAttributedString!) {
+    output.append(updatedOutput)
   }
   
-  public func taskCompleted(task: CPCLITask!) {
+  open func taskCompleted(_ task: CPCLITask!) {
     guard task.finishedSuccessfully() else {
-      self.callbackWithError(CPPodfileInitErrors.CommandError(self.output.string))
+      self.callbackWithError(CPPodfileInitErrors.commandError(self.output.string))
       return
     }
     
-    guard let podfileURL = projectURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("Podfile") where NSFileManager().fileExistsAtPath(podfileURL.path ?? "")
+    let podfileURL = projectURL.deletingLastPathComponent().appendingPathComponent("Podfile")
+    guard FileManager().fileExists(atPath: podfileURL.path)
     else {
-      self.callbackWithError(CPPodfileInitErrors.NSURLError)
+      self.callbackWithError(CPPodfileInitErrors.nsurlError)
       return
     }
     
     callbackWithSuccess(podfileURL)
   }
   
-  private func callbackWithError(error: CPPodfileInitErrors) {
-    dispatch_async(dispatch_get_main_queue()) {
+  fileprivate func callbackWithError(_ error: CPPodfileInitErrors) {
+    DispatchQueue.main.async {
       self.completionHandler(nil, error)
     }
   }
   
-  private func callbackWithSuccess(url: NSURL) {
-    dispatch_async(dispatch_get_main_queue()) {
+  fileprivate func callbackWithSuccess(_ url: URL) {
+    DispatchQueue.main.async {
       self.completionHandler(url, nil)
     }
   }

@@ -21,8 +21,6 @@ CPRubyInit(Class bundleClass)
 {
   NSCAssert([NSThread currentThread] == (NSThread *)RBThreadInstance, @"Should only be called from the Ruby thread.");
 
-  // setenv("RUBYCOCOA_DEBUG", "1", 1);
-
   // Initialize the Ruby runtime and load our Ruby setup file.
   RBBundleInit("RBObject+CocoaPods.rb", bundleClass, nil);
 

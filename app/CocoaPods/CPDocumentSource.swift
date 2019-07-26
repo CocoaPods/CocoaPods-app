@@ -4,7 +4,7 @@ import Cocoa
 // `CPDocumentSourceDelegate` needs to be marked `@objc` to allow it to be used as an IBOutlet
 
 @objc protocol CPDocumentSourceDelegate {
-  func documentSourceDidUpdate(documentSource: CPDocumentSource, documents: [CPHomeWindowDocumentEntry])
+  func documentSourceDidUpdate(_ documentSource: CPDocumentSource, documents: [CPHomeWindowDocumentEntry])
 }
 
 // A base class for the document sources of the `CPSidebarDocumentsController`

@@ -1,5 +1,6 @@
 Encoding.default_external = 'UTF-8'
 
+
 # This is required for Foundation classes to be known to this side of the bridge at all.
 require 'osx/objc/foundation'
 
@@ -33,7 +34,7 @@ module Pod
 
       analyzer = Pod::Installer::Analyzer.new(config.sandbox, config.podfile, config.lockfile)
       analysis = analyzer.send(:inspect_targets_to_integrate).values
-      
+
       user_projects = {}
       analysis.each do |target|
         user_project = user_projects[target.project_path.to_s] ||= {}

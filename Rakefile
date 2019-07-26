@@ -6,7 +6,7 @@ BUNDLED_ENV_VERSION = 5
 
 VERBOSE = !!RakeFileUtils.verbose_flag
 
-RELEASE_PLATFORM = '10.11'
+RELEASE_PLATFORM = '10.13'
 DEPLOYMENT_TARGET = '10.10'
 
 # Ideally this would be deployment target, but
@@ -125,13 +125,19 @@ RUBYGEMS_URL = "https://rubygems.org/downloads/rubygems-update-#{RUBYGEMS_VERSIO
 CURL_VERSION = '7.41.0'
 CURL_URL = "http://curl.haxx.se/download/curl-#{CURL_VERSION}.tar.gz"
 
-GIT_VERSION = '2.6.2'
+GIT_VERSION = '2.17.0'
 GIT_URL = "https://www.kernel.org/pub/software/scm/git/git-#{GIT_VERSION}.tar.gz"
 
-SCONS_VERSION = '2.3.4'
-SCONS_URL = "https://bitbucket.org/scons/scons/get/#{SCONS_VERSION}.tar.gz"
+SCONS_VERSION = '3.0.1'
+SCONS_URL = "https://github.com/SCons/scons/archive/#{SCONS_VERSION}.tar.gz"
 
-SERF_VERSION = '1.3.8'
+APR_VERSION = '1.6.5'
+APR_URL = "http://www-us.apache.org/dist//apr/apr-#{APR_VERSION}.tar.gz"
+
+APR_UTIL_VERSION = '1.6.1'
+APR_UTIL_URL = "http://www-us.apache.org/dist//apr/apr-util-#{APR_UTIL_VERSION}.tar.gz"
+
+SERF_VERSION = '1.3.9'
 SERF_URL = "https://archive.apache.org/dist/serf/serf-#{SERF_VERSION}.tar.bz2"
 
 SVN_VERSION = '1.8.13'
@@ -615,7 +621,8 @@ Dir.glob('/System/Library/Frameworks/Ruby.framework/Versions/[0-9]*/usr/lib/ruby
     case gem.name
     when 'libxml-ruby'
       # libxml-ruby-2.6.0 has an extconf.rb that depends on old behavior where `RbConfig` was available as `Config`.
-      install_gem(File.join(PATCHES_DIR, "#{File.basename(gemspec, '.gemspec')}.gem"))
+      install_gem(File.join(PATCHES_DIR, "libxml-ruby-2.6.0.gem"))
+      suppress_upstream = true
     when 'sqlite3'
       # sqlite3-1.3.7 depends on BigDecimal header from before BigDecimal was made into a gem. I doubt anybody really
       # uses sqlite for CocoaPods dependencies anyways, so just skip this old version.
@@ -684,7 +691,7 @@ git_tasks = GitTasks.define do |t|
   t.artefact_file  = 'git'
   t.installed_file = 'bin/git'
   t.prefix         = BUNDLE_PREFIX
-  t.configure      = ['--without-tcltk', %{LDFLAGS=-L '#{DEPENDENCIES_PREFIX}/lib' -lssl -lcrypto -lz -lcurl -lldap}, %{CPPFLAGS=-I '#{DEPENDENCIES_PREFIX}/include'}]
+  t.configure      = ['--without-tcltk', %{LDFLAGS=-L#{File.join(DEPENDENCIES_PREFIX, 'lib')} -lssl -lcrypto -lz -lcurl -lldap}, %{CPPFLAGS=-I '#{DEPENDENCIES_PREFIX}/include'}]
   t.dependencies   = [installed_pkg_config, installed_openssl, installed_zlib]
 end
 
@@ -703,23 +710,6 @@ class SconsTasks < BundleDependencyTasks
   def package_name
     "scons-#{SCONS_VERSION}"
   end
-
-  def downloaded_file
-    # Don’t download archive as just VERSION.tar.gz
-    File.join(DOWNLOAD_DIR, "#{package_name}.tar.gz")
-  end
-
-  def unpack_command
-    command = super
-    command[-1] = build_dir
-    # Ignore the root dir which is scons-scons-SHA
-    command + %w{ --strip 1 }
-  end
-
-  def unpack_task
-    mkdir_p build_dir
-    super
-  end
 end
 
 scons_tasks = SconsTasks.define do |t|
@@ -729,6 +719,34 @@ end
 
 installed_scons = scons_tasks.build_dir
 scons_bin = scons_tasks.artefact_path
+
+# ------------------------------------------------------------------------------
+# APR
+# ------------------------------------------------------------------------------
+
+apr_tasks = BundleDependencyTasks.define do |t|
+  t.url            = APR_URL
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.artefact_file  = 'apr-1-config'
+  t.installed_file = 'bin/apr-1-config'
+end
+
+apr_bin = apr_tasks.installed_path
+
+# ------------------------------------------------------------------------------
+# APR-util
+# ------------------------------------------------------------------------------
+
+apr_tasks = BundleDependencyTasks.define do |t|
+  t.url            = APR_UTIL_URL
+  t.prefix         = DEPENDENCIES_PREFIX
+  t.artefact_file  = 'apu-1-config'
+  t.installed_file = 'bin/apu-1-config'
+  t.configure      = %W[--with-apr=#{t.prefix}]
+  t.dependencies   = [apr_bin]
+end
+
+apu_bin = apr_tasks.installed_path
 
 # ------------------------------------------------------------------------------
 # SERF
@@ -746,7 +764,7 @@ class SerfTasks < BundleDependencyTasks
 
   def build_task
     Dir.chdir(build_dir) do
-      execute '/usr/bin/python', scons_bin, "PREFIX=#{DEPENDENCIES_PREFIX}", "OPENSSL=#{DEPENDENCIES_PREFIX}", "ZLIB=#{DEPENDENCIES_PREFIX}", "CPPFLAGS=-I #{SDKROOT}/usr/include/apr-1"
+      execute '/usr/bin/python', scons_bin, "PREFIX=#{DEPENDENCIES_PREFIX}", "OPENSSL=#{DEPENDENCIES_PREFIX}", "ZLIB=#{DEPENDENCIES_PREFIX}", "CPPFLAGS=-I #{DEPENDENCIES_PREFIX}/include/apr-1", "APR=#{DEPENDENCIES_PREFIX}", "APU=#{DEPENDENCIES_PREFIX}"
     end
     # Seems to be a SERF bug in the pkg-config, as libssl, libcrypto, and libz is
     # required when linking libssl, otherwise svn will fail to build with our
@@ -776,7 +794,7 @@ serf_task = SerfTasks.define do |t|
   t.installed_file = 'lib/libserf-1.a'
   t.prefix         = DEPENDENCIES_PREFIX
   t.configure      = %w{ --disable-shared --with-curses }
-  t.dependencies   = [installed_pkg_config, installed_ncurses, installed_scons]
+  t.dependencies   = [installed_pkg_config, installed_ncurses, installed_scons, apr_bin, apu_bin]
 end
 
 installed_serf = serf_task.installed_path
@@ -799,7 +817,7 @@ svn_tasks = SVNTasks.define do |t|
   t.artefact_file  = 'subversion/svn/svn'
   t.installed_file = 'bin/svn'
   t.prefix         = BUNDLE_PREFIX
-  t.configure      = %w{ --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig } + ["CPPFLAGS=-I '#{SDKROOT}/usr/include/apr-1'"]
+  t.configure      = %w{ --disable-shared --enable-all-static --with-serf --without-apxs --without-jikes --without-swig } + ["CPPFLAGS=-I '#{DEPENDENCIES_PREFIX}/include/apr-1'"]
   t.dependencies   = [installed_pkg_config, installed_serf, installed_libcurl]
 end
 

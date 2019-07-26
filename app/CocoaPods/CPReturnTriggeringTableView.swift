@@ -5,7 +5,7 @@ import Cocoa
 
 class CPReturnTriggeringTableView: NSTableView {
 
-  override func keyDown(event: NSEvent) {
+  override func keyDown(with event: NSEvent) {
     let returnKeycode = 36
 
     if Int(event.keyCode) == returnKeycode {
@@ -13,7 +13,7 @@ class CPReturnTriggeringTableView: NSTableView {
       return
     }
 
-    super.keyDown(event)
+    super.keyDown(with: event)
   }
 
 }

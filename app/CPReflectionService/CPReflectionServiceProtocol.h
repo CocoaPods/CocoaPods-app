@@ -12,7 +12,7 @@
 - (void)pluginsFromPodfile:(NSString * _Nonnull)contents
                  withReply:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable plugins, NSError * _Nullable error))reply;
 
-- (void)allCocoaPodsSources:(void (^ _Nonnull)(NSDictionary<NSString * , NSString * > * _Nonnull sources, NSError * _Nullable error))reply;
+- (void)allCocoaPodsSources:(void (^ _Nonnull)(NSDictionary<NSString *, NSString * > * _Nonnull sources, NSError * _Nullable error))reply;
 
 - (void)sourcesFromPodfile:(NSString * _Nonnull)contents
                  withReply:(void (^ _Nonnull)(NSArray<NSString *> * _Nullable sources, NSError * _Nullable error))reply;

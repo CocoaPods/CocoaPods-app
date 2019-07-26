@@ -3,11 +3,11 @@ import Cocoa
 class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
 
   // This changes between Recent and Spotlight docs
-  dynamic var currentSidebarItems = [CPHomeWindowDocumentEntry]()
+  @objc dynamic var currentSidebarItems = [CPHomeWindowDocumentEntry]()
 
   // for bindings to show a progress during spotlight metadata
   // searching
-  dynamic var loading = false
+  @objc dynamic var loading = false
 
   @IBOutlet weak var recentButton: CPHomeSidebarButton!
   @IBOutlet weak var spotlightButton: CPHomeSidebarButton!
@@ -32,7 +32,7 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
     }
   }
   
-  func documentSourceDidUpdate(documentSource: CPDocumentSource, documents: [CPHomeWindowDocumentEntry]) {
+  func documentSourceDidUpdate(_ documentSource: CPDocumentSource, documents: [CPHomeWindowDocumentEntry]) {
     
     // Check the document source is the currently selected by checking the related button's state
     // If it is selected, then update `currentSidebarItems` with the documents
@@ -41,7 +41,7 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
       case recentSource:
         recentButton.userInteractionEnabled = !documents.isEmpty // If recentSource has no data, then disable the button
         
-        if (recentButton.state == NSOnState) {
+        if (recentButton.state == .on) {
           if documents.count > 0 {
             recentButtonTapped(recentButton)
           } else {
@@ -49,7 +49,7 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
           }
         }
       
-      case spotlightSource where spotlightButton.state == NSOnState:
+      case spotlightSource where spotlightButton.state == .on:
         loading = false
         if documents.isEmpty {
           showPopoverForOpenPodfile()
@@ -63,21 +63,21 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
       }
   }
 
-  @IBAction func recentButtonTapped(sender: CPHomeSidebarButton) {
+  @IBAction func recentButtonTapped(_ sender: CPHomeSidebarButton) {
     currentSidebarItems = recentSource.documents
     selectButton(sender)
   }
 
-  @IBAction func spotlightButtonTapped(sender: CPHomeSidebarButton) {
+  @IBAction func spotlightButtonTapped(_ sender: CPHomeSidebarButton) {
     let source = spotlightSource
-    currentSidebarItems = source.documents
+    currentSidebarItems = (source?.documents)!
     selectButton(sender)
 
     // Could either be no podfiles
     // on the users computer - or still searching
     // in which case we wait for the delegate
     
-    if source.documents.isEmpty {
+    if (source?.documents.isEmpty)! {
       loading = true
     }
     
@@ -96,8 +96,8 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
 
     // Setup the title for the button
     let title = ~"MAIN_WINDOW_OPEN_DOCUMENT_BUTTON_TITLE"
-    let buttonTitle = NSAttributedString.init(title, color: .ansiMutedWhite(), font: .labelFontOfSize(13), alignment: .Center)
-    let altButtonTitle = NSAttributedString.init(title, color: .ansiBrightWhite(), font: .labelFontOfSize(13), alignment: .Center)
+    let buttonTitle = NSAttributedString.init(title, color: .ansiMutedWhite(), font: .labelFont(ofSize: 13), alignment: .center)
+    let altButtonTitle = NSAttributedString.init(title, color: .ansiBrightWhite(), font: .labelFont(ofSize: 13), alignment: .center)
 
     for case let button as NSButton in openPodfileView.subviews {
       button.attributedTitle = buttonTitle
@@ -105,27 +105,27 @@ class CPSidebarDocumentsController: NSObject, CPDocumentSourceDelegate {
     }
 
     // Replace the tableview with our "Open Podfile" button
-    documentScrollView.hidden = true
+    documentScrollView.isHidden = true
     openPodfileView.frame = documentScrollView.frame
     documentScrollView.superview?.addSubview(openPodfileView)
 
     // Make sure that you can't change the doc types (it will do nothing)
     buttons.forEach {
-      self.setButton($0, state: NSOffState)
+      self.setButton($0, state: .off)
       $0.userInteractionEnabled = false
     }
   }
 
-  func selectButton(button: CPHomeSidebarButton) {
-    setButton(button, state: NSOnState)
+  func selectButton(_ button: CPHomeSidebarButton) {
+    setButton(button, state: .on)
     
     let otherButtons = buttons.filter { $0 != button }
-    otherButtons.forEach { self.setButton($0, state: NSOffState) }
+    otherButtons.forEach { self.setButton($0, state: .off) }
   }
 
-  func setButton(button: CPHomeSidebarButton, state: Int) {
+  func setButton(_ button: CPHomeSidebarButton, state: NSControl.StateValue) {
 //    button.bordered = select
-    button.state = state // Using NSOnState/NSOffState to signify the state of the button
-    button.userInteractionEnabled = (state != NSOnState)
+    // Using NSOnState/NSOffState to signify the state of the button
+    button.userInteractionEnabled = (state != .on)
   }
 }
