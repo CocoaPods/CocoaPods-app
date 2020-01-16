@@ -1,3 +1,5 @@
+![CocoaPods Logo](https://raw.github.com/CocoaPods/shared_resources/master/assets/cocoapods-banner-readme.png)
+
 # CocoaPods.app
 
 The _foremost_ goal of CocoaPods.app is to provide a full-featured and standalone installation of
